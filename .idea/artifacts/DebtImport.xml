@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DebtImport">
+    <output-path>$PROJECT_DIR$/</output-path>
+    <root id="archive" name="DebtImport.jar">
+      <element id="module-output" name="DebtImport" />
+    </root>
+  </artifact>
+</component>
