@@ -46,13 +46,10 @@ public class DockingContainer {
     private DockDataChild dockDataChild;
     private DockLog dockLog;
 
-    private EventList<DataMainItem> dataMainItems;
     private UIProcessor uiProcessor;
     private UIProcessorImport uiProcessorImport;
 
-    public DockingContainer(AppletWindowProvider window, JPanel mainPanel, EventList<DataMainItem> dataMainItems) {
-        this.dataMainItems = dataMainItems;
-
+    public DockingContainer(AppletWindowProvider window, JPanel mainPanel) {
         control = new CControl(window, true);
 
         mainPanel.add(control.getContentArea(), BorderLayout.CENTER);
@@ -84,7 +81,7 @@ public class DockingContainer {
         dockDataChildFilter = new DockDataChildFilter();
         dockHeader = new DockHeader(this);
         DockInfo dockInfo = new DockInfo();
-        dockDataMain = new DockDataMain(this, dataMainItems);
+        dockDataMain = new DockDataMain(this);
         dockDataChild = new DockDataChild(this, null);
         DockActions dockActions = new DockActions(this);
         dockLog = new DockLog();
@@ -238,8 +235,10 @@ public class DockingContainer {
     }
 
     public void dispose(){
+        System.out.println("DockingContainer clear...");
         dockDataMain.dispose();
         dockDataChild.dispose();
         dockHeader.dispose();
+        System.out.println("DockingContainer clear...OK");
     }
 }

@@ -1,13 +1,9 @@
 package by.oshmianski.main;
 
-import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.ui.GUI;
 import by.oshmianski.ui.utils.Icons;
 import by.oshmianski.utils.AppletParams;
-import by.oshmianski.utils.MyLog;
 import by.oshmianski.utils.SwingUIUtils;
-import ca.odell.glazedlists.BasicEventList;
-import ca.odell.glazedlists.EventList;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -38,8 +34,6 @@ public class AppletWindow extends JApplet {
 
     private GUI gui;
 
-    private EventList<DataMainItem> dataMainItems = new BasicEventList<DataMainItem>();
-
     @Override
     public void stop() {
         try {
@@ -68,7 +62,7 @@ public class AppletWindow extends JApplet {
 
     @Override
     public void start() {
-        gui = new GUI(applet, dataMainItems);
+        gui = new GUI(applet);
         gui.create();
         gui.show();
     }

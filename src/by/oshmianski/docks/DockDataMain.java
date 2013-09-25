@@ -12,10 +12,7 @@ import by.oshmianski.ui.utils.StatusRenderer;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import by.oshmianski.utils.IconContainer;
 import by.oshmianski.utils.MyLog;
-import ca.odell.glazedlists.EventList;
-import ca.odell.glazedlists.FilterList;
-import ca.odell.glazedlists.ListSelection;
-import ca.odell.glazedlists.SortedList;
+import ca.odell.glazedlists.*;
 import ca.odell.glazedlists.gui.AbstractTableComparatorChooser;
 import ca.odell.glazedlists.swing.*;
 
@@ -33,8 +30,7 @@ import java.text.DecimalFormat;
  */
 public class DockDataMain extends DockSimple {
     private DockingContainer dockingContainer;
-//    private EventList<DataMainItem> dataMainItems;
-    private EventList<DataMainItem> dataMainItems;
+    private EventList<DataMainItem> dataMainItems = new BasicEventList<DataMainItem>();
 
     private DefaultEventTableModel model;
     private EventList<DataMainItem> entries;
@@ -44,13 +40,12 @@ public class DockDataMain extends DockSimple {
     private DefaultEventSelectionModel issuesSelectionModel;
     private FilterPanel filterPanel;
 
-    public DockDataMain(DockingContainer dockingContainer, EventList<DataMainItem> dataMainItems) {
+    public DockDataMain(DockingContainer dockingContainer) {
         super("DockDataMain", IconContainer.getInstance().loadImage("grid.png"), "Данные");
 
-        this.dataMainItems = dataMainItems;
         this.dockingContainer = dockingContainer;
 
-        this.dataMainItems.getReadWriteLock().writeLock().lock();
+        dataMainItems.getReadWriteLock().writeLock().lock();
 
         table = null;
         JScrollPane sp;
@@ -156,7 +151,15 @@ public class DockDataMain extends DockSimple {
     }
 
     public void dispose() {
-        System.out.println("DockDataMain cleear...");
+        System.out.println("DockDataMain clear...");
+
+        for (DataMainItem dataMainItem : dataMainItems)
+            dataMainItem.getDataChildItems().clear();
+
+        dataMainItems.clear();
+        dataMainItems.dispose();
+        dataMainItems = null;
+
         if (model != null) model = null;
         if (filteredEntries != null) filteredEntries.dispose();
         if (sortedEntries != null) sortedEntries.dispose();
@@ -164,6 +167,6 @@ public class DockDataMain extends DockSimple {
         if (dataMainItems != null) dataMainItems.dispose();
 
         filterPanel.dispose();
-        System.out.println("DockDataMain cleear...OK");
+        System.out.println("DockDataMain clear...OK");
     }
 }

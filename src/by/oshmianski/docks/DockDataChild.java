@@ -157,7 +157,8 @@ public class DockDataChild extends DockSimple {
     }
 
     public void dispose() {
-        System.out.println("DockDataChild cleear...");
+        System.out.println("DockDataChild clear...");
+
         if (model != null) model = null;
         if (filteredUls != null) filteredUls.dispose();
         if (sortedEntries != null) sortedEntries.dispose();
@@ -173,6 +174,7 @@ public class DockDataChild extends DockSimple {
         if (activeCriteria != null) activeCriteria.dispose();
 
         filterPanel.dispose();
-        System.out.println("DockDataChild cleear...OK");
+
+        System.out.println("DockDataChild clear...OK");
     }
 }

@@ -28,11 +28,8 @@ public class GUI {
     private AppletWindowProvider window;
     private DockingContainer dockingContainer;
 
-    private EventList<DataMainItem> dataMainItems;
-
-    public GUI(JApplet applet, EventList<DataMainItem> dataMainItems) {
+    public GUI(JApplet applet) {
         this.applet = applet;
-        this.dataMainItems = dataMainItems;
     }
 
     public void create() {
@@ -44,7 +41,7 @@ public class GUI {
 
         applet.getContentPane().add(panelMain);
 
-        dockingContainer = new DockingContainer(window, panelMain, dataMainItems);
+        dockingContainer = new DockingContainer(window, panelMain);
 
         /* The CLayoutChoiceMenuPiece creates a dynamic menu which allows us to
         * save and load the layout. In doing so we will use the EditorFactory. */
@@ -68,6 +65,8 @@ public class GUI {
     public void stop() {
         CControl control = dockingContainer.getControl();
 
+        dockingContainer.dispose();
+
         while (control.getCDockableCount() > 0) {
             SingleCDockable dock = (SingleCDockable) control.getCDockable(0);
 
@@ -75,15 +74,6 @@ public class GUI {
         }
 
         control.destroy();
-
-        dockingContainer.dispose();
-
-        for (DataMainItem dataMainItem : dataMainItems)
-            dataMainItem.getDataChildItems().clear();
-
-        dataMainItems.clear();
-        dataMainItems.dispose();
-        dataMainItems = null;
 
         window.stop();
         window = null;

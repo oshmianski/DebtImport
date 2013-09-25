@@ -172,7 +172,9 @@ public class DockHeader extends DockSimple {
     }
 
     public void dispose(){
+        System.out.println("DockHeader clear...");
         templateImports.dispose();
+        System.out.println("DockHeader clear...OK");
     }
 
     public JTextField getStartFrom() {
