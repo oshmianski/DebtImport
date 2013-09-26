@@ -7,16 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/actions.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/exclamation.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/funnel.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/grid.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/house.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/info.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/layers.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/loader.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/repeat.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/img/tools.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-lang3-3.1.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportDataTest.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportDataTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -50,7 +42,7 @@
     <file path="/TreeRenderer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379413453765" ignored="false" />
     <file path="/LoadItemsThreadUI.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379395917981" ignored="false" />
     <file path="/UIProcessor.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379611584219" ignored="false" />
-    <file path="/LoadImportDataTest.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379673063988" ignored="false" />
+    <file path="/LoadImportDataTest.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380196055443" ignored="false" />
     <file path="/EDTInvocationHandler.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379403883719" ignored="false" />
     <file path="/RequiresEDT.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379403205813" ignored="false" />
     <file path="/RequiresEDTPolicy.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379403211332" ignored="false" />
@@ -85,7 +77,7 @@
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379666698112" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380195090185" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380195337927" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,10 +157,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DockDataChild.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DockDataChild.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="42" selection-start="1240" selection-end="1240" vertical-scroll-proportion="0.041769043">
+            <state line="144" column="45" selection-start="5735" selection-end="5735" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoadImportDataTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportDataTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="138" column="25" selection-start="3651" selection-end="3651" vertical-scroll-proportion="0.16132858">
               <folding />
             </state>
           </provider>
@@ -234,13 +235,13 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportDataTest.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/GUI.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindow.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportDataTest.java" />
       </list>
     </option>
   </component>
@@ -341,6 +342,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="work" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loaders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="work" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -590,14 +627,18 @@
       <created>1380115781106</created>
       <updated>1380115781106</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="first release">
+      <created>1380195343316</created>
+      <updated>1380195343316</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.50172615" sideWeight="0.59363526" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50172615" sideWeight="0.59363526" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -607,10 +648,10 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0206659" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2117503" sideWeight="0.14844649" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2117503" sideWeight="0.29804373" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2117503" sideWeight="0.34867665" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2117503" sideWeight="0.7019563" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43613347" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -734,11 +775,6 @@
         <state line="56" column="16" selection-start="1345" selection-end="1345" vertical-scroll-proportion="0.7580071" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportDataTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="327" column="0" selection-start="10471" selection-end="10471" vertical-scroll-proportion="0.97508895" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -767,16 +803,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java">
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="42" selection-start="1240" selection-end="1240" vertical-scroll-proportion="0.041769043">
+        <state line="169" column="44" selection-start="6463" selection-end="6463" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="44" selection-start="6463" selection-end="6463" vertical-scroll-proportion="0.0">
+        <state line="144" column="45" selection-start="5735" selection-end="5735" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportDataTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="138" column="25" selection-start="3651" selection-end="3651" vertical-scroll-proportion="0.16132858">
           <folding />
         </state>
       </provider>

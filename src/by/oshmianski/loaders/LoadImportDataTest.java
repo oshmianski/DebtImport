@@ -136,7 +136,9 @@ public class LoadImportDataTest implements Runnable, Loader {
             SortedList<Rule> ruleSortedList;
             Vector v;
 
-            int col2Description = ui.getCol2Description().getText().isEmpty() ? -1 : CellReference.convertColStringToIndex(ui.getCol2Description().getText());
+            String colStr = ui.getCol2Description().getText();
+
+            int col2Description = ui.getCol2Description().getText().isEmpty() ? -1 : CellReference.convertColStringToIndex();
 
             int i = start;
 
@@ -145,7 +147,7 @@ public class LoadImportDataTest implements Runnable, Loader {
             if (start > 0)
                 for (int j = 0; j < start; j++)
                     if (it.hasNext())
-                        row = it.next();
+                        it.next();
 
             while (it.hasNext()) {
                 row = it.next();
