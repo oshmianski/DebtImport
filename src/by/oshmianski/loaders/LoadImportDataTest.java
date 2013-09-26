@@ -10,9 +10,11 @@ import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.SortedList;
 import com.sun.xml.internal.bind.v2.TODO;
 import lotus.domino.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.util.StringUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
@@ -136,9 +138,7 @@ public class LoadImportDataTest implements Runnable, Loader {
             SortedList<Rule> ruleSortedList;
             Vector v;
 
-            String colStr = ui.getCol2Description().getText();
-
-            int col2Description = ui.getCol2Description().getText().isEmpty() ? -1 : CellReference.convertColStringToIndex();
+            int col2Description = ui.getCol2Description().getText().isEmpty() ? -1 : CellReference.convertColStringToIndex(ui.getCol2Description().getText());
 
             int i = start;
 
@@ -165,7 +165,21 @@ public class LoadImportDataTest implements Runnable, Loader {
                         Status status = Status.OK;
 
                         try {
-                            cellValue = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(field.getXmlCell())));
+                            String colStr = field.getXmlCell();
+                            String col = "";
+                            if ("@".equals(colStr.substring(0, 1))) {
+                                String colStrArray[] = StringUtils.substringsBetween(colStr, "<", ">");
+                                for (String str : colStrArray) {
+                                    colStr = colStr.replaceAll("\\<" + str + "\\>", "\"" + row.getCell(CellReference.convertColStringToIndex(str)) + "\"").replaceAll("null", "");
+                                }
+
+                                Vector vec = session.evaluate(colStr);
+                                col = vec.get(0).toString();
+                            } else {
+                                col = colStr;
+                            }
+
+                            cellValue = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
 
                             ruleSortedList = new SortedList<Rule>(field.getRules(), GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(Rule.class, "number")));
                             for (Rule rule : ruleSortedList) {
