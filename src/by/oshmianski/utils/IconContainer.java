@@ -25,7 +25,8 @@ public class IconContainer {
     }
 
     public ImageIcon loadImage(String imageName) {
-        String path = "../../../img/" + imageName;
+//        String path = "../../../img/" + imageName;
+        String path = imageName;
         int MAX_IMAGE_SIZE = 64000;  //Change this to the size of your biggest image, in bytes.
         int count = 0;
         BufferedInputStream imgStream = null;
@@ -33,7 +34,7 @@ public class IconContainer {
         if (AppletWindow.applet != null) {
             imgStream = new BufferedInputStream(AppletWindow.applet.getClass().getResourceAsStream(path));
         } else {
-            imgStream = new BufferedInputStream(AppletWindowFrame.class.getResourceAsStream(path));
+            imgStream = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(path));
         }
 
         try {

@@ -73,6 +73,7 @@ public class AppletWindowFrame extends JFrame {
                     ex.printStackTrace();
                 } finally {
                     dispose();
+//                    System.exit();
                 }
             }
         });
