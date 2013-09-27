@@ -75,4 +75,40 @@ public class AppletParams {
     public String getViewRuleRef() {
         return viewRuleRef;
     }
+
+    public void setServer(String server) {
+        this.server = server;
+    }
+
+    public void setServer_cn(String server_cn) {
+        this.server_cn = server_cn;
+    }
+
+    public void setDbReplicaID(String dbReplicaID) {
+        this.dbReplicaID = dbReplicaID;
+    }
+
+    public void setViewTI(String viewTI) {
+        this.viewTI = viewTI;
+    }
+
+    public void setViewObjectRef(String viewObjectRef) {
+        this.viewObjectRef = viewObjectRef;
+    }
+
+    public void setViewLinkRef(String viewLinkRef) {
+        this.viewLinkRef = viewLinkRef;
+    }
+
+    public void setViewKeyRef(String viewKeyRef) {
+        this.viewKeyRef = viewKeyRef;
+    }
+
+    public void setViewFieldRef(String viewFieldRef) {
+        this.viewFieldRef = viewFieldRef;
+    }
+
+    public void setViewRuleRef(String viewRuleRef) {
+        this.viewRuleRef = viewRuleRef;
+    }
 }

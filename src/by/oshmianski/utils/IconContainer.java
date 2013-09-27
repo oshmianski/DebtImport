@@ -1,6 +1,7 @@
 package by.oshmianski.utils;
 
 import by.oshmianski.main.AppletWindow;
+import by.oshmianski.main.AppletWindowFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,8 +28,13 @@ public class IconContainer {
         String path = "../../../img/" + imageName;
         int MAX_IMAGE_SIZE = 64000;  //Change this to the size of your biggest image, in bytes.
         int count = 0;
+        BufferedInputStream imgStream = null;
 
-        BufferedInputStream imgStream = new BufferedInputStream(AppletWindow.applet.getClass().getResourceAsStream(path));
+        if (AppletWindow.applet != null) {
+            imgStream = new BufferedInputStream(AppletWindow.applet.getClass().getResourceAsStream(path));
+        } else {
+            imgStream = new BufferedInputStream(AppletWindowFrame.class.getResourceAsStream(path));
+        }
 
         try {
             if (imgStream != null) {
