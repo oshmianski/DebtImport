@@ -18,16 +18,18 @@ public class Field {
     private String description;
     private String type;
     private String xmlCell;
+    private boolean emptyFlag;
 
     private EventList<Rule> rules = new BasicEventList<Rule>();
 
-    public Field(String unid, String titleSys, String titleUser, String description, String type, String xmlCell) {
+    public Field(String unid, String titleSys, String titleUser, String description, String type, String xmlCell, boolean emptyFlag) {
         this.unid = unid;
         this.titleSys = titleSys;
         this.titleUser = titleUser;
         this.description = description;
         this.type = type;
         this.xmlCell = xmlCell;
+        this.emptyFlag = emptyFlag;
     }
 
     public String getUnid() {
@@ -84,5 +86,17 @@ public class Field {
 
     public void addRule(Rule rule) {
         rules.add(rule);
+    }
+
+    public boolean isEmptyFlag() {
+        return emptyFlag;
+    }
+
+    public void setEmptyFlag(boolean emptyFlag) {
+        this.emptyFlag = emptyFlag;
+    }
+
+    public void setRules(EventList<Rule> rules) {
+        this.rules = rules;
     }
 }

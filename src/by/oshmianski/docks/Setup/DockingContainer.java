@@ -44,6 +44,9 @@ public class DockingContainer {
     private DockSimple dockDataChildFilter;
     private DockDataMain dockDataMain;
     private DockDataChild dockDataChild;
+    private DockObjectTree dockObjectTree;
+    private DockActions dockActions;
+    private DockInfo dockInfo;
     private DockLog dockLog;
     private JPanel mainPanel;
 
@@ -92,11 +95,12 @@ public class DockingContainer {
         dockDataMainFilter = new DockDataMainFilter();
         dockDataChildFilter = new DockDataChildFilter();
         dockHeader = new DockHeader(this);
-        DockInfo dockInfo = new DockInfo();
+        dockInfo = new DockInfo();
         dockDataMain = new DockDataMain(this);
         dockDataChild = new DockDataChild(this, null);
-        DockActions dockActions = new DockActions(this);
+        dockActions = new DockActions(this);
         dockLog = new DockLog();
+        dockObjectTree = new DockObjectTree(this, null);
         MyLog.setDock(dockLog);
 
         control.addDockable(dockLog);
@@ -117,7 +121,8 @@ public class DockingContainer {
         grid.add(0, 0, 80, 20, dockHeader);
         grid.add(0, 20, 60, 40, dockDataMain);
         grid.add(60, 20, 20, 40, dockDataMainFilter);
-        grid.add(0, 60, 60, 40, dockDataChild);
+        grid.add(0, 60, 30, 40, dockDataChild);
+        grid.add(30, 60, 30, 40, dockObjectTree);
         grid.add(60, 60, 20, 40, dockDataChildFilter);
         grid.add(80, 0, 20, 50, dockInfo);
         grid.add(80, 50, 20, 50, dockActions);
@@ -126,7 +131,6 @@ public class DockingContainer {
     }
 
     public void setVisibleFilters(Boolean visible) {
-//        dockDataMainFilter.setVisible(visible);
         dockDataChildFilter.setVisible(visible);
     }
 

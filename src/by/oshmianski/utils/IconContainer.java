@@ -26,14 +26,18 @@ public class IconContainer {
 
     public ImageIcon loadImage(String imageName) {
 //        String path = "../../../img/" + imageName;
-        String path = imageName;
+        String path = "";
         int MAX_IMAGE_SIZE = 64000;  //Change this to the size of your biggest image, in bytes.
         int count = 0;
         BufferedInputStream imgStream = null;
 
+        //TODO: пока не понимаю, как можно из jar'ки в агенте достать картинки. Поэтому картинки должны быть в RES агента!!!
+        //Поэтому такой изврат.
         if (AppletWindow.applet != null) {
+            path = "../../../img/" + imageName;
             imgStream = new BufferedInputStream(AppletWindow.applet.getClass().getResourceAsStream(path));
         } else {
+            path = imageName;
             imgStream = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(path));
         }
 
