@@ -8,7 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * Date: 30.09.13
  * Time: 12:54
  */
-public class RecordObjectField extends DefaultMutableTreeNode {
+public class RecordObjectField {
     private String title;
     private String value;
     private RecordNodeFieldType type;

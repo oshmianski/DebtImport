@@ -1,35 +1,21 @@
 package by.oshmianski.docks;
 
-import by.oshmianski.category.datachild.*;
 import by.oshmianski.docks.Setup.DockSimple;
 import by.oshmianski.docks.Setup.DockingContainer;
-import by.oshmianski.filter.CM.FilterPanelChild;
 import by.oshmianski.main.AppletWindow;
-import by.oshmianski.models.DataChildModel;
-import by.oshmianski.objects.DataChildItem;
-import by.oshmianski.objects.RecordObject;
-import by.oshmianski.test.TreeTable.JTreeTable;
-import by.oshmianski.test.TreeTable.MyTreeModel;
-import by.oshmianski.test.TreeTable.TreeTableModelAdapter;
-import by.oshmianski.ui.utils.BetterJTable;
+import by.oshmianski.models.RecordObjectsTreeModel;
+import by.oshmianski.objects.*;
+import by.oshmianski.ui.TreeTable.*;
 import by.oshmianski.ui.utils.ColorRenderer;
-import by.oshmianski.ui.utils.StatusRenderer;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import by.oshmianski.utils.IconContainer;
 import by.oshmianski.utils.MyLog;
-import ca.odell.glazedlists.*;
-import ca.odell.glazedlists.matchers.Matchers;
-import ca.odell.glazedlists.swing.DefaultEventTableModel;
-import ca.odell.glazedlists.swing.GlazedListsSwing;
-import ca.odell.glazedlists.swing.TreeTableSupport;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.Object;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,60 +25,40 @@ import java.util.Map;
  */
 public class DockObjectTree extends DockSimple {
     private DockingContainer dockingContainer;
-    private EventList<RecordObject> objects;
 
-//    private DefaultEventTableModel model;
-    private EventList<RecordObject> entries;
-    private SortedList<RecordObject> sortedEntries;
     private JTreeTable table;
+    private RecordObjectsTreeModel model;
+    private RecordObjectRoot root;
 
-    public DockObjectTree(DockingContainer dockingContainer, EventList<RecordObject> objects) {
+    public DockObjectTree(DockingContainer dockingContainer, ArrayList<RecordObject> objects) {
         super("DockObjectTree", IconContainer.getInstance().loadImage("layers.png"), "Дерево объектов");
 
         this.dockingContainer = dockingContainer;
-        this.objects = (objects == null ? (new BasicEventList<RecordObject>()) : objects);
-
-//        table = new JTreeTable(null);
 
         JScrollPane sp;
 
-        this.objects.getReadWriteLock().writeLock().lock();
-
         try {
-            entries = GlazedListsSwing.swingThreadProxyList(this.objects);
+            root = new RecordObjectRoot("root");
+            root.setObjects(objects == null ? (new ArrayList<RecordObject>()) : objects);
 
-            sortedEntries = new SortedList<RecordObject>(entries, GlazedLists.chainComparators(
-                    GlazedLists.beanPropertyComparator(RecordObject.class, "title")
-            ));
+            model = new RecordObjectsTreeModel(root);
 
-            DefaultMutableTreeNode root = new DefaultMutableTreeNode("0");
-            DefaultMutableTreeNode child1 = new DefaultMutableTreeNode("1");
-            DefaultMutableTreeNode child11 = new DefaultMutableTreeNode("11");
-            DefaultMutableTreeNode child12 = new DefaultMutableTreeNode("12");
-            child1.add(child11);
-            child1.add(child12);
-            root.add(child1);
+            table = new JTreeTable(model);
+            table.getTree().setRootVisible(false);
 
-            MyTreeModel model1 = new MyTreeModel(root);
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            table.getColumnModel().getColumn(0).setPreferredWidth(200);
+            table.getColumnModel().getColumn(1).setPreferredWidth(300);
 
-            table = new JTreeTable(model1);
+            table.getColumnModel().getColumn(1).setCellRenderer(new ColorRenderer(Color.BLACK, false));
 
-//            table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//            table.getColumnModel().getColumn(0).setPreferredWidth(100);
-//            table.getColumnModel().getColumn(1).setPreferredWidth(300);
-//            table.getColumnModel().getColumn(2).setPreferredWidth(300);
-
-//            table.getColumnModel().getColumn(0).setCellRenderer(new StatusRenderer(false, -1));
-//            table.getColumnModel().getColumn(1).setCellRenderer(new ColorRenderer(Color.BLACK, false));
-//            table.getColumnModel().getColumn(2).setCellRenderer(new ColorRenderer(Color.BLUE, false));
-
-//            table.setRowHeight(20);
-//            table.setShowHorizontalLines(true);
-//            table.setShowVerticalLines(true);
-//            table.setIntercellSpacing(new Dimension(1, 1));
-//            table.setGridColor(AppletWindow.DATA_TABLE_GRID_COLOR);
-//            table.setSelectionBackground(new Color(217, 235, 245));
-//            table.setSelectionForeground(Color.BLACK);
+            table.setRowHeight(20);
+            table.setShowHorizontalLines(true);
+            table.setShowVerticalLines(true);
+            table.setIntercellSpacing(new Dimension(1, 1));
+            table.setGridColor(AppletWindow.DATA_TABLE_GRID_COLOR);
+            table.setSelectionBackground(new Color(217, 235, 245));
+            table.setSelectionForeground(Color.BLACK);
 
             sp = new NiceScrollPane(table);
 
@@ -103,39 +69,67 @@ public class DockObjectTree extends DockSimple {
 
         } catch (Exception e) {
             MyLog.add2Log(e);
-        } finally {
-            this.objects.getReadWriteLock().writeLock().unlock();
         }
     }
 
-    public void clearObjects() {
-        objects.clear();
+    public void cleareObject(){
+        root.setObjects(new ArrayList<RecordObject>());
+        model.fireTreeStructureChanged(new TreePath(model.getRoot()));
     }
 
-    public void setObjects(ArrayList<RecordObject> objs) {
-        objects.getReadWriteLock().writeLock().lock();
+    public void setObjects(ArrayList<RecordObject> objects) {
         try {
-            if (objects == null) {
-                objects.clear();
-            } else {
-                objects.clear();
-                objects.addAll(objs);
-            }
+            root.setObjects(objects);
+            model.fireTreeStructureChanged(new TreePath(model.getRoot()));
+            expandAll(table.getTree(), true);
         } catch (Exception e) {
             MyLog.add2Log(e);
-        } finally {
-            objects.getReadWriteLock().writeLock().unlock();
         }
     }
 
     public void dispose() {
         System.out.println("DockObjectTree clear...");
 
-//        if (model != null) model = null;
-        if (sortedEntries != null) sortedEntries.dispose();
-        if (entries != null) entries.dispose();
-        if (objects != null) objects.dispose();
+        if (model != null) model = null;
+        if (root != null) root.getObjects().clear();
 
         System.out.println("DockObjectTree clear...OK");
+    }
+
+    // If expand is true, expands all nodes in the tree.
+    // Otherwise, collapses all nodes in the tree.
+    public void expandAll(JTree tree, boolean expand) {
+        Object root = tree.getModel().getRoot();
+
+        // Traverse tree from root
+        expandAll(tree, new TreePath(root), expand);
+    }
+
+    /**
+     * @return Whether an expandPath was called for the last node in the parent path
+     */
+    private boolean expandAll(JTree tree, TreePath parent, boolean expand) {
+        // Traverse children
+        RecordObjectRoot node = (RecordObjectRoot) parent.getLastPathComponent();
+        if (node.getObjects().size() > 0) {
+            boolean childExpandCalled = false;
+            for (RecordObject recordObject : node.getObjects()) {
+                TreePath path = parent.pathByAddingChild(recordObject);
+//                childExpandCalled = expandAll(tree, path, expand) || childExpandCalled; // the OR order is important here, don't let childExpand first. func calls will be optimized out !
+                tree.expandPath(path);
+            }
+
+//            if (!childExpandCalled) { // only if one of the children hasn't called already expand
+                // Expansion or collapse must be done bottom-up, BUT only for non-leaf nodes
+                if (expand) {
+                    tree.expandPath(parent);
+                } else {
+                    tree.collapsePath(parent);
+                }
+//            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

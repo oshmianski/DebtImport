@@ -124,7 +124,11 @@ public class LoadImportDataTest implements Runnable, Loader {
 
             DataMainItem dataMainItem;
             ArrayList<DataChildItem> dataChildItems = null;
+            ArrayList<RecordObject> rObjects = null;
+            ArrayList<RecordObjectField> rFields = null;
             DataChildItem dataChildItem;
+            RecordObject rObject;
+            RecordObjectField rField;
             String evalValue;
             String cellValue;
             boolean isRule;
@@ -149,9 +153,12 @@ public class LoadImportDataTest implements Runnable, Loader {
 
                 dataMainItem = new DataMainItem(i + 1, Status.OK, col2Description == -1 ? "" : getCellString(wb, row.getCell(col2Description)));
                 dataChildItems = new ArrayList<DataChildItem>();
+                rObjects = new ArrayList<RecordObject>();
 
                 for (Object obj : templateImport.getObjects()) {
-                    //TODO: нужно сформировать конечный объект
+                    rObject = new RecordObject(obj.getFormName());
+                    rObjects.add(rObject);
+                    rFields = new ArrayList<RecordObjectField>();
 
                     for (Field field : obj.getFields()) {
                         isRule = false;
@@ -214,8 +221,11 @@ public class LoadImportDataTest implements Runnable, Loader {
                         dataChildItems.add(dataChildItem);
                         dataChildItem = null;
 
-                        //TODO: в конечный объект нужно добавить поле
+                        rField = new RecordObjectField(field.getTitleSys(), cellValue, RecordNodeFieldType.text);
+                        rFields.add(rField);
                     }
+
+                    rObject.setFields(rFields);
 
                     //TODO: определение уникалности конечного объекта
                 }
@@ -223,7 +233,7 @@ public class LoadImportDataTest implements Runnable, Loader {
                 //TODO: обработка связей
 
                 dataMainItem.setDataChildItems(dataChildItems);
-//                dataChildItems.clear();
+                dataMainItem.setObjects(rObjects);
 
                 ui.appendDataImport(dataMainItem);
                 dataMainItem = null;

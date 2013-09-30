@@ -108,7 +108,7 @@ public class DockingContainer {
         uiProcessor = (UIProcessor) Proxy.newProxyInstance(
                 getClass().getClassLoader(),
                 new Class[]{UIProcessor.class},
-                new EDTInvocationHandler(new UIProcessorImpl(dockHeader, dockActions, dockInfo, dockDataMain, dockDataChild)));
+                new EDTInvocationHandler(new UIProcessorImpl(dockHeader, dockActions, dockInfo, dockDataMain, dockDataChild, dockObjectTree)));
 
         uiProcessorImport = (UIProcessorImport) Proxy.newProxyInstance(
                 getClass().getClassLoader(),

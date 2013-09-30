@@ -2,6 +2,7 @@ package by.oshmianski.ui.edt;
 
 import by.oshmianski.objects.DataChildItem;
 import by.oshmianski.objects.DataMainItem;
+import by.oshmianski.objects.RecordObject;
 import by.oshmianski.objects.TemplateImport;
 import ca.odell.glazedlists.EventList;
 
@@ -53,6 +54,9 @@ public interface UIProcessor {
 
     @RequiresEDT
     void setDockDataChildItems(ArrayList<DataChildItem> dockDataChildItems);
+
+    @RequiresEDT
+    void setDockObjectTreeObjects(ArrayList<RecordObject> objects);
 
 //    @RequiresEDT
     int getStartFrom();

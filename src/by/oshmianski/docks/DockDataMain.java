@@ -143,6 +143,7 @@ public class DockDataMain extends DockSimple {
             if (selectedItem == null) return;
 
             dockingContainer.getUIProcessor().setDockDataChildItems(selectedItem.getDataChildItems());
+            dockingContainer.getUIProcessor().setDockObjectTreeObjects(selectedItem.getObjects());
         }
     }
 

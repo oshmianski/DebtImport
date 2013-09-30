@@ -19,13 +19,22 @@ public class UIProcessorImpl implements UIProcessor {
     private DockDataMain dockDataMain;
     private DockDataChild dockDataChild;
     private DockActions dockActions;
+    private DockObjectTree dockObjectTree;
 
-    public UIProcessorImpl(DockHeader dockHeader, DockActions dockActions, DockInfo dockInfo, DockDataMain dockDataMain, DockDataChild dockDataChild) {
+    public UIProcessorImpl(
+            DockHeader dockHeader,
+            DockActions dockActions,
+            DockInfo dockInfo,
+            DockDataMain dockDataMain,
+            DockDataChild dockDataChild,
+            DockObjectTree dockObjectTree) {
+
         this.dockHeader = dockHeader;
         this.dockActions = dockActions;
         this.dockInfo = dockInfo;
         this.dockDataMain = dockDataMain;
         this.dockDataChild = dockDataChild;
+        this.dockObjectTree = dockObjectTree;
     }
 
     @Override
@@ -82,6 +91,7 @@ public class UIProcessorImpl implements UIProcessor {
     public void clearDataImport() {
         dockDataMain.clearDataMain();
         dockDataChild.clearDataChild();
+        dockObjectTree.cleareObject();
         dockInfo.progressSetValue(0);
         dockInfo.countClearAll();
     }
@@ -129,6 +139,11 @@ public class UIProcessorImpl implements UIProcessor {
     @Override
     public void setDockDataChildItems(ArrayList<DataChildItem> dockDataChildItems) {
         dockDataChild.setDataChildItems(dockDataChildItems);
+    }
+
+    @Override
+    public void setDockObjectTreeObjects(ArrayList<RecordObject> objects) {
+        dockObjectTree.setObjects(objects);
     }
 
     @Override

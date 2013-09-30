@@ -19,6 +19,7 @@ public class DataMainItem {
 //    private EventList<DataChildItem> dataChildItems = new BasicEventList<DataChildItem>();
 //    private ArrayList<DataChildItem> dataChildItems = new ArrayList<DataChildItem>();
     private ArrayList<DataChildItem> dataChildItems;
+    private ArrayList<RecordObject> objects;
 
     public DataMainItem(long lineNum, Status status, String description) {
         this.lineNum = lineNum;
@@ -55,8 +56,14 @@ public class DataMainItem {
     }
 
     public void setDataChildItems(ArrayList<DataChildItem> dataChildItems) {
-//        this.dataChildItems.clear();
-//        this.dataChildItems.addAll(dataChildItems);
         this.dataChildItems = dataChildItems;
+    }
+
+    public ArrayList<RecordObject> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(ArrayList<RecordObject> objects) {
+        this.objects = objects;
     }
 }
