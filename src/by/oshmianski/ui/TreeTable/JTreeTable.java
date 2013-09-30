@@ -33,6 +33,8 @@ package by.oshmianski.ui.TreeTable;
  * you entered into with Sun.
  */
 
+import by.oshmianski.ui.utils.BetterJTable;
+
 import javax.swing.AbstractCellEditor;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -53,7 +55,7 @@ import java.util.EventObject;
  * @author Scott Violet
  * @version 1.2 10/27/98
  */
-public class JTreeTable extends JTable {
+public class JTreeTable extends BetterJTable {
     /**
      * A subclass of JTree.
      */

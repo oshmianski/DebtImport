@@ -44,7 +44,8 @@ public class DockObjectTree extends DockSimple {
             model = new RecordObjectsTreeModel(root);
 
             table = new JTreeTable(model);
-            table.getTree().setRootVisible(false);
+            JTree tree = table.getTree();
+            tree.setRootVisible(false);
 
             table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             table.getColumnModel().getColumn(0).setPreferredWidth(200);
@@ -72,7 +73,7 @@ public class DockObjectTree extends DockSimple {
         }
     }
 
-    public void cleareObject(){
+    public void cleareObject() {
         root.setObjects(new ArrayList<RecordObject>());
         model.fireTreeStructureChanged(new TreePath(model.getRoot()));
     }
@@ -120,12 +121,12 @@ public class DockObjectTree extends DockSimple {
             }
 
 //            if (!childExpandCalled) { // only if one of the children hasn't called already expand
-                // Expansion or collapse must be done bottom-up, BUT only for non-leaf nodes
-                if (expand) {
-                    tree.expandPath(parent);
-                } else {
-                    tree.collapsePath(parent);
-                }
+            // Expansion or collapse must be done bottom-up, BUT only for non-leaf nodes
+            if (expand) {
+                tree.expandPath(parent);
+            } else {
+                tree.collapsePath(parent);
+            }
 //            }
             return true;
         } else {
