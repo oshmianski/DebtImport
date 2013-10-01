@@ -59,6 +59,7 @@ public class UIProcessorImpl implements UIProcessor {
         System.out.println("Start loading...");
 
         clearDataImport();
+        dockInfo.setProgressLabelText("Считывание данных...");
 
         dockActions.bTestSetEnabled(false);
     }
@@ -67,7 +68,42 @@ public class UIProcessorImpl implements UIProcessor {
     public void stopLoading() {
         System.out.println("Stop loading");
 
+        dockInfo.setProgressLabelText("Считывание данных...OK");
+
         dockActions.bTestSetEnabled(true);
+    }
+
+    @Override
+    public void startLoadingToDB() {
+        System.out.println("Start loading to DB...");
+
+        dockInfo.setProgressLabelText("Запись данных...");
+
+        dockActions.bImportSetEnabled(false);
+    }
+
+    @Override
+    public void stopLoadingToDB() {
+        System.out.println("Stop loading to DB");
+
+        dockInfo.setProgressLabelText("Запись данных...OK");
+
+        dockActions.bImportSetEnabled(true);
+    }
+
+    @Override
+    public void setProgressLabelText(String text) {
+        dockInfo.setProgressLabelText(text);
+    }
+
+    @Override
+    public void setProgressValue(int count) {
+        dockInfo.progressSetValue(count);
+    }
+
+    @Override
+    public void setProgressMaximum(int maximum) {
+        dockInfo.progressSetMaximum(maximum);
     }
 
     @Override
@@ -97,16 +133,6 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
-    public void progressSetValue(final int value) {
-        dockInfo.progressSetValue(value);
-    }
-
-    @Override
-    public void progressSetMaximum(final int count) {
-        dockInfo.progressSetMaximum(count);
-    }
-
-    @Override
     public boolean isHeaderCorrect() {
         if (dockHeader.getFileField().getText().isEmpty()) {
             JOptionPane.showMessageDialog(
@@ -118,7 +144,7 @@ public class UIProcessorImpl implements UIProcessor {
             return false;
         }
 
-        if(dockHeader.getTemplateImport() == null){
+        if (dockHeader.getTemplateImport() == null) {
             JOptionPane.showMessageDialog(
                     null,
                     "Не выбран шаблон!",

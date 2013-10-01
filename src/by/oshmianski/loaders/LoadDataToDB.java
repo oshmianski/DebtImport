@@ -1,24 +1,19 @@
 package by.oshmianski.loaders;
 
 import by.oshmianski.objects.DataMainItem;
-import by.oshmianski.objects.Status;
 import by.oshmianski.ui.edt.UIProcessor;
-import by.oshmianski.ui.edt.UIProcessorImport;
 import by.oshmianski.utils.MyLog;
 import lotus.domino.*;
 
-public class LoadDataTest implements Runnable, Loader {
+public class LoadDataToDB implements Runnable, Loader {
     private boolean executed = false;
     private boolean canceled = false;
 
-    /**
-     * UI callback
-     */
-    protected UIProcessorImport ui;
-
     private String moduleName;
 
-    public LoadDataTest(UIProcessorImport ui) {
+    private UIProcessor ui;
+
+    public LoadDataToDB(UIProcessor ui) {
         super();
 
         this.ui = ui;
@@ -46,7 +41,7 @@ public class LoadDataTest implements Runnable, Loader {
     @Override
     public void run() {
         //действия вначале
-        ui.startLoading();
+        ui.startLoadingToDB();
 
         try {
             work();
@@ -55,7 +50,7 @@ public class LoadDataTest implements Runnable, Loader {
         } finally {
             //окончание
             executed = false;
-            ui.stopLoading();
+            ui.stopLoadingToDB();
         }
     }
 
@@ -84,49 +79,20 @@ public class LoadDataTest implements Runnable, Loader {
             session = NotesFactory.createSession();
             db = session.getDatabase(null, null);
 
-            int count = 10;
+            int i = 0;
+            ui.setProgressLabelText("Создание объектов...");
+            ui.setProgressMaximum(ui.getDataMainItems().size());
+            ui.setProgressValue(0);
+            for(DataMainItem dataMainItem1 : ui.getDataMainItems()){
 
-            ui.progressSetValue(0);
-            ui.progressSetMaximum(count);
+                Thread.sleep(5);
 
-            for (int i = 1; i <= count; i++) {
-                ui.progressSetValue(i);
+                if (canceled) break;
 
-                Thread.sleep(500);
-
-                if(canceled) break;
+                i++;
+                ui.setProgressValue(i);
             }
-//            db.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbreplicaid());
-//            view = db.getView(AppletParams.getInstance().getViewItem());
-//            view.setAutoUpdate(false);
-//
-//            nav = view.createViewNav();
-//
-//            if (Integer.valueOf(session.evaluate("@Version").firstElement().toString()) >= 379) {
-//                nav.setBufferMaxEntries(400);
-//                nav.setEntryOptions(ViewNavigator.VN_ENTRYOPT_NOCOUNTDATA);
-//            }
-//
-//            ve = nav.getFirst();
-//            while (ve != null) {
-//                if (ve.isCategory())
-//                    ui.appendItemToTree(new ItemCat(true, ve.getColumnValues().elementAt(0).toString(),
-//                            "",
-//                            "",
-//                            "",
-//                            ""));
-//                else
-//                    ui.appendItemToTree(new ItemCat(
-//                            false, ve.getColumnValues().elementAt(0).toString(),
-//                            "",
-//                            ve.getColumnValues().elementAt(1).toString(),
-//                            ve.getColumnValues().elementAt(2).toString(),
-//                            ve.getUniversalID()));
-//
-//                vetmp = nav.getNext();
-//                ve.recycle();
-//                ve = vetmp;
-//            }
+            ui.setProgressLabelText("Создание объектов...OK");
 
 
         } catch (Exception e) {

@@ -13,6 +13,7 @@ public class RecordObject {
     private boolean willBeCreated;
     private boolean existInDB;
     private boolean existInPrevios;
+    private String linkKey;
 
     private ArrayList<RecordObjectField> fields;
 
@@ -66,6 +67,14 @@ public class RecordObject {
 
     public void setExistInPrevios(boolean existInPrevios) {
         this.existInPrevios = existInPrevios;
+    }
+
+    public String getLinkKey() {
+        return linkKey;
+    }
+
+    public void setLinkKey(String linkKey) {
+        this.linkKey = linkKey;
     }
 
     public RecordObjectField getFieldByTitle(String title){

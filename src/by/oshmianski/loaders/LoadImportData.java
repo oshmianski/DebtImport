@@ -120,8 +120,8 @@ public class LoadImportData implements Runnable, Loader {
                 start = start - 1;
 
             ui.setCountAll2Import(count + 1 - start);
-            ui.progressSetValue(0);
-            ui.progressSetMaximum(count + 1 - start);
+            ui.setProgressValue(0);
+            ui.setProgressMaximum(count + 1 - start);
 
             DataMainItem dataMainItem;
             ArrayList<DataChildItem> dataChildItems = null;
@@ -238,6 +238,7 @@ public class LoadImportData implements Runnable, Loader {
                     rObject.setFields(rFields);
 
                     //TODO: определение уникальности конечного объекта
+                    //пока нет ссылок на связанные уже существуюшщие объекты
                     if (rObject.isWillBeCreated()) {
                         StringBuilder keyStr = new StringBuilder();
                         RecordObjectField recordObjectField;
@@ -289,9 +290,13 @@ public class LoadImportData implements Runnable, Loader {
                                     );
                                     dataChildItems.add(dataChildItem);
                                     rObject.setExistInDB(true);
+                                    Document document = col.getFirstDocument();
+                                    rObject.setLinkKey(document.getUniversalID());
+                                    document.recycle();
                                 } else {
                                     if (recordObjectMap.containsKey(keyStr.toString())) {
                                         rObject.setExistInPrevios(true);
+                                        rObject.setLinkKey(keyStr.toString());
 
                                         dataChildItem = new DataChildItem(
                                                 Status.WARNING,
@@ -315,13 +320,14 @@ public class LoadImportData implements Runnable, Loader {
                 }
 
                 //TODO: обработка связей
+                for (Link link : templateImport.getLinks())
 
-                dataMainItem.setDataChildItems(dataChildItems);
+                    dataMainItem.setDataChildItems(dataChildItems);
                 dataMainItem.setObjects(rObjects);
 
                 ui.appendDataImport(dataMainItem);
 
-                ui.progressSetValue(i + 1);
+                ui.setProgressValue(i + 1);
 
                 Thread.sleep(3);
 

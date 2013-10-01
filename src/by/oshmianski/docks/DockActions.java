@@ -2,7 +2,7 @@ package by.oshmianski.docks;
 
 import by.oshmianski.docks.Setup.DockSimple;
 import by.oshmianski.docks.Setup.DockingContainer;
-import by.oshmianski.loaders.LoadDataTest;
+import by.oshmianski.loaders.LoadDataToDB;
 import by.oshmianski.loaders.LoadImportData;
 import by.oshmianski.loaders.Loader;
 import by.oshmianski.ui.utils.ActionButton;
@@ -64,7 +64,7 @@ public class DockActions extends DockSimple {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (getDockingContainer().getUIProcessor().isHeaderCorrect()) {
-                    importer = new LoadDataTest(getDockingContainer().getUiProcessorImport());
+                    importer = new LoadDataToDB(getDockingContainer().getUIProcessor());
                     importer.execute();
                 }
             }
@@ -78,7 +78,7 @@ public class DockActions extends DockSimple {
         });
 
         bTestStop.setEnabled(false);
-        bImportStart.setEnabled(false);
+//        bImportStart.setEnabled(false);
         bImportStop.setEnabled(false);
 
         FormLayout layout = new FormLayout(

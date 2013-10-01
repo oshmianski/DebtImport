@@ -23,6 +23,15 @@ public interface UIProcessor {
     void stopLoading();
 
     @RequiresEDT
+    void startLoadingToDB();
+
+    @RequiresEDT
+    void stopLoadingToDB();
+
+    @RequiresEDT
+    void setProgressLabelText(String text);
+
+    @RequiresEDT
     void startLoadingTI();
 
     @RequiresEDT
@@ -41,10 +50,10 @@ public interface UIProcessor {
     void clearDataImport();
 
     @RequiresEDT
-    void progressSetValue(final int value);
+    void setProgressValue(final int count);
 
     @RequiresEDT
-    void progressSetMaximum(final int count);
+    void setProgressMaximum(final int maximum);
 
     @RequiresEDT
     boolean isHeaderCorrect();

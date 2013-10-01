@@ -16,15 +16,10 @@ import by.oshmianski.docks.*;
 import by.oshmianski.filter.DM.FilterPanel;
 import by.oshmianski.filter.CM.FilterPanelChild;
 import by.oshmianski.main.AppletWindow;
-import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.objects.UIProcessorImpl;
-import by.oshmianski.objects.UIProcessorImportImpl;
 import by.oshmianski.ui.edt.EDTInvocationHandler;
-import by.oshmianski.ui.edt.EDTInvocationHandlerImport;
 import by.oshmianski.ui.edt.UIProcessor;
-import by.oshmianski.ui.edt.UIProcessorImport;
 import by.oshmianski.utils.MyLog;
-import ca.odell.glazedlists.EventList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +46,6 @@ public class DockingContainer {
     private JPanel mainPanel;
 
     private UIProcessor uiProcessor;
-    private UIProcessorImport uiProcessorImport;
 
     public DockingContainer(JFrame frame, JPanel mainPanel) {
         control = new CControl(frame, true);
@@ -109,11 +103,6 @@ public class DockingContainer {
                 getClass().getClassLoader(),
                 new Class[]{UIProcessor.class},
                 new EDTInvocationHandler(new UIProcessorImpl(dockHeader, dockActions, dockInfo, dockDataMain, dockDataChild, dockObjectTree)));
-
-        uiProcessorImport = (UIProcessorImport) Proxy.newProxyInstance(
-                getClass().getClassLoader(),
-                new Class[]{UIProcessorImport.class},
-                new EDTInvocationHandlerImport(new UIProcessorImportImpl(dockHeader, dockActions, dockInfo, dockDataMain, dockDataChild)));
 
         control.addDockable(dockDataMainFilter);
         control.addDockable(dockDataChildFilter);
@@ -232,10 +221,6 @@ public class DockingContainer {
 
     public UIProcessor getUIProcessor() {
         return uiProcessor;
-    }
-
-    public UIProcessorImport getUiProcessorImport() {
-        return uiProcessorImport;
     }
 
     public void setDockDataMainFilter(FilterPanel filter){

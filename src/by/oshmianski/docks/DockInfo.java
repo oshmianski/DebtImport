@@ -7,6 +7,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +22,7 @@ public class DockInfo extends DockSimple {
     private JLabel okRows;
     private JLabel allRows;
     private JLabel allRows2Import;
+    private JLabel progressLabel;
     private int errorRowsCount;
     private int warningRowsCount;
     private int okRowsCount;
@@ -37,10 +39,13 @@ public class DockInfo extends DockSimple {
         errorRows = new JLabel("0");
         progress = new JProgressBar();
         progress.setStringPainted(true);
+        progressLabel = new JLabel("Описание процесса");
+        progressLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
+        progressLabel.setForeground(Color.DARK_GRAY);
 
         FormLayout layout = new FormLayout(
                 "5px, right:200px, 5px", // columns
-                "20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 30px");      // rows
+                "20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 10px, 30px");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
@@ -59,7 +64,8 @@ public class DockInfo extends DockSimple {
         builder.addSeparator("Error", cc.xyw(1, 9, 3));
         builder.add(errorRows, cc.xy(2, 10));
         builder.addSeparator("Процесс", cc.xyw(1, 11, 3));
-        builder.add(progress, cc.xyw(1, 12, 3));
+        builder.add(progressLabel, cc.xyw(1, 12, 3));
+        builder.add(progress, cc.xyw(1, 13, 3));
 
         panel.add(builder.getPanel());
     }
@@ -116,5 +122,9 @@ public class DockInfo extends DockSimple {
 
     public void setCountAll2Import(int count) {
         allRows2Import.setText(Integer.toString(count));
+    }
+
+    public void setProgressLabelText(String text){
+        progressLabel.setText(text);
     }
 }
