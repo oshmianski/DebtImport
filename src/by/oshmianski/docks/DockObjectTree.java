@@ -31,7 +31,7 @@ public class DockObjectTree extends DockSimple {
     private RecordObjectRoot root;
 
     public DockObjectTree(DockingContainer dockingContainer, ArrayList<RecordObject> objects) {
-        super("DockObjectTree", IconContainer.getInstance().loadImage("layers.png"), "Дерево объектов");
+        super("DockObjectTree", IconContainer.getInstance().loadImage("tree.png"), "Дерево объектов");
 
         this.dockingContainer = dockingContainer;
 
