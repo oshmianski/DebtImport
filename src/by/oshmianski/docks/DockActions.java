@@ -3,7 +3,7 @@ package by.oshmianski.docks;
 import by.oshmianski.docks.Setup.DockSimple;
 import by.oshmianski.docks.Setup.DockingContainer;
 import by.oshmianski.loaders.LoadDataTest;
-import by.oshmianski.loaders.LoadImportDataTest;
+import by.oshmianski.loaders.LoadImportData;
 import by.oshmianski.loaders.Loader;
 import by.oshmianski.ui.utils.ActionButton;
 import by.oshmianski.utils.IconContainer;
@@ -47,7 +47,7 @@ public class DockActions extends DockSimple {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (getDockingContainer().getUIProcessor().isHeaderCorrect()) {
-                    loader = new LoadImportDataTest(getDockingContainer().getUIProcessor());
+                    loader = new LoadImportData(getDockingContainer().getUIProcessor());
                     loader.execute();
                 }
             }
