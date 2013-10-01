@@ -11,6 +11,6 @@ public class ComparatorDMStatus implements Comparator<DataMainItem> {
     }
 
     public int compare(DataMainItem x0, DataMainItem x1) {
-        return x0.getStatus().compareTo(x1.getStatus());
+        return x0.getStatusFromChild().compareTo(x1.getStatusFromChild());
     }
 }

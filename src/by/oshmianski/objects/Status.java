@@ -7,7 +7,16 @@ package by.oshmianski.objects;
  * Time: 11:33 AM
  */
 public enum Status {
-    ERROR,
-    WARNING,
-    OK
+    ERROR(0),
+    WARNING(10),
+    OK(20);
+
+    int statusOrdinal = 0;
+
+    Status(int i) {
+        statusOrdinal = i;
+    }
+
+    public static Status[] STATUS_INDEXED = new Status[]{null, ERROR, WARNING, OK};
+
 }

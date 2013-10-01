@@ -76,13 +76,13 @@ public class UIProcessorImpl implements UIProcessor {
 
         dockInfo.countIncAll();
 
-        if (dataMainItem.getStatus() == Status.OK) {
+        if (dataMainItem.getStatusFromChild() == Status.OK) {
             dockInfo.countIncOk();
         }
-        if (dataMainItem.getStatus() == Status.ERROR) {
+        if (dataMainItem.getStatusFromChild() == Status.ERROR) {
             dockInfo.countIncError();
         }
-        if (dataMainItem.getStatus() == Status.WARNING) {
+        if (dataMainItem.getStatusFromChild() == Status.WARNING) {
             dockInfo.countIncWarning();
         }
     }

@@ -7,9 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatus.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Work\java\DebtImport\work\src\by\oshmianski\loaders\LoadImportDataTest.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" />
     </list>
     <ignored path="DebtImport.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,8 +35,8 @@
     <file path="/DockDataMainFilter.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379421136141" ignored="false" />
     <file path="/DockInfo.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379615097392" ignored="false" />
     <file path="/DataMainitem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379320465510" ignored="false" />
-    <file path="/Status.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379320445685" ignored="false" />
-    <file path="/DataMainModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379320767773" ignored="false" />
+    <file path="/Status.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380615904658" ignored="false" />
+    <file path="/DataMainModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380616545541" ignored="false" />
     <file path="/DockSimple.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379321542575" ignored="false" />
     <file path="/Processor.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379331492333" ignored="false" />
     <file path="/DataChildItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379414858750" ignored="false" />
@@ -50,11 +58,11 @@
     <file path="/UIProcessorImportImpl.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379407721389" ignored="false" />
     <file path="/EDTInvocationHandlerImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379408064792" ignored="false" />
     <file path="/LoadDataTest.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379408126296" ignored="false" />
-    <file path="/DataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380566250372" ignored="false" />
-    <file path="/UIProcessorImpl.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380571912023" ignored="false" />
+    <file path="/DataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380616522352" ignored="false" />
+    <file path="/UIProcessorImpl.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380616762511" ignored="false" />
     <file path="/StatusRenderer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379418049489" ignored="false" />
-    <file path="/ComparatorDMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379419467632" ignored="false" />
-    <file path="/MatcherEditorDMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379424478992" ignored="false" />
+    <file path="/ComparatorDMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380616607020" ignored="false" />
+    <file path="/MatcherEditorDMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380616657401" ignored="false" />
     <file path="/FilterPanel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379666298395" ignored="false" />
     <file path="/RoundedPanel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379419786869" ignored="false" />
     <file path="/Icons.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380278553205" ignored="false" />
@@ -62,7 +70,7 @@
     <file path="/ComparatorCMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379422955783" ignored="false" />
     <file path="/MatcherEditorCMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379443413349" ignored="false" />
     <file path="/AppletParams.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379509903108" ignored="false" />
-    <file path="/LoadTemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380537286487" ignored="false" />
+    <file path="/LoadTemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380626429074" ignored="false" />
     <file path="/Rule.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379500668776" ignored="false" />
     <file path="/Field.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380535933758" ignored="false" />
     <file path="/Key.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379501258666" ignored="false" />
@@ -77,14 +85,14 @@
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534258434" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380613082794" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380613949833" ignored="false" />
     <file path="/GUIFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273153113" ignored="false" />
     <file path="/DockingContainerFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273089309" ignored="false" />
     <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380280860846" ignored="false" />
-    <file path="/RecordObject.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380563952902" ignored="false" />
+    <file path="/RecordObject.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380628990669" ignored="false" />
     <file path="/RecordObjectField.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380535687051" ignored="false" />
     <file path="/RecordNodeFieldType.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534949145" ignored="false" />
-    <file path="/DockObjectTree.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380577397014" ignored="false" />
+    <file path="/DockObjectTree.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380631985326" ignored="false" />
     <file path="/MyTreeModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380565587589" ignored="false" />
     <file path="/TreeTableModelAdapter.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380541298133" ignored="false" />
     <file path="/TreeTableModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380561773320" ignored="false" />
@@ -92,6 +100,7 @@
     <file path="/RecordObjectRoot.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380565181367" ignored="false" />
     <file path="/AbstractTreeTableModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380569456619" ignored="false" />
     <file path="/ColorRenderer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380574390262" ignored="false" />
+    <file path="/LoadImportData.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380634499664" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +165,16 @@
       <file leaf-file-name="DockObjectTree.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="35" selection-start="1838" selection-end="1838" vertical-scroll-proportion="0.0">
+            <state line="119" column="0" selection-start="4001" selection-end="4001" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UIProcessorImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="84" column="45" selection-start="2254" selection-end="2254" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -165,7 +183,30 @@
       <file leaf-file-name="LoadImportData.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="129" column="61" selection-start="3432" selection-end="3432" vertical-scroll-proportion="0.040963855">
+            <state line="243" column="0" selection-start="9070" selection-end="9070" vertical-scroll-proportion="0.20481928">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2183#2201#0" expanded="true" />
+                <element signature="e#2252#2266#0" expanded="true" />
+                <element signature="e#2333#2355#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RecordObject.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="62" column="39" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Key.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Key.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="15" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -195,20 +236,20 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectField.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectRoot.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/test/TreeTable/MyTreeModel.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportDataTest.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/test/TreeTable/AbstractTreeTableModel.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/test/TreeTable/JTreeTable.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/category/datachild/TreeRenderer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/JTreeTable.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatus.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" />
       </list>
@@ -548,6 +589,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="filter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="work" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="filter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DM" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -910,7 +981,11 @@
       <created>1380613086737</created>
       <updated>1380613086737</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="first release">
+      <created>1380613955745</created>
+      <updated>1380613955745</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -940,8 +1015,9 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50172615" sideWeight="0.59363526" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4556962" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249694" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.77375567" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.7733027" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50172615" sideWeight="0.40575275" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -954,7 +1030,6 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32220945" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6260069" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1025,73 +1100,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="9" selection-start="2364" selection-end="2732" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="0" selection-start="1991" selection-end="1991" vertical-scroll-proportion="0.78205127">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/AbstractCellEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="33" selection-start="729" selection-end="729" vertical-scroll-proportion="0.37037036">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/AbstractTreeTableModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="41" selection-start="713" selection-end="713" vertical-scroll-proportion="-2.9402628">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/TreeTableModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="39" selection-start="948" selection-end="948" vertical-scroll-proportion="0.6270396">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/TreeTableModelAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="35" selection-start="1311" selection-end="1311" vertical-scroll-proportion="0.6340326">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="13" selection-start="363" selection-end="363" vertical-scroll-proportion="0.1981352">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/category/datachild/TreeRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="78" selection-start="644" selection-end="644" vertical-scroll-proportion="0.16783217">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="9" selection-start="2364" selection-end="2732" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/category/datachild/MyTreeCellRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="29" column="54" selection-start="1061" selection-end="1061" vertical-scroll-proportion="0.020166073">
@@ -1113,24 +1121,99 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Status.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="38" selection-start="2472" selection-end="2472" vertical-scroll-proportion="1.7746145">
+        <state line="19" column="27" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="51" selection-start="1171" selection-end="1171" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="56" selection-start="780" selection-end="780" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="11" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="214" column="75" selection-start="8368" selection-end="8368" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="35" selection-start="2424" selection-end="2424" vertical-scroll-proportion="0.17274939">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadDataTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="45" selection-start="494" selection-end="494" vertical-scroll-proportion="-1.7579075">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Key.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="15" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="39" selection-start="1373" selection-end="1373" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="35" selection-start="1838" selection-end="1838" vertical-scroll-proportion="0.0">
+        <state line="119" column="0" selection-start="4001" selection-end="4001" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="153" column="0" selection-start="4819" selection-end="4819" vertical-scroll-proportion="-0.34282324">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="45" selection-start="2254" selection-end="2254" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="61" selection-start="3432" selection-end="3432" vertical-scroll-proportion="0.040963855">
-          <folding />
+        <state line="243" column="0" selection-start="9070" selection-end="9070" vertical-scroll-proportion="0.20481928">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2183#2201#0" expanded="true" />
+            <element signature="e#2252#2266#0" expanded="true" />
+            <element signature="e#2333#2355#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

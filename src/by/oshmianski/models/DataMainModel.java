@@ -28,7 +28,7 @@ public class DataMainModel implements TableFormat<DataMainItem> {
             case 0:
                 return dataMainItem.getLineNum();
             case 1:
-                return dataMainItem.getStatus();
+                return dataMainItem.getStatusFromChild();
             case 2:
                 return dataMainItem.getDescription();
             default:

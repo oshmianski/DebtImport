@@ -14,9 +14,7 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Vector;
+import java.util.*;
 
 public class LoadImportData implements Runnable, Loader {
     private boolean executed = false;
@@ -91,6 +89,9 @@ public class LoadImportData implements Runnable, Loader {
         ViewEntry vetmp = null;
         OPCPackage pkg = null;
         XSSFWorkbook wb = null;
+        Map<String, Database> dbMap = new HashMap<String, Database>();
+        Map<String, View> viewMap = new HashMap<String, View>();
+        Map<String, RecordObject> recordObjectMap = new HashMap<String, RecordObject>();
 
         try {
             NotesThread.sinitThread();
@@ -131,6 +132,7 @@ public class LoadImportData implements Runnable, Loader {
             RecordObjectField rField;
             String evalValue;
             String cellValue;
+            String cellValueReal;
             boolean isRule;
             Row row;
             StringBuffer sb = new StringBuffer();
@@ -156,6 +158,8 @@ public class LoadImportData implements Runnable, Loader {
                 rObjects = new ArrayList<RecordObject>();
 
                 for (Object obj : templateImport.getObjects()) {
+                    String objTitle = obj.getTitle() + " [" + obj.getFormName() + "]";
+
                     rObject = new RecordObject(obj.getFormName());
                     rObjects.add(rObject);
                     rFields = new ArrayList<RecordObjectField>();
@@ -164,7 +168,8 @@ public class LoadImportData implements Runnable, Loader {
                         isRule = false;
                         evalValue = "";
                         cellValue = "";
-                        Status status = Status.OK;
+                        cellValueReal = "";
+                        String fieldTitle = "ячейка " + field.getXmlCell() + ", " + field.getTitleUser() + " [" + field.getTitleSys() + "]";
 
                         try {
                             String colStr = field.getXmlCell();
@@ -181,7 +186,8 @@ public class LoadImportData implements Runnable, Loader {
                                 col = colStr;
                             }
 
-                            cellValue = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
+                            cellValueReal = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
+                            cellValue = cellValueReal;
 
                             ruleSortedList = new SortedList<Rule>(field.getRules(), GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(Rule.class, "number")));
                             for (Rule rule : ruleSortedList) {
@@ -205,29 +211,107 @@ public class LoadImportData implements Runnable, Loader {
 
                             cellValue = isRule ? evalValue : cellValue;
                         } catch (Exception ex) {
-                            status = Status.ERROR;
-
-                            dataMainItem.setStatus(Status.ERROR);
-
-                            cellValue = ex.toString();
+                            dataChildItem = new DataChildItem(
+                                    Status.ERROR,
+                                    objTitle,
+                                    fieldTitle,
+                                    ex.toString()
+                            );
+                            dataChildItems.add(dataChildItem);
                         }
 
-                        dataChildItem = new DataChildItem(
-                                status,
-                                obj.getTitle() + " [" + obj.getFormName() + "]",
-                                "ячейка " + field.getXmlCell() + ", " + field.getTitleUser() + " [" + field.getTitleSys() + "]",
-                                cellValue
-                        );
-                        dataChildItems.add(dataChildItem);
-                        dataChildItem = null;
+                        if (cellValueReal.isEmpty() && field.isEmptyFlag()) {
+                            dataChildItem = new DataChildItem(
+                                    Status.WARNING,
+                                    objTitle,
+                                    fieldTitle,
+                                    "Значение ячейки пустое, объект создан не будет"
+                            );
+                            dataChildItems.add(dataChildItem);
+                            rObject.setWillBeCreated(false);
+                        }
 
-                        rField = new RecordObjectField(field.getTitleSys(), cellValue, RecordNodeFieldType.text);
+                        rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
                         rFields.add(rField);
                     }
 
                     rObject.setFields(rFields);
 
-                    //TODO: определение уникалности конечного объекта
+                    //TODO: определение уникальности конечного объекта
+                    if (rObject.isWillBeCreated()) {
+                        StringBuilder keyStr = new StringBuilder();
+                        RecordObjectField recordObjectField;
+                        for (Key key : obj.getKeys()) {
+                            if (key.getField1() != null) {
+                                recordObjectField = rObject.getFieldByTitle(key.getField1().getTitleSys());
+                                keyStr.append(key.getPref1());
+                                keyStr.append(recordObjectField.getValue());
+                            }
+                            if (key.getField2() != null) {
+                                recordObjectField = rObject.getFieldByTitle(key.getField2().getTitleSys());
+                                keyStr.append(key.getPref2());
+                                keyStr.append(recordObjectField.getValue());
+                            }
+                            if (key.getField3() != null) {
+                                recordObjectField = rObject.getFieldByTitle(key.getField3().getTitleSys());
+                                keyStr.append(key.getPref3());
+                                keyStr.append(recordObjectField.getValue());
+                            }
+                            if (key.getField4() != null) {
+                                recordObjectField = rObject.getFieldByTitle(key.getField4().getTitleSys());
+                                keyStr.append(key.getPref4());
+                                keyStr.append(recordObjectField.getValue());
+                            }
+                            if (key.getField5() != null) {
+                                recordObjectField = rObject.getFieldByTitle(key.getField5().getTitleSys());
+                                keyStr.append(key.getPref5());
+                                keyStr.append(recordObjectField.getValue());
+                            }
+                            if (!dbMap.containsKey(key.getDb())) {
+                                Database database = session.getDatabase(null, null);
+                                database.openByReplicaID(session.getServerName() == null ? "" : session.getServerName(), key.getDb());
+                                dbMap.put(key.getDb(), database);
+                            }
+
+                            if (!viewMap.containsKey(key.getView())) {
+                                viewMap.put(key.getView(), dbMap.get(key.getDb()).getView(key.getView()));
+                            }
+
+                            DocumentCollection col = null;
+                            try {
+                                col = viewMap.get(key.getView()).getAllDocumentsByKey(keyStr.toString(), true);
+                                if (col.getCount() > 0) {
+                                    dataChildItem = new DataChildItem(
+                                            Status.WARNING,
+                                            objTitle,
+                                            keyStr.toString(),
+                                            "Объект уже существует в базе данных"
+                                    );
+                                    dataChildItems.add(dataChildItem);
+                                    rObject.setExistInDB(true);
+                                } else {
+                                    if (recordObjectMap.containsKey(keyStr.toString())) {
+                                        rObject.setExistInPrevios(true);
+
+                                        dataChildItem = new DataChildItem(
+                                                Status.WARNING,
+                                                objTitle,
+                                                keyStr.toString(),
+                                                "Объект уже существует среди предыдущих импортируемых"
+                                        );
+                                        dataChildItems.add(dataChildItem);
+                                    } else {
+                                        recordObjectMap.put(keyStr.toString(), rObject);
+                                    }
+                                }
+                            } finally {
+                                if (col != null)
+                                    col.recycle();
+                            }
+
+                            keyStr.setLength(0);
+                        }
+                    }
                 }
 
                 //TODO: обработка связей
@@ -236,18 +320,14 @@ public class LoadImportData implements Runnable, Loader {
                 dataMainItem.setObjects(rObjects);
 
                 ui.appendDataImport(dataMainItem);
-                dataMainItem = null;
 
                 ui.progressSetValue(i + 1);
 
-                Thread.sleep(4);
+                Thread.sleep(3);
 
                 if (canceled) break;
                 i++;
             }
-
-//            dataChildItems.clear();
-//            dataChildItems = null;
 
         } catch (Exception e) {
             MyLog.add2Log(e);
@@ -255,6 +335,10 @@ public class LoadImportData implements Runnable, Loader {
             try {
                 if (pkg != null) {
                     pkg.close();
+                }
+
+                if (!recordObjectMap.isEmpty()) {
+                    recordObjectMap.clear();
                 }
 
                 if (vetmp != null) {
@@ -269,6 +353,25 @@ public class LoadImportData implements Runnable, Loader {
                 if (view != null) {
                     view.recycle();
                 }
+
+                if (!viewMap.isEmpty()) {
+                    Iterator i = viewMap.entrySet().iterator();
+                    while (i.hasNext()) {
+                        Map.Entry entry = (Map.Entry) i.next();
+                        ((View) entry.getValue()).recycle();
+                    }
+                    viewMap.clear();
+                }
+
+                if (!dbMap.isEmpty()) {
+                    Iterator i = dbMap.entrySet().iterator();
+                    while (i.hasNext()) {
+                        Map.Entry entry = (Map.Entry) i.next();
+                        ((Database) entry.getValue()).recycle();
+                    }
+                    dbMap.clear();
+                }
+
                 if (db != null) {
                     db.recycle();
                 }

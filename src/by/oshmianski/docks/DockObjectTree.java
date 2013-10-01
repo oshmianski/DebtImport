@@ -46,6 +46,7 @@ public class DockObjectTree extends DockSimple {
             table = new JTreeTable(model);
             JTree tree = table.getTree();
             tree.setRootVisible(false);
+            tree.setCellRenderer(new ObjectTreeRender());
 
             table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             table.getColumnModel().getColumn(0).setPreferredWidth(200);
@@ -82,7 +83,7 @@ public class DockObjectTree extends DockSimple {
         try {
             root.setObjects(objects);
             model.fireTreeStructureChanged(new TreePath(model.getRoot()));
-            expandAll(table.getTree(), true);
+            expandFirstLevel(table.getTree(), true);
         } catch (Exception e) {
             MyLog.add2Log(e);
         }
@@ -97,40 +98,57 @@ public class DockObjectTree extends DockSimple {
         System.out.println("DockObjectTree clear...OK");
     }
 
-    // If expand is true, expands all nodes in the tree.
-    // Otherwise, collapses all nodes in the tree.
-    public void expandAll(JTree tree, boolean expand) {
+    public void expandFirstLevel(JTree tree, boolean expand) {
         Object root = tree.getModel().getRoot();
 
-        // Traverse tree from root
-        expandAll(tree, new TreePath(root), expand);
+        expandFirstLevel(tree, new TreePath(root), expand);
     }
 
-    /**
-     * @return Whether an expandPath was called for the last node in the parent path
-     */
-    private boolean expandAll(JTree tree, TreePath parent, boolean expand) {
-        // Traverse children
+    private void expandFirstLevel(JTree tree, TreePath parent, boolean expand) {
         RecordObjectRoot node = (RecordObjectRoot) parent.getLastPathComponent();
         if (node.getObjects().size() > 0) {
-            boolean childExpandCalled = false;
             for (RecordObject recordObject : node.getObjects()) {
                 TreePath path = parent.pathByAddingChild(recordObject);
-//                childExpandCalled = expandAll(tree, path, expand) || childExpandCalled; // the OR order is important here, don't let childExpand first. func calls will be optimized out !
                 tree.expandPath(path);
             }
 
-//            if (!childExpandCalled) { // only if one of the children hasn't called already expand
-            // Expansion or collapse must be done bottom-up, BUT only for non-leaf nodes
             if (expand) {
                 tree.expandPath(parent);
             } else {
                 tree.collapsePath(parent);
             }
-//            }
-            return true;
-        } else {
-            return false;
+        }
+    }
+
+    private static class ObjectTreeRender extends DefaultTreeCellRenderer {
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+            Component c = super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+
+            JLabel label = (JLabel) c;
+
+            if (value instanceof RecordObject) {
+                c.setFont(new Font("tahoma", Font.BOLD, 11));
+
+                label.setForeground(new Color(0x176317));
+
+                if (!((RecordObject) value).isWillBeCreated()) {
+                    label.setForeground(new Color(0xE80000));
+                }
+
+                if (((RecordObject) value).isExistInDB()) {
+                    label.setForeground(new Color(0x0032A0));
+                }
+
+                if (((RecordObject) value).isExistInPrevios()) {
+                    label.setForeground(new Color(0xCB7F2A));
+                }
+            } else {
+                c.setFont(new Font("tahoma", Font.PLAIN, 11));
+                label.setIcon(null);
+            }
+
+            return c;
         }
     }
 }

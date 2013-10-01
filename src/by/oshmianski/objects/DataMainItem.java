@@ -16,8 +16,6 @@ public class DataMainItem {
     private Status status;
     private String description;
 
-//    private EventList<DataChildItem> dataChildItems = new BasicEventList<DataChildItem>();
-//    private ArrayList<DataChildItem> dataChildItems = new ArrayList<DataChildItem>();
     private ArrayList<DataChildItem> dataChildItems;
     private ArrayList<RecordObject> objects;
 
@@ -36,6 +34,20 @@ public class DataMainItem {
     }
 
     public Status getStatus() {
+        return status;
+    }
+
+    public Status getStatusFromChild() {
+        Status status = Status.OK;
+
+        if (dataChildItems == null) return Status.OK;
+
+        for (DataChildItem dataChildItem : dataChildItems) {
+            if (dataChildItem.getStatus().statusOrdinal < status.statusOrdinal) {
+                status = dataChildItem.getStatus();
+            }
+        }
+
         return status;
     }
 

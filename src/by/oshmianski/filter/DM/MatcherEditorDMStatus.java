@@ -141,7 +141,7 @@ public class MatcherEditorDMStatus extends AbstractMatcherEditor implements List
 //            final int count;
             if (type == ListEvent.INSERT) {
                 List issuesOfThisStatus = (List) issuesByStatusSwingThread.get(index);
-                status = ((DataMainItem) issuesOfThisStatus.get(0)).getStatus();
+                status = ((DataMainItem) issuesOfThisStatus.get(0)).getStatusFromChild();
                 statuses.add(index, status);
 //                count = issuesOfThisStatus.size();
             } else if (type == ListEvent.UPDATE) {
@@ -212,7 +212,7 @@ public class MatcherEditorDMStatus extends AbstractMatcherEditor implements List
 
         public boolean matches(Object x0) {
             DataMainItem issue = (DataMainItem) x0;
-            return this.allowedStatuses.contains(issue.getStatus());
+            return this.allowedStatuses.contains(issue.getStatusFromChild());
         }
         /*missing*/
     }
