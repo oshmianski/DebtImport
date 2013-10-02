@@ -116,7 +116,9 @@ public class Importer {
             int i = 0;
             for (DataMainItem dataMainItem : items) {
 
+                if (dataMainItem.getStatusFromChild() != Status.ERROR) {
 
+                }
 
                 Thread.sleep(2);
                 i++;

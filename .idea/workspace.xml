@@ -7,14 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
-      <change type="DELETED" beforePath="D:\Work\java\DebtImport\work\src\by\oshmianski\loaders\LoadDataToDB.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -76,14 +70,14 @@
     <file path="/Link.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379503686592" ignored="false" />
     <file path="/TemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380694624414" ignored="false" />
     <file path="/DockableRichText.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379523312815" ignored="false" />
-    <file path="/MyLog.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379525431792" ignored="false" />
+    <file path="/MyLog.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380716744149" ignored="false" />
     <file path="/DockLog.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379525018011" ignored="false" />
     <file path="/a.dummy" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665673703" ignored="false" />
     <file path="/TextFilterComponent.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379598353423" ignored="false" />
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534258434" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380698151878" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380715303050" ignored="false" />
     <file path="/GUIFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273153113" ignored="false" />
     <file path="/DockingContainerFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273089309" ignored="false" />
     <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380280860846" ignored="false" />
@@ -100,7 +94,7 @@
     <file path="/ColorRenderer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380574390262" ignored="false" />
     <file path="/LoadImportData.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380711312044" ignored="false" />
     <file path="/LoadDataToDB.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380711103853" ignored="false" />
-    <file path="/Importer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380715005298" ignored="false" />
+    <file path="/Importer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380717057967" ignored="false" />
     <file path="/Loader.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380710108614" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -163,97 +157,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DockObjectTree.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="63" selection-start="4111" selection-end="4111" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UIProcessorImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="190" column="36" selection-start="5032" selection-end="5032" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DockActions.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="37" selection-start="2818" selection-end="2818" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#2540#2698#0" expanded="true" />
-                <element signature="e#2687#2688#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="LoadImportData.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="17" selection-start="737" selection-end="737" vertical-scroll-proportion="0.0">
+            <state line="40" column="59" selection-start="1056" selection-end="1056" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Importer.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Importer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="122" column="16" selection-start="3557" selection-end="3557" vertical-scroll-proportion="0.0">
+            <state line="118" column="56" selection-start="3557" selection-end="3557" vertical-scroll-proportion="0.3686747">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UIProcessor.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="26" selection-start="914" selection-end="914" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TemplateImport.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="8" selection-start="1460" selection-end="1460" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DockInfo.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="8" selection-start="2765" selection-end="2765" vertical-scroll-proportion="0.5243309">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RecordObject.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="25" selection-start="570" selection-end="570" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DataMainItem.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="42" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.0">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -282,7 +201,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImportImpl.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java" />
@@ -296,8 +214,9 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
       </list>
     </option>
   </component>
@@ -1061,7 +980,11 @@
       <created>1380698170876</created>
       <updated>1380698170876</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="first release">
+      <created>1380715311281</created>
+      <updated>1380715311281</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1176,13 +1099,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="0" selection-start="4819" selection-end="4819" vertical-scroll-proportion="-0.34282324">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="0" selection-start="1415" selection-end="1415" vertical-scroll-proportion="0.0">
@@ -1213,7 +1129,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="42" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.0">
+        <state line="74" column="42" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.83629894">
           <folding />
         </state>
       </provider>
@@ -1249,13 +1165,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="17" selection-start="737" selection-end="737" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="40" column="26" selection-start="914" selection-end="914" vertical-scroll-proportion="0.0">
@@ -1270,19 +1179,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="16" selection-start="3557" selection-end="3557" vertical-scroll-proportion="0.0">
+        <state line="74" column="8" selection-start="2765" selection-end="2765" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/edt/EDTInvocationHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="13" selection-start="1399" selection-end="2172" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="49" selection-start="1511" selection-end="1511" vertical-scroll-proportion="0.49584815">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1608#1925#0" expanded="true" />
+            <element signature="e#1910#1911#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="8" selection-start="2765" selection-end="2765" vertical-scroll-proportion="0.5243309">
+        <state line="40" column="59" selection-start="1056" selection-end="1056" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="118" column="56" selection-start="3557" selection-end="3557" vertical-scroll-proportion="0.3686747">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
