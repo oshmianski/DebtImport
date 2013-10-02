@@ -56,12 +56,22 @@ public class TemplateImport {
         this.description = description;
     }
 
-    public void addObject(Object object){
+    public void addObject(Object object) {
         objects.add(object);
     }
 
-    public void addLink(Link link){
+    public void addLink(Link link) {
         links.add(link);
+    }
+
+    public Link getLinkByChildTitle(String title) {
+        if (links == null) return null;
+
+        for (Link link : links) {
+            if (title.equals(link.getChildObject().getFormName())) return link;
+        }
+
+        return null;
     }
 
     @Override

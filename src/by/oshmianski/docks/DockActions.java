@@ -78,7 +78,7 @@ public class DockActions extends DockSimple {
         });
 
         bTestStop.setEnabled(false);
-//        bImportStart.setEnabled(false);
+        bImportStart.setEnabled(false);
         bImportStop.setEnabled(false);
 
         FormLayout layout = new FormLayout(

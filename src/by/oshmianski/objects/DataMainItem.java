@@ -78,4 +78,14 @@ public class DataMainItem {
     public void setObjects(ArrayList<RecordObject> objects) {
         this.objects = objects;
     }
+
+    public RecordObject getRecordObjectByTitle(String title) {
+        if (objects == null) return null;
+
+        for (RecordObject recordObject : objects) {
+            if (title.equals(recordObject.getTitle())) return recordObject;
+        }
+
+        return null;
+    }
 }

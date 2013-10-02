@@ -10,17 +10,18 @@ import java.util.ArrayList;
  */
 public class RecordObject {
     private String title;
-    private boolean willBeCreated;
+    private boolean flagEmpty;
     private boolean existInDB;
     private boolean existInPrevios;
     private String linkKey;
+    private RecordObject mainObject;
 
     private ArrayList<RecordObjectField> fields;
 
     public RecordObject(String title) {
         this.title = title;
         fields = new ArrayList<RecordObjectField>();
-        willBeCreated = true;
+        flagEmpty = false;
         existInDB = false;
         existInPrevios = false;
     }
@@ -45,12 +46,12 @@ public class RecordObject {
         this.title = title;
     }
 
-    public boolean isWillBeCreated() {
-        return willBeCreated;
+    public boolean isFlagEmpty() {
+        return flagEmpty;
     }
 
-    public void setWillBeCreated(boolean willBeCreated) {
-        this.willBeCreated = willBeCreated;
+    public void setFlagEmpty(boolean flagEmpty) {
+        this.flagEmpty = flagEmpty;
     }
 
     public boolean isExistInDB() {
@@ -75,6 +76,14 @@ public class RecordObject {
 
     public void setLinkKey(String linkKey) {
         this.linkKey = linkKey;
+    }
+
+    public RecordObject getMainObject() {
+        return mainObject;
+    }
+
+    public void setMainObject(RecordObject mainObject) {
+        this.mainObject = mainObject;
     }
 
     public RecordObjectField getFieldByTitle(String title){

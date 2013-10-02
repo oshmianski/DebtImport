@@ -228,7 +228,7 @@ public class LoadImportData implements Runnable, Loader {
                                     "Значение ячейки пустое, объект создан не будет"
                             );
                             dataChildItems.add(dataChildItem);
-                            rObject.setWillBeCreated(false);
+                            rObject.setFlagEmpty(true);
                         }
 
                         rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
@@ -237,9 +237,8 @@ public class LoadImportData implements Runnable, Loader {
 
                     rObject.setFields(rFields);
 
-                    //TODO: определение уникальности конечного объекта
-                    //пока нет ссылок на связанные уже существуюшщие объекты
-                    if (rObject.isWillBeCreated()) {
+                    //проверка на уникальность
+                    if (!rObject.isFlagEmpty()) {
                         StringBuilder keyStr = new StringBuilder();
                         RecordObjectField recordObjectField;
                         for (Key key : obj.getKeys()) {
@@ -319,11 +318,30 @@ public class LoadImportData implements Runnable, Loader {
                     }
                 }
 
-                //TODO: обработка связей
-                for (Link link : templateImport.getLinks())
-
-                    dataMainItem.setDataChildItems(dataChildItems);
+                dataMainItem.setDataChildItems(dataChildItems);
                 dataMainItem.setObjects(rObjects);
+
+                //обработка связей
+                for (Link link : templateImport.getLinks()) {
+                    if ("1".equals(link.getType())) {//связь один-ко-многим
+                        Object childObject = link.getChildObject();
+                        RecordObject childRecordObject = dataMainItem.getRecordObjectByTitle(childObject.getFormName());
+
+                        if (!(childRecordObject.isFlagEmpty() || childRecordObject.isExistInDB() || childRecordObject.isExistInPrevios())) {
+                            Object mainObject = link.getMainObject();
+                            RecordObject mainRecordObject = dataMainItem.getRecordObjectByTitle(mainObject.getFormName());
+
+                            while (mainRecordObject.isFlagEmpty()) {
+                                Link link1 = templateImport.getLinkByChildTitle(mainRecordObject.getTitle());
+                                mainRecordObject = dataMainItem.getRecordObjectByTitle(link1.getMainObject().getFormName());
+                            }
+
+                            childRecordObject.setMainObject(mainRecordObject);
+                        }
+                    } else {
+                        //TODO: бработка связи много-ко-многим
+                    }
+                }
 
                 ui.appendDataImport(dataMainItem);
 

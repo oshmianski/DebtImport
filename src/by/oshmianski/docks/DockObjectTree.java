@@ -132,7 +132,7 @@ public class DockObjectTree extends DockSimple {
 
                 label.setForeground(new Color(0x176317));
 
-                if (!((RecordObject) value).isWillBeCreated()) {
+                if (((RecordObject) value).isFlagEmpty()) {
                     label.setForeground(new Color(0xE80000));
                 }
 
