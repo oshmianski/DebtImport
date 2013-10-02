@@ -2,7 +2,6 @@ package by.oshmianski.docks;
 
 import by.oshmianski.docks.Setup.DockSimple;
 import by.oshmianski.docks.Setup.DockingContainer;
-import by.oshmianski.loaders.LoadDataToDB;
 import by.oshmianski.loaders.LoadImportData;
 import by.oshmianski.loaders.Loader;
 import by.oshmianski.ui.utils.ActionButton;
@@ -26,7 +25,6 @@ public class DockActions extends DockSimple {
     private DockingContainer dockingContainer;
 
     private Loader loader;
-    private Loader importer;
 
     private JButton bTestStart;
     private JButton bTestStop;
@@ -47,7 +45,7 @@ public class DockActions extends DockSimple {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (getDockingContainer().getUIProcessor().isHeaderCorrect()) {
-                    loader = new LoadImportData(getDockingContainer().getUIProcessor());
+                    loader = new LoadImportData(getDockingContainer().getUIProcessor(), true);
                     loader.execute();
                 }
             }
@@ -64,8 +62,8 @@ public class DockActions extends DockSimple {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (getDockingContainer().getUIProcessor().isHeaderCorrect()) {
-                    importer = new LoadDataToDB(getDockingContainer().getUIProcessor());
-                    importer.execute();
+                    loader = new LoadImportData(getDockingContainer().getUIProcessor(), false);
+                    loader.execute();
                 }
             }
         });
@@ -73,12 +71,12 @@ public class DockActions extends DockSimple {
         bImportStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                importer.cancel();
+                loader.cancel();
             }
         });
 
         bTestStop.setEnabled(false);
-        bImportStart.setEnabled(false);
+//        bImportStart.setEnabled(false);
         bImportStop.setEnabled(false);
 
         FormLayout layout = new FormLayout(
@@ -101,14 +99,20 @@ public class DockActions extends DockSimple {
         panel.add(builder.getPanel());
     }
 
-    public void bTestSetEnabled(boolean enabled) {
+    public void setButtomTestStartEnable(boolean enabled) {
         bTestStart.setEnabled(enabled);
-        bTestStop.setEnabled(!enabled);
     }
 
-    public void bImportSetEnabled(boolean enabled) {
+    public void setButtomTestStopEnable(boolean enabled) {
+        bTestStop.setEnabled(enabled);
+    }
+
+    public void setButtomImportStartEnable(boolean enabled) {
         bImportStart.setEnabled(enabled);
-        bImportStop.setEnabled(!enabled);
+    }
+
+    public void setButtomImportStopEnable(boolean enabled) {
+        bImportStop.setEnabled(enabled);
     }
 
     private DockingContainer getDockingContainer() {

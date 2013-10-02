@@ -71,6 +71,10 @@ public class DataMainItem {
         this.dataChildItems = dataChildItems;
     }
 
+    public void addDataChildItem(DataChildItem dataChildItem){
+        dataChildItems.add(dataChildItem);
+    }
+
     public ArrayList<RecordObject> getObjects() {
         return objects;
     }

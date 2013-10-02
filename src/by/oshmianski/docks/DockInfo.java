@@ -22,18 +22,21 @@ public class DockInfo extends DockSimple {
     private JLabel okRows;
     private JLabel allRows;
     private JLabel allRows2Import;
+    private JLabel allRowsImported;
     private JLabel progressLabel;
     private int errorRowsCount;
     private int warningRowsCount;
     private int okRowsCount;
     private int allRowsCount;
     private int allRows2ImportCount;
+    private int allRowsImportedCount;
 
     public DockInfo() {
         super("DockInfo", IconContainer.getInstance().loadImage("info.png"), "Информация");
 
         allRows = new JLabel("0");
         allRows2Import = new JLabel("0");
+        allRowsImported = new JLabel("0");
         okRows = new JLabel("0");
         warningRows = new JLabel("0");
         errorRows = new JLabel("0");
@@ -45,7 +48,7 @@ public class DockInfo extends DockSimple {
 
         FormLayout layout = new FormLayout(
                 "5px, right:200px, 5px", // columns
-                "20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 10px, 30px");      // rows
+                "20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 10px, 30px");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
@@ -55,17 +58,19 @@ public class DockInfo extends DockSimple {
 
         builder.addSeparator("Строк для импорта", cc.xyw(1, 1, 3));
         builder.add(allRows2Import, cc.xy(2, 2));
-        builder.addSeparator("Импортировано", cc.xyw(1, 3, 3));
+        builder.addSeparator("Прочитано", cc.xyw(1, 3, 3));
         builder.add(allRows, cc.xy(2, 4));
-        builder.addSeparator("OK", cc.xyw(1, 5, 3));
-        builder.add(okRows, cc.xy(2, 6));
-        builder.addSeparator("Warning", cc.xyw(1, 7, 3));
-        builder.add(warningRows, cc.xy(2, 8));
-        builder.addSeparator("Error", cc.xyw(1, 9, 3));
-        builder.add(errorRows, cc.xy(2, 10));
-        builder.addSeparator("Процесс", cc.xyw(1, 11, 3));
-        builder.add(progressLabel, cc.xyw(1, 12, 3));
-        builder.add(progress, cc.xyw(1, 13, 3));
+        builder.addSeparator("Импортировано", cc.xyw(1, 5, 3));
+        builder.add(allRowsImported, cc.xy(2, 6));
+        builder.addSeparator("OK", cc.xyw(1, 7, 3));
+        builder.add(okRows, cc.xy(2, 8));
+        builder.addSeparator("Warning", cc.xyw(1, 9, 3));
+        builder.add(warningRows, cc.xy(2, 10));
+        builder.addSeparator("Error", cc.xyw(1, 11, 3));
+        builder.add(errorRows, cc.xy(2, 12));
+        builder.addSeparator("Процесс", cc.xyw(1, 13, 3));
+        builder.add(progressLabel, cc.xyw(1, 14, 3));
+        builder.add(progress, cc.xyw(1, 15, 3));
 
         panel.add(builder.getPanel());
     }
@@ -80,12 +85,14 @@ public class DockInfo extends DockSimple {
 
     public void countClearAll() {
         allRows2Import.setText("0");
+        allRowsImported.setText("0");
         allRows.setText("0");
         okRows.setText("0");
         warningRows.setText("0");
         errorRows.setText("0");
 
         allRows2ImportCount = 0;
+        allRowsImportedCount = 0;
         allRowsCount = 0;
         okRowsCount = 0;
         warningRowsCount = 0;
@@ -100,6 +107,11 @@ public class DockInfo extends DockSimple {
     public void countIncOk() {
         okRowsCount++;
         okRows.setText(Integer.toString(okRowsCount));
+    }
+
+    public void countIncImported() {
+        allRowsImportedCount++;
+        allRowsImported.setText(Integer.toString(allRowsImportedCount));
     }
 
     public void countIncWarning() {

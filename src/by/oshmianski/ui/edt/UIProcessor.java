@@ -17,25 +17,28 @@ import java.util.ArrayList;
  */
 public interface UIProcessor {
     @RequiresEDT
-    void startLoading();
-
-    @RequiresEDT
-    void stopLoading();
-
-    @RequiresEDT
-    void startLoadingToDB();
-
-    @RequiresEDT
-    void stopLoadingToDB();
-
-    @RequiresEDT
     void setProgressLabelText(String text);
+
+    @RequiresEDT
+    void setButtonTestStartEnable(boolean enable);
+
+    @RequiresEDT
+    void setButtonTestStopEnable(boolean enable);
+
+    @RequiresEDT
+    void setButtonImportStartEnable(boolean enable);
+
+    @RequiresEDT
+    void setButtonImportStopEnable(boolean enable);
 
     @RequiresEDT
     void startLoadingTI();
 
     @RequiresEDT
     void appendDataImport(DataMainItem dataMainItem);
+
+    @RequiresEDT
+    void countIncImported();
 
 //    @RequiresEDT
     EventList<DataMainItem> getDataMainItems();

@@ -55,43 +55,6 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
-    public void startLoading() {
-        System.out.println("Start loading...");
-
-        clearDataImport();
-        dockInfo.setProgressLabelText("Считывание данных...");
-
-        dockActions.bTestSetEnabled(false);
-    }
-
-    @Override
-    public void stopLoading() {
-        System.out.println("Stop loading");
-
-        dockInfo.setProgressLabelText("Считывание данных...OK");
-
-        dockActions.bTestSetEnabled(true);
-    }
-
-    @Override
-    public void startLoadingToDB() {
-        System.out.println("Start loading to DB...");
-
-        dockInfo.setProgressLabelText("Запись данных...");
-
-        dockActions.bImportSetEnabled(false);
-    }
-
-    @Override
-    public void stopLoadingToDB() {
-        System.out.println("Stop loading to DB");
-
-        dockInfo.setProgressLabelText("Запись данных...OK");
-
-        dockActions.bImportSetEnabled(true);
-    }
-
-    @Override
     public void setProgressLabelText(String text) {
         dockInfo.setProgressLabelText(text);
     }
@@ -201,5 +164,30 @@ public class UIProcessorImpl implements UIProcessor {
     @Override
     public EventList<DataMainItem> getDataMainItems() {
         return dockDataMain.getDataMainItems();
+    }
+
+    @Override
+    public void setButtonTestStartEnable(boolean enable) {
+        dockActions.setButtomTestStartEnable(enable);
+    }
+
+    @Override
+    public void setButtonTestStopEnable(boolean enable) {
+        dockActions.setButtomTestStopEnable(enable);
+    }
+
+    @Override
+    public void setButtonImportStartEnable(boolean enable) {
+        dockActions.setButtomImportStartEnable(enable);
+    }
+
+    @Override
+    public void setButtonImportStopEnable(boolean enable) {
+        dockActions.setButtomImportStopEnable(enable);
+    }
+
+    @Override
+    public void countIncImported() {
+        dockInfo.countIncImported();
     }
 }
