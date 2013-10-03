@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * Date: 30.09.13
  * Time: 12:48
  */
-public class RecordObject {
+public class RecordObject{
+    private int number;
     private String title;
     private boolean flagEmpty;
     private boolean existInDB;
@@ -18,7 +19,8 @@ public class RecordObject {
 
     private ArrayList<RecordObjectField> fields;
 
-    public RecordObject(String title) {
+    public RecordObject(int number, String title) {
+        this.number = number;
         this.title = title;
         fields = new ArrayList<RecordObjectField>();
         flagEmpty = false;
@@ -86,9 +88,13 @@ public class RecordObject {
         this.mainObject = mainObject;
     }
 
-    public RecordObjectField getFieldByTitle(String title){
-        for(RecordObjectField recordObjectField : fields){
-            if(recordObjectField.getTitle().equals(title)) return recordObjectField;
+    public int getNumber() {
+        return number;
+    }
+
+    public RecordObjectField getFieldByTitle(String title) {
+        for (RecordObjectField recordObjectField : fields) {
+            if (recordObjectField.getTitle().equals(title)) return recordObjectField;
         }
 
         return null;

@@ -58,9 +58,9 @@ public class DockInfo extends DockSimple {
 
         builder.addSeparator("Строк для импорта", cc.xyw(1, 1, 3));
         builder.add(allRows2Import, cc.xy(2, 2));
-        builder.addSeparator("Прочитано", cc.xyw(1, 3, 3));
+        builder.addSeparator("Прочитано строк", cc.xyw(1, 3, 3));
         builder.add(allRows, cc.xy(2, 4));
-        builder.addSeparator("Импортировано", cc.xyw(1, 5, 3));
+        builder.addSeparator("Импортировано объектов", cc.xyw(1, 5, 3));
         builder.add(allRowsImported, cc.xy(2, 6));
         builder.addSeparator("OK", cc.xyw(1, 7, 3));
         builder.add(okRows, cc.xy(2, 8));

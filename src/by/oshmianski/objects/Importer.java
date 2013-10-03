@@ -2,10 +2,12 @@ package by.oshmianski.objects;
 
 import by.oshmianski.loaders.LoadImportData;
 import by.oshmianski.utils.MyLog;
+import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.SortedList;
 import lotus.domino.*;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
@@ -25,18 +27,24 @@ public class Importer {
     private LoadImportData loader;
 
     private Map<String, RecordObject> recordObjectMap = new HashMap<String, RecordObject>();
+    private String importKey;
+
 
     public Importer(LoadImportData loader) {
         this.loader = loader;
     }
 
     public void process() {
+        importKey = RandomStringUtils.random(32, true, true);
+
         if (loader.isTest())
             test();
         else
             work();
 
-        recordObjectMap.clear();
+        if (!recordObjectMap.isEmpty()) {
+            recordObjectMap.clear();
+        }
     }
 
     private void work() {
@@ -120,45 +128,94 @@ public class Importer {
             for (DataMainItem dataMainItem : items) {
 
                 if (dataMainItem.getStatusFromChild() != Status.ERROR) {
-                    for (RecordObject rObject : dataMainItem.getObjects()) {
-                        if (!(rObject.isFlagEmpty() || rObject.isExistInDB() || rObject.isExistInPrevios())) {
-                            Object object = loader.getUi().getTemplateImport().getObjectByFormName(rObject.getTitle());
+                    Document document = null;
+                    Document docParent = null;
+                    EventList<RecordObject> recordObjectEventList = null;
+                    SortedList<RecordObject> recordObjectSortedList = null;
 
-                            if (!dbMap.containsKey(object.getDb())) {
-                                Database database = session.getDatabase(null, null);
-                                database.openByReplicaID(session.getServerName() == null ? "" : session.getServerName(), object.getDb());
-                                dbMap.put(object.getDb(), database);
-                            }
+                    try {
+                        recordObjectEventList = new BasicEventList<RecordObject>(dataMainItem.getObjects());
+                        recordObjectSortedList = new SortedList<RecordObject>(recordObjectEventList, GlazedLists.beanPropertyComparator(RecordObject.class, "number"));
+                        i = i;
+                        for (RecordObject rObject : recordObjectSortedList) {
+                            if (!(rObject.isFlagEmpty() || rObject.isExistInDB() || rObject.isExistInPrevios())) {
+                                Object object = loader.getUi().getTemplateImport().getObjectByFormName(rObject.getTitle());
 
-                            Document document = dbMap.get(object.getDb()).createDocument();
-                            document.replaceItemValue("form", object.getFormName());
-                            document.computeWithForm(false, false);
+                                if (!dbMap.containsKey(object.getDb())) {
+                                    Database database = session.getDatabase(null, null);
+                                    database.openByReplicaID(session.getServerName() == null ? "" : session.getServerName(), object.getDb());
+                                    dbMap.put(object.getDb(), database);
+                                }
 
-                            for (RecordObjectField field : rObject.getFields()) {
-                                document.replaceItemValue(field.getTitle(), field.getValue());
-                            }
+                                document = dbMap.get(object.getDb()).createDocument();
+                                document.replaceItemValue("form", object.getFormName());
+                                document.computeWithForm(false, false);
 
-                            Document docParent = null;
-                            RecordObject mainRecordObject = rObject.getMainObject();
-                            if (mainRecordObject != null) {
-                                //TODO: получить главный объект
+                                for (RecordObjectField field : rObject.getFields()) {
+                                    document.replaceItemValue(field.getTitle(), field.getValue());
+                                }
 
-                                docParent = dbMap.get(object.getDb()).getDocumentByUNID(mainRecordObject.getLinkKey());
+                                RecordObject mainRecordObject = rObject.getMainObject();
+                                if (mainRecordObject != null) {
+                                    while (mainRecordObject.isFlagEmpty()) {
+                                        Link link1 = loader.getUi().getTemplateImport().getLinkByChildTitle(mainRecordObject.getTitle());
+                                        mainRecordObject = dataMainItem.getRecordObjectByTitle(link1.getMainObject().getFormName());
+                                    }
 
-                                document.makeResponse(docParent);
-                            } else {
+                                    if (mainRecordObject.isExistInPrevios()) {
+                                        mainRecordObject = recordObjectMap.get(mainRecordObject.getLinkKey());
+                                    }
+
+                                    docParent = dbMap.get(object.getDb()).getDocumentByUNID(mainRecordObject.getLinkKey());
+
+                                    Link link = loader.getUi().getTemplateImport().getLinkByChildTitle(rObject.getTitle());
+                                    switch (Integer.valueOf(link.getResponseField())) {
+                                        case 1:
+                                            document.makeResponse(docParent);
+                                            break;
+                                        case 2:
+                                            document.makeResponse(docParent);
+                                            document.copyItem(document.getFirstItem("$REF"), "$REF_" + link.getMainObject().getFormName());
+                                            document.removeItem("$REF");
+                                            break;
+                                        case 3:
+                                            document.makeResponse(docParent);
+                                            document.copyItem(document.getFirstItem("$REF"), link.getResponseFieldCustom());
+                                            document.removeItem("$REF");
+                                            break;
+                                        default:
+                                            document.makeResponse(docParent);
+                                    }
+
+                                }
+
                                 rObject.setLinkKey(document.getUniversalID());
-                            }
 
-                            document.save();
+                                document.save();
+                                loader.getUi().countIncImported();
+                            }
                         }
+
+                    } catch (Exception ex) {
+                        MyLog.add2Log(ex);
+                    } finally {
+                        if (recordObjectSortedList != null)
+                            recordObjectSortedList.dispose();
+
+                        if (recordObjectEventList != null)
+                            recordObjectEventList.dispose();
+
+                        if (document != null)
+                            document.recycle();
+
+                        if (docParent != null)
+                            docParent.recycle();
                     }
                 }
 
                 Thread.sleep(2);
                 i++;
 
-                loader.getUi().countIncImported();
                 loader.getUi().setProgressValue(i + 1);
             }
 
@@ -274,7 +331,7 @@ public class Importer {
                 rObjects = new ArrayList<RecordObject>();
 
                 for (Object obj : templateImport.getObjects()) {
-                    rObject = new RecordObject(obj.getFormName());
+                    rObject = new RecordObject(obj.getNumber(), obj.getFormName());
                     rObjects.add(rObject);
                     rFields = new ArrayList<RecordObjectField>();
 
@@ -373,10 +430,6 @@ public class Importer {
             try {
                 if (pkg != null) {
                     pkg.close();
-                }
-
-                if (!recordObjectMap.isEmpty()) {
-                    recordObjectMap.clear();
                 }
 
                 if (vetmp != null) {
@@ -574,6 +627,9 @@ public class Importer {
             rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
             rFields.add(rField);
         }
+
+        rField = new RecordObjectField("importKey", importKey, RecordNodeFieldType.text);
+        rFields.add(rField);
     }
 
     private void checkUnique(
@@ -668,24 +724,5 @@ public class Importer {
                 keyStr.setLength(0);
             }
         }
-    }
-
-    private RecordObject getParentRecordObject(DataMainItem dataMainItem, RecordObject rObject) {
-        RecordObject mainRecordObject = rObject.getMainObject();
-
-        while (mainRecordObject.isFlagEmpty()) {
-            Link link1 = loader.getUi().getTemplateImport().getLinkByChildTitle(mainRecordObject.getTitle());
-            mainRecordObject = dataMainItem.getRecordObjectByTitle(link1.getMainObject().getFormName());
-        }
-
-        if (mainRecordObject.isExistInDB()) {
-
-        } else {
-            if (mainRecordObject.isExistInPrevios()) {
-
-            }
-        }
-
-        return mainRecordObject;
     }
 }

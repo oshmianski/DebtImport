@@ -287,6 +287,7 @@ public class LoadTemplateImport implements Runnable, Loader {
         try {
             object = new Object(
                     docObject.getUniversalID(),
+                    docObject.getItemValueInteger("number"),
                     docObject.getItemValueString("title"),
                     docObject.getItemValueString("description"),
                     docObject.getItemValueString("formName"),

@@ -11,6 +11,7 @@ import ca.odell.glazedlists.EventList;
  */
 public class Object {
     private String unid;
+    private int number;
     private String title;
     private String description;
     private String formName;
@@ -20,7 +21,8 @@ public class Object {
     private EventList<Field> fields;
     private EventList<Key> keys;
 
-    public Object(String unid, String title, String description, String formName, String dbUser, String db) {
+    public Object(String unid, int number, String title, String description, String formName, String dbUser, String db) {
+        this.number = number;
         this.unid = unid;
         this.title = title;
         this.description = description;
@@ -94,5 +96,9 @@ public class Object {
 
     public void addKey(Key key){
         keys.add(key);
+    }
+
+    public int getNumber() {
+        return number;
     }
 }
