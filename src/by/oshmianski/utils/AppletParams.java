@@ -11,8 +11,6 @@ import javax.swing.*;
 public class AppletParams {
     private static AppletParams ourInstance = new AppletParams();
 
-    private String server;
-    private String server_cn;
     private String dbReplicaID;
     private String viewTI;
     private String viewObjectRef;
@@ -29,8 +27,6 @@ public class AppletParams {
     }
 
     public void getParams(JApplet applet){
-        server = applet.getParameter("server");
-        server_cn = applet.getParameter("server_cn");
         dbReplicaID = applet.getParameter("dbReplicaID");
         viewTI = applet.getParameter("viewTI");
         viewObjectRef = applet.getParameter("viewObjectRef");
@@ -40,16 +36,12 @@ public class AppletParams {
         viewRuleRef = applet.getParameter("viewRuleRef");
     }
 
-    public String getServer() {
-        return server;
-    }
-
-    public String getServer_cn() {
-        return server_cn;
-    }
-
     public String getDbReplicaID() {
         return dbReplicaID;
+    }
+
+    public void setDbReplicaID(String dbReplicaID) {
+        this.dbReplicaID = dbReplicaID;
     }
 
     public String getViewTI() {
@@ -74,18 +66,6 @@ public class AppletParams {
 
     public String getViewRuleRef() {
         return viewRuleRef;
-    }
-
-    public void setServer(String server) {
-        this.server = server;
-    }
-
-    public void setServer_cn(String server_cn) {
-        this.server_cn = server_cn;
-    }
-
-    public void setDbReplicaID(String dbReplicaID) {
-        this.dbReplicaID = dbReplicaID;
     }
 
     public void setViewTI(String viewTI) {

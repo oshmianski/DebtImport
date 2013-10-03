@@ -102,11 +102,7 @@ public class LoadTemplateImport implements Runnable, Loader {
             NotesThread.sinitThread();
             session = NotesFactory.createSession();
             db = session.getDatabase(null, null);
-            db.openByReplicaID(
-                    (AppletParams.getInstance().getServer() == null ?
-                            (session.getServerName() == null ? "" : session.getServerName()) :
-                            AppletParams.getInstance().getServer()),
-                    AppletParams.getInstance().getDbReplicaID());
+            db.openByReplicaID(session.getServerName() == null ? "" : session.getServerName(), AppletParams.getInstance().getDbReplicaID());
 
             view = db.getView(AppletParams.getInstance().getViewTI());
             view.setAutoUpdate(false);

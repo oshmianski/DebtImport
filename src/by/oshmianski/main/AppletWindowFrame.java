@@ -4,6 +4,7 @@ import by.oshmianski.ui.GUIFrame;
 import by.oshmianski.ui.utils.Icons;
 import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.IconContainer;
+import by.oshmianski.utils.MyLog;
 import by.oshmianski.utils.SwingUIUtils;
 
 import javax.swing.*;
@@ -11,6 +12,9 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,16 +42,22 @@ public class AppletWindowFrame extends JFrame {
     public AppletWindowFrame() {
         SwingUIUtils.getInstance().setLAF();
 
+        InputStream in = getClass().getClassLoader().getResourceAsStream("config.properies");
+        Properties props = new Properties();
+        try {
+            props.load(in);
+        } catch (IOException e) {
+            MyLog.add2Log(e);
+        }
+
         AppletParams ap = AppletParams.getInstance();
-        ap.setServer("");
-        ap.setServer_cn("");
-        ap.setDbReplicaID("42257B4100686325");
-        ap.setViewFieldRef("Field~REF");
-        ap.setViewKeyRef("Key~REF");
-        ap.setViewLinkRef("Link~REF");
-        ap.setViewRuleRef("Rule~REF");
-        ap.setViewObjectRef("Object~REF");
-        ap.setViewTI("TemplateImport~Title");
+        ap.setDbReplicaID(props.getProperty("dbReplicaID"));
+        ap.setViewFieldRef(props.getProperty("viewFieldRef"));
+        ap.setViewKeyRef(props.getProperty("viewKeyRef"));
+        ap.setViewLinkRef(props.getProperty("viewLinkRef"));
+        ap.setViewRuleRef(props.getProperty("viewRuleRef"));
+        ap.setViewObjectRef(props.getProperty("viewObjectRef"));
+        ap.setViewTI(props.getProperty("viewTI"));
 
         gui = new GUIFrame(this);
         gui.create();
