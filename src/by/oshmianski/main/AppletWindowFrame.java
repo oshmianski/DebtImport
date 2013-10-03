@@ -39,7 +39,7 @@ public class AppletWindowFrame extends JFrame {
 
     private GUIFrame gui;
 
-    public AppletWindowFrame() {
+    public AppletWindowFrame(String server) {
         SwingUIUtils.getInstance().setLAF();
 
         InputStream in = getClass().getClassLoader().getResourceAsStream("config.properies");
@@ -51,6 +51,7 @@ public class AppletWindowFrame extends JFrame {
         }
 
         AppletParams ap = AppletParams.getInstance();
+        ap.setServer(server);
         ap.setDbReplicaID(props.getProperty("dbReplicaID"));
         ap.setViewFieldRef(props.getProperty("viewFieldRef"));
         ap.setViewKeyRef(props.getProperty("viewKeyRef"));
@@ -101,7 +102,7 @@ public class AppletWindowFrame extends JFrame {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    new AppletWindowFrame();
+                    new AppletWindowFrame("");
                 }
             });
         } catch (Exception e) {

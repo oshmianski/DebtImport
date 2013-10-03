@@ -7,17 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/XlsxReader.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379051362682" ignored="false" />
-    <file path="/fragment.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380798036693" ignored="false" />
+    <file path="/fragment.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824001532" ignored="false" />
     <file path="/AppletWindow.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379658940648" ignored="false" />
     <file path="/DockingContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380566302893" ignored="false" />
     <file path="/GUI.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379673298608" ignored="false" />
@@ -64,8 +63,8 @@
     <file path="/FilterPanelChild.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379666119989" ignored="false" />
     <file path="/ComparatorCMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379422955783" ignored="false" />
     <file path="/MatcherEditorCMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379443413349" ignored="false" />
-    <file path="/AppletParams.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380795824058" ignored="false" />
-    <file path="/LoadTemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380817516693" ignored="false" />
+    <file path="/AppletParams.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824031263" ignored="false" />
+    <file path="/LoadTemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824201898" ignored="false" />
     <file path="/Rule.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379500668776" ignored="false" />
     <file path="/Field.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380535933758" ignored="false" />
     <file path="/Key.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379501258666" ignored="false" />
@@ -80,10 +79,10 @@
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534258434" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380814563749" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380821020626" ignored="false" />
     <file path="/GUIFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273153113" ignored="false" />
     <file path="/DockingContainerFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273089309" ignored="false" />
-    <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380798317169" ignored="false" />
+    <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824074613" ignored="false" />
     <file path="/RecordObject.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380817434871" ignored="false" />
     <file path="/RecordObjectField.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380535687051" ignored="false" />
     <file path="/RecordNodeFieldType.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534949145" ignored="false" />
@@ -151,7 +150,7 @@
       </breakpoint>
     </breakpoint_any>
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" line="58" class="by.oshmianski.objects.Importer" package="by.oshmianski.objects">
+      <breakpoint url="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" line="59" class="by.oshmianski.objects.Importer" package="by.oshmianski.objects">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -179,7 +178,7 @@
       <file leaf-file-name="LoadImportData.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="0" selection-start="1717" selection-end="1717" vertical-scroll-proportion="0.0">
+            <state line="11" column="26" selection-start="399" selection-end="399" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -188,7 +187,7 @@
       <file leaf-file-name="LoadTemplateImport.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="289" column="57" selection-start="9780" selection-end="9780" vertical-scroll-proportion="0.0">
+            <state line="104" column="31" selection-start="2539" selection-end="2577" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -197,15 +196,33 @@
       <file leaf-file-name="Importer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="630" column="0" selection-start="24024" selection-end="24024" vertical-scroll-proportion="0.46282974">
+            <state line="675" column="75" selection-start="26226" selection-end="26226" vertical-scroll-proportion="0.3321343">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#841#863#0" expanded="true" />
-                <element signature="e#3362#3380#0" expanded="true" />
-                <element signature="e#10415#10433#0" expanded="true" />
-                <element signature="e#10484#10498#0" expanded="true" />
+                <element signature="e#882#904#0" expanded="true" />
+                <element signature="e#3403#3421#0" expanded="true" />
+                <element signature="e#10432#10450#0" expanded="true" />
+                <element signature="e#10501#10515#0" expanded="true" />
                 <element signature="method#getCellString#0;class#Importer#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppletWindowFrame.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="104" column="43" selection-start="3807" selection-end="3807" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppletParams.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="100" column="42" selection-start="2395" selection-end="2395" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -242,13 +259,13 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
       </list>
     </option>
@@ -883,6 +900,7 @@
       <parameter name="viewFieldRef" value="Field~REF" />
       <parameter name="viewRuleRef" value="Rule~REF" />
       <parameter name="dbReplicaID" value="42257B4100686325" />
+      <parameter name="server" value="" />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="" />
         <option name="TRANSPORT" value="0" />
@@ -1023,7 +1041,11 @@
       <created>1380802253671</created>
       <updated>1380802253671</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="first release">
+      <created>1380821030817</created>
+      <updated>1380821030817</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1152,27 +1174,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="52" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Key.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="168" column="39" selection-start="3267" selection-end="3267" vertical-scroll-proportion="0.8790036">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="42" selection-start="2573" selection-end="2573" vertical-scroll-proportion="0.11150652">
-          <folding>
-            <element signature="e#3642#3797#0" expanded="true" />
-            <element signature="e#3782#3783#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1193,20 +1198,6 @@
     <entry file="jar://$PROJECT_DIR$/lib/Notes.jar!/lotus/domino/Document.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="12" selection-start="974" selection-end="974" vertical-scroll-proportion="0.34285715" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="289" column="57" selection-start="9780" selection-end="9780" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="0" selection-start="1717" selection-end="1717" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
@@ -1244,15 +1235,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="100" column="42" selection-start="2395" selection-end="2395" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="104" column="43" selection-start="3807" selection-end="3807" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="104" column="31" selection-start="2539" selection-end="2577" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="26" selection-start="399" selection-end="399" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="630" column="0" selection-start="24024" selection-end="24024" vertical-scroll-proportion="0.46282974">
+        <state line="675" column="75" selection-start="26226" selection-end="26226" vertical-scroll-proportion="0.3321343">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#841#863#0" expanded="true" />
-            <element signature="e#3362#3380#0" expanded="true" />
-            <element signature="e#10415#10433#0" expanded="true" />
-            <element signature="e#10484#10498#0" expanded="true" />
+            <element signature="e#882#904#0" expanded="true" />
+            <element signature="e#3403#3421#0" expanded="true" />
+            <element signature="e#10432#10450#0" expanded="true" />
+            <element signature="e#10501#10515#0" expanded="true" />
             <element signature="method#getCellString#0;class#Importer#0" expanded="false" />
           </folding>
         </state>

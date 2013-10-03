@@ -1,6 +1,7 @@
 package by.oshmianski.objects;
 
 import by.oshmianski.loaders.LoadImportData;
+import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -143,7 +144,7 @@ public class Importer {
 
                                 if (!dbMap.containsKey(object.getDb())) {
                                     Database database = session.getDatabase(null, null);
-                                    database.openByReplicaID(session.getServerName() == null ? "" : session.getServerName(), object.getDb());
+                                    database.openByReplicaID(AppletParams.getInstance().getServer(), object.getDb());
                                     dbMap.put(object.getDb(), database);
                                 }
 
@@ -673,7 +674,7 @@ public class Importer {
                 }
                 if (!dbMap.containsKey(key.getDb())) {
                     Database database = session.getDatabase(null, null);
-                    database.openByReplicaID(session.getServerName() == null ? "" : session.getServerName(), key.getDb());
+                    database.openByReplicaID(AppletParams.getInstance().getServer(), key.getDb());
                     dbMap.put(key.getDb(), database);
                 }
 
