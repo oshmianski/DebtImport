@@ -1,6 +1,8 @@
 package by.oshmianski.objects;
 
 import by.oshmianski.loaders.LoadImportData;
+import by.oshmianski.test.Address;
+import by.oshmianski.test.FuzzySearch;
 import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
@@ -29,7 +31,7 @@ public class Importer {
 
     private Map<String, RecordObject> recordObjectMap = new HashMap<String, RecordObject>();
     private String importKey;
-
+    private FuzzySearch fuzzySearchAddress;
 
     public Importer(LoadImportData loader) {
         this.loader = loader;
@@ -625,8 +627,38 @@ public class Importer {
                 rObject.setFlagEmpty(true);
             }
 
-            rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
-            rFields.add(rField);
+            if (!"#ADDRESS".equalsIgnoreCase(field.getTitleSys())) {
+                rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
+                rFields.add(rField);
+            } else {
+                if(fuzzySearchAddress == null)
+                    fuzzySearchAddress = new FuzzySearch();
+                Address address = fuzzySearchAddress.getAddress(cellValue);
+
+                rField = new RecordObjectField("index", address.getIndex(), RecordNodeFieldType.text);
+                rFields.add(rField);
+
+                rField = new RecordObjectField("country", address.getCountry(), RecordNodeFieldType.text);
+                rFields.add(rField);
+
+                rField = new RecordObjectField("region", address.getRegion(), RecordNodeFieldType.text);
+                rFields.add(rField);
+
+                rField = new RecordObjectField("district", address.getDistrict(), RecordNodeFieldType.text);
+                rFields.add(rField);
+
+                rField = new RecordObjectField("city", address.getCity(), RecordNodeFieldType.text);
+                rFields.add(rField);
+
+                rField = new RecordObjectField("street", address.getStreet(), RecordNodeFieldType.text);
+                rFields.add(rField);
+
+                rField = new RecordObjectField("house", address.getHouse(), RecordNodeFieldType.text);
+                rFields.add(rField);
+
+                rField = new RecordObjectField("flat", address.getFlat(), RecordNodeFieldType.text);
+                rFields.add(rField);
+            }
         }
 
         rField = new RecordObjectField("importKey", importKey, RecordNodeFieldType.text);

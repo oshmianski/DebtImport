@@ -21,10 +21,11 @@ public class FuzzySearch {
 
         FuzzySearch fuzzySearch = new FuzzySearch();
         address = fuzzySearch.getAddress(test1);
+        System.out.println("===");
         address = fuzzySearch.getAddress(test2);
     }
 
-    private Address getAddress(String addressStr) {
+    public Address getAddress(String addressStr) {
         Address address = new Address();
         String country = "Беларусь";
         String[] regions = {"Брестская", "Гродненская", "Гомельская", "Витебская", "Минская", "Могилевская"};
@@ -38,10 +39,10 @@ public class FuzzySearch {
                 "Костюковичский", "Краснопольский", "Кричевский", "Круглянский", "Крупский", "Лельчицкий", "Лепельский", "Лидский",
                 "Лиозненский", "Логойский", "Лоевский", "Лунинецкий", "Любанский", "Ляховичский", "Малоритский", "Минский",
                 "Миорский", "Могилевский", "Мозырский", "Молодечненский", "Мостовский", "Мстиславский", "Мядельский", "Наровлянский",
-                "Несвижский", "Новогрудский", "Новополоцк", "Октябрьский", "Оршанский", "Осиповичский", "Островецкий", "Ошмянский",
+                "Несвижский", "Новогрудский", "Новополоцкий", "Октябрьский", "Оршанский", "Осиповичский", "Островецкий", "Ошмянский",
                 "Петриковский", "Пинский", "Полоцкий", "Поставский", "Пружанский", "Пуховичский", "Речицкий", "Рогачевский",
-                "Россонский", "Светлогорский", "Свислочский", "Сенненский", "Славгородский", "Слонимский", "Слуцкий", "Смолевичский"
-                , "Сморгонский", "Солигорский", "Стародорожский", "Столбцовский", "Столинский", "Толочинский", "Узденский", "Ушачский",
+                "Россонский", "Светлогорский", "Свислочский", "Сенненский", "Славгородский", "Слонимский", "Слуцкий", "Смолевичский",
+                "Сморгонский", "Солигорский", "Стародорожский", "Столбцовский", "Столинский", "Толочинский", "Узденский", "Ушачский",
                 "Хойникский", "Хотимский", "Чаусский", "Чашникский", "Червенский", "Чериковский", "Чечерский", "Шарковщинский",
                 "Шкловский", "Шумилинский", "Щучинский"
         };
@@ -87,32 +88,52 @@ public class FuzzySearch {
         }
 
         String val = "";
+        //индекс
+        Pattern pattern3 = Pattern.compile("\\d{6}");
+        Matcher matcher3 = pattern3.matcher(addressStr);
+        if (matcher3.find()) {
+            System.out.println("индекс=" + matcher3.group());
+            address.setIndex(matcher3.group());
+            addressStr.replace(matcher3.group(), "");
+        }
+
+        val = "";
+        //город
+        Pattern patternCity = Pattern.compile("(?<=(г\\.|гор\\.)\\s{0,}).*");
+        Matcher matcherCity = patternCity.matcher(addressStr);
+        if (matcherCity.find()) {
+            val = matcherCity.group().trim();
+            if (val.indexOf(" ") != -1)
+                val = StringUtils.left(val, val.indexOf(" "));
+            val = val.replaceAll(",", "").trim();
+            System.out.println("город=" + val);
+            address.setCity(val);
+        }
+
+        val = "";
         //дом
         Pattern pattern = Pattern.compile("(?<=(д|д\\.|дом|дом\\.)\\s{0,})\\d.*");
         Matcher matcher = pattern.matcher(addressStr);
-        if (matcher.find()){
-            val = StringUtils.left(matcher.group(), matcher.group().indexOf(" "));
+        if (matcher.find()) {
+            val = matcher.group().trim();
+            if (val.indexOf(" ") != -1)
+                val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
             System.out.println("дом=" + val);
             address.setHouse(val);
         }
 
+        val = "";
         //квартира
         Pattern pattern2 = Pattern.compile("(?<=(к|к\\.|квартира|кв\\.|кв)\\s{0,})\\d.*");
         Matcher matcher2 = pattern2.matcher(addressStr);
-        if (matcher2.find()){
-            val = StringUtils.left(matcher2.group(), matcher2.group().indexOf(" "));
+        if (matcher2.find()) {
+            val = matcher2.group().trim();
+            if (val.indexOf(" ") != -1)
+                val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
             System.out.println("квартира=" + val);
             address.setFlat(val);
-        }
-
-        //индекс
-        Pattern pattern3 = Pattern.compile("\\d{6}");
-        Matcher matcher3 = pattern3.matcher(addressStr);
-        if(matcher3.find()){
-            System.out.println("индекс=" + matcher3.group());
-            address.setIndex(matcher3.group());
         }
 
         return address;
