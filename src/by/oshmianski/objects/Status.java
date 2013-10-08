@@ -8,8 +8,12 @@ package by.oshmianski.objects;
  */
 public enum Status {
     ERROR(0),
-    WARNING(10),
-    OK(20);
+//    WARNING_ADDRESS_NO_DISTRICT(50),
+    WARNING_ADDRESS_NO_CITY(51),
+    WARNING_ADDRESS_NO_STREET(52),
+    WARNING_ADDRESS_NO_HOUSE(53),
+    WARNING(100),
+    OK(200);
 
     int statusOrdinal = 0;
 
@@ -17,6 +21,7 @@ public enum Status {
         statusOrdinal = i;
     }
 
-    public static Status[] STATUS_INDEXED = new Status[]{null, ERROR, WARNING, OK};
+//    public static Status[] STATUS_INDEXED = new Status[]{null, ERROR, WARNING_ADDRESS_NO_DISTRICT, WARNING_ADDRESS_NO_CITY, WARNING_ADDRESS_NO_STREET, WARNING_ADDRESS_NO_HOUSE, WARNING, OK};
+    public static Status[] STATUS_INDEXED = new Status[]{null, ERROR, WARNING_ADDRESS_NO_CITY, WARNING_ADDRESS_NO_STREET, WARNING_ADDRESS_NO_HOUSE, WARNING, OK};
 
 }

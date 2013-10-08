@@ -81,7 +81,12 @@ public class UIProcessorImpl implements UIProcessor {
         if (dataMainItem.getStatusFromChild() == Status.ERROR) {
             dockInfo.countIncError();
         }
-        if (dataMainItem.getStatusFromChild() == Status.WARNING) {
+        if (dataMainItem.getStatusFromChild() == Status.WARNING
+//                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_DISTRICT
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_STREET
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_CITY
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_HOUSE
+                ) {
             dockInfo.countIncWarning();
         }
     }
