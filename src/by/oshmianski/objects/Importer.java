@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.awt.*;
 import java.awt.Color;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -152,9 +151,11 @@ public class Importer {
                     Document docParent = null;
                     EventList<RecordObject> recordObjectEventList = null;
                     SortedList<RecordObject> recordObjectSortedList = null;
+                    DateTime dateTime = null;
 
                     try {
-                        recordObjectEventList = new BasicEventList<RecordObject>(dataMainItem.getObjects());
+                        recordObjectEventList = new BasicEventList<RecordObject>();
+                        recordObjectEventList.addAll(dataMainItem.getObjects());
                         recordObjectSortedList = new SortedList<RecordObject>(recordObjectEventList, GlazedLists.beanPropertyComparator(RecordObject.class, "number"));
                         for (RecordObject rObject : recordObjectSortedList) {
                             if (!(rObject.isFlagEmpty() || rObject.isExistInDB() || rObject.isExistInPrevios())) {
@@ -171,7 +172,20 @@ public class Importer {
                                 document.computeWithForm(false, false);
 
                                 for (RecordObjectField field : rObject.getFields()) {
-                                    document.replaceItemValue(field.getTitle(), field.getValue());
+                                    java.lang.Object val = null;
+
+                                    if (field.getType() == Field.TYPE.TEXT || field.getType() == Field.TYPE.AUTHORS || field.getType() == Field.TYPE.READERS)
+                                        val = field.getValue();
+
+                                    if (field.getType() == Field.TYPE.NUMBER)
+                                        val = new Double(field.getValue());
+
+                                    if (field.getType() == Field.TYPE.DATETIME) {
+                                        dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(field.getValue()));
+                                        val = dateTime;
+                                    }
+
+                                    document.replaceItemValue(field.getTitle(), val);
                                 }
 
                                 RecordObject mainRecordObject = rObject.getMainObject();
@@ -224,6 +238,9 @@ public class Importer {
 
                         if (recordObjectEventList != null)
                             recordObjectEventList.dispose();
+
+                        if (dateTime != null)
+                            dateTime.recycle();
 
                         if (document != null)
                             document.recycle();
@@ -553,7 +570,7 @@ public class Importer {
                 break;
             case Cell.CELL_TYPE_NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    retValue = cell.getDateCellValue().toString();
+                    retValue = formatterDateTime.format(cell.getDateCellValue());
                 } else {
                     retValue = String.valueOf(cell.getNumericCellValue());
                 }
@@ -589,6 +606,60 @@ public class Importer {
         }
 
         return retValue;
+    }
+
+    public CellField getCellField(Workbook wb, Cell cell) {
+        CellField cellField = new CellField("", Field.TYPE.TEXT);
+
+        FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+
+        if (cell == null) return cellField;
+
+        switch (cell.getCellType()) {
+            case Cell.CELL_TYPE_STRING:
+                cellField.setValue(cell.getStringCellValue());
+                break;
+            case Cell.CELL_TYPE_NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    cellField.setValue(cell.getDateCellValue());
+                    cellField.setType(Field.TYPE.DATETIME);
+                } else {
+                    cellField.setValue(String.valueOf(cell.getNumericCellValue()));
+                    cellField.setType(Field.TYPE.NUMBER);
+                }
+                break;
+            case Cell.CELL_TYPE_BOOLEAN:
+                cellField.setValue(String.valueOf(cell.getBooleanCellValue()));
+                break;
+            case Cell.CELL_TYPE_FORMULA:
+                CellValue cellValue = evaluator.evaluate(cell);
+
+                switch (cellValue.getCellType()) {
+                    case Cell.CELL_TYPE_BOOLEAN:
+                        cellField.setValue(String.valueOf(cellValue.getBooleanValue()));
+                        break;
+                    case Cell.CELL_TYPE_NUMERIC:
+                        cellField.setValue(cellValue.getNumberValue());
+                        cellField.setType(Field.TYPE.NUMBER);
+                        break;
+                    case Cell.CELL_TYPE_STRING:
+                        cellField.setValue(cellValue.getStringValue());
+                        break;
+                    case Cell.CELL_TYPE_BLANK:
+                        break;
+                    case Cell.CELL_TYPE_ERROR:
+                        break;
+
+                    // CELL_TYPE_FORMULA will never happen
+                    case Cell.CELL_TYPE_FORMULA:
+                        break;
+                }
+                break;
+            default:
+
+        }
+
+        return cellField;
     }
 
     private void processFields(
@@ -631,7 +702,6 @@ public class Importer {
                     col = colStr;
                 }
 
-                //TODO: нужно обрабоать тип ячейки
                 cellValueReal = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
                 cellValue = cellValueReal;
 
@@ -692,40 +762,40 @@ public class Importer {
 
                 fillRecordObjectFields(rFields, address);
             } else {
-                rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
+                rField = new RecordObjectField(field.getTitleSys(), cellValue, field.getType());
                 rFields.add(rField);
             }
         }
 
-        rField = new RecordObjectField("UNID_FI", importKey, RecordNodeFieldType.text);
+        rField = new RecordObjectField("UNID_FI", importKey, Field.TYPE.TEXT);
         rFields.add(rField);
     }
 
     private void fillRecordObjectFields(ArrayList<RecordObjectField> rFields, Address address) {
         RecordObjectField rField;
 
-        rField = new RecordObjectField("index", address.getIndex(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("index", address.getIndex(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("country", address.getCountry(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("country", address.getCountry(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("region", address.getRegion(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("region", address.getRegion(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("district", address.getDistrict(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("district", address.getDistrict(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("city", address.getCity(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("city", address.getCity(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("street", address.getStreet(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("street", address.getStreet(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("house", address.getHouse(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("house", address.getHouse(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("flat", address.getFlat(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("flat", address.getFlat(), Field.TYPE.TEXT);
         rFields.add(rField);
     }
 

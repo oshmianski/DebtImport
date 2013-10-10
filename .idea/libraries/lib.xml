@@ -16,6 +16,7 @@
       <root url="file://D:/Downloads/poi-src-3.9-20121203/poi-3.9/src/scratchpad/src" />
       <root url="file://D:/Downloads/poi-src-3.9-20121203/poi-3.9/src/scratchpad/testcases" />
       <root url="jar://D:/Downloads/commons-lang3-3.1-bin/commons-lang3-3.1/commons-lang3-3.1-sources.jar!/" />
+      <root url="jar://D:/Downloads/glazedlists_java15-1.9.0-sources.jar!/" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
   </library>

@@ -11,19 +11,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class RecordObjectField {
     private String title;
     private String value;
-    private RecordNodeFieldType type;
+    private Field.TYPE type;
 
-    public RecordObjectField(String title, String value, RecordNodeFieldType type) {
+    public RecordObjectField(String title, String value, Field.TYPE type) {
         this.title = title;
         this.value = value;
         this.type = type;
     }
 
-    public RecordNodeFieldType getType() {
+    public Field.TYPE getType() {
         return type;
     }
 
-    public void setType(RecordNodeFieldType type) {
+    public void setType(Field.TYPE type) {
         this.type = type;
     }
 

@@ -16,9 +16,19 @@ public class Field {
     private String titleSys;
     private String titleUser;
     private String description;
-    private String type;
+    private TYPE type;
     private String xmlCell;
     private boolean emptyFlag;
+
+    public static enum TYPE {
+        TEXT,
+        NUMBER,
+        DATETIME,
+        AUTHORS,
+        READERS
+    }
+
+    ;
 
     private EventList<Rule> rules = new BasicEventList<Rule>();
 
@@ -27,9 +37,19 @@ public class Field {
         this.titleSys = titleSys;
         this.titleUser = titleUser;
         this.description = description;
-        this.type = type;
         this.xmlCell = xmlCell;
         this.emptyFlag = emptyFlag;
+
+        if ("text".equals(type))
+            this.type = TYPE.TEXT;
+        if ("number".equals(type))
+            this.type = TYPE.NUMBER;
+        if ("datetime".equals(type))
+            this.type = TYPE.DATETIME;
+        if ("authors".equals(type))
+            this.type = TYPE.AUTHORS;
+        if ("readers".equals(type))
+            this.type = TYPE.READERS;
     }
 
     public String getUnid() {
@@ -64,11 +84,11 @@ public class Field {
         this.description = description;
     }
 
-    public String getType() {
+    public TYPE getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TYPE type) {
         this.type = type;
     }
 
