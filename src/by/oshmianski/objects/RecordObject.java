@@ -1,6 +1,11 @@
 package by.oshmianski.objects;
 
+import ca.odell.glazedlists.impl.sort.ReverseComparator;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,7 +13,7 @@ import java.util.ArrayList;
  * Date: 30.09.13
  * Time: 12:48
  */
-public class RecordObject{
+public class RecordObject implements Comparable<RecordObject>{
     private int number;
     private String title;
     private boolean flagEmpty;
@@ -37,6 +42,12 @@ public class RecordObject{
     }
 
     public void setFields(ArrayList<RecordObjectField> fields) {
+        Collections.sort(fields, new Comparator<RecordObjectField>() {
+            @Override
+            public int compare(RecordObjectField o1, RecordObjectField o2) {
+                return o1.getTitle().toLowerCase().compareTo(o2.getTitle().toLowerCase());
+            }
+        });
         this.fields = fields;
     }
 
@@ -103,5 +114,10 @@ public class RecordObject{
     @Override
     public String toString() {
         return title;
+    }
+
+    @Override
+    public int compareTo(RecordObject o) {
+        return o.getTitle().compareTo(getTitle());
     }
 }

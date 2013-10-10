@@ -28,8 +28,6 @@ public class Field {
         READERS
     }
 
-    ;
-
     private EventList<Rule> rules = new BasicEventList<Rule>();
 
     public Field(String unid, String titleSys, String titleUser, String description, String type, String xmlCell, boolean emptyFlag) {
