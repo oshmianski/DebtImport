@@ -32,7 +32,12 @@ public class StatusRenderer extends DefaultTableCellRenderer implements TableCel
         if (value == Status.OK)
             label.setForeground(new Color(0x008000));
 
-        if (value == Status.WARNING)
+        if (value == Status.WARNING
+//                || value == Status.WARNING_ADDRESS_NO_DISTRICT
+                || value == Status.WARNING_ADDRESS_NO_STREET
+                || value == Status.WARNING_ADDRESS_NO_CITY
+                || value == Status.WARNING_ADDRESS_NO_HOUSE
+                )
             label.setForeground(new Color(0xC26802));
 
         if (value == Status.ERROR)

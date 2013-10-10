@@ -1,6 +1,8 @@
 package by.oshmianski.objects;
 
 import by.oshmianski.loaders.LoadImportData;
+import by.oshmianski.test.Address;
+import by.oshmianski.test.FuzzySearch;
 import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
@@ -9,6 +11,7 @@ import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.SortedList;
 import lotus.domino.*;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
@@ -29,7 +32,7 @@ public class Importer {
 
     private Map<String, RecordObject> recordObjectMap = new HashMap<String, RecordObject>();
     private String importKey;
-
+    private FuzzySearch fuzzySearchAddress;
 
     public Importer(LoadImportData loader) {
         this.loader = loader;
@@ -353,7 +356,7 @@ public class Importer {
                                 "Ошибка",
                                 ex.toString()
                         );
-                        dataMainItem.addDataChildItem(dataChildItem);
+                        dataChildItems.add(dataChildItem);
                     }
 
                     rObject.setFields(rFields);
@@ -375,7 +378,7 @@ public class Importer {
                                 "Ошибка",
                                 ex.toString()
                         );
-                        dataMainItem.addDataChildItem(dataChildItem);
+                        dataChildItems.add(dataChildItem);
                     }
                 }
 
@@ -572,7 +575,7 @@ public class Importer {
                         colStr = colStr.replaceAll("\\<" + str + "\\>", "\"" + row.getCell(CellReference.convertColStringToIndex(str)) + "\"").replaceAll("null", "");
                     }
 
-                    Vector vec = session.evaluate(colStr);
+                    Vector vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
                     col = vec.get(0).toString();
                 } else {
                     col = colStr;
@@ -625,11 +628,53 @@ public class Importer {
                 rObject.setFlagEmpty(true);
             }
 
-            rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
-            rFields.add(rField);
+            if ("#ADDRESS".equalsIgnoreCase(field.getTitleSys())) {
+                if (fuzzySearchAddress == null)
+                    fuzzySearchAddress = new FuzzySearch();
+                Address address = fuzzySearchAddress.getAddress(cellValue, dataChildItems);
+
+                fillRecordObjectFields(rFields, address);
+            } else if ("#ADDRESS_STRUCTURED_1".equalsIgnoreCase(field.getTitleSys())) {
+                if (fuzzySearchAddress == null)
+                    fuzzySearchAddress = new FuzzySearch();
+                Address address = fuzzySearchAddress.getAddressStructured1(cellValue, dataChildItems);
+
+                fillRecordObjectFields(rFields, address);
+            } else {
+                rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
+                rFields.add(rField);
+            }
         }
 
         rField = new RecordObjectField("importKey", importKey, RecordNodeFieldType.text);
+        rFields.add(rField);
+    }
+
+    private void fillRecordObjectFields(ArrayList<RecordObjectField> rFields, Address address) {
+        RecordObjectField rField;
+
+        rField = new RecordObjectField("index", address.getIndex(), RecordNodeFieldType.text);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("country", address.getCountry(), RecordNodeFieldType.text);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("region", address.getRegion(), RecordNodeFieldType.text);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("district", address.getDistrict(), RecordNodeFieldType.text);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("city", address.getCity(), RecordNodeFieldType.text);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("street", address.getStreet(), RecordNodeFieldType.text);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("house", address.getHouse(), RecordNodeFieldType.text);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("flat", address.getFlat(), RecordNodeFieldType.text);
         rFields.add(rField);
     }
 
