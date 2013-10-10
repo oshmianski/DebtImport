@@ -7,9 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/test/Address.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -78,7 +75,7 @@
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534258434" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381139761941" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381387453733" ignored="false" />
     <file path="/GUIFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273153113" ignored="false" />
     <file path="/DockingContainerFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273089309" ignored="false" />
     <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824074613" ignored="false" />
@@ -113,6 +110,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -166,7 +164,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -198,14 +195,7 @@
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="705" column="28" selection-start="27728" selection-end="27728" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#882#904#0" expanded="true" />
-                <element signature="e#3403#3421#0" expanded="true" />
-                <element signature="e#10432#10450#0" expanded="true" />
-                <element signature="e#10501#10515#0" expanded="true" />
-                <element signature="method#getCellString#0;class#Importer#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -213,7 +203,7 @@
       <file leaf-file-name="FuzzySearch.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="100" selection-start="4212" selection-end="4212" vertical-scroll-proportion="0.8784267">
+            <state line="89" column="84" selection-start="4395" selection-end="4395" vertical-scroll-proportion="0.5788177">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -326,6 +316,48 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="DebtImport">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="DebtImport">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT=".idea">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -740,48 +772,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DebtImport" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DebtImport" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="DebtImport">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="DebtImport">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT=".idea">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1094,7 +1084,11 @@
       <created>1380821030817</created>
       <updated>1380821030817</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="first release">
+      <created>1381154958047</created>
+      <updated>1381154958047</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1119,9 +1113,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1022" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50172615" sideWeight="0.59363526" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.50057805" sideWeight="0.59363526" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249694" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1129,16 +1123,16 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50172615" sideWeight="0.40575275" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.010404624" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256617" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20991433" sideWeight="0.316763" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20991433" sideWeight="0.1583815" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20991433" sideWeight="0.6820809" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20991433" sideWeight="0.3398844" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31907514" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4556962" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.010404624" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1280,29 +1274,18 @@
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="705" column="28" selection-start="27728" selection-end="27728" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#882#904#0" expanded="true" />
-            <element signature="e#3403#3421#0" expanded="true" />
-            <element signature="e#10432#10450#0" expanded="true" />
-            <element signature="e#10501#10515#0" expanded="true" />
-            <element signature="method#getCellString#0;class#Importer#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/lib/commons-lang3-3.1.jar!/org/apache/commons/lang3/StringUtils.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="324" column="22" selection-start="18550" selection-end="18550" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="324" column="22" selection-start="18550" selection-end="18550" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="jar://D:/Downloads/commons-lang3-3.1-bin/commons-lang3-3.1/commons-lang3-3.1-sources.jar!/org/apache/commons/lang3/StringUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6166" column="80" selection-start="249522" selection-end="249522" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="6166" column="80" selection-start="249522" selection-end="249522" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/test/Address.java">
@@ -1314,14 +1297,12 @@
     </entry>
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.6.0_45/src.zip!/java/util/regex/Matcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="465" column="18" selection-start="16872" selection-end="16872" vertical-scroll-proportion="0.33253872">
-          <folding />
-        </state>
+        <state line="465" column="18" selection-start="16872" selection-end="16872" vertical-scroll-proportion="0.33253872" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="100" selection-start="4212" selection-end="4212" vertical-scroll-proportion="0.8784267">
+        <state line="89" column="84" selection-start="4395" selection-end="4395" vertical-scroll-proportion="0.5788177">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
