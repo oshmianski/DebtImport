@@ -74,4 +74,10 @@ public class RecordObjectsTreeModel extends AbstractTreeTableModel {
         }
         return 0;
     }
+
+    @Override
+    public boolean isCellEditable(Object node, int column) {
+        if (column == 1) return true;
+        return super.isCellEditable(node, column);
+    }
 }

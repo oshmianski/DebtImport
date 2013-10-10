@@ -6,19 +6,21 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java" />
+    <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/XlsxReader.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379051362682" ignored="false" />
-    <file path="/fragment.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824001532" ignored="false" />
-    <file path="/AppletWindow.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379658940648" ignored="false" />
+    <file path="/fragment.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381393093493" ignored="false" />
+    <file path="/AppletWindow.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381393066408" ignored="false" />
     <file path="/DockingContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380566302893" ignored="false" />
     <file path="/GUI.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379673298608" ignored="false" />
     <file path="/DockHeader.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595706360" ignored="false" />
@@ -31,7 +33,7 @@
     <file path="/DockInfo.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380714883042" ignored="false" />
     <file path="/DataMainitem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379320465510" ignored="false" />
     <file path="/Status.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381254921047" ignored="false" />
-    <file path="/DataMainModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380616545541" ignored="false" />
+    <file path="/DataMainModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381391804413" ignored="false" />
     <file path="/DockSimple.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379321542575" ignored="false" />
     <file path="/Processor.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379331492333" ignored="false" />
     <file path="/DataChildItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379414858750" ignored="false" />
@@ -65,13 +67,13 @@
     <file path="/ComparatorCMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379422955783" ignored="false" />
     <file path="/MatcherEditorCMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379443413349" ignored="false" />
     <file path="/AppletParams.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824031263" ignored="false" />
-    <file path="/LoadTemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824201898" ignored="false" />
+    <file path="/LoadTemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381389472565" ignored="false" />
     <file path="/Rule.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379500668776" ignored="false" />
     <file path="/Field.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380535933758" ignored="false" />
     <file path="/Key.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379501258666" ignored="false" />
     <file path="/Object.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380817457150" ignored="false" />
     <file path="/Link.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379503686592" ignored="false" />
-    <file path="/TemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380805702496" ignored="false" />
+    <file path="/TemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381393643106" ignored="false" />
     <file path="/DockableRichText.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379523312815" ignored="false" />
     <file path="/MyLog.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380716744149" ignored="false" />
     <file path="/DockLog.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379525018011" ignored="false" />
@@ -80,7 +82,7 @@
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534258434" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381257418568" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381399097281" ignored="false" />
     <file path="/GUIFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273153113" ignored="false" />
     <file path="/DockingContainerFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273089309" ignored="false" />
     <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824074613" ignored="false" />
@@ -97,9 +99,10 @@
     <file path="/ColorRenderer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380574390262" ignored="false" />
     <file path="/LoadImportData.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380711312044" ignored="false" />
     <file path="/LoadDataToDB.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380711103853" ignored="false" />
-    <file path="/Importer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381254383795" ignored="false" />
+    <file path="/Importer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381398604775" ignored="false" />
     <file path="/Loader.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380710108614" ignored="false" />
-    <file path="/FuzzySearch.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381254972471" ignored="false" />
+    <file path="/FuzzySearch.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381392119867" ignored="false" />
+    <file path="/RecordObjectsTreeModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381391517634" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,38 +154,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" line="62" class="by.oshmianski.objects.Importer" package="by.oshmianski.objects">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java" line="53" class="by.oshmianski.test.FuzzySearch" package="by.oshmianski.test">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -192,37 +164,90 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Status.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Status.java">
+      <file leaf-file-name="LoadTemplateImport.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="70" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
+            <state line="147" column="66" selection-start="4613" selection-end="4613" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="FuzzySearch.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="11" selection-start="3976" selection-end="4336" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UIProcessorImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
+      <file leaf-file-name="RecordObjectsTreeModel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="92" selection-start="2482" selection-end="2482" vertical-scroll-proportion="0.0">
+            <state line="81" column="5" selection-start="2094" selection-end="2263" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StatusRenderer.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DataMainModel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="20" selection-start="1245" selection-end="1245" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DockDataMain.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="72" column="67" selection-start="2592" selection-end="2592" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Importer.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="809" column="51" selection-start="32455" selection-end="32455" vertical-scroll-proportion="0.5354037">
+              <folding>
+                <element signature="method#preWork#0;class#Importer#0" expanded="false" />
+                <element signature="method#postWork#0;class#Importer#0" expanded="false" />
+                <element signature="method#preTest#0;class#Importer#0" expanded="false" />
+                <element signature="method#postTest#0;class#Importer#0" expanded="false" />
+                <element signature="method#CantOpenFileException#0;class#CantOpenFileException#0;class#Importer#0" expanded="false" />
+                <element signature="method#getCellString#0;class#Importer#0" expanded="false" />
+                <element signature="method#fillRecordObjectFields#0;class#Importer#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ColorRenderer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="82" selection-start="508" selection-end="586" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TemplateImport.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="21" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StatusRenderer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="64" selection-start="1302" selection-end="1302" vertical-scroll-proportion="0.39130434">
+            <state line="38" column="105" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -252,22 +277,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindow.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
       </list>
     </option>
   </component>
@@ -275,10 +300,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-4" />
-    <option name="y" value="-4" />
-    <option name="width" value="1688" />
-    <option name="height" value="1030" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1696" />
+    <option name="height" value="1022" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -778,12 +803,12 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -796,7 +821,7 @@
   </component>
   <component name="RunManager" selected="Applet.AppletWindow">
     <configuration default="false" name="FuzzySearch" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="by.oshmianski.test.FuzzySearch" />
+      <option name="MAIN_CLASS_NAME" value="by.oshmianski.objects.FuzzySearch" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -831,19 +856,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -869,6 +881,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1082,7 +1107,11 @@
       <created>1381179591353</created>
       <updated>1381179591353</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1381399109676</created>
+      <updated>1381399109676</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1106,24 +1135,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1688" height="1030" extended-state="6" />
+    <frame x="-8" y="-8" width="1696" height="1022" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5" sideWeight="0.59363526" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49942195" sideWeight="0.59363526" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249694" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40837103" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50172615" sideWeight="0.40575275" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.011312217" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947975" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24739884" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256617" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20991433" sideWeight="0.21040724" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20991433" sideWeight="0.22543353" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20991433" sideWeight="0.4683258" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32013574" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20991433" sideWeight="0.7745665" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31907514" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4556962" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1173,7 +1202,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="first release" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1188,6 +1217,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="first release" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1197,76 +1227,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="28" selection-start="1978" selection-end="1978" vertical-scroll-proportion="0.62354314">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Field.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="42" selection-start="482" selection-end="482" vertical-scroll-proportion="-0.64452213">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Rule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="141" selection-end="141" vertical-scroll-proportion="-0.079254076">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="28" selection-start="2074" selection-end="2074" vertical-scroll-proportion="0.8811189">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="43" selection-start="3807" selection-end="3807" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.6.0_24/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2225" column="33" selection-start="85377" selection-end="85401" vertical-scroll-proportion="0.019813519">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="0" selection-start="1768" selection-end="1768" vertical-scroll-proportion="0.4516129">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="42" selection-start="2395" selection-end="2395" vertical-scroll-proportion="0.82167834">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="52" selection-start="1544" selection-end="1544" vertical-scroll-proportion="0.14102565">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="121" column="71" selection-start="3399" selection-end="3399" vertical-scroll-proportion="0.019813519">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="72" selection-start="719" selection-end="719" vertical-scroll-proportion="0.019813519">
@@ -1274,23 +1234,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="411" column="75" selection-start="16256" selection-end="16256" vertical-scroll-proportion="0.6639053">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Status.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="70" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/test/FuzzySearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="11" selection-start="3976" selection-end="4336" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1304,8 +1250,100 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="64" selection-start="1302" selection-end="1302" vertical-scroll-proportion="0.39130434">
+        <state line="38" column="105" selection-start="1421" selection-end="1421" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="147" column="66" selection-start="4613" selection-end="4613" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="5" selection-start="2094" selection-end="2263" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/glazedlists_java15-1.9.0.jar!/ca/odell/glazedlists/gui/TableFormat.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="17" selection-start="171" selection-end="171" vertical-scroll-proportion="0.1071879">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="20" selection-start="1245" selection-end="1245" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="67" selection-start="2592" selection-end="2592" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="93" selection-start="2488" selection-end="2573" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="21" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="82" selection-start="508" selection-end="586" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files (x86)/Java/jdk1.6.0_45/src.zip!/java/text/SimpleDateFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="468" column="49" selection-start="18496" selection-end="18496" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="809" column="51" selection-start="32455" selection-end="32455" vertical-scroll-proportion="0.5354037">
+          <folding>
+            <element signature="method#preWork#0;class#Importer#0" expanded="false" />
+            <element signature="method#postWork#0;class#Importer#0" expanded="false" />
+            <element signature="method#preTest#0;class#Importer#0" expanded="false" />
+            <element signature="method#postTest#0;class#Importer#0" expanded="false" />
+            <element signature="method#CantOpenFileException#0;class#CantOpenFileException#0;class#Importer#0" expanded="false" />
+            <element signature="method#getCellString#0;class#Importer#0" expanded="false" />
+            <element signature="method#fillRecordObjectFields#0;class#Importer#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

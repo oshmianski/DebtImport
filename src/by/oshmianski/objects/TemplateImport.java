@@ -13,14 +13,22 @@ public class TemplateImport {
     private String unid;
     private String title;
     private String description;
+    private boolean createFI;
+    private boolean attachFile;
+    private String db;
+    private String dbID;
 
     private EventList<Object> objects = new BasicEventList<Object>();
     private EventList<Link> links = new BasicEventList<Link>();
 
-    public TemplateImport(String unid, String title, String description) {
+    public TemplateImport(String unid, String title, String description, boolean createFI, boolean attachFile, String db, String dbID) {
         this.unid = unid;
         this.title = title;
         this.description = description;
+        this.createFI = createFI;
+        this.attachFile = attachFile;
+        this.db = db;
+        this.dbID = dbID;
     }
 
     public EventList<Object> getObjects() {
@@ -54,6 +62,38 @@ public class TemplateImport {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isCreateFI() {
+        return createFI;
+    }
+
+    public void setCreateFI(boolean createFI) {
+        this.createFI = createFI;
+    }
+
+    public boolean isAttachFile() {
+        return attachFile;
+    }
+
+    public void setAttachFile(boolean attachFile) {
+        this.attachFile = attachFile;
+    }
+
+    public String getDb() {
+        return db;
+    }
+
+    public void setDb(String db) {
+        this.db = db;
+    }
+
+    public String getDbID() {
+        return dbID;
+    }
+
+    public void setDbID(String dbID) {
+        this.dbID = dbID;
     }
 
     public void addObject(Object object) {
