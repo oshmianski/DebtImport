@@ -1,8 +1,6 @@
 package by.oshmianski.objects;
 
 import by.oshmianski.loaders.LoadImportData;
-import by.oshmianski.test.Address;
-import by.oshmianski.test.FuzzySearch;
 import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
@@ -11,14 +9,15 @@ import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.SortedList;
 import lotus.domino.*;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.awt.Color;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -33,14 +32,13 @@ public class Importer {
     private Map<String, RecordObject> recordObjectMap = new HashMap<String, RecordObject>();
     private String importKey;
     private FuzzySearch fuzzySearchAddress;
+    private final SimpleDateFormat formatterDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     public Importer(LoadImportData loader) {
         this.loader = loader;
     }
 
     public void process() {
-        importKey = RandomStringUtils.random(32, true, true);
-
         if (loader.isTest())
             test();
         else
@@ -111,17 +109,33 @@ public class Importer {
 
     private void startImport() {
         Session session = null;
-        Database db = null;
         View view = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
         Map<String, Database> dbMap = new HashMap<String, Database>();
 
+        Database dbFI = null;
+        Document noteFI = null;
+        RichTextItem bodyFile = null;
+
         try {
             NotesThread.sinitThread();
             session = NotesFactory.createSession();
-            db = session.getDatabase(null, null);
+
+            TemplateImport templateImport = loader.getUi().getTemplateImport();
+
+            if (templateImport.isCreateFI()) {
+                dbFI = session.getDatabase(null, null);
+                dbFI.openByReplicaID(AppletParams.getInstance().getServer(), templateImport.getDbID());
+                noteFI = dbFI.createDocument();
+                noteFI.setUniversalID(importKey);
+                noteFI.replaceItemValue("filePath", loader.getUi().getFileField().getText());
+                noteFI.replaceItemValue("form", "FactImport");
+                noteFI.replaceItemValue("TemplateImportTitle", templateImport.getTitle());
+                bodyFile = noteFI.createRichTextItem("bodyFile");
+                bodyFile.embedObject(EmbeddedObject.EMBED_ATTACHMENT, "", noteFI.getItemValueString("filePath").replaceAll("\\\\", "/"), "");
+            }
 
             EventList<DataMainItem> items = loader.getUi().getDataMainItems();
 
@@ -129,6 +143,7 @@ public class Importer {
             loader.getUi().setProgressMaximum(items.size());
 
             int i = 0;
+            int j = 0;
             for (DataMainItem dataMainItem : items) {
 
                 if (dataMainItem.getStatusFromChild() != Status.ERROR) {
@@ -136,11 +151,12 @@ public class Importer {
                     Document docParent = null;
                     EventList<RecordObject> recordObjectEventList = null;
                     SortedList<RecordObject> recordObjectSortedList = null;
+                    DateTime dateTime = null;
 
                     try {
-                        recordObjectEventList = new BasicEventList<RecordObject>(dataMainItem.getObjects());
+                        recordObjectEventList = new BasicEventList<RecordObject>();
+                        recordObjectEventList.addAll(dataMainItem.getObjects());
                         recordObjectSortedList = new SortedList<RecordObject>(recordObjectEventList, GlazedLists.beanPropertyComparator(RecordObject.class, "number"));
-                        i = i;
                         for (RecordObject rObject : recordObjectSortedList) {
                             if (!(rObject.isFlagEmpty() || rObject.isExistInDB() || rObject.isExistInPrevios())) {
                                 Object object = loader.getUi().getTemplateImport().getObjectByFormName(rObject.getTitle());
@@ -156,7 +172,20 @@ public class Importer {
                                 document.computeWithForm(false, false);
 
                                 for (RecordObjectField field : rObject.getFields()) {
-                                    document.replaceItemValue(field.getTitle(), field.getValue());
+                                    java.lang.Object val = null;
+
+                                    if (field.getType() == Field.TYPE.TEXT || field.getType() == Field.TYPE.AUTHORS || field.getType() == Field.TYPE.READERS)
+                                        val = field.getValue();
+
+                                    if (field.getType() == Field.TYPE.NUMBER)
+                                        val = new Double(field.getValue());
+
+                                    if (field.getType() == Field.TYPE.DATETIME) {
+                                        dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(field.getValue()));
+                                        val = dateTime;
+                                    }
+
+                                    document.replaceItemValue(field.getTitle(), val);
                                 }
 
                                 RecordObject mainRecordObject = rObject.getMainObject();
@@ -197,6 +226,7 @@ public class Importer {
 
                                 document.save();
                                 loader.getUi().countIncImported();
+                                j++;
                             }
                         }
 
@@ -208,6 +238,9 @@ public class Importer {
 
                         if (recordObjectEventList != null)
                             recordObjectEventList.dispose();
+
+                        if (dateTime != null)
+                            dateTime.recycle();
 
                         if (document != null)
                             document.recycle();
@@ -223,10 +256,30 @@ public class Importer {
                 loader.getUi().setProgressValue(i + 1);
             }
 
+            if (templateImport.isCreateFI()) {
+                if (j > 0) {
+                    noteFI.replaceItemValue("importedObjectCount", j);
+                    noteFI.save();
+                } else {
+                    Calendar now = Calendar.getInstance();
+                    MyLog.add2Log(formatterDateTime.format(now.getTime()) + " Факт импорта не создан, т.к. ничего не импортировано!", true, new Color(0xC26802));
+                }
+            }
+
+
         } catch (Exception e) {
             MyLog.add2Log(e);
         } finally {
             try {
+                if (bodyFile != null)
+                    bodyFile.recycle();
+
+                if (noteFI != null)
+                    noteFI.recycle();
+
+                if (dbFI != null)
+                    dbFI.recycle();
+
                 if (vetmp != null) {
                     vetmp.recycle();
                 }
@@ -249,9 +302,6 @@ public class Importer {
                     dbMap.clear();
                 }
 
-                if (db != null) {
-                    db.recycle();
-                }
                 if (session != null) {
                     session.recycle();
                 }
@@ -277,6 +327,8 @@ public class Importer {
         XSSFWorkbook wb = null;
         Map<String, Database> dbMap = new HashMap<String, Database>();
         Map<String, View> viewMap = new HashMap<String, View>();
+        Database dbFI = null;
+        Document noteFI = null;
 
         try {
             NotesThread.sinitThread();
@@ -302,6 +354,15 @@ public class Importer {
                 start = 0;
             else
                 start = start - 1;
+
+            if (templateImport.isCreateFI()) {
+                dbFI = session.getDatabase(null, null);
+                dbFI.openByReplicaID(AppletParams.getInstance().getServer(), templateImport.getDbID());
+                noteFI = dbFI.createDocument();
+                importKey = noteFI.getUniversalID();
+            } else {
+                importKey = RandomStringUtils.random(32, true, true);
+            }
 
             loader.getUi().setCountAll2Import(count + 1 - start);
             loader.getUi().setProgressValue(0);
@@ -436,6 +497,12 @@ public class Importer {
                     pkg.close();
                 }
 
+                if (noteFI != null)
+                    noteFI.recycle();
+
+                if (dbFI != null)
+                    dbFI.recycle();
+
                 if (vetmp != null) {
                     vetmp.recycle();
                 }
@@ -503,7 +570,7 @@ public class Importer {
                 break;
             case Cell.CELL_TYPE_NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    retValue = cell.getDateCellValue().toString();
+                    retValue = formatterDateTime.format(cell.getDateCellValue());
                 } else {
                     retValue = String.valueOf(cell.getNumericCellValue());
                 }
@@ -539,6 +606,60 @@ public class Importer {
         }
 
         return retValue;
+    }
+
+    public CellField getCellField(Workbook wb, Cell cell) {
+        CellField cellField = new CellField("", Field.TYPE.TEXT);
+
+        FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+
+        if (cell == null) return cellField;
+
+        switch (cell.getCellType()) {
+            case Cell.CELL_TYPE_STRING:
+                cellField.setValue(cell.getStringCellValue());
+                break;
+            case Cell.CELL_TYPE_NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    cellField.setValue(cell.getDateCellValue());
+                    cellField.setType(Field.TYPE.DATETIME);
+                } else {
+                    cellField.setValue(String.valueOf(cell.getNumericCellValue()));
+                    cellField.setType(Field.TYPE.NUMBER);
+                }
+                break;
+            case Cell.CELL_TYPE_BOOLEAN:
+                cellField.setValue(String.valueOf(cell.getBooleanCellValue()));
+                break;
+            case Cell.CELL_TYPE_FORMULA:
+                CellValue cellValue = evaluator.evaluate(cell);
+
+                switch (cellValue.getCellType()) {
+                    case Cell.CELL_TYPE_BOOLEAN:
+                        cellField.setValue(String.valueOf(cellValue.getBooleanValue()));
+                        break;
+                    case Cell.CELL_TYPE_NUMERIC:
+                        cellField.setValue(cellValue.getNumberValue());
+                        cellField.setType(Field.TYPE.NUMBER);
+                        break;
+                    case Cell.CELL_TYPE_STRING:
+                        cellField.setValue(cellValue.getStringValue());
+                        break;
+                    case Cell.CELL_TYPE_BLANK:
+                        break;
+                    case Cell.CELL_TYPE_ERROR:
+                        break;
+
+                    // CELL_TYPE_FORMULA will never happen
+                    case Cell.CELL_TYPE_FORMULA:
+                        break;
+                }
+                break;
+            default:
+
+        }
+
+        return cellField;
     }
 
     private void processFields(
@@ -641,40 +762,40 @@ public class Importer {
 
                 fillRecordObjectFields(rFields, address);
             } else {
-                rField = new RecordObjectField(field.getTitleSys(), cellValueReal.isEmpty() ? cellValueReal : cellValue, RecordNodeFieldType.text);
+                rField = new RecordObjectField(field.getTitleSys(), cellValue, field.getType());
                 rFields.add(rField);
             }
         }
 
-        rField = new RecordObjectField("importKey", importKey, RecordNodeFieldType.text);
+        rField = new RecordObjectField("UNID_FI", importKey, Field.TYPE.TEXT);
         rFields.add(rField);
     }
 
     private void fillRecordObjectFields(ArrayList<RecordObjectField> rFields, Address address) {
         RecordObjectField rField;
 
-        rField = new RecordObjectField("index", address.getIndex(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("index", address.getIndex(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("country", address.getCountry(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("country", address.getCountry(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("region", address.getRegion(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("region", address.getRegion(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("district", address.getDistrict(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("district", address.getDistrict(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("city", address.getCity(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("city", address.getCity(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("street", address.getStreet(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("street", address.getStreet(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("house", address.getHouse(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("house", address.getHouse(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("flat", address.getFlat(), RecordNodeFieldType.text);
+        rField = new RecordObjectField("flat", address.getFlat(), Field.TYPE.TEXT);
         rFields.add(rField);
     }
 

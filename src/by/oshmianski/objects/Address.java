@@ -1,4 +1,4 @@
-package by.oshmianski.test;
+package by.oshmianski.objects;
 
 /**
  * Created with IntelliJ IDEA.

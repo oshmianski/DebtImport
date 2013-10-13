@@ -70,7 +70,7 @@ public class DockDataMain extends DockSimple {
             table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             table.getColumnModel().getColumn(0).setPreferredWidth(80);
             table.getColumnModel().getColumn(1).setPreferredWidth(150);
-            table.getColumnModel().getColumn(2).setPreferredWidth(300);
+            table.getColumnModel().getColumn(2).setPreferredWidth(500);
 
             DecimalFormat df = new DecimalFormat("###,##0");
             table.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer(Color.BLUE, false, df));

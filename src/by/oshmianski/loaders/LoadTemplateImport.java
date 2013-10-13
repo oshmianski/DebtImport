@@ -137,7 +137,16 @@ public class LoadTemplateImport implements Runnable, Loader {
                 if (!ve.isCategory()) {
                     doc = ve.getDocument();
 
-                    templateImport = new TemplateImport(ve.getUniversalID(), doc.getItemValueString("title"), doc.getItemValueString("description"));
+                    templateImport =
+                            new TemplateImport(
+                                    ve.getUniversalID(),
+                                    doc.getItemValueString("title"),
+                                    doc.getItemValueString("description"),
+                                    "1".equals(doc.getItemValueString("isCreateImportFact")),
+                                    "1".equals(doc.getItemValueString("isAttachFile")),
+                                    doc.getItemValueString("dbFI"),
+                                    doc.getItemValueString("dbIDFI")
+                                    );
                     templateImports.add(templateImport);
 
                     colObject = viewObject.getAllDocumentsByKey(doc.getUniversalID(), true);

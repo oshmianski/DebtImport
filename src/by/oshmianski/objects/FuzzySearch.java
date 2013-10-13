@@ -1,8 +1,5 @@
-package by.oshmianski.test;
+package by.oshmianski.objects;
 
-import by.oshmianski.objects.DataChildItem;
-import by.oshmianski.objects.Status;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -37,15 +34,10 @@ public class FuzzySearch {
     };
 
     public static void main(String[] args) {
-        Address address;
-
-        String test1 = "231100 бэарус р'спублика, обл. гродненнскаяя ошмяны кв.стрAителей дд.3 кв  15 456890";
-        String test2 = "201100 бэарус р'спублика, брэсская барановичкий район совет городищенский г. арабовщина кв.стрAителей д. 357а кв69 012345";
-
-        FuzzySearch fuzzySearch = new FuzzySearch();
-        address = fuzzySearch.getAddress(test1, null);
-        System.out.println("===");
-        address = fuzzySearch.getAddress(test2, null);
+        String t = " .";
+        String regex = "^\\.$";
+        System.out.println("regex=" + regex);
+        System.out.println("t=" + t.replaceAll(regex, ""));
     }
 
     public Address getAddressStructured1(String addressStr, ArrayList<DataChildItem> dataChildItems) {
@@ -53,17 +45,15 @@ public class FuzzySearch {
 
         String[] addressArray = addressStr.split(",", 7);
 
-//        ArrayUtils.
-
         address.setIndex(addressArray[0].trim());
         address.setRegion(addressArray[1].trim());
         address.setDistrict(addressArray[2].trim());
-        address.setCity(addressArray[3].trim());
-        address.setStreet(addressArray[4].trim());
-        address.setHouse(addressArray[5].trim());
-        address.setFlat(addressArray[6].trim());
+        address.setCity(addressArray[3].trim().replaceAll("^\\.$", ""));
+        address.setStreet(addressArray[4].trim().replaceAll("^\\.$", ""));
+        address.setHouse(addressArray[5].trim().replaceAll("^\\.$", ""));
+        address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""));
 
-        if(address.getCity().isEmpty()){
+        if (address.getCity().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_CITY,
                     "Заполнение адреса",
@@ -83,7 +73,7 @@ public class FuzzySearch {
 //            dataChildItems.add(dataChildItem);
 //        }
 
-        if(address.getCity().isEmpty()){
+        if (address.getCity().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_CITY,
                     "Заполнение адреса",
@@ -93,7 +83,7 @@ public class FuzzySearch {
             dataChildItems.add(dataChildItem);
         }
 
-        if(address.getStreet().isEmpty()){
+        if (address.getStreet().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_STREET,
                     "Заполнение адреса",
@@ -103,7 +93,7 @@ public class FuzzySearch {
             dataChildItems.add(dataChildItem);
         }
 
-        if(address.getHouse().isEmpty()){
+        if (address.getHouse().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_HOUSE,
                     "Заполнение адреса",

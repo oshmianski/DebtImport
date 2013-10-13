@@ -13,7 +13,7 @@ import by.oshmianski.ui.TreeTable.TreeTableModel;
  * Time: 14:32
  */
 public class RecordObjectsTreeModel extends AbstractTreeTableModel {
-    private String[] cols = {"Объект \\ поле", "Значение"};
+    private String[] cols = {"Объект \\ поле", "Тип", "Значение"};
 
     public RecordObjectsTreeModel(Object root) {
         super(root);
@@ -48,6 +48,8 @@ public class RecordObjectsTreeModel extends AbstractTreeTableModel {
             case 0:
                 return node.toString();
             case 1:
+                if (node instanceof RecordObjectField) return ((RecordObjectField) node).getType();
+            case 2:
                 if (node instanceof RecordObjectField) return ((RecordObjectField) node).getValue();
         }
         return null;
@@ -73,5 +75,11 @@ public class RecordObjectsTreeModel extends AbstractTreeTableModel {
             return ((RecordObjectRoot) parent).getObjects().size();
         }
         return 0;
+    }
+
+    @Override
+    public boolean isCellEditable(Object node, int column) {
+        if (column == 2) return true;
+        return super.isCellEditable(node, column);
     }
 }
