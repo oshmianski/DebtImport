@@ -17,6 +17,16 @@
       <root url="file://D:/Downloads/poi-src-3.9-20121203/poi-3.9/src/scratchpad/testcases" />
       <root url="jar://D:/Downloads/commons-lang3-3.1-bin/commons-lang3-3.1/commons-lang3-3.1-sources.jar!/" />
       <root url="jar://D:/Downloads/glazedlists_java15-1.9.0-sources.jar!/" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/java" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/ooxml/java" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/ooxml/testcases" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/contrib/poi-ruby/java" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/examples/src" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/excelant/java" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/excelant/testcases" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/testcases" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/scratchpad/src" />
+      <root url="jar://D:/Downloads/poi-src-3.9-20121203.zip!/poi-3.9/src/scratchpad/testcases" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
   </library>

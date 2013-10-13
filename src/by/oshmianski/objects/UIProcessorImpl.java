@@ -152,7 +152,7 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
-    public JTextField getCol2Description() {
+    public String getCol2Description() {
         return dockHeader.getCol2Description();
     }
 

@@ -7,26 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/CellField.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/CellHeader.java" />
-      <change type="DELETED" beforePath="D:\Work\Java\DebtImport\work\src\by\oshmianski\objects\RecordNodeFieldType.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/CellHeader.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/CellHeader.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Field.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Field.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectField.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectField.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Work\Java\DebtImport\work\src\by\oshmianski\test\Address.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
-      <change type="MOVED" beforePath="D:\Work\Java\DebtImport\work\src\by\oshmianski\test\FuzzySearch.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
     </list>
     <ignored path="DebtImport.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -94,7 +81,7 @@
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534258434" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381687059894" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381696159382" ignored="false" />
     <file path="/GUIFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273153113" ignored="false" />
     <file path="/DockingContainerFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273089309" ignored="false" />
     <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824074613" ignored="false" />
@@ -188,10 +175,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Importer.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Importer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="379" column="160" selection-start="15036" selection-end="15036" vertical-scroll-proportion="0.33153152">
+            <state line="384" column="53" selection-start="15118" selection-end="15118" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -246,10 +233,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CellHeader.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CellHeader.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/CellHeader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="43" selection-start="738" selection-end="738" vertical-scroll-proportion="0.0">
+            <state line="35" column="43" selection-start="738" selection-end="738" vertical-scroll-proportion="0.7108722">
               <folding />
             </state>
           </provider>
@@ -1144,7 +1131,11 @@
       <created>1381409545591</created>
       <updated>1381409545591</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1381696154511</created>
+      <updated>1381696154511</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1181,11 +1172,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32947975" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30542988" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32485548" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18482251" sideWeight="0.22963801" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18482251" sideWeight="0.33710408" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18482251" sideWeight="0.45022625" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31900454" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18482251" sideWeight="0.6617647" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31900454" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4556962" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1322,13 +1313,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/CellHeader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="43" selection-start="738" selection-end="738" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/poi-3.9-20121203.jar!/org/apache/poi/ss/usermodel/Sheet.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="36" selection-start="678" selection-end="678" vertical-scroll-proportion="0.0">
@@ -1378,7 +1362,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="379" column="160" selection-start="15036" selection-end="15036" vertical-scroll-proportion="0.33153152">
+        <state line="384" column="53" selection-start="15118" selection-end="15118" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/CellHeader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="43" selection-start="738" selection-end="738" vertical-scroll-proportion="0.7108722">
           <folding />
         </state>
       </provider>

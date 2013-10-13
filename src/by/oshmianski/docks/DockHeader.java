@@ -4,15 +4,23 @@ import by.oshmianski.docks.Setup.DockSimple;
 import by.oshmianski.docks.Setup.DockingContainer;
 import by.oshmianski.loaders.LoadTemplateImport;
 import by.oshmianski.loaders.Loader;
+import by.oshmianski.objects.CellHeader;
 import by.oshmianski.objects.TemplateImport;
 import by.oshmianski.ui.utils.ActionButton;
 import by.oshmianski.utils.IconContainer;
+import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.swing.DefaultEventComboBoxModel;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import org.apache.poi.hssf.util.CellReference;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -31,6 +39,7 @@ public class DockHeader extends DockSimple {
     private DockingContainer dockingContainer;
 
     private EventList<TemplateImport> templateImports = new BasicEventList<TemplateImport>();
+    private EventList<CellHeader> cellHeaders = new BasicEventList<CellHeader>();
 
     private JTextField fileField;
     private JTextField startFrom;
@@ -38,6 +47,7 @@ public class DockHeader extends DockSimple {
     private JButton bSelectTemplate;
     private JLabel loadLabel;
     private JComboBox template;
+    private JComboBox headers;
 
     private Loader loaderTI;
 
@@ -61,7 +71,10 @@ public class DockHeader extends DockSimple {
         JButton bOpenFile = new ActionButton("...", null, new Dimension(20, 20), "Выбрать файл импорта");
 
         DefaultEventComboBoxModel<TemplateImport> comboBoxModel = new DefaultEventComboBoxModel<TemplateImport>(templateImports);
+        DefaultEventComboBoxModel<CellHeader> cellHeaderComboBoxModel = new DefaultEventComboBoxModel<CellHeader>(cellHeaders);
         template = new JComboBox(comboBoxModel);
+        headers = new JComboBox(cellHeaderComboBoxModel);
+
         fileField = new JTextField();
         startFrom = new JTextField("2");
         col2Description = new JTextField("A");
@@ -76,12 +89,37 @@ public class DockHeader extends DockSimple {
                 if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     fileField.setText(file.getAbsolutePath());
+
+                    OPCPackage pkg = null;
+                    XSSFWorkbook wb = null;
+
+                    try {
+                        // XSSFWorkbook, File
+                        pkg = OPCPackage.open(file);
+                        wb = new XSSFWorkbook(pkg);
+                        Sheet sheet1 = wb.getSheetAt(0);
+                        Row row = sheet1.getRow(0);
+                        int lastCol = row.getLastCellNum();
+
+                        cellHeaders.clear();
+
+                        for (int cn = 0; cn < lastCol; cn++) {
+                            Cell c = row.getCell(cn, Row.RETURN_BLANK_AS_NULL);
+                            if (c == null) {
+                                // The spreadsheet is empty in this cell
+                            } else {
+                                cellHeaders.add(new CellHeader(CellReference.convertNumToColString(cn), c.getStringCellValue()));
+                            }
+                        }
+                    } catch (Exception ex) {
+                        MyLog.add2Log(ex);
+                    }
                 }
             }
         });
 
         FormLayout layout = new FormLayout(
-                "5px, right:60px, 5px, 300px, 5px, 20px, 5px, 30px, 5px, right:130px, 5px, 60px, 5px", // columns
+                "5px, right:60px, 5px, 300px, 5px, 20px, 5px, 30px, 5px, right:130px, 5px, 160px, 5px", // columns
                 "5px, 30px, 5px, 30px, pref");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
@@ -101,7 +139,7 @@ public class DockHeader extends DockSimple {
         builder.add(fileField, cc.xy(4, 4));
         builder.add(bOpenFile, cc.xy(6, 4));
         builder.addLabel("Колонка в описание", cc.xy(10, 4));
-        builder.add(col2Description, cc.xy(12, 4));
+        builder.add(headers, cc.xy(12, 4));
 
         panel.add(builder.getPanel());
     }
@@ -167,13 +205,14 @@ public class DockHeader extends DockSimple {
         return dockingContainer;
     }
 
-    public TemplateImport getTemplateImport(){
-        return (TemplateImport)template.getSelectedItem();
+    public TemplateImport getTemplateImport() {
+        return (TemplateImport) template.getSelectedItem();
     }
 
-    public void dispose(){
+    public void dispose() {
         System.out.println("DockHeader clear...");
         templateImports.dispose();
+        cellHeaders.dispose();
         System.out.println("DockHeader clear...OK");
     }
 
@@ -181,7 +220,8 @@ public class DockHeader extends DockSimple {
         return startFrom;
     }
 
-    public JTextField getCol2Description() {
-        return col2Description;
+    public String getCol2Description() {
+        if(headers.getSelectedItem() == null) return "";
+        return ((CellHeader)headers.getSelectedItem()).getColTitle();
     }
 }

@@ -377,7 +377,7 @@ public class Importer {
 
             Row row;
 
-            int col2Description = loader.getUi().getCol2Description().getText().isEmpty() ? -1 : CellReference.convertColStringToIndex(loader.getUi().getCol2Description().getText());
+            int col2Description = loader.getUi().getCol2Description().isEmpty() ? -1 : CellReference.convertColStringToIndex(loader.getUi().getCol2Description());
 
             int i = start;
 
