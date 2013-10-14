@@ -71,7 +71,7 @@ public class DataMainItem {
         this.dataChildItems = dataChildItems;
     }
 
-    public void addDataChildItem(DataChildItem dataChildItem){
+    public void addDataChildItem(DataChildItem dataChildItem) {
         dataChildItems.add(dataChildItem);
     }
 

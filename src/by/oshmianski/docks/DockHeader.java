@@ -4,13 +4,18 @@ import by.oshmianski.docks.Setup.DockSimple;
 import by.oshmianski.docks.Setup.DockingContainer;
 import by.oshmianski.loaders.LoadTemplateImport;
 import by.oshmianski.loaders.Loader;
+import by.oshmianski.main.AppletWindow;
 import by.oshmianski.objects.CellHeader;
 import by.oshmianski.objects.TemplateImport;
 import by.oshmianski.ui.utils.ActionButton;
+import by.oshmianski.ui.utils.XTableColumnModel;
+import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import by.oshmianski.utils.IconContainer;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.matchers.TextMatcherEditor;
+import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import ca.odell.glazedlists.swing.DefaultEventComboBoxModel;
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -23,7 +28,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,10 +78,22 @@ public class DockHeader extends DockSimple {
 
         JButton bOpenFile = new ActionButton("...", null, new Dimension(20, 20), "Выбрать файл импорта");
 
+        cellHeaders.add(new CellHeader("", ""));
+
         DefaultEventComboBoxModel<TemplateImport> comboBoxModel = new DefaultEventComboBoxModel<TemplateImport>(templateImports);
         DefaultEventComboBoxModel<CellHeader> cellHeaderComboBoxModel = new DefaultEventComboBoxModel<CellHeader>(cellHeaders);
+
         template = new JComboBox(comboBoxModel);
         headers = new JComboBox(cellHeaderComboBoxModel);
+
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                AutoCompleteSupport supportOrg = AutoCompleteSupport.install(headers, cellHeaders);
+                supportOrg.setFilterMode(TextMatcherEditor.CONTAINS);
+                supportOrg.setStrict(true);
+            }
+        });
 
         fileField = new JTextField();
         startFrom = new JTextField("2");
@@ -105,21 +125,30 @@ public class DockHeader extends DockSimple {
 
                         for (int cn = 0; cn < lastCol; cn++) {
                             Cell c = row.getCell(cn, Row.RETURN_BLANK_AS_NULL);
+
                             if (c == null) {
-                                // The spreadsheet is empty in this cell
+                                cellHeaders.add(new CellHeader(CellReference.convertNumToColString(cn), ""));
                             } else {
                                 cellHeaders.add(new CellHeader(CellReference.convertNumToColString(cn), c.getStringCellValue()));
                             }
                         }
                     } catch (Exception ex) {
                         MyLog.add2Log(ex);
+                    } finally {
+                        try {
+                            if (pkg != null) {
+                                pkg.close();
+                            }
+                        } catch (Exception e1) {
+                            MyLog.add2Log(e1);
+                        }
                     }
                 }
             }
         });
 
         FormLayout layout = new FormLayout(
-                "5px, right:60px, 5px, 300px, 5px, 20px, 5px, 30px, 5px, right:130px, 5px, 160px, 5px", // columns
+                "5px, right:60px, 5px, 300px, 5px, 20px, 5px, 30px, 5px, right:130px, 5px, 60px, 5px, 200px, 5px", // columns
                 "5px, 30px, 5px, 30px, pref");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
@@ -139,7 +168,7 @@ public class DockHeader extends DockSimple {
         builder.add(fileField, cc.xy(4, 4));
         builder.add(bOpenFile, cc.xy(6, 4));
         builder.addLabel("Колонка в описание", cc.xy(10, 4));
-        builder.add(headers, cc.xy(12, 4));
+        builder.add(headers, cc.xyw(12, 4, 3));
 
         panel.add(builder.getPanel());
     }
@@ -221,7 +250,11 @@ public class DockHeader extends DockSimple {
     }
 
     public String getCol2Description() {
-        if(headers.getSelectedItem() == null) return "";
-        return ((CellHeader)headers.getSelectedItem()).getColTitle();
+        if (headers.getSelectedItem() == null) return "";
+        return ((CellHeader) headers.getSelectedItem()).getColTitle();
+    }
+
+    public EventList<CellHeader> getCellHeaders() {
+        return cellHeaders;
     }
 }

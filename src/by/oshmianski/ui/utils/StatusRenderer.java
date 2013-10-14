@@ -29,11 +29,14 @@ public class StatusRenderer extends DefaultTableCellRenderer implements TableCel
 
         JLabel label = (JLabel) c;
 
-        if (value == Status.OK)
+        if (value == Status.OK || value == Status.INFO)
             label.setForeground(new Color(0x008000));
 
         if (value == Status.WARNING
-//                || value == Status.WARNING_ADDRESS_NO_DISTRICT
+                || value == Status.WARNING_ADDRESS_NO_INDEX
+                || value == Status.WARNING_ADDRESS_NO_COUTRY
+                || value == Status.WARNING_ADDRESS_NO_REGION
+                || value == Status.WARNING_ADDRESS_NO_DISTRICT
                 || value == Status.WARNING_ADDRESS_NO_STREET
                 || value == Status.WARNING_ADDRESS_NO_CITY
                 || value == Status.WARNING_ADDRESS_NO_HOUSE

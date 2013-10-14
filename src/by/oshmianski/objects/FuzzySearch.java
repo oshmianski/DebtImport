@@ -53,55 +53,7 @@ public class FuzzySearch {
         address.setHouse(addressArray[5].trim().replaceAll("^\\.$", ""));
         address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""));
 
-        if (address.getCity().isEmpty()) {
-            DataChildItem dataChildItem = new DataChildItem(
-                    Status.WARNING_ADDRESS_NO_CITY,
-                    "Заполнение адреса",
-                    "Ошибка",
-                    "Отсутствует город"
-            );
-            dataChildItems.add(dataChildItem);
-        }
-
-//        if(address.getDistrict().isEmpty()){
-//            DataChildItem dataChildItem = new DataChildItem(
-//                    Status.WARNING_ADDRESS_NO_DISTRICT,
-//                    "Заполнение адреса",
-//                    "Ошибка",
-//                    "Отсутствует район"
-//            );
-//            dataChildItems.add(dataChildItem);
-//        }
-
-        if (address.getCity().isEmpty()) {
-            DataChildItem dataChildItem = new DataChildItem(
-                    Status.WARNING_ADDRESS_NO_CITY,
-                    "Заполнение адреса",
-                    "Ошибка",
-                    "Отсутствует улица"
-            );
-            dataChildItems.add(dataChildItem);
-        }
-
-        if (address.getStreet().isEmpty()) {
-            DataChildItem dataChildItem = new DataChildItem(
-                    Status.WARNING_ADDRESS_NO_STREET,
-                    "Заполнение адреса",
-                    "Ошибка",
-                    "Отсутствует улица"
-            );
-            dataChildItems.add(dataChildItem);
-        }
-
-        if (address.getHouse().isEmpty()) {
-            DataChildItem dataChildItem = new DataChildItem(
-                    Status.WARNING_ADDRESS_NO_HOUSE,
-                    "Заполнение адреса",
-                    "Ошибка",
-                    "Отсутствует дом"
-            );
-            dataChildItems.add(dataChildItem);
-        }
+        processWarning(address, dataChildItems);
 
         return address;
     }
@@ -114,47 +66,107 @@ public class FuzzySearch {
         String strTmp = "";
         boolean isCountry;
         boolean isRegion;
+        boolean isDistrict;
         int threshold = 3;
 
-        for (String str : addressArray) {
-            isCountry = false;
-            isRegion = false;
+        isCountry = false;
+        isRegion = false;
+        isDistrict = false;
 
+        //четкий поиск страны
+        for (String str : addressArray) {
             strTmp = str.trim().toLowerCase();
 
-            if (StringUtils.getLevenshteinDistance(strTmp, country.toLowerCase(), threshold) != -1) {   //поиск страны
+            if (strTmp.indexOf(country.toLowerCase()) > -1) {
                 address.setCountry(country);
                 isCountry = true;
-            }
 
-            //поиск области
-            if (!isCountry) {
-                for (String region : regions)
-                    if (StringUtils.getLevenshteinDistance(strTmp, region.toLowerCase(), threshold) != -1) {
-                        address.setRegion(region);
-                        isRegion = true;
-
-                        break;
-                    }
-            }
-
-            //поиск района
-            if (!(isRegion || isCountry)) {
-                for (String district : districts)
-                    if (StringUtils.getLevenshteinDistance(strTmp, district.toLowerCase(), threshold) != -1) {
-                        address.setDistrict(district);
-
-                        break;
-                    }
+                break;
             }
         }
+
+        //четкий поиск области
+        for (String str : addressArray) {
+            strTmp = str.trim().toLowerCase();
+
+            for (String region : regions)
+                if (strTmp.indexOf(region.toLowerCase()) > -1) {
+                    address.setRegion(region);
+                    isRegion = true;
+
+                    break;
+                }
+
+            if (isRegion) break;
+        }
+
+        //четкий поиск района
+        for (String str : addressArray) {
+            strTmp = str.trim().toLowerCase();
+
+            for (String district : districts)
+                if (strTmp.indexOf(district.toLowerCase()) > -1) {
+                    address.setDistrict(district);
+                    isDistrict = true;
+
+                    break;
+                }
+
+            if (isDistrict) break;
+        }
+
+        //нечеткий поиск страны. процент ошибки = threshold = 3.
+//        if (!isCountry) {
+//            for (String str : addressArray) {
+//                strTmp = str.trim().toLowerCase();
+//
+//                if (StringUtils.getLevenshteinDistance(strTmp, country.toLowerCase(), threshold) != -1) {
+//                    address.setCountry(country);
+//                    break;
+//                }
+//            }
+//        }
+
+        //нечеткий поиск области. процент ошибки = threshold = 3.
+//        if (!isRegion) {
+//            for (String str : addressArray) {
+//                strTmp = str.trim().toLowerCase();
+//
+//                for (String region : regions)
+//                    if (StringUtils.getLevenshteinDistance(strTmp, region.toLowerCase(), threshold) != -1) {
+//                        address.setRegion(region);
+//                        isRegion = true;
+//                        break;
+//                    }
+//
+//                if(isRegion) break;
+//            }
+//        }
+
+        //нечеткий поиск района. процент ошибки = threshold = 3.
+//        if (!isDistrict) {
+//            for (String str : addressArray) {
+//                strTmp = str.trim().toLowerCase();
+//
+//                for (String district : districts)
+//                    if (StringUtils.getLevenshteinDistance(strTmp, district.toLowerCase(), threshold) != -1) {
+//                        address.setDistrict(district);
+//                        isDistrict = true;
+//                        break;
+//                    }
+//
+//                if(isDistrict) break;
+//            }
+//        }
+
 
         String val = "";
         //индекс
         Pattern pattern3 = Pattern.compile("\\d{6}");
         Matcher matcher3 = pattern3.matcher(addressStr);
-        if (matcher3.find()) {
-            System.out.println("индекс=" + matcher3.group());
+        if (matcher3.find())
+
+        {
             address.setIndex(matcher3.group());
             addressStr.replace(matcher3.group(), "");
         }
@@ -163,12 +175,13 @@ public class FuzzySearch {
         //город
         Pattern patternCity = Pattern.compile("(?<=(г\\.|гор\\.)\\s{0,}).*");
         Matcher matcherCity = patternCity.matcher(addressStr);
-        if (matcherCity.find()) {
+        if (matcherCity.find())
+
+        {
             val = matcherCity.group().trim();
             if (val.indexOf(" ") != -1)
                 val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
-            System.out.println("город=" + val);
             address.setCity(val);
         }
 
@@ -176,12 +189,13 @@ public class FuzzySearch {
         //дом
         Pattern pattern = Pattern.compile("(?<=(д|д\\.|дом|дом\\.)\\s{0,})\\d.*");
         Matcher matcher = pattern.matcher(addressStr);
-        if (matcher.find()) {
+        if (matcher.find())
+
+        {
             val = matcher.group().trim();
             if (val.indexOf(" ") != -1)
                 val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
-            System.out.println("дом=" + val);
             address.setHouse(val);
         }
 
@@ -189,15 +203,70 @@ public class FuzzySearch {
         //квартира
         Pattern pattern2 = Pattern.compile("(?<=(к|к\\.|квартира|кв\\.|кв)\\s{0,})\\d.*");
         Matcher matcher2 = pattern2.matcher(addressStr);
-        if (matcher2.find()) {
+        if (matcher2.find())
+
+        {
             val = matcher2.group().trim();
             if (val.indexOf(" ") != -1)
                 val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
-            System.out.println("квартира=" + val);
             address.setFlat(val);
         }
 
+        processWarning(address, dataChildItems);
+
         return address;
+    }
+
+    private void processWarning(Address address, ArrayList<DataChildItem> dataChildItems) {
+        if (address.getIndex().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_INDEX,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует индекс"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getCity().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_CITY,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует город"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getCity().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_CITY,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует улица"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getStreet().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_STREET,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует улица"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getHouse().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_HOUSE,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует дом"
+            );
+            dataChildItems.add(dataChildItem);
+        }
     }
 }

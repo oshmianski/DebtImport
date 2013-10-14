@@ -75,14 +75,17 @@ public class UIProcessorImpl implements UIProcessor {
 
         dockInfo.countIncAll();
 
-        if (dataMainItem.getStatusFromChild() == Status.OK) {
+        if (dataMainItem.getStatusFromChild() == Status.OK || dataMainItem.getStatusFromChild() == Status.INFO) {
             dockInfo.countIncOk();
         }
         if (dataMainItem.getStatusFromChild() == Status.ERROR) {
             dockInfo.countIncError();
         }
         if (dataMainItem.getStatusFromChild() == Status.WARNING
-//                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_DISTRICT
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_INDEX
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_COUTRY
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_REGION
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_DISTRICT
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_STREET
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_CITY
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_HOUSE
@@ -194,5 +197,10 @@ public class UIProcessorImpl implements UIProcessor {
     @Override
     public void countIncImported() {
         dockInfo.countIncImported();
+    }
+
+    @Override
+    public EventList<CellHeader> getCellHeaders() {
+        return dockHeader.getCellHeaders();
     }
 }
