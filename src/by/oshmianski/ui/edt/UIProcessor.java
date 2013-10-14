@@ -77,7 +77,7 @@ public interface UIProcessor {
     JTextField getFileField();
 
 //    @RequiresEDT
-    JTextField getCol2Description();
+    String getCol2Description();
 
 //    @RequiresEDT
     TemplateImport getTemplateImport();
