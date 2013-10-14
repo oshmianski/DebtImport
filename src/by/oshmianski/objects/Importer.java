@@ -395,6 +395,20 @@ public class Importer {
                 dataChildItems = new ArrayList<DataChildItem>();
                 rObjects = new ArrayList<RecordObject>();
 
+                int j = 0;
+                for (Cell cell : row) {
+                    dataChildItem = new DataChildItem(
+                            Status.INFO,
+                            "Данные",
+                            loader.getUi().getCellHeaders().size() - 1 < j ?
+                                    CellReference.convertNumToColString(j) : loader.getUi().getCellHeaders().get(j).toString(),
+                            getCellString(wb, cell)
+                    );
+                    dataChildItems.add(dataChildItem);
+
+                    j++;
+                }
+
                 for (Object obj : templateImport.getObjects()) {
                     rObject = new RecordObject(obj.getNumber(), obj.getFormName());
                     rObjects.add(rObject);
@@ -413,7 +427,7 @@ public class Importer {
                         MyLog.add2Log(ex);
                         dataChildItem = new DataChildItem(
                                 Status.ERROR,
-                                "Заполение полей",
+                                "_Заполение полей",
                                 "Ошибка",
                                 ex.toString()
                         );
@@ -435,7 +449,7 @@ public class Importer {
                         MyLog.add2Log(ex);
                         dataChildItem = new DataChildItem(
                                 Status.ERROR,
-                                "Проверка уникальности",
+                                "_Проверка уникальности",
                                 "Ошибка",
                                 ex.toString()
                         );
@@ -473,7 +487,7 @@ public class Importer {
                     dataChildItem = new DataChildItem(
                             Status.ERROR,
                             "Формирование связей",
-                            "Ошибка",
+                            "_Ошибка",
                             ex.toString()
                     );
                     dataMainItem.addDataChildItem(dataChildItem);
@@ -741,7 +755,7 @@ public class Importer {
             if (cellValueReal.isEmpty() && field.isEmptyFlag()) {
                 DataChildItem dataChildItem = new DataChildItem(
                         Status.WARNING,
-                        obj.getTitle() + " [" + obj.getFormName() + "]",
+                        "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
                         fieldTitle,
                         "Значение ячейки пустое, объект создан не будет"
                 );
@@ -754,13 +768,19 @@ public class Importer {
                     fuzzySearchAddress = new FuzzySearch();
                 Address address = fuzzySearchAddress.getAddress(cellValue, dataChildItems);
 
-                fillRecordObjectFields(rFields, address);
+                fillRecordObjectFieldsAddress(rFields, address);
             } else if ("#ADDRESS_STRUCTURED_1".equalsIgnoreCase(field.getTitleSys())) {
                 if (fuzzySearchAddress == null)
                     fuzzySearchAddress = new FuzzySearch();
                 Address address = fuzzySearchAddress.getAddressStructured1(cellValue, dataChildItems);
 
-                fillRecordObjectFields(rFields, address);
+                fillRecordObjectFieldsAddress(rFields, address);
+            } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
+                if (fuzzySearchAddress == null)
+                    fuzzySearchAddress = new FuzzySearch();
+                Passport passport = fuzzySearchAddress.getPassport(cellValue, dataChildItems);
+
+                fillRecordObjectFieldsPassport(rFields, passport);
             } else {
                 rField = new RecordObjectField(field.getTitleSys(), cellValue, field.getType());
                 rFields.add(rField);
@@ -771,7 +791,23 @@ public class Importer {
         rFields.add(rField);
     }
 
-    private void fillRecordObjectFields(ArrayList<RecordObjectField> rFields, Address address) {
+    private void fillRecordObjectFieldsPassport(ArrayList<RecordObjectField> rFields, Passport passport) {
+        RecordObjectField rField;
+
+        rField = new RecordObjectField("passType", passport.getPassType(), Field.TYPE.TEXT);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("passNum", passport.getPassNum(), Field.TYPE.TEXT);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("passDate", passport.getPassDate(), Field.TYPE.DATETIME);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("passOrg", passport.getPassOrg(), Field.TYPE.TEXT);
+        rFields.add(rField);
+    }
+
+    private void fillRecordObjectFieldsAddress(ArrayList<RecordObjectField> rFields, Address address) {
         RecordObjectField rField;
 
         rField = new RecordObjectField("index", address.getIndex(), Field.TYPE.TEXT);
@@ -855,7 +891,7 @@ public class Importer {
                     if (col.getCount() > 0) {
                         DataChildItem dataChildItem = new DataChildItem(
                                 Status.WARNING,
-                                obj.getTitle() + " [" + obj.getFormName() + "]",
+                                "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
                                 keyStr.toString(),
                                 "Объект уже существует в базе данных"
                         );
@@ -871,7 +907,7 @@ public class Importer {
 
                             DataChildItem dataChildItem = new DataChildItem(
                                     Status.WARNING,
-                                    obj.getTitle() + " [" + obj.getFormName() + "]",
+                                    "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
                                     keyStr.toString(),
                                     "Объект уже существует среди предыдущих импортируемых"
                             );

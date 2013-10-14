@@ -1,9 +1,6 @@
 package by.oshmianski.ui.edt;
 
-import by.oshmianski.objects.DataChildItem;
-import by.oshmianski.objects.DataMainItem;
-import by.oshmianski.objects.RecordObject;
-import by.oshmianski.objects.TemplateImport;
+import by.oshmianski.objects.*;
 import ca.odell.glazedlists.EventList;
 
 import javax.swing.*;
@@ -81,6 +78,8 @@ public interface UIProcessor {
 
 //    @RequiresEDT
     TemplateImport getTemplateImport();
+
+    EventList<CellHeader> getCellHeaders();
 
     @RequiresEDT
     void setCountAll2Import(int count);
