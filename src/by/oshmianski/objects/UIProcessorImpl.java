@@ -89,6 +89,10 @@ public class UIProcessorImpl implements UIProcessor {
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_STREET
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_CITY
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_HOUSE
+                || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_TYPE
+                || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_NUM
+                || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_DATE
+                || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_ORG
                 ) {
             dockInfo.countIncWarning();
         }
