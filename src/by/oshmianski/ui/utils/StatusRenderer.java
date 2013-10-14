@@ -40,6 +40,10 @@ public class StatusRenderer extends DefaultTableCellRenderer implements TableCel
                 || value == Status.WARNING_ADDRESS_NO_STREET
                 || value == Status.WARNING_ADDRESS_NO_CITY
                 || value == Status.WARNING_ADDRESS_NO_HOUSE
+                || value == Status.WARNING_PASSPORT_NO_TYPE
+                || value == Status.WARNING_PASSPORT_NO_NUM
+                || value == Status.WARNING_PASSPORT_NO_DATE
+                || value == Status.WARNING_PASSPORT_NO_ORG
                 )
             label.setForeground(new Color(0xC26802));
 

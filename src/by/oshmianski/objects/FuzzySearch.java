@@ -2,7 +2,10 @@ package by.oshmianski.objects;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,12 +35,49 @@ public class FuzzySearch {
             "Хойникский", "Хотимский", "Чаусский", "Чашникский", "Червенский", "Чериковский", "Чечерский", "Шарковщинский",
             "Шкловский", "Шумилинский", "Щучинский"
     };
+    private final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     public static void main(String[] args) {
         String t = " .";
         String regex = "^\\.$";
         System.out.println("regex=" + regex);
         System.out.println("t=" + t.replaceAll(regex, ""));
+    }
+
+    public Passport getPassport(String passStr, ArrayList<DataChildItem> dataChildItems) throws ParseException {
+        Passport passport = new Passport("", "", "", "");
+
+        String[] passTypes = {"Паспорт гражданина РБ", "Вид на жительство", "Иностранный паспорт"};
+
+        Pattern pattern = Pattern.compile("(?<=выдан\\s{1}.{8}\\s{1}).{0,}");
+        Matcher matcher = pattern.matcher(passStr);
+        if (matcher.find()) {
+            passport.setPassOrg(matcher.group());
+            passStr = passStr.replace(matcher.group(), "").trim();
+        }
+
+        pattern = Pattern.compile("(?<=выдан\\s).{0,}");
+        matcher = pattern.matcher(passStr);
+        if (matcher.find()) {
+            passport.setPassDate(formatter.format(new SimpleDateFormat("dd.MM.yy").parse(matcher.group())));
+            passStr = passStr.replace(matcher.group(), "").trim();
+        }
+        passStr = passStr.replace("выдан", "").trim();
+
+        passStr = passStr.trim().toLowerCase();
+        for (String passType : passTypes) {
+            if (passStr.indexOf(passType.toLowerCase()) > -1) {
+                passport.setPassType(passType);
+                passStr = passStr.replace(passType.toLowerCase(), "").trim();
+                break;
+            }
+        }
+
+        passport.setPassNum(passStr.toUpperCase());
+
+        processWarningPassport(passport, dataChildItems);
+
+        return passport;
     }
 
     public Address getAddressStructured1(String addressStr, ArrayList<DataChildItem> dataChildItems) {
@@ -53,7 +93,7 @@ public class FuzzySearch {
         address.setHouse(addressArray[5].trim().replaceAll("^\\.$", ""));
         address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""));
 
-        processWarning(address, dataChildItems);
+        processWarningAddress(address, dataChildItems);
 
         return address;
     }
@@ -213,12 +253,12 @@ public class FuzzySearch {
             address.setFlat(val);
         }
 
-        processWarning(address, dataChildItems);
+        processWarningAddress(address, dataChildItems);
 
         return address;
     }
 
-    private void processWarning(Address address, ArrayList<DataChildItem> dataChildItems) {
+    private void processWarningAddress(Address address, ArrayList<DataChildItem> dataChildItems) {
         if (address.getIndex().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_INDEX,
@@ -265,6 +305,48 @@ public class FuzzySearch {
                     "_Заполнение адреса",
                     "Ошибка",
                     "Отсутствует дом"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+    }
+
+    private void processWarningPassport(Passport passport, ArrayList<DataChildItem> dataChildItems) {
+        if (passport.getPassType().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_PASSPORT_NO_TYPE,
+                    "_Заполнение паспорта",
+                    "Ошибка",
+                    "Отсутствует тип"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (passport.getPassNum().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_PASSPORT_NO_NUM,
+                    "_Заполнение паспорта",
+                    "Ошибка",
+                    "Отсутствует номер"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (passport.getPassDate().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_PASSPORT_NO_DATE,
+                    "_Заполнение паспорта",
+                    "Ошибка",
+                    "Отсутствует дата выдачи"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (passport.getPassOrg().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_PASSPORT_NO_ORG,
+                    "_Заполнение паспорта",
+                    "Ошибка",
+                    "Отсутствует орган выдачи"
             );
             dataChildItems.add(dataChildItem);
         }

@@ -768,13 +768,19 @@ public class Importer {
                     fuzzySearchAddress = new FuzzySearch();
                 Address address = fuzzySearchAddress.getAddress(cellValue, dataChildItems);
 
-                fillRecordObjectFields(rFields, address);
+                fillRecordObjectFieldsAddress(rFields, address);
             } else if ("#ADDRESS_STRUCTURED_1".equalsIgnoreCase(field.getTitleSys())) {
                 if (fuzzySearchAddress == null)
                     fuzzySearchAddress = new FuzzySearch();
                 Address address = fuzzySearchAddress.getAddressStructured1(cellValue, dataChildItems);
 
-                fillRecordObjectFields(rFields, address);
+                fillRecordObjectFieldsAddress(rFields, address);
+            } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
+                if (fuzzySearchAddress == null)
+                    fuzzySearchAddress = new FuzzySearch();
+                Passport passport = fuzzySearchAddress.getPassport(cellValue, dataChildItems);
+
+                fillRecordObjectFieldsPassport(rFields, passport);
             } else {
                 rField = new RecordObjectField(field.getTitleSys(), cellValue, field.getType());
                 rFields.add(rField);
@@ -785,7 +791,23 @@ public class Importer {
         rFields.add(rField);
     }
 
-    private void fillRecordObjectFields(ArrayList<RecordObjectField> rFields, Address address) {
+    private void fillRecordObjectFieldsPassport(ArrayList<RecordObjectField> rFields, Passport passport) {
+        RecordObjectField rField;
+
+        rField = new RecordObjectField("passType", passport.getPassType(), Field.TYPE.TEXT);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("passNum", passport.getPassNum(), Field.TYPE.TEXT);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("passDate", passport.getPassDate(), Field.TYPE.DATETIME);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("passOrg", passport.getPassOrg(), Field.TYPE.TEXT);
+        rFields.add(rField);
+    }
+
+    private void fillRecordObjectFieldsAddress(ArrayList<RecordObjectField> rFields, Address address) {
         RecordObjectField rField;
 
         rField = new RecordObjectField("index", address.getIndex(), Field.TYPE.TEXT);
