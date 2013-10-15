@@ -11,6 +11,7 @@ import lotus.domino.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -356,7 +357,7 @@ public class Importer {
                 throw new CantOpenFileException("Не удалось открыть файл: " + filePath);
 
             // XSSFWorkbook, File
-            pkg = OPCPackage.open(file);
+            pkg = OPCPackage.open(file, PackageAccess.READ);
             wb = new XSSFWorkbook(pkg);
 
             Sheet sheet1 = wb.getSheetAt(0);

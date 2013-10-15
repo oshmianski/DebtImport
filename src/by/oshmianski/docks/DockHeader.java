@@ -22,6 +22,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import org.apache.poi.hssf.util.CellReference;
 import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -115,7 +116,7 @@ public class DockHeader extends DockSimple {
 
                     try {
                         // XSSFWorkbook, File
-                        pkg = OPCPackage.open(file);
+                        pkg = OPCPackage.open(file, PackageAccess.READ);
                         wb = new XSSFWorkbook(pkg);
                         Sheet sheet1 = wb.getSheetAt(0);
                         Row row = sheet1.getRow(0);
