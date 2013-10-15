@@ -204,17 +204,30 @@ public class Importer {
                                     Link link = loader.getUi().getTemplateImport().getLinkByChildTitle(rObject.getTitle());
                                     switch (Integer.valueOf(link.getResponseField())) {
                                         case 1:
-                                            document.makeResponse(docParent);
+                                            if (link.isMakeResponse())
+                                                document.makeResponse(docParent);
+                                            else
+                                                document.replaceItemValue("$REF", docParent.getUniversalID());
+
                                             break;
                                         case 2:
-                                            document.makeResponse(docParent);
-                                            document.copyItem(document.getFirstItem("$REF"), "$REF_" + link.getMainObject().getFormName());
-                                            document.removeItem("$REF");
+                                            if (link.isMakeResponse()) {
+                                                document.makeResponse(docParent);
+                                                document.copyItem(document.getFirstItem("$REF"), "$REF_" + link.getMainObject().getFormName());
+                                                document.removeItem("$REF");
+                                            } else {
+                                                document.replaceItemValue("$REF_" + link.getMainObject().getFormName(), docParent.getUniversalID());
+                                            }
+
                                             break;
                                         case 3:
-                                            document.makeResponse(docParent);
-                                            document.copyItem(document.getFirstItem("$REF"), link.getResponseFieldCustom());
-                                            document.removeItem("$REF");
+                                            if (link.isMakeResponse()) {
+                                                document.makeResponse(docParent);
+                                                document.copyItem(document.getFirstItem("$REF"), link.getResponseFieldCustom());
+                                                document.removeItem("$REF");
+                                            } else {
+                                                document.replaceItemValue(link.getResponseFieldCustom(), docParent.getUniversalID());
+                                            }
                                             break;
                                         default:
                                             document.makeResponse(docParent);
@@ -704,20 +717,26 @@ public class Importer {
             try {
                 String colStr = field.getXmlCell();
                 String col = "";
-                if ("@".equals(colStr.substring(0, 1))) {
-                    String colStrArray[] = StringUtils.substringsBetween(colStr, "<", ">");
-                    for (String str : colStrArray) {
-                        colStr = colStr.replaceAll("\\<" + str + "\\>", "\"" + row.getCell(CellReference.convertColStringToIndex(str)) + "\"").replaceAll("null", "");
+                if (!colStr.isEmpty()) {
+                    if ("@".equals(colStr.substring(0, 1))) {
+                        String colStrArray[] = StringUtils.substringsBetween(colStr, "<", ">");
+                        for (String str : colStrArray) {
+                            colStr = colStr.replaceAll("\\<" + str + "\\>", "\"" + row.getCell(CellReference.convertColStringToIndex(str)) + "\"").replaceAll("null", "");
+                        }
+
+                        Vector vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
+                        col = vec.get(0).toString();
+                    } else {
+                        col = colStr;
                     }
 
-                    Vector vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
-                    col = vec.get(0).toString();
+                    cellValueReal = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
+                    cellValue = cellValueReal;
                 } else {
-                    col = colStr;
+                    cellValueReal = "";
+                    cellValue = "";
                 }
 
-                cellValueReal = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
-                cellValue = cellValueReal;
 
                 ruleSortedList = new SortedList<Rule>(field.getRules(), GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(Rule.class, "number")));
                 for (Rule rule : ruleSortedList) {

@@ -180,6 +180,7 @@ public class LoadTemplateImport implements Runnable, Loader {
                                 docLink.getItemValueString("type"),
                                 objectMain,
                                 objectChild,
+                                "1".equals(docLink.getItemValueString("responseIsMakeResponse")),
                                 docLink.getItemValueString("responseField"),
                                 docLink.getItemValueString("responseFieldCustom"),
                                 docLink.getItemValueString("linkFormTitle"),
