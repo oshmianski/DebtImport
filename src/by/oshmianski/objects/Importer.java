@@ -182,8 +182,12 @@ public class Importer {
                                         val = new Double(field.getValue());
 
                                     if (field.getType() == Field.TYPE.DATETIME) {
-                                        dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(field.getValue()));
-                                        val = dateTime;
+                                        if (!field.getValue().isEmpty()) {
+                                            dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(field.getValue()));
+                                            val = dateTime;
+                                        } else {
+                                            val = "";
+                                        }
                                     }
 
                                     document.replaceItemValue(field.getTitle(), val);
@@ -246,6 +250,13 @@ public class Importer {
 
                     } catch (Exception ex) {
                         MyLog.add2Log(ex);
+                        DataChildItem dataChildItem = new DataChildItem(
+                                Status.ERROR,
+                                "_Ошибка",
+                                "Импорт",
+                                ex.toString()
+                        );
+                        dataMainItem.getDataChildItems().add(dataChildItem);
                     } finally {
                         if (recordObjectSortedList != null)
                             recordObjectSortedList.dispose();
@@ -390,6 +401,7 @@ public class Importer {
             RecordObject rObject;
 
             Row row;
+            Row rowFirst;
 
             int col2Description = loader.getUi().getCol2Description().isEmpty() ? -1 : CellReference.convertColStringToIndex(loader.getUi().getCol2Description());
 
@@ -402,6 +414,8 @@ public class Importer {
                     if (it.hasNext())
                         it.next();
 
+            rowFirst = sheet1.getRow(0);
+
             while (it.hasNext()) {
                 row = it.next();
 
@@ -410,13 +424,15 @@ public class Importer {
                 rObjects = new ArrayList<RecordObject>();
 
                 int j = 0;
-                for (Cell cell : row) {
+                for (Cell cell : rowFirst) {
+                    Cell cell1 = row.getCell(j);
+                    //TODO: В следующей строчке плавающая ошибка: nullPointerException. нужно разобраться
                     dataChildItem = new DataChildItem(
                             Status.INFO,
                             "Данные",
                             loader.getUi().getCellHeaders().size() - 1 < j ?
                                     CellReference.convertNumToColString(j) : loader.getUi().getCellHeaders().get(j).toString(),
-                            getCellString(wb, cell)
+                            getCellString(wb, cell1)
                     );
                     dataChildItems.add(dataChildItem);
 
@@ -802,7 +818,7 @@ public class Importer {
 
                 fillRecordObjectFieldsPassport(rFields, passport);
             } else {
-                if(cellValue.isEmpty() && field.isEmptyFlagSignal()){
+                if (cellValue.isEmpty() && field.isEmptyFlagSignal()) {
                     DataChildItem dataChildItem = new DataChildItem(
                             Status.WARNING_EMPTY_FIELD,
                             "_" + obj.getTitle() + " [" + obj.getFormName() + "]",

@@ -3,6 +3,7 @@ package by.oshmianski.models;
 import by.oshmianski.category.datachild.ItemCats;
 import by.oshmianski.objects.DataChildItem;
 import ca.odell.glazedlists.gui.TableFormat;
+import ca.odell.glazedlists.gui.WritableTableFormat;
 
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  * Date: 9/16/13
  * Time: 3:23 PM
  */
-public class DataChildModel implements TableFormat<DataChildItem> {
+public class DataChildModel implements WritableTableFormat<DataChildItem> {
     private String[] columnNames = {"Статус", "Объект \\ Значение", "Описание"};
     private Map<Integer, ItemCats> listCat;
 
@@ -50,5 +51,16 @@ public class DataChildModel implements TableFormat<DataChildItem> {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public boolean isEditable(DataChildItem dataChildItem, int i) {
+        if(i == 2) return true;
+        return false;
+    }
+
+    @Override
+    public DataChildItem setColumnValue(DataChildItem dataChildItem, Object o, int i) {
+        return null;
     }
 }
