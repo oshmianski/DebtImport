@@ -4,6 +4,7 @@ import bibliothek.gui.dock.common.event.CFocusListener;
 import bibliothek.gui.dock.common.intern.CDockable;
 import by.oshmianski.docks.Setup.DockSimple;
 import by.oshmianski.main.AppletWindow;
+import by.oshmianski.ui.utils.BatchDocument;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import by.oshmianski.utils.IconContainer;
 import by.oshmianski.utils.MyLog;
@@ -17,8 +18,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class DockLog extends DockSimple {
-    private JTextPane area;
-    private StyledDocument doc;
+    private JTextArea area;
+//    private StyledDocument doc;
+    private BatchDocument doc;
     private Style style;
 
     public DockLog() {
@@ -35,9 +37,9 @@ public class DockLog extends DockSimple {
             }
         });
 
-        area = new JTextPane();
-        doc = area.getStyledDocument();
-        style = area.addStyle("I'm a Style", null);
+        area = new JTextArea();
+        doc = new BatchDocument();
+//        style = area.addStyle("I'm a Style", null);
         area.setEditable(false);
 
         JMenuItem item1 = new JMenuItem("Копировать");
@@ -103,35 +105,39 @@ public class DockLog extends DockSimple {
 
     public void appendText(final String text, final Color color, final boolean isClear) {
 
-        if (SwingUtilities.isEventDispatchThread()) {
-            appendTextInner(text, color, isClear);
-        } else {
-            Runnable shell = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        appendTextInner(text, color, isClear);
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
+//        if (SwingUtilities.isEventDispatchThread()) {
+//            appendTextInner(text, color, isClear);
+//        } else {
+        Runnable shell = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    appendTextInner(text, color, isClear);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
                 }
-            };
+            }
+        };
 
-            SwingUtilities.invokeLater(shell);
-        }
+        SwingUtilities.invokeLater(shell);
+//        }
     }
 
     private void appendTextInner(String text, Color color, boolean isClear) {
-        StyleConstants.setForeground(style, color);
+//        StyleConstants.setForeground(style, color);
 
         if (isClear) {
             area.setText("");
         }
 
         try {
-            final int docLength = doc.getLength();
-            doc.insertString(docLength, text + "\n", style);
-        } catch (BadLocationException e) {
+//            final int docLength = doc.getLength();
+//            doc.insertString(docLength, text + "\n", style);
+//            doc.appendBatchString(text, style);
+//            doc.appendBatchLineFeed(style);
+//            doc.processBatchUpdates(0);
+            area.append(text + "\n");
+        } catch (Exception e) {
             MyLog.add2Log(e);
         }
     }

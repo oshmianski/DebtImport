@@ -16,6 +16,7 @@ import java.util.Comparator;
 public class RecordObject implements Comparable<RecordObject>{
     private int number;
     private String title;
+    private String titleUser;
     private boolean flagEmpty;
     private boolean existInDB;
     private boolean existInPrevios;
@@ -24,9 +25,10 @@ public class RecordObject implements Comparable<RecordObject>{
 
     private ArrayList<RecordObjectField> fields;
 
-    public RecordObject(int number, String title) {
+    public RecordObject(int number, String title, String titleUser) {
         this.number = number;
         this.title = title;
+        this.titleUser = titleUser;
         fields = new ArrayList<RecordObjectField>();
         flagEmpty = false;
         existInDB = false;
@@ -113,7 +115,7 @@ public class RecordObject implements Comparable<RecordObject>{
 
     @Override
     public String toString() {
-        return title;
+        return title + " | " + titleUser;
     }
 
     @Override

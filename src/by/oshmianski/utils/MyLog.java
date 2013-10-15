@@ -44,7 +44,7 @@ public class MyLog {
         add2Log(text, isFocus, Color.BLACK);
     }
 
-    private static void add2LogEDT(String text, boolean isFocus, Color color) {
+    public static void add2Log(String text, boolean isFocus, Color color) {
         if (dockableText != null) {
             if (isFocus) {
                 dockableText.setVisible(true);
@@ -55,23 +55,23 @@ public class MyLog {
         }
     }
 
-    public static void add2Log(final String text, final boolean isFocus, final Color color) {
-        if (SwingUtilities.isEventDispatchThread()) {
-            add2LogEDT(text, isFocus, color);
-        } else {
-            Runnable shell = new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        add2LogEDT(text, isFocus, color);
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-            };
-            SwingUtilities.invokeLater(shell);
-        }
-
-        System.out.println(text);
-    }
+//    public static void add2Log(final String text, final boolean isFocus, final Color color) {
+//        if (SwingUtilities.isEventDispatchThread()) {
+//            add2LogEDT(text, isFocus, color);
+//        } else {
+//            Runnable shell = new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        add2LogEDT(text, isFocus, color);
+//                    } catch (Exception ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+//                }
+//            };
+//            SwingUtilities.invokeLater(shell);
+//        }
+//
+//        System.out.println(text);
+//    }
 }

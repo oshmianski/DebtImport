@@ -13,7 +13,7 @@ import by.oshmianski.ui.TreeTable.TreeTableModel;
  * Time: 14:32
  */
 public class RecordObjectsTreeModel extends AbstractTreeTableModel {
-    private String[] cols = {"Объект \\ поле", "Тип", "Значение"};
+    private String[] cols = {"Объект \\ поле", "Поле (User)", "Тип", "Значение"};
 
     public RecordObjectsTreeModel(Object root) {
         super(root);
@@ -48,8 +48,10 @@ public class RecordObjectsTreeModel extends AbstractTreeTableModel {
             case 0:
                 return node.toString();
             case 1:
-                if (node instanceof RecordObjectField) return ((RecordObjectField) node).getType();
+                if (node instanceof RecordObjectField) return ((RecordObjectField) node).getTitleUser();
             case 2:
+                if (node instanceof RecordObjectField) return ((RecordObjectField) node).getType();
+            case 3:
                 if (node instanceof RecordObjectField) return ((RecordObjectField) node).getValue();
         }
         return null;

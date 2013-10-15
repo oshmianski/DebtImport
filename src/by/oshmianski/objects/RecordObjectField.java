@@ -10,11 +10,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class RecordObjectField {
     private String title;
+    private String titleUser;
     private String value;
     private Field.TYPE type;
 
-    public RecordObjectField(String title, String value, Field.TYPE type) {
+    public RecordObjectField(String title, String titleUser, String value, Field.TYPE type) {
         this.title = title;
+        this.titleUser = titleUser;
         this.value = value;
         this.type = type;
     }
@@ -41,6 +43,14 @@ public class RecordObjectField {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTitleUser() {
+        return titleUser;
+    }
+
+    public void setTitleUser(String titleUser) {
+        this.titleUser = titleUser;
     }
 
     @Override

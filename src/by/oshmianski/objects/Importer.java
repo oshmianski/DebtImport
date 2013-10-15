@@ -424,7 +424,7 @@ public class Importer {
                 }
 
                 for (Object obj : templateImport.getObjects()) {
-                    rObject = new RecordObject(obj.getNumber(), obj.getFormName());
+                    rObject = new RecordObject(obj.getNumber(), obj.getFormName(), obj.getTitle());
                     rObjects.add(rObject);
                     rFields = new ArrayList<RecordObjectField>();
 
@@ -802,56 +802,56 @@ public class Importer {
 
                 fillRecordObjectFieldsPassport(rFields, passport);
             } else {
-                rField = new RecordObjectField(field.getTitleSys(), cellValue, field.getType());
+                rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType());
                 rFields.add(rField);
             }
         }
 
-        rField = new RecordObjectField("UNID_FI", importKey, Field.TYPE.TEXT);
+        rField = new RecordObjectField("UNID_FI", "", importKey, Field.TYPE.TEXT);
         rFields.add(rField);
     }
 
     private void fillRecordObjectFieldsPassport(ArrayList<RecordObjectField> rFields, Passport passport) {
         RecordObjectField rField;
 
-        rField = new RecordObjectField("passType", passport.getPassType(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("passType", "Тип", passport.getPassType(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passNum", passport.getPassNum(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("passNum", "Номер", passport.getPassNum(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passDate", passport.getPassDate(), Field.TYPE.DATETIME);
+        rField = new RecordObjectField("passDate", "Дата выдачи", passport.getPassDate(), Field.TYPE.DATETIME);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passOrg", passport.getPassOrg(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("passOrg", "Организация", passport.getPassOrg(), Field.TYPE.TEXT);
         rFields.add(rField);
     }
 
     private void fillRecordObjectFieldsAddress(ArrayList<RecordObjectField> rFields, Address address) {
         RecordObjectField rField;
 
-        rField = new RecordObjectField("index", address.getIndex(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("index", "Индекс", address.getIndex(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("country", address.getCountry(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("country", "Страна", address.getCountry(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("region", address.getRegion(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("region", "Область", address.getRegion(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("district", address.getDistrict(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("district", "Район", address.getDistrict(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("city", address.getCity(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("city", "Город", address.getCity(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("street", address.getStreet(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("street", "Улица", address.getStreet(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("house", address.getHouse(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("house", "Дом", address.getHouse(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("flat", address.getFlat(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("flat", "Квартира", address.getFlat(), Field.TYPE.TEXT);
         rFields.add(rField);
     }
 
