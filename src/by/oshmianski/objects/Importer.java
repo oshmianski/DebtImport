@@ -774,7 +774,7 @@ public class Importer {
 
             if (cellValueReal.isEmpty() && field.isEmptyFlag()) {
                 DataChildItem dataChildItem = new DataChildItem(
-                        Status.WARNING,
+                        Status.WARNING_OBJECT_WILL_NOT_CREATE,
                         "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
                         fieldTitle,
                         "Значение ячейки пустое, объект создан не будет"
@@ -802,6 +802,16 @@ public class Importer {
 
                 fillRecordObjectFieldsPassport(rFields, passport);
             } else {
+                if(cellValue.isEmpty() && field.isEmptyFlagSignal()){
+                    DataChildItem dataChildItem = new DataChildItem(
+                            Status.WARNING_EMPTY_FIELD,
+                            "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                            fieldTitle,
+                            "Значение ячейки пустое"
+                    );
+                    dataChildItems.add(dataChildItem);
+                }
+
                 rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType());
                 rFields.add(rField);
             }
@@ -910,7 +920,7 @@ public class Importer {
                     col = viewMap.get(key.getView()).getAllDocumentsByKey(keyStr.toString(), true);
                     if (col.getCount() > 0) {
                         DataChildItem dataChildItem = new DataChildItem(
-                                Status.WARNING,
+                                Status.WARNING_ALREADY_EXIST_IN_DB,
                                 "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
                                 keyStr.toString(),
                                 "Объект уже существует в базе данных"
@@ -926,7 +936,7 @@ public class Importer {
                             rObject.setLinkKey(keyStr.toString());
 
                             DataChildItem dataChildItem = new DataChildItem(
-                                    Status.WARNING,
+                                    Status.WARNING_ALREADY_EXIST_IN_PREVIOUS,
                                     "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
                                     keyStr.toString(),
                                     "Объект уже существует среди предыдущих импортируемых"

@@ -81,7 +81,10 @@ public class UIProcessorImpl implements UIProcessor {
         if (dataMainItem.getStatusFromChild() == Status.ERROR) {
             dockInfo.countIncError();
         }
-        if (dataMainItem.getStatusFromChild() == Status.WARNING
+        if (dataMainItem.getStatusFromChild() == Status.WARNING_ALREADY_EXIST_IN_DB
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ALREADY_EXIST_IN_PREVIOUS
+                || dataMainItem.getStatusFromChild() == Status.WARNING_OBJECT_WILL_NOT_CREATE
+                || dataMainItem.getStatusFromChild() == Status.WARNING_EMPTY_FIELD
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_INDEX
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_COUTRY
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_REGION

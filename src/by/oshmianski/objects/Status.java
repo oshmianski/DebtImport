@@ -9,6 +9,10 @@ package by.oshmianski.objects;
 public enum Status {
     ERROR(0),
 
+    WARNING_EMPTY_FIELD(30),
+
+    WARNING_OBJECT_WILL_NOT_CREATE(40),
+
     WARNING_ADDRESS_NO_INDEX(50),
     WARNING_ADDRESS_NO_COUTRY(51),
     WARNING_ADDRESS_NO_REGION(52),
@@ -22,7 +26,8 @@ public enum Status {
     WARNING_PASSPORT_NO_DATE(62),
     WARNING_PASSPORT_NO_ORG(63),
 
-    WARNING(100),
+    WARNING_ALREADY_EXIST_IN_DB(70),
+    WARNING_ALREADY_EXIST_IN_PREVIOUS(71),
 
     OK(200),
 
@@ -35,17 +40,20 @@ public enum Status {
     }
 
     public static Status[] STATUS_INDEXED = new Status[]{
-        null,
-        ERROR,
-        WARNING_ADDRESS_NO_INDEX,
-        WARNING_ADDRESS_NO_COUTRY,
-        WARNING_ADDRESS_NO_REGION,
-        WARNING_ADDRESS_NO_DISTRICT,
-        WARNING_ADDRESS_NO_CITY,
-        WARNING_ADDRESS_NO_STREET,
-        WARNING_ADDRESS_NO_HOUSE,
-        WARNING,
-        INFO,
-        OK};
+            null,
+            ERROR,
+            WARNING_EMPTY_FIELD,
+            WARNING_OBJECT_WILL_NOT_CREATE,
+            WARNING_ADDRESS_NO_INDEX,
+            WARNING_ADDRESS_NO_COUTRY,
+            WARNING_ADDRESS_NO_REGION,
+            WARNING_ADDRESS_NO_DISTRICT,
+            WARNING_ADDRESS_NO_CITY,
+            WARNING_ADDRESS_NO_STREET,
+            WARNING_ADDRESS_NO_HOUSE,
+            WARNING_ALREADY_EXIST_IN_DB,
+            WARNING_ALREADY_EXIST_IN_PREVIOUS,
+            INFO,
+            OK};
 
 }

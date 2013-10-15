@@ -408,7 +408,8 @@ public class LoadTemplateImport implements Runnable, Loader {
                     docField.getItemValueString("description"),
                     docField.getItemValueString("type"),
                     docField.getItemValueString("xlsCell"),
-                    "1".equals(docField.getItemValueString("emptyFlag"))
+                    "1".equals(docField.getItemValueString("emptyFlag")),
+                    "1".equals(docField.getItemValueString("emptyFlagSignal"))
             );
 
             colRule = viewRuleRef.getAllDocumentsByKey(docField.getUniversalID(), true);

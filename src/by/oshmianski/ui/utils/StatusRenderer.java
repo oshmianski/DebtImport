@@ -9,9 +9,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class StatusRenderer extends DefaultTableCellRenderer implements TableCellRenderer {
 
@@ -32,18 +29,22 @@ public class StatusRenderer extends DefaultTableCellRenderer implements TableCel
         if (value == Status.OK || value == Status.INFO)
             label.setForeground(new Color(0x008000));
 
-        if (value == Status.WARNING
-                || value == Status.WARNING_ADDRESS_NO_INDEX
-                || value == Status.WARNING_ADDRESS_NO_COUTRY
-                || value == Status.WARNING_ADDRESS_NO_REGION
-                || value == Status.WARNING_ADDRESS_NO_DISTRICT
-                || value == Status.WARNING_ADDRESS_NO_STREET
-                || value == Status.WARNING_ADDRESS_NO_CITY
-                || value == Status.WARNING_ADDRESS_NO_HOUSE
-                || value == Status.WARNING_PASSPORT_NO_TYPE
-                || value == Status.WARNING_PASSPORT_NO_NUM
-                || value == Status.WARNING_PASSPORT_NO_DATE
-                || value == Status.WARNING_PASSPORT_NO_ORG
+        if (
+                value == Status.WARNING_ALREADY_EXIST_IN_DB
+                        || value == Status.WARNING_ALREADY_EXIST_IN_PREVIOUS
+                        || value == Status.WARNING_OBJECT_WILL_NOT_CREATE
+                        || value == Status.WARNING_EMPTY_FIELD
+                        || value == Status.WARNING_ADDRESS_NO_INDEX
+                        || value == Status.WARNING_ADDRESS_NO_COUTRY
+                        || value == Status.WARNING_ADDRESS_NO_REGION
+                        || value == Status.WARNING_ADDRESS_NO_DISTRICT
+                        || value == Status.WARNING_ADDRESS_NO_STREET
+                        || value == Status.WARNING_ADDRESS_NO_CITY
+                        || value == Status.WARNING_ADDRESS_NO_HOUSE
+                        || value == Status.WARNING_PASSPORT_NO_TYPE
+                        || value == Status.WARNING_PASSPORT_NO_NUM
+                        || value == Status.WARNING_PASSPORT_NO_DATE
+                        || value == Status.WARNING_PASSPORT_NO_ORG
                 )
             label.setForeground(new Color(0xC26802));
 

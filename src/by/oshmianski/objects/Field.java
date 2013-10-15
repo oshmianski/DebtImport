@@ -19,6 +19,7 @@ public class Field {
     private TYPE type;
     private String xmlCell;
     private boolean emptyFlag;
+    private boolean emptyFlagSignal;
 
     public static enum TYPE {
         TEXT,
@@ -30,13 +31,22 @@ public class Field {
 
     private EventList<Rule> rules = new BasicEventList<Rule>();
 
-    public Field(String unid, String titleSys, String titleUser, String description, String type, String xmlCell, boolean emptyFlag) {
+    public Field(
+            String unid,
+            String titleSys,
+            String titleUser,
+            String description,
+            String type,
+            String xmlCell,
+            boolean emptyFlag,
+            boolean emptyFlagSignal) {
         this.unid = unid;
         this.titleSys = titleSys;
         this.titleUser = titleUser;
         this.description = description;
         this.xmlCell = xmlCell;
         this.emptyFlag = emptyFlag;
+        this.emptyFlagSignal = emptyFlagSignal;
 
         if ("text".equals(type))
             this.type = TYPE.TEXT;
@@ -116,5 +126,13 @@ public class Field {
 
     public void setRules(EventList<Rule> rules) {
         this.rules = rules;
+    }
+
+    public boolean isEmptyFlagSignal() {
+        return emptyFlagSignal;
+    }
+
+    public void setEmptyFlagSignal(boolean emptyFlagSignal) {
+        this.emptyFlagSignal = emptyFlagSignal;
     }
 }
