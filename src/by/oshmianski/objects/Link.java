@@ -14,6 +14,7 @@ public class Link {
 
     private Object mainObject;
     private Object childObject;
+    private boolean makeResponse;
     private String responseField;
     private String responseFieldCustom;
 
@@ -23,13 +24,28 @@ public class Link {
     private String descrField1;
     private String descrField2;
 
-    public Link(String unid, String title, String description, String type, Object mainObject, Object childObject, String responseField, String responseFieldCustom, String linkFormTitle, String linkField1, String linkField2, String descrField1, String descrField2) {
+    public Link(
+            String unid,
+            String title,
+            String description,
+            String type,
+            Object mainObject,
+            Object childObject,
+            boolean makeResponse,
+            String responseField,
+            String responseFieldCustom,
+            String linkFormTitle,
+            String linkField1,
+            String linkField2,
+            String descrField1,
+            String descrField2) {
         this.unid = unid;
         this.title = title;
         this.description = description;
         this.type = type;
         this.mainObject = mainObject;
         this.childObject = childObject;
+        this.makeResponse = makeResponse;
         this.responseField = responseField;
         this.responseFieldCustom = responseFieldCustom;
         this.linkFormTitle = linkFormTitle;
@@ -141,5 +157,13 @@ public class Link {
 
     public void setDescrField2(String descrField2) {
         this.descrField2 = descrField2;
+    }
+
+    public boolean isMakeResponse() {
+        return makeResponse;
+    }
+
+    public void setMakeResponse(boolean makeResponse) {
+        this.makeResponse = makeResponse;
     }
 }
