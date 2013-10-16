@@ -427,13 +427,20 @@ public class Importer {
                 for (Cell cell : rowFirst) {
                     Cell cell1 = row.getCell(j);
                     //TODO: В следующей строчке плавающая ошибка: nullPointerException. нужно разобраться
+                    String value = "";
+                    if (loader.getUi().getCellHeaders().size() - 1 < j)
+                        value = CellReference.convertNumToColString(j);
+                    else
+                        value = loader.getUi().getCellHeaders().get(j).toString();
+
+                    String description = getCellString(wb, cell1);
+
                     dataChildItem = new DataChildItem(
                             Status.INFO,
                             "Данные",
-                            loader.getUi().getCellHeaders().size() - 1 < j ?
-                                    CellReference.convertNumToColString(j) : loader.getUi().getCellHeaders().get(j).toString(),
-                            getCellString(wb, cell1)
-                    );
+                            value,
+                            description);
+
                     dataChildItems.add(dataChildItem);
 
                     j++;
