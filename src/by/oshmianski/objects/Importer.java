@@ -197,14 +197,14 @@ public class Importer {
                                 if (mainRecordObject != null) {
                                     while (mainRecordObject.isFlagEmpty()) {
                                         Link link1 = loader.getUi().getTemplateImport().getLinkByChildTitle(mainRecordObject.getTitle());
-                                        mainRecordObject = dataMainItem.getRecordObjectByTitle(link1.getMainObject().getFormName());
+                                        mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
                                     }
 
                                     if (mainRecordObject.isExistInPrevios()) {
                                         mainRecordObject = recordObjectMap.get(mainRecordObject.getLinkKey());
                                     }
 
-                                    docParent = dbMap.get(object.getDb()).getDocumentByUNID(mainRecordObject.getLinkKey());
+                                    docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getLinkKey());
 
                                     Link link = loader.getUi().getTemplateImport().getLinkByChildTitle(rObject.getTitle());
                                     switch (Integer.valueOf(link.getResponseField())) {
@@ -447,7 +447,7 @@ public class Importer {
                 }
 
                 for (Object obj : templateImport.getObjects()) {
-                    rObject = new RecordObject(obj.getNumber(), obj.getFormName(), obj.getTitle());
+                    rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getFormName(), obj.getTitle(), obj.getDb());
                     rObjects.add(rObject);
                     rFields = new ArrayList<RecordObjectField>();
 
@@ -502,15 +502,15 @@ public class Importer {
                     for (Link link : templateImport.getLinks()) {
                         if ("1".equals(link.getType())) {//связь один-ко-многим
                             Object childObject = link.getChildObject();
-                            RecordObject childRecordObject = dataMainItem.getRecordObjectByTitle(childObject.getFormName());
+                            RecordObject childRecordObject = dataMainItem.getRecordObjectByObjUnid(childObject.getUnid());
 
                             if (!(childRecordObject.isFlagEmpty() || childRecordObject.isExistInDB() || childRecordObject.isExistInPrevios())) {
                                 Object mainObject = link.getMainObject();
-                                RecordObject mainRecordObject = dataMainItem.getRecordObjectByTitle(mainObject.getFormName());
+                                RecordObject mainRecordObject = dataMainItem.getRecordObjectByObjUnid(mainObject.getUnid());
 
                                 while (mainRecordObject.isFlagEmpty()) {
                                     Link link1 = templateImport.getLinkByChildTitle(mainRecordObject.getTitle());
-                                    mainRecordObject = dataMainItem.getRecordObjectByTitle(link1.getMainObject().getFormName());
+                                    mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
                                 }
 
                                 childRecordObject.setMainObject(mainRecordObject);

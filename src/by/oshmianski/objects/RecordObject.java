@@ -1,9 +1,6 @@
 package by.oshmianski.objects;
 
-import ca.odell.glazedlists.impl.sort.ReverseComparator;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -14,6 +11,7 @@ import java.util.Comparator;
  * Time: 12:48
  */
 public class RecordObject implements Comparable<RecordObject>{
+    private String objUnid;
     private int number;
     private String title;
     private String titleUser;
@@ -21,14 +19,23 @@ public class RecordObject implements Comparable<RecordObject>{
     private boolean existInDB;
     private boolean existInPrevios;
     private String linkKey;
+    private String db;
     private RecordObject mainObject;
 
     private ArrayList<RecordObjectField> fields;
 
-    public RecordObject(int number, String title, String titleUser) {
+    public RecordObject(
+            String objUnid,
+            int number,
+            String title,
+            String titleUser,
+            String db) {
+        this.objUnid = objUnid;
         this.number = number;
         this.title = title;
         this.titleUser = titleUser;
+        this.db = db;
+
         fields = new ArrayList<RecordObjectField>();
         flagEmpty = false;
         existInDB = false;
@@ -111,6 +118,34 @@ public class RecordObject implements Comparable<RecordObject>{
         }
 
         return null;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getTitleUser() {
+        return titleUser;
+    }
+
+    public void setTitleUser(String titleUser) {
+        this.titleUser = titleUser;
+    }
+
+    public String getDb() {
+        return db;
+    }
+
+    public void setDb(String db) {
+        this.db = db;
+    }
+
+    public String getObjUnid() {
+        return objUnid;
+    }
+
+    public void setObjUnid(String objUnid) {
+        this.objUnid = objUnid;
     }
 
     @Override

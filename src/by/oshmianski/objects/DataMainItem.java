@@ -92,4 +92,14 @@ public class DataMainItem {
 
         return null;
     }
+
+    public RecordObject getRecordObjectByObjUnid(String unid) {
+        if (objects == null) return null;
+
+        for (RecordObject recordObject : objects) {
+            if (unid.equals(recordObject.getObjUnid())) return recordObject;
+        }
+
+        return null;
+    }
 }
