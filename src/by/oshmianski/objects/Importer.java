@@ -18,7 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.awt.Color;
 import java.io.File;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
 
 /**
@@ -34,9 +34,12 @@ public class Importer {
     private String importKey;
     private FuzzySearch fuzzySearchAddress;
     private final SimpleDateFormat formatterDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private FormulaEvaluator evaluator = null;
+    private DecimalFormat formatNumber = (DecimalFormat) DecimalFormat.getInstance();
 
     public Importer(LoadImportData loader) {
         this.loader = loader;
+        formatNumber.setGroupingUsed(false);
     }
 
     public void process() {
@@ -175,19 +178,19 @@ public class Importer {
                                 for (RecordObjectField field : rObject.getFields()) {
                                     java.lang.Object val = null;
 
-                                    if (field.getType() == Field.TYPE.TEXT || field.getType() == Field.TYPE.AUTHORS || field.getType() == Field.TYPE.READERS)
-                                        val = field.getValue();
+                                    if (!field.getValue().isEmpty()) {
+                                        if (field.getType() == Field.TYPE.TEXT || field.getType() == Field.TYPE.AUTHORS || field.getType() == Field.TYPE.READERS)
+                                            val = field.getValue();
 
-                                    if (field.getType() == Field.TYPE.NUMBER)
-                                        val = new Double(field.getValue());
+                                        if (field.getType() == Field.TYPE.NUMBER)
+                                            val = parseDecimal(field.getValue());
 
-                                    if (field.getType() == Field.TYPE.DATETIME) {
-                                        if (!field.getValue().isEmpty()) {
+                                        if (field.getType() == Field.TYPE.DATETIME) {
                                             dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(field.getValue()));
                                             val = dateTime;
-                                        } else {
-                                            val = "";
                                         }
+                                    } else {
+                                        val = "";
                                     }
 
                                     document.replaceItemValue(field.getTitle(), val);
@@ -611,7 +614,8 @@ public class Importer {
 
     public String getCellString(Workbook wb, Cell cell) {
         String retValue = "";
-        FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+        if (evaluator == null)
+            evaluator = wb.getCreationHelper().createFormulaEvaluator();
 
         if (cell == null) return "";
 
@@ -623,7 +627,7 @@ public class Importer {
                 if (DateUtil.isCellDateFormatted(cell)) {
                     retValue = formatterDateTime.format(cell.getDateCellValue());
                 } else {
-                    retValue = String.valueOf(cell.getNumericCellValue());
+                    retValue = String.valueOf(formatNumber.format(cell.getNumericCellValue()));
                 }
                 break;
             case Cell.CELL_TYPE_BOOLEAN:
@@ -662,7 +666,8 @@ public class Importer {
     public CellField getCellField(Workbook wb, Cell cell) {
         CellField cellField = new CellField("", Field.TYPE.TEXT);
 
-        FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+        if (evaluator == null)
+            evaluator = wb.getCreationHelper().createFormulaEvaluator();
 
         if (cell == null) return cellField;
 
@@ -675,7 +680,7 @@ public class Importer {
                     cellField.setValue(cell.getDateCellValue());
                     cellField.setType(Field.TYPE.DATETIME);
                 } else {
-                    cellField.setValue(String.valueOf(cell.getNumericCellValue()));
+                    cellField.setValue(String.valueOf(formatNumber.format(cell.getNumericCellValue())));
                     cellField.setType(Field.TYPE.NUMBER);
                 }
                 break;
@@ -980,5 +985,23 @@ public class Importer {
                 keyStr.setLength(0);
             }
         }
+    }
+
+    public double parseDecimal(String input) throws NullPointerException, ParseException {
+        if (input == null) {
+            throw new NullPointerException();
+        }
+
+        input = input.trim();
+
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.FRANCE);
+        ParsePosition parsePosition = new ParsePosition(0);
+        Number number = numberFormat.parse(input, parsePosition);
+
+        if (parsePosition.getIndex() != input.length()) {
+            throw new ParseException("Invalid input", parsePosition.getIndex());
+        }
+
+        return number.doubleValue();
     }
 }
