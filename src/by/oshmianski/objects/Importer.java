@@ -732,7 +732,7 @@ public class Importer {
         String cellValue;
         String cellValueReal;
         boolean isRule;
-        SortedList<Rule> ruleSortedList;
+        SortedList<Rule> ruleSortedList = null;
         Vector v;
         StringBuilder sb = new StringBuilder();
 
@@ -766,7 +766,6 @@ public class Importer {
                     cellValue = "";
                 }
 
-
                 ruleSortedList = new SortedList<Rule>(field.getRules(), GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(Rule.class, "number")));
                 for (Rule rule : ruleSortedList) {
                     if ("1".equals(rule.getType())) {
@@ -785,7 +784,6 @@ public class Importer {
 
                     isRule = true;
                 }
-                ruleSortedList.dispose();
 
                 cellValue = isRule ? evalValue : cellValue;
             } catch (Exception ex) {
@@ -798,6 +796,9 @@ public class Importer {
                         ex.toString()
                 );
                 dataChildItems.add(dataChildItem);
+            } finally {
+                if (ruleSortedList != null)
+                    ruleSortedList.dispose();
             }
 
             if (cellValueReal.isEmpty() && field.isEmptyFlag()) {
