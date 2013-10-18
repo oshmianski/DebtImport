@@ -81,8 +81,8 @@ public class FuzzySearch {
 
     public Address getAddressStructured1(String addressStr, ArrayList<DataChildItem> dataChildItems) {
         Address address = new Address();
-        AddressCityWithType cityWithType = new AddressCityWithType();
-        AddressStreetWithType streetWithType = new AddressStreetWithType();
+        AddressCityWithType cityWithType;
+        AddressStreetWithType streetWithType;
 
         String[] addressArray = addressStr.split(",", 7);
 
