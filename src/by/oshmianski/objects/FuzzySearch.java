@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,20 +81,88 @@ public class FuzzySearch {
 
     public Address getAddressStructured1(String addressStr, ArrayList<DataChildItem> dataChildItems) {
         Address address = new Address();
+        AddressCityWithType cityWithType = new AddressCityWithType();
+        AddressStreetWithType streetWithType = new AddressStreetWithType();
 
         String[] addressArray = addressStr.split(",", 7);
+
+        String cityUnprocessed = addressArray[3].trim().replaceAll("^\\.$", "");
+        String streetUnprocessed = addressArray[4].trim().replaceAll("^\\.$", "");
+
+        cityWithType = processCityUnprocessed(cityUnprocessed);
+        streetWithType = processStreetUnprocessed(streetUnprocessed);
 
         address.setIndex(addressArray[0].trim());
         address.setRegion(addressArray[1].trim());
         address.setDistrict(addressArray[2].trim());
-        address.setCity(addressArray[3].trim().replaceAll("^\\.$", ""));
-        address.setStreet(addressArray[4].trim().replaceAll("^\\.$", ""));
+        address.setCity(cityWithType.getCity());
+        address.setCityType(cityWithType.getCityType());
+        address.setStreet(streetWithType.getStreet());
+        address.setStreetType(streetWithType.getStreetType());
         address.setHouse(addressArray[5].trim().replaceAll("^\\.$", ""));
         address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""));
 
         processWarningAddress(address, dataChildItems);
 
         return address;
+    }
+
+    public AddressCityWithType processCityUnprocessed(String cityUnprocessed) {
+        AddressCityWithType cityWithType = new AddressCityWithType();
+        ArrayList<AliasValue> aliasValues = new ArrayList<AliasValue>();
+
+        aliasValues.add(new AliasValue("н.п.", "н.п."));
+        aliasValues.add(new AliasValue("г.п.", "г.п."));
+        aliasValues.add(new AliasValue("г.", "город"));
+        aliasValues.add(new AliasValue("гор.", "город"));
+        aliasValues.add(new AliasValue("город", "город"));
+        aliasValues.add(new AliasValue("д.", "деревня"));
+        aliasValues.add(new AliasValue("дер.", "деревня"));
+        aliasValues.add(new AliasValue("деревня", "деревня"));
+
+        if (cityUnprocessed.isEmpty())
+            return cityWithType;
+
+        for (AliasValue aliasValue : aliasValues)
+            if (cityUnprocessed.indexOf(aliasValue.getAlias()) > -1) {
+                cityWithType.setCityType(aliasValue.getValue());
+                cityUnprocessed = cityUnprocessed.replace(aliasValue.getAlias(), "");
+            }
+
+        cityWithType.setCity(cityUnprocessed.trim());
+
+        return cityWithType;
+    }
+
+    public AddressStreetWithType processStreetUnprocessed(String streetUnprocessed) {
+        AddressStreetWithType streetWithType = new AddressStreetWithType();
+        ArrayList<AliasValue> aliasValues = new ArrayList<AliasValue>();
+
+        aliasValues.add(new AliasValue("ул.", "улица"));
+        aliasValues.add(new AliasValue("улица", "улица"));
+        aliasValues.add(new AliasValue("пер.", "переулок"));
+        aliasValues.add(new AliasValue("пер-к", "переулок"));
+        aliasValues.add(new AliasValue("переулок", "переулок"));
+        aliasValues.add(new AliasValue("пр.", "проспект"));
+        aliasValues.add(new AliasValue("пр-т", "проспект"));
+        aliasValues.add(new AliasValue("пр-кт", "проспект"));
+        aliasValues.add(new AliasValue("проспект", "проспект"));
+        aliasValues.add(new AliasValue("п-д", "проезд"));
+        aliasValues.add(new AliasValue("проезд", "проезд"));
+
+        if (streetUnprocessed.isEmpty())
+            return streetWithType;
+
+
+        for (AliasValue aliasValue : aliasValues)
+            if (streetUnprocessed.indexOf(aliasValue.getAlias()) > -1) {
+                streetWithType.setStreetType(aliasValue.getValue());
+                streetUnprocessed = streetUnprocessed.replace(aliasValue.getAlias(), "");
+            }
+
+        streetWithType.setStreet(streetUnprocessed.trim());
+
+        return streetWithType;
     }
 
     public Address getAddress(String addressStr, ArrayList<DataChildItem> dataChildItems) {
@@ -349,6 +416,32 @@ public class FuzzySearch {
                     "Отсутствует орган выдачи"
             );
             dataChildItems.add(dataChildItem);
+        }
+    }
+
+    private static class AliasValue{
+        private String alias;
+        private String value;
+
+        private AliasValue(String alias, String value) {
+            this.alias = alias;
+            this.value = value;
+        }
+
+        private String getAlias() {
+            return alias;
+        }
+
+        private void setAlias(String alias) {
+            this.alias = alias;
+        }
+
+        private String getValue() {
+            return value;
+        }
+
+        private void setValue(String value) {
+            this.value = value;
         }
     }
 }

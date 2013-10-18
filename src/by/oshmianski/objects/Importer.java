@@ -736,7 +736,7 @@ public class Importer {
         Vector v;
         StringBuilder sb = new StringBuilder();
 
-        for (Field field : obj.getFields()) {
+        for (Field field : obj.getFieldsNotFake()) {
             isRule = false;
             evalValue = "";
             cellValue = "";
@@ -881,10 +881,16 @@ public class Importer {
         rField = new RecordObjectField("district", "Район", address.getDistrict(), Field.TYPE.TEXT);
         rFields.add(rField);
 
-        rField = new RecordObjectField("city", "Город", address.getCity(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("city", "Нас. пункт", address.getCity(), Field.TYPE.TEXT);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("cityType", "Тип нас. пункта", address.getCityType(), Field.TYPE.TEXT);
         rFields.add(rField);
 
         rField = new RecordObjectField("street", "Улица", address.getStreet(), Field.TYPE.TEXT);
+        rFields.add(rField);
+
+        rField = new RecordObjectField("streetType", "Тип улицы", address.getStreetType(), Field.TYPE.TEXT);
         rFields.add(rField);
 
         rField = new RecordObjectField("house", "Дом", address.getHouse(), Field.TYPE.TEXT);

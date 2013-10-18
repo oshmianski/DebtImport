@@ -86,15 +86,25 @@ public class Object {
         return fields;
     }
 
+    public EventList<Field> getFieldsNotFake() {
+        EventList<Field> f = new BasicEventList<Field>();
+
+        for (Field field : fields)
+            if (!field.isFake())
+                f.add(field);
+
+        return f;
+    }
+
     public EventList<Key> getKeys() {
         return keys;
     }
 
-    public void addField(Field field){
+    public void addField(Field field) {
         fields.add(field);
     }
 
-    public void addKey(Key key){
+    public void addKey(Key key) {
         keys.add(key);
     }
 

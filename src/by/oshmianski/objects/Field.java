@@ -20,6 +20,7 @@ public class Field {
     private String xmlCell;
     private boolean emptyFlag;
     private boolean emptyFlagSignal;
+    private boolean fake;
 
     public static enum TYPE {
         TEXT,
@@ -39,7 +40,8 @@ public class Field {
             String type,
             String xmlCell,
             boolean emptyFlag,
-            boolean emptyFlagSignal) {
+            boolean emptyFlagSignal,
+            boolean fake) {
         this.unid = unid;
         this.titleSys = titleSys;
         this.titleUser = titleUser;
@@ -47,6 +49,7 @@ public class Field {
         this.xmlCell = xmlCell;
         this.emptyFlag = emptyFlag;
         this.emptyFlagSignal = emptyFlagSignal;
+        this.fake = fake;
 
         if ("text".equals(type))
             this.type = TYPE.TEXT;
@@ -134,5 +137,13 @@ public class Field {
 
     public void setEmptyFlagSignal(boolean emptyFlagSignal) {
         this.emptyFlagSignal = emptyFlagSignal;
+    }
+
+    public boolean isFake() {
+        return fake;
+    }
+
+    public void setFake(boolean fake) {
+        this.fake = fake;
     }
 }
