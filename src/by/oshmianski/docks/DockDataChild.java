@@ -7,6 +7,7 @@ import by.oshmianski.filter.CM.FilterPanelChild;
 import by.oshmianski.main.AppletWindow;
 import by.oshmianski.models.DataChildModel;
 import by.oshmianski.objects.DataChildItem;
+import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.ui.utils.BetterJTable;
 import by.oshmianski.ui.utils.ColorRenderer;
 import by.oshmianski.ui.utils.StatusRenderer;
@@ -52,8 +53,10 @@ public class DockDataChild extends DockSimple {
     private Map<Integer, ItemCats> listCat = new HashMap<Integer, ItemCats>();
     private EventList activeCriteria;
 
+    private final static String dockTitle = "Расшифровка данных";
+
     public DockDataChild(DockingContainer dockingContainer, EventList<DataChildItem> dataChildItems) {
-        super("DockDataChild", IconContainer.getInstance().loadImage("layers.png"), "Расшифровка данных");
+        super("DockDataChild", IconContainer.getInstance().loadImage("layers.png"), dockTitle);
 
         this.dockingContainer = dockingContainer;
         this.dataChildItems = (dataChildItems == null ? (new BasicEventList<DataChildItem>()) : dataChildItems);
@@ -138,7 +141,11 @@ public class DockDataChild extends DockSimple {
         filterPanel.getMatcherEditorCMStatus().fireMatchAllA();
     }
 
-    public void setDataChildItems(ArrayList<DataChildItem> dataChildItemEventList) {
+    public void setDataChildItems(DataMainItem dataMainItem) {
+        ArrayList<DataChildItem> dataChildItemEventList = dataMainItem.getDataChildItems();
+
+        setTitleText(dockTitle + " :: " + dataMainItem.getDescription());
+
         dataChildItems.getReadWriteLock().writeLock().lock();
         try {
             if (dataChildItemEventList == null) {

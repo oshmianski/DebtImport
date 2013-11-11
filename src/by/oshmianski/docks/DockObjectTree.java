@@ -29,9 +29,10 @@ public class DockObjectTree extends DockSimple {
     private JTreeTable table;
     private RecordObjectsTreeModel model;
     private RecordObjectRoot root;
+    private final static String dockTitle = "Дерево объектов";
 
     public DockObjectTree(DockingContainer dockingContainer, ArrayList<RecordObject> objects) {
-        super("DockObjectTree", IconContainer.getInstance().loadImage("tree.png"), "Дерево объектов");
+        super("DockObjectTree", IconContainer.getInstance().loadImage("tree.png"), dockTitle);
 
         this.dockingContainer = dockingContainer;
 
@@ -83,7 +84,11 @@ public class DockObjectTree extends DockSimple {
         model.fireTreeStructureChanged(new TreePath(model.getRoot()));
     }
 
-    public void setObjects(ArrayList<RecordObject> objects) {
+    public void setObjects(DataMainItem dataMainItem) {
+        ArrayList<RecordObject> objects = dataMainItem.getObjects();
+
+        setTitleText(dockTitle + " :: " + dataMainItem.getDescription());
+
         try {
             root.setObjects(objects);
             model.fireTreeStructureChanged(new TreePath(model.getRoot()));
