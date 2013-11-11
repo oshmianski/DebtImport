@@ -378,10 +378,17 @@ public class Importer {
 
             int count = sheet1.getLastRowNum();
             int start = loader.getUi().getStartFrom();
-            if (start < 0)
+            if (start < 0) {
                 start = 0;
-            else
+            } else {
                 start = start - 1;
+            }
+            int end = loader.getUi().getEndTo();
+            if (end == -1) {
+                end = 1000000; //костыль, но по жругому пока не знаю как
+            } else {
+                end--;
+            }
 
             if (templateImport.isCreateFI()) {
                 dbFI = session.getDatabase(null, null);
@@ -419,7 +426,7 @@ public class Importer {
 
             rowFirst = sheet1.getRow(0);
 
-            while (it.hasNext()) {
+            while (it.hasNext() && i <= end) {
                 row = it.next();
 
                 dataMainItem = new DataMainItem(i + 1, Status.OK, col2Description == -1 ? "" : getCellString(wb, row.getCell(col2Description)));

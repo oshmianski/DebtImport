@@ -164,10 +164,14 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
                 statusesArray.add(status);
                 count = 0;
 
-                checkBoxPanel.remove((JCheckBox) statusCheckBoxes.get(status));
-                checkBoxPanel.revalidate();
-                checkBoxPanel.repaint();
-                statusCheckBoxes.remove(status);
+                JCheckBox checkBox = (JCheckBox) statusCheckBoxes.get(status);
+
+                if (checkBox != null) {
+                    checkBoxPanel.remove(checkBox);
+                    checkBoxPanel.revalidate();
+                    checkBoxPanel.repaint();
+                    statusCheckBoxes.remove(status);
+                }
 
                 isDelete = true;
                 listChangeType = "DELETE";
@@ -180,13 +184,14 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
                     final JCheckBox checkBox = (JCheckBox) statusCheckBoxes.get(status1);
 
                     if (checkBox != null) {
-                        checkBox.setText(checkboxFormat.format(new Object[]{checkBox.getName(), new Integer(count)}));
-                        System.out.println("listChangeType=" + listChangeType + ", checkBox.getName()=" + checkBox.getName() + ", count=" + count);
+//                        checkBox.setText(checkboxFormat.format(new Object[]{checkBox.getName(), new Integer(count)}));
+                        checkBox.setText(checkBox.getName());
                     } else {
                         JCheckBox checkBox1 = buildCheckBox(String.valueOf(status1));
                         statusCheckBoxes.put(status1, checkBox1);
                         checkBox1.addActionListener(this);
-                        checkBox1.setText(checkboxFormat.format(new Object[]{status1, new Integer(count)}));
+//                        checkBox1.setText(checkboxFormat.format(new Object[]{status1, new Integer(count)}));
+                        checkBox1.setText(status1.toString());
                         checkBoxPanel.add(checkBox1);
                     }
                 }

@@ -7,23 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatuses.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/CellField.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/CellField.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Field.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilterPanel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilterPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectField.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectField.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectRoot.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectRoot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -67,7 +52,7 @@
     <file path="/EDTInvocationHandlerImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379408064792" ignored="false" />
     <file path="/LoadDataTest.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379408126296" ignored="false" />
     <file path="/DataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1383639991703" ignored="false" />
-    <file path="/UIProcessorImpl.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1383139543356" ignored="false" />
+    <file path="/UIProcessorImpl.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384183555399" ignored="false" />
     <file path="/StatusRenderer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1383139563468" ignored="false" />
     <file path="/ComparatorDMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380616607020" ignored="false" />
     <file path="/MatcherEditorDMStatus.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380616657401" ignored="false" />
@@ -93,7 +78,7 @@
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534258434" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384165948617" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384183058363" ignored="false" />
     <file path="/GUIFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273153113" ignored="false" />
     <file path="/DockingContainerFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273089309" ignored="false" />
     <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824074613" ignored="false" />
@@ -110,7 +95,7 @@
     <file path="/ColorRenderer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380574390262" ignored="false" />
     <file path="/LoadImportData.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380711312044" ignored="false" />
     <file path="/LoadDataToDB.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380711103853" ignored="false" />
-    <file path="/Importer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381742734381" ignored="false" />
+    <file path="/Importer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384191347358" ignored="false" />
     <file path="/Loader.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380710108614" ignored="false" />
     <file path="/FuzzySearch.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1383139613417" ignored="false" />
     <file path="/RecordObjectsTreeModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381408895691" ignored="false" />
@@ -121,7 +106,7 @@
     <file path="/XTableColumnModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381730237399" ignored="false" />
     <file path="/AddressStreetWithtype.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1382951944994" ignored="false" />
     <file path="/ComparatorDMStatuses.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1383640276759" ignored="false" />
-    <file path="/MatcherEditorDMStatuses.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384178871652" ignored="false" />
+    <file path="/MatcherEditorDMStatuses.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384191737311" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,73 +184,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DataMainItem.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="52" selection-start="2401" selection-end="2401" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MatcherEditorDMStatus.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="187" column="52" selection-start="7528" selection-end="7528" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MatcherEditorDMStatuses.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="232" column="24" selection-start="9142" selection-end="9142" vertical-scroll-proportion="0.801214">
+            <state line="170" column="71" selection-start="6622" selection-end="6622" vertical-scroll-proportion="0.32756132">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EDTInvocationHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/edt/EDTInvocationHandler.java">
+      <file leaf-file-name="Importer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="0" selection-start="1809" selection-end="1809" vertical-scroll-proportion="0.0">
+            <state line="385" column="31" selection-start="15746" selection-end="15746" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ComparatorDMStatus.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatus.java">
+      <file leaf-file-name="DockInfo.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="11" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
+            <state line="15" column="27" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ComparatorDMStatuses.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatuses.java">
+      <file leaf-file-name="UIProcessorImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="11" selection-start="236" selection-end="236" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DockDataMain.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="121" selection-start="4498" selection-end="4498" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FilterPanel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilterPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="347" column="72" selection-start="14617" selection-end="14617" vertical-scroll-proportion="0.0">
+            <state line="161" column="65" selection-start="5432" selection-end="5432" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -296,13 +245,11 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/AddressStreetWithtype.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/AddressStreetWithType.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" />
@@ -310,6 +257,8 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilterPanel.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatus.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
       </list>
     </option>
@@ -923,7 +872,11 @@
       <created>1381729302586</created>
       <updated>1381729302586</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1384183098753</created>
+      <updated>1384183098753</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1039,25 +992,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="63" selection-start="2627" selection-end="2627" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="43" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="96" column="52" selection-start="2401" selection-end="2401" vertical-scroll-proportion="0.0">
@@ -1138,9 +1072,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="27" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="161" column="65" selection-start="5432" selection-end="5432" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="385" column="31" selection-start="15746" selection-end="15746" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="24" selection-start="9142" selection-end="9142" vertical-scroll-proportion="0.801214">
+        <state line="170" column="71" selection-start="6622" selection-end="6622" vertical-scroll-proportion="0.32756132">
           <folding />
         </state>
       </provider>

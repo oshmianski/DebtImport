@@ -159,6 +159,7 @@ public class UIProcessorImpl implements UIProcessor {
 
     @Override
     public int getEndTo() {
+        if (dockHeader.getEndTo().getText().isEmpty()) return -1;
         return Integer.valueOf(dockHeader.getEndTo().getText());
     }
 
