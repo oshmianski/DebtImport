@@ -27,7 +27,7 @@ import java.util.List;
  * A MatcherEditor that produces Matchers that filter the issues based on the
  * selected statuses.
  */
-public class MatcherEditorDMStatus extends AbstractMatcherEditor implements ListEventListener, ActionListener, FilterComponent {
+public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements ListEventListener, ActionListener, FilterComponent {
     /**
      * A MessageFormat to generate pretty names for our CheckBoxes which include the number of bugs with that status.
      */
@@ -57,18 +57,19 @@ public class MatcherEditorDMStatus extends AbstractMatcherEditor implements List
      * It is used to determine which status is deleted when DELETE events arrive.
      */
     private List statuses = new ArrayList();
+    private ArrayList<Status> statusesArray = new ArrayList();
     private DefaultEventTableModel model;
 
     private int heaght;
     private boolean visibleControl;
 
-    public MatcherEditorDMStatus(EventList issues, DefaultEventTableModel model, int heaght, boolean visibleControl) {
+    public MatcherEditorDMStatuses(EventList issues, DefaultEventTableModel model, int heaght, boolean visibleControl) {
         super();
         this.model = model;
         this.heaght = heaght;
         this.visibleControl = visibleControl;
 
-        issuesByStatus = new GroupingList(issues, new ComparatorDMStatus());
+        issuesByStatus = new GroupingList(issues, new ComparatorDMStatuses());
         this.issuesByStatusSwingThread = GlazedListsSwing.swingThreadProxyList(issuesByStatus);
         this.issuesByStatusSwingThread.addListEventListener(this);
 
@@ -132,23 +133,35 @@ public class MatcherEditorDMStatus extends AbstractMatcherEditor implements List
 
     public void listChanged(ListEvent listChanges) {
         boolean isDelete;
+        String listChangeType = "";
+
+        statusesArray.clear();
         while (listChanges.next()) {
             isDelete = false;
             final int type = listChanges.getType();
             final int index = listChanges.getIndex();
-            final Status status;
-            final int count;
+            Status status = null;
+            int count = 0;
             if (type == ListEvent.INSERT) {
                 List issuesOfThisStatus = (List) issuesByStatusSwingThread.get(index);
-                status = ((DataMainItem) issuesOfThisStatus.get(0)).getStatusFromChild();
-                statuses.add(index, status);
+                DataMainItem dataMainItem = ((DataMainItem) issuesOfThisStatus.get(0));
+                for (Status status1 : dataMainItem.getStatuses()) {
+                    if (!statusesArray.contains(status1)) {
+                        statusesArray.add(status1);
+                        statuses.add(index, status1);
+                    }
+                }
                 count = issuesOfThisStatus.size();
+                listChangeType = "INSERT";
             } else if (type == ListEvent.UPDATE) {
                 List issuesOfThisStatus = (List) issuesByStatusSwingThread.get(index);
                 status = (Status) statuses.get(index);
                 count = issuesOfThisStatus.size();
+                statusesArray.add(status);
+                listChangeType = "UPDATE";
             } else if (type == ListEvent.DELETE) {
                 status = (Status) statuses.remove(index);
+                statusesArray.add(status);
                 count = 0;
 
                 checkBoxPanel.remove((JCheckBox) statusCheckBoxes.get(status));
@@ -157,22 +170,25 @@ public class MatcherEditorDMStatus extends AbstractMatcherEditor implements List
                 statusCheckBoxes.remove(status);
 
                 isDelete = true;
+                listChangeType = "DELETE";
             } else {
                 throw new IllegalStateException();
             }
 
             if (!isDelete) {
-                final JCheckBox checkBox = (JCheckBox) statusCheckBoxes.get(status);
-                if (checkBox != null) {
-                    checkBox.setText(checkboxFormat.format(new Object[]{checkBox.getName(), new Integer(count)}));
-//                    checkBox.setText(String.valueOf(status));
-                } else {
-                    JCheckBox checkBox1 = buildCheckBox(String.valueOf(status));
-                    statusCheckBoxes.put(status, checkBox1);
-                    checkBox1.addActionListener(this);
-                    checkBox1.setText(checkboxFormat.format(new Object[]{status, new Integer(count)}));
-//                    checkBox1.setText(String.valueOf(status));
-                    checkBoxPanel.add(checkBox1);
+                for (Status status1 : statusesArray) {
+                    final JCheckBox checkBox = (JCheckBox) statusCheckBoxes.get(status1);
+
+                    if (checkBox != null) {
+                        checkBox.setText(checkboxFormat.format(new Object[]{checkBox.getName(), new Integer(count)}));
+                        System.out.println("listChangeType=" + listChangeType + ", checkBox.getName()=" + checkBox.getName() + ", count=" + count);
+                    } else {
+                        JCheckBox checkBox1 = buildCheckBox(String.valueOf(status1));
+                        statusCheckBoxes.put(status1, checkBox1);
+                        checkBox1.addActionListener(this);
+                        checkBox1.setText(checkboxFormat.format(new Object[]{status1, new Integer(count)}));
+                        checkBoxPanel.add(checkBox1);
+                    }
                 }
             }
         }
@@ -211,7 +227,10 @@ public class MatcherEditorDMStatus extends AbstractMatcherEditor implements List
 
         public boolean matches(Object x0) {
             DataMainItem issue = (DataMainItem) x0;
-            return this.allowedStatuses.contains(issue.getStatusFromChild());
+            for (Status status : issue.getStatuses()) {
+                if (this.allowedStatuses.contains(status)) return true;
+            }
+            return false;
         }
         /*missing*/
     }

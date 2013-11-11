@@ -1,7 +1,5 @@
 package by.oshmianski.objects;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 /**
  * Created with IntelliJ IDEA.
  * User: VintsalovichS

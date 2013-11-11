@@ -10,7 +10,7 @@ import java.util.Comparator;
  * Date: 30.09.13
  * Time: 12:48
  */
-public class RecordObject implements Comparable<RecordObject>{
+public class RecordObject implements Comparable<RecordObject> {
     private String objUnid;
     private int number;
     private String title;

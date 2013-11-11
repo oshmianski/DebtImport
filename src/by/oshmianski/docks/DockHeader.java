@@ -52,6 +52,7 @@ public class DockHeader extends DockSimple {
 
     private JTextField fileField;
     private JTextField startFrom;
+    private JTextField endTo;
     private JTextField col2Description;
     private JButton bSelectTemplate;
     private JLabel loadLabel;
@@ -98,6 +99,7 @@ public class DockHeader extends DockSimple {
 
         fileField = new JTextField();
         startFrom = new JTextField("2");
+        endTo = new JTextField("");
         col2Description = new JTextField("A");
 
         final JFileChooser fileChooser = new JFileChooser();
@@ -149,7 +151,7 @@ public class DockHeader extends DockSimple {
         });
 
         FormLayout layout = new FormLayout(
-                "5px, right:60px, 5px, 300px, 5px, 20px, 5px, 30px, 5px, right:130px, 5px, 60px, 5px, 200px, 5px", // columns
+                "5px, right:60px, 5px, 300px, 5px, 20px, 5px, 30px, 5px, right:130px, 5px, 60px, 5px, right:130px, 5px, 60px, 5px", // columns
                 "5px, 30px, 5px, 30px, pref");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
@@ -165,11 +167,13 @@ public class DockHeader extends DockSimple {
         builder.add(loadLabel, cc.xy(8, 2));
         builder.addLabel("Начинать со строки", cc.xy(10, 2));
         builder.add(startFrom, cc.xy(12, 2));
+        builder.addLabel("Закончить строкой", cc.xy(14, 2));
+        builder.add(endTo, cc.xy(16, 2));
         builder.addLabel("Файл", cc.xy(2, 4));
         builder.add(fileField, cc.xy(4, 4));
         builder.add(bOpenFile, cc.xy(6, 4));
         builder.addLabel("Колонка в описание", cc.xy(10, 4));
-        builder.add(headers, cc.xyw(12, 4, 3));
+        builder.add(headers, cc.xyw(12, 4, 5));
 
         panel.add(builder.getPanel());
     }
@@ -248,6 +252,10 @@ public class DockHeader extends DockSimple {
 
     public JTextField getStartFrom() {
         return startFrom;
+    }
+
+    public JTextField getEndTo() {
+        return endTo;
     }
 
     public String getCol2Description() {

@@ -25,9 +25,9 @@ public class CellField {
     }
 
     public String getValueAsString() {
-        if(type == Field.TYPE.TEXT) return (String)value;
-        if(type == Field.TYPE.NUMBER) return String.valueOf(value);
-        if(type == Field.TYPE.DATETIME) return formatter.format((Date)value);
+        if (type == Field.TYPE.TEXT) return (String) value;
+        if (type == Field.TYPE.NUMBER) return String.valueOf(value);
+        if (type == Field.TYPE.DATETIME) return formatter.format((Date) value);
 
         return value.toString();
     }

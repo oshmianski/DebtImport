@@ -89,7 +89,9 @@ public class UIProcessorImpl implements UIProcessor {
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_COUTRY
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_REGION
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_DISTRICT
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_STREET_TYPE
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_STREET
+                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_CITY_TYPE
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_CITY
                 || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_HOUSE
                 || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_TYPE
@@ -153,6 +155,11 @@ public class UIProcessorImpl implements UIProcessor {
     @Override
     public int getStartFrom() {
         return Integer.valueOf(dockHeader.getStartFrom().getText());
+    }
+
+    @Override
+    public int getEndTo() {
+        return Integer.valueOf(dockHeader.getEndTo().getText());
     }
 
     @Override

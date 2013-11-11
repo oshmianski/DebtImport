@@ -33,7 +33,7 @@ public class RecordObjectRoot {
         this.objects = objects;
     }
 
-    public void addObject(RecordObject object){
+    public void addObject(RecordObject object) {
         objects.add(object);
     }
 

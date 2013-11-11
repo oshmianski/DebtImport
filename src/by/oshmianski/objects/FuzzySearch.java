@@ -84,24 +84,26 @@ public class FuzzySearch {
         AddressCityWithType cityWithType;
         AddressStreetWithType streetWithType;
 
-        String[] addressArray = addressStr.split(",", 7);
+        if (!addressStr.isEmpty()) {
+            String[] addressArray = addressStr.split(",", 7);
+            if (addressArray.length == 7) {
+                String cityUnprocessed = addressArray[3].trim().replaceAll("^\\.$", "");
+                String streetUnprocessed = addressArray[4].trim().replaceAll("^\\.$", "");
 
-        String cityUnprocessed = addressArray[3].trim().replaceAll("^\\.$", "");
-        String streetUnprocessed = addressArray[4].trim().replaceAll("^\\.$", "");
+                cityWithType = processCityUnprocessed(cityUnprocessed);
+                streetWithType = processStreetUnprocessed(streetUnprocessed);
 
-        cityWithType = processCityUnprocessed(cityUnprocessed);
-        streetWithType = processStreetUnprocessed(streetUnprocessed);
-
-        address.setIndex(addressArray[0].trim());
-        address.setRegion(addressArray[1].trim());
-        address.setDistrict(addressArray[2].trim());
-        address.setCity(cityWithType.getCity());
-        address.setCityType(cityWithType.getCityType());
-        address.setStreet(streetWithType.getStreet());
-        address.setStreetType(streetWithType.getStreetType());
-        address.setHouse(addressArray[5].trim().replaceAll("^\\.$", ""));
-        address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""));
-
+                address.setIndex(addressArray[0].trim());
+                address.setRegion(addressArray[1].trim());
+                address.setDistrict(addressArray[2].trim());
+                address.setCity(cityWithType.getCity());
+                address.setCityType(cityWithType.getCityType());
+                address.setStreet(streetWithType.getStreet());
+                address.setStreetType(streetWithType.getStreetType());
+                address.setHouse(addressArray[5].trim().replaceAll("^\\.$", ""));
+                address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""));
+            }
+        }
         processWarningAddress(address, dataChildItems);
 
         return address;
@@ -336,6 +338,16 @@ public class FuzzySearch {
             dataChildItems.add(dataChildItem);
         }
 
+        if (address.getCityType().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_CITY_TYPE,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует тип города"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
         if (address.getCity().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_CITY,
@@ -346,12 +358,12 @@ public class FuzzySearch {
             dataChildItems.add(dataChildItem);
         }
 
-        if (address.getCity().isEmpty()) {
+        if (address.getStreetType().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
-                    Status.WARNING_ADDRESS_NO_CITY,
+                    Status.WARNING_ADDRESS_NO_STREET_TYPE,
                     "_Заполнение адреса",
                     "Ошибка",
-                    "Отсутствует улица"
+                    "Отсутствует тип улицы"
             );
             dataChildItems.add(dataChildItem);
         }
@@ -419,7 +431,7 @@ public class FuzzySearch {
         }
     }
 
-    private static class AliasValue{
+    private static class AliasValue {
         private String alias;
         private String value;
 

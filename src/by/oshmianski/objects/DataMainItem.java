@@ -1,8 +1,5 @@
 package by.oshmianski.objects;
 
-import ca.odell.glazedlists.BasicEventList;
-import ca.odell.glazedlists.EventList;
-
 import java.util.ArrayList;
 
 /**
@@ -101,5 +98,15 @@ public class DataMainItem {
         }
 
         return null;
+    }
+
+    public ArrayList<Status> getStatuses() {
+        ArrayList<Status> statuses = new ArrayList<Status>();
+
+        for (DataChildItem dataChildItem : dataChildItems) {
+            statuses.add(dataChildItem.getStatus());
+        }
+
+        return statuses;
     }
 }

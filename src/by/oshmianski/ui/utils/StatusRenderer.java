@@ -38,7 +38,9 @@ public class StatusRenderer extends DefaultTableCellRenderer implements TableCel
                         || value == Status.WARNING_ADDRESS_NO_COUTRY
                         || value == Status.WARNING_ADDRESS_NO_REGION
                         || value == Status.WARNING_ADDRESS_NO_DISTRICT
+                        || value == Status.WARNING_ADDRESS_NO_STREET_TYPE
                         || value == Status.WARNING_ADDRESS_NO_STREET
+                        || value == Status.WARNING_ADDRESS_NO_CITY_TYPE
                         || value == Status.WARNING_ADDRESS_NO_CITY
                         || value == Status.WARNING_ADDRESS_NO_HOUSE
                         || value == Status.WARNING_PASSPORT_NO_TYPE

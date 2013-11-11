@@ -70,6 +70,8 @@ public interface UIProcessor {
 //    @RequiresEDT
     int getStartFrom();
 
+    int getEndTo();
+
 //    @RequiresEDT
     JTextField getFileField();
 

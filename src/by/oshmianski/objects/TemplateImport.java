@@ -114,11 +114,11 @@ public class TemplateImport {
         return null;
     }
 
-    public Object getObjectByFormName(String formName){
-        if(objects == null) return null;
+    public Object getObjectByFormName(String formName) {
+        if (objects == null) return null;
 
-        for(Object object : objects){
-            if(formName.equals(object.getFormName())) return object;
+        for (Object object : objects) {
+            if (formName.equals(object.getFormName())) return object;
         }
 
         return null;

@@ -109,7 +109,7 @@ public class DockDataMain extends DockSimple {
 
     public void clearDataMain() {
         dataMainItems.clear();
-        filterPanel.getMatcherEditorDMStatus().fireMatchAllA();
+        filterPanel.getMatcherEditorDMStatuses().fireMatchAllA();
         filterPanel.getTextFilterComponent().fireMatchAllA();
     }
 

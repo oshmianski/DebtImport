@@ -42,7 +42,7 @@ public class FilterPanel {
 
     private JScrollPane filtersScrollPane;
 
-    private MatcherEditorDMStatus matcherEditorDMStatus;
+    private MatcherEditorDMStatuses matcherEditorDMStatuses;
     private TextFilterComponent textFilterComponent;
 
     private EventList<MatcherEditor<DataMainItem>> matcherEditors;
@@ -64,10 +64,10 @@ public class FilterPanel {
         // select some initial filters
         this.model = model;
 
-        matcherEditorDMStatus = new MatcherEditorDMStatus(items, model, 150, visibleControl);
+        matcherEditorDMStatuses = new MatcherEditorDMStatuses(items, model, 150, visibleControl);
         textFilterComponent = new TextFilterComponent();
 
-        this.selectedFilterComponents.add(new CloseableFilterComponent(model, matcherEditorDMStatus, selectedFilterComponents, remainingFilterComponents, visibleControl));
+        this.selectedFilterComponents.add(new CloseableFilterComponent(model, matcherEditorDMStatuses, selectedFilterComponents, remainingFilterComponents, visibleControl));
         // and then have the rest
 
         this.remainingFilterComponents.add(new CloseableFilterComponent(model, textFilterComponent, selectedFilterComponents, remainingFilterComponents, visibleControl));
@@ -101,7 +101,7 @@ public class FilterPanel {
     }
 
     public void reinstallModel(DefaultEventTableModel model) {
-        matcherEditorDMStatus.setModel(model);
+        matcherEditorDMStatuses.setModel(model);
     }
 
     public CompositeMatcherEditor<DataMainItem> getMatcherEditor() {
@@ -345,7 +345,7 @@ public class FilterPanel {
             selectedFilterComponents.dispose();
             remainingFilterComponents.dispose();
 
-            if (matcherEditorDMStatus != null) matcherEditorDMStatus.dispose();
+            if (matcherEditorDMStatuses != null) matcherEditorDMStatuses.dispose();
             if (textFilterComponent != null) textFilterComponent.dispose();
 
             matcherEditors.clear();
@@ -354,8 +354,8 @@ public class FilterPanel {
         }
     }
 
-    public MatcherEditorDMStatus getMatcherEditorDMStatus() {
-        return matcherEditorDMStatus;
+    public MatcherEditorDMStatuses getMatcherEditorDMStatuses() {
+        return matcherEditorDMStatuses;
     }
 
     public TextFilterComponent getTextFilterComponent() {
