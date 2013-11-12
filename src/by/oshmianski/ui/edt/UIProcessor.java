@@ -62,10 +62,10 @@ public interface UIProcessor {
     boolean isCanImport();
 
     @RequiresEDT
-    void setDockDataChildItems(ArrayList<DataChildItem> dockDataChildItems);
+    void setDockDataChildItems(DataMainItem dataMainItem);
 
     @RequiresEDT
-    void setDockObjectTreeObjects(ArrayList<RecordObject> objects);
+    void setDockObjectTreeObjects(DataMainItem dataMainItem);
 
 //    @RequiresEDT
     int getStartFrom();

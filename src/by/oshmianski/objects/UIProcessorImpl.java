@@ -143,13 +143,13 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
-    public void setDockDataChildItems(ArrayList<DataChildItem> dockDataChildItems) {
-        dockDataChild.setDataChildItems(dockDataChildItems);
+    public void setDockDataChildItems(DataMainItem dataMainItem) {
+        dockDataChild.setDataChildItems(dataMainItem);
     }
 
     @Override
-    public void setDockObjectTreeObjects(ArrayList<RecordObject> objects) {
-        dockObjectTree.setObjects(objects);
+    public void setDockObjectTreeObjects(DataMainItem dataMainItem) {
+        dockObjectTree.setObjects(dataMainItem);
     }
 
     @Override
