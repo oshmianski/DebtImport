@@ -17,11 +17,13 @@ public class Object {
     private String formName;
     private String dbUser;
     private String db;
+    private boolean importTemplate;
 
     private EventList<Field> fields;
     private EventList<Key> keys;
 
-    public Object(String unid, int number, String title, String description, String formName, String dbUser, String db) {
+    public Object(String unid, boolean importTemplate, int number, String title, String description, String formName, String dbUser, String db) {
+        this.importTemplate = importTemplate;
         this.number = number;
         this.unid = unid;
         this.title = title;
@@ -110,5 +112,13 @@ public class Object {
 
     public int getNumber() {
         return number;
+    }
+
+    public boolean isImportTemplate() {
+        return importTemplate;
+    }
+
+    public void setImportTemplate(boolean importTemplate) {
+        this.importTemplate = importTemplate;
     }
 }

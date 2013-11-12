@@ -20,6 +20,7 @@ public class TemplateImport {
 
     private EventList<Object> objects = new BasicEventList<Object>();
     private EventList<Link> links = new BasicEventList<Link>();
+    private Object importFact;
 
     public TemplateImport(String unid, String title, String description, boolean createFI, boolean attachFile, String db, String dbID) {
         this.unid = unid;
@@ -132,6 +133,14 @@ public class TemplateImport {
         }
 
         return null;
+    }
+
+    public Object getImportFact() {
+        return importFact;
+    }
+
+    public void setImportFact(Object importFact) {
+        this.importFact = importFact;
     }
 
     @Override

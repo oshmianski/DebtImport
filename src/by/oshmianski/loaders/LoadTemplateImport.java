@@ -146,14 +146,17 @@ public class LoadTemplateImport implements Runnable, Loader {
                                     "1".equals(doc.getItemValueString("isAttachFile")),
                                     doc.getItemValueString("dbFI"),
                                     doc.getItemValueString("dbIDFI")
-                                    );
+                            );
                     templateImports.add(templateImport);
 
                     colObject = viewObject.getAllDocumentsByKey(doc.getUniversalID(), true);
                     docObject = colObject.getFirstDocument();
                     while ((docObject != null)) {
-
-                        templateImport.addObject(produceObject(db, docObject, viewKey, viewField, viewRule));
+                        Object obj = produceObject(db, docObject, viewKey, viewField, viewRule);
+                        if (obj.isImportTemplate())
+                            templateImport.setImportFact(obj);
+                        else
+                            templateImport.addObject(obj);
 
                         docObjectTmp = colObject.getNextDocument();
                         docObject.recycle();
@@ -297,6 +300,7 @@ public class LoadTemplateImport implements Runnable, Loader {
         try {
             object = new Object(
                     docObject.getUniversalID(),
+                    "1".equals(docObject.getItemValueString("isImportFact")),
                     docObject.getItemValueInteger("number"),
                     docObject.getItemValueString("title"),
                     docObject.getItemValueString("description"),

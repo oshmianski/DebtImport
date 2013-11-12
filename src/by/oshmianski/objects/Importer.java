@@ -141,6 +141,32 @@ public class Importer {
                 noteFI.replaceItemValue("TemplateImportTitle", templateImport.getTitle());
                 bodyFile = noteFI.createRichTextItem("file");
                 bodyFile.embedObject(EmbeddedObject.EMBED_ATTACHMENT, "", noteFI.getItemValueString("fileName").replaceAll("\\\\", "/"), "");
+
+                if(templateImport.getImportFact() != null){
+                    Vector v;
+                    StringBuilder sb = new StringBuilder();
+                    String evalValue = "";
+
+                    for(Field field : templateImport.getImportFact().getFields()){
+                        evalValue = "";
+
+                        for (Rule rule : field.getRules()) {
+                            if ("1".equals(rule.getType())) {
+                                v = session.evaluate(rule.getFormula());
+                                for (int vindex = 0; vindex < v.size(); vindex++)
+                                    sb.append(v.get(vindex));
+
+                                evalValue = sb.toString();
+                                sb.setLength(0);
+                                v.clear();
+                                v = null;
+                            }
+                        }
+
+                        noteFI.replaceItemValue(field.getTitleSys(), evalValue);
+                    }
+                }
+
                 noteFI.computeWithForm(false, false);
             }
 
