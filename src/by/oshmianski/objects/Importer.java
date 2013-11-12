@@ -853,7 +853,7 @@ public class Importer {
             }
         }
 
-        rField = new RecordObjectField("UNID_FI", "", importKey, Field.TYPE.TEXT);
+        rField = new RecordObjectField("UNIDFI", "", importKey, Field.TYPE.TEXT);
         rFields.add(rField);
     }
 
