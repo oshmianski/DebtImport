@@ -20,7 +20,7 @@ public class RecordObject implements Comparable<RecordObject> {
     private boolean existInPrevios;
     private String linkKey;
     private String db;
-    private RecordObject mainObject;
+    private ArrayList<RecordObject> mainObjects;
 
     private ArrayList<RecordObjectField> fields;
 
@@ -37,6 +37,7 @@ public class RecordObject implements Comparable<RecordObject> {
         this.db = db;
 
         fields = new ArrayList<RecordObjectField>();
+        mainObjects = new ArrayList<RecordObject>();
         flagEmpty = false;
         existInDB = false;
         existInPrevios = false;
@@ -100,12 +101,12 @@ public class RecordObject implements Comparable<RecordObject> {
         this.linkKey = linkKey;
     }
 
-    public RecordObject getMainObject() {
-        return mainObject;
+    public ArrayList<RecordObject> getMainObject() {
+        return mainObjects;
     }
 
-    public void setMainObject(RecordObject mainObject) {
-        this.mainObject = mainObject;
+    public void addMainObject(RecordObject mainObject) {
+        mainObjects.add(mainObject);
     }
 
     public int getNumber() {

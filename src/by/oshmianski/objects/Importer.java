@@ -134,11 +134,14 @@ public class Importer {
                 dbFI.openByReplicaID(AppletParams.getInstance().getServer(), templateImport.getDbID());
                 noteFI = dbFI.createDocument();
                 noteFI.setUniversalID(importKey);
-                noteFI.replaceItemValue("filePath", loader.getUi().getFileField().getText());
-                noteFI.replaceItemValue("form", "FactImport");
+                noteFI.replaceItemValue("fileName", loader.getUi().getFileField().getText());
+                String path = loader.getUi().getFileField().getText();
+                noteFI.replaceItemValue("fileNameShort", StringUtils.right(path, path.length() - path.lastIndexOf("\\") - 1));
+                noteFI.replaceItemValue("form", "ImportFact");
                 noteFI.replaceItemValue("TemplateImportTitle", templateImport.getTitle());
-                bodyFile = noteFI.createRichTextItem("bodyFile");
-                bodyFile.embedObject(EmbeddedObject.EMBED_ATTACHMENT, "", noteFI.getItemValueString("filePath").replaceAll("\\\\", "/"), "");
+                bodyFile = noteFI.createRichTextItem("file");
+                bodyFile.embedObject(EmbeddedObject.EMBED_ATTACHMENT, "", noteFI.getItemValueString("fileName").replaceAll("\\\\", "/"), "");
+                noteFI.computeWithForm(false, false);
             }
 
             EventList<DataMainItem> items = loader.getUi().getDataMainItems();
@@ -196,51 +199,57 @@ public class Importer {
                                     document.replaceItemValue(field.getTitle(), val);
                                 }
 
-                                RecordObject mainRecordObject = rObject.getMainObject();
-                                if (mainRecordObject != null) {
-                                    while (mainRecordObject.isFlagEmpty()) {
-                                        Link link1 = loader.getUi().getTemplateImport().getLinkByChildTitle(mainRecordObject.getTitle());
-                                        mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
-                                    }
+                                for (RecordObject mainRecordObject : rObject.getMainObject()) {
+                                    if (mainRecordObject != null) {
+                                        while (mainRecordObject.isFlagEmpty()) {
+                                            Link link1 = loader.getUi().getTemplateImport().getLinkByChildTitle(mainRecordObject.getTitle());
+                                            mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
+                                        }
 
-                                    if (mainRecordObject.isExistInPrevios()) {
-                                        mainRecordObject = recordObjectMap.get(mainRecordObject.getLinkKey());
-                                    }
+                                        if (mainRecordObject.isExistInPrevios()) {
+                                            mainRecordObject = recordObjectMap.get(mainRecordObject.getLinkKey());
+                                        }
 
-                                    docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getLinkKey());
+                                        if (!dbMap.containsKey(mainRecordObject.getDb())) {
+                                            Database database = session.getDatabase(null, null);
+                                            database.openByReplicaID(AppletParams.getInstance().getServer(), mainRecordObject.getDb());
+                                            dbMap.put(mainRecordObject.getDb(), database);
+                                        }
+                                        docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getLinkKey());
 
-                                    Link link = loader.getUi().getTemplateImport().getLinkByChildTitle(rObject.getTitle());
-                                    switch (Integer.valueOf(link.getResponseField())) {
-                                        case 1:
-                                            if (link.isMakeResponse())
+                                        Link link = loader.getUi().getTemplateImport().getLinkByMainAndChildTitle(mainRecordObject.getTitle(), rObject.getTitle());
+                                        switch (Integer.valueOf(link.getResponseField())) {
+                                            case 1:
+                                                if (link.isMakeResponse())
+                                                    document.makeResponse(docParent);
+                                                else
+                                                    document.replaceItemValue("$REF", docParent.getUniversalID());
+
+                                                break;
+                                            case 2:
+                                                if (link.isMakeResponse()) {
+                                                    document.makeResponse(docParent);
+                                                    document.copyItem(document.getFirstItem("$REF"), "$REF_" + link.getMainObject().getFormName());
+                                                    document.removeItem("$REF");
+                                                } else {
+                                                    document.replaceItemValue("$REF_" + link.getMainObject().getFormName(), docParent.getUniversalID());
+                                                }
+
+                                                break;
+                                            case 3:
+                                                if (link.isMakeResponse()) {
+                                                    document.makeResponse(docParent);
+                                                    document.copyItem(document.getFirstItem("$REF"), link.getResponseFieldCustom());
+                                                    document.removeItem("$REF");
+                                                } else {
+                                                    document.replaceItemValue(link.getResponseFieldCustom(), docParent.getUniversalID());
+                                                }
+                                                break;
+                                            default:
                                                 document.makeResponse(docParent);
-                                            else
-                                                document.replaceItemValue("$REF", docParent.getUniversalID());
+                                        }
 
-                                            break;
-                                        case 2:
-                                            if (link.isMakeResponse()) {
-                                                document.makeResponse(docParent);
-                                                document.copyItem(document.getFirstItem("$REF"), "$REF_" + link.getMainObject().getFormName());
-                                                document.removeItem("$REF");
-                                            } else {
-                                                document.replaceItemValue("$REF_" + link.getMainObject().getFormName(), docParent.getUniversalID());
-                                            }
-
-                                            break;
-                                        case 3:
-                                            if (link.isMakeResponse()) {
-                                                document.makeResponse(docParent);
-                                                document.copyItem(document.getFirstItem("$REF"), link.getResponseFieldCustom());
-                                                document.removeItem("$REF");
-                                            } else {
-                                                document.replaceItemValue(link.getResponseFieldCustom(), docParent.getUniversalID());
-                                            }
-                                            break;
-                                        default:
-                                            document.makeResponse(docParent);
                                     }
-
                                 }
 
                                 rObject.setLinkKey(document.getUniversalID());
@@ -347,6 +356,7 @@ public class Importer {
 
     private void startTest() {
         Session session = null;
+        Database db = null;
         View view = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
@@ -365,6 +375,9 @@ public class Importer {
             String filePath = loader.getUi().getFileField().getText();
 
             TemplateImport templateImport = loader.getUi().getTemplateImport();
+
+            db = session.getDatabase(null, null);
+            db.openByReplicaID(AppletParams.getInstance().getServer(), templateImport.getDbID());
 
             File file = new File(filePath);
             if (file == null)
@@ -464,6 +477,7 @@ public class Importer {
                     try {
                         processFields(
                                 session,
+                                db,
                                 wb,
                                 row,
                                 obj,
@@ -523,7 +537,7 @@ public class Importer {
                                     mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
                                 }
 
-                                childRecordObject.setMainObject(mainRecordObject);
+                                childRecordObject.addMainObject(mainRecordObject);
                             }
                         } else {
                             //TODO: бработка связи много-ко-многим
@@ -593,6 +607,10 @@ public class Importer {
                         ((Database) entry.getValue()).recycle();
                     }
                     dbMap.clear();
+                }
+
+                if (db != null) {
+                    db.recycle();
                 }
 
                 if (session != null) {
@@ -727,6 +745,7 @@ public class Importer {
 
     private void processFields(
             Session session,
+            Database db,
             XSSFWorkbook wb,
             Row row,
             Object obj,
@@ -734,126 +753,152 @@ public class Importer {
             ArrayList<RecordObjectField> rFields,
             RecordObject rObject) throws Exception {
 
+        Document document = null;
         RecordObjectField rField;
         String evalValue;
         String cellValue;
         String cellValueReal;
         boolean isRule;
         SortedList<Rule> ruleSortedList = null;
+        SortedList<Field> fieldSortedList = null;
         Vector v;
         StringBuilder sb = new StringBuilder();
 
-        for (Field field : obj.getFieldsNotFake()) {
-            isRule = false;
-            evalValue = "";
-            cellValue = "";
-            cellValueReal = "";
-            String fieldTitle = "ячейка " + field.getXmlCell() + ", " + field.getTitleUser() + " [" + field.getTitleSys() + "]";
+        try {
+            document = db.createDocument();
 
-            try {
-                String colStr = field.getXmlCell();
-                String col = "";
-                if (!colStr.isEmpty()) {
-                    if ("@".equals(colStr.substring(0, 1))) {
-                        String colStrArray[] = StringUtils.substringsBetween(colStr, "<", ">");
-                        for (String str : colStrArray) {
-                            colStr = colStr.replaceAll("\\<" + str + "\\>", "\"" + row.getCell(CellReference.convertColStringToIndex(str)) + "\"").replaceAll("null", "");
+            fieldSortedList = new SortedList<Field>(obj.getFieldsNotFake(), GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(Field.class, "num")));
+
+            for (Field field : fieldSortedList) {
+                isRule = false;
+                evalValue = "";
+                cellValue = "";
+                cellValueReal = "";
+                String fieldTitle = "ячейка " + field.getXmlCell() + ", " + field.getTitleUser() + " [" + field.getTitleSys() + "]";
+
+                try {
+                    String colStr = field.getXmlCell();
+                    String col = "";
+                    if (!colStr.isEmpty()) {
+                        if ("@".equals(colStr.substring(0, 1))) {
+                            String colStrArray[] = StringUtils.substringsBetween(colStr, "<", ">");
+                            for (String str : colStrArray) {
+                                colStr = colStr.replaceAll("\\<" + str + "\\>", "\"" + row.getCell(CellReference.convertColStringToIndex(str)) + "\"").replaceAll("null", "");
+                            }
+
+                            Vector vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
+                            col = vec.get(0).toString();
+                        } else {
+                            col = colStr;
                         }
 
-                        Vector vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
-                        col = vec.get(0).toString();
+                        cellValueReal = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
+                        cellValue = cellValueReal;
                     } else {
-                        col = colStr;
+                        cellValueReal = "";
+                        cellValue = "";
                     }
 
-                    cellValueReal = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
-                    cellValue = cellValueReal;
-                } else {
-                    cellValueReal = "";
-                    cellValue = "";
-                }
+                    ruleSortedList = new SortedList<Rule>(field.getRules(), GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(Rule.class, "number")));
+                    for (Rule rule : ruleSortedList) {
+                        if ("1".equals(rule.getType())) {
+                            v = session.evaluate(rule.getFormula().replaceAll("%value%", isRule ? evalValue : cellValue), document);
+                            for (int vindex = 0; vindex < v.size(); vindex++)
+                                sb.append(v.get(vindex));
 
-                ruleSortedList = new SortedList<Rule>(field.getRules(), GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(Rule.class, "number")));
-                for (Rule rule : ruleSortedList) {
-                    if ("1".equals(rule.getType())) {
-                        v = session.evaluate(rule.getFormula().replaceAll("%value%", isRule ? evalValue : cellValue));
-                        for (int vindex = 0; vindex < v.size(); vindex++)
-                            sb.append(v.get(vindex));
+                            evalValue = sb.toString();
+                            sb.setLength(0);
+                            v.clear();
+                            v = null;
+                        } else {
+                            evalValue = cellValue;
+                            //TODO: обработка роботов
+                        }
 
-                        evalValue = sb.toString();
-                        sb.setLength(0);
-                        v.clear();
-                        v = null;
-                    } else {
-                        evalValue = cellValue;
-                        //TODO: обработка роботов
+                        isRule = true;
                     }
 
-                    isRule = true;
-                }
+                    cellValue = isRule ? evalValue : cellValue;
+                    document.replaceItemValue(field.getTitleSys(), cellValue);
+                } catch (Exception ex) {
+                    MyLog.add2Log(ex);
 
-                cellValue = isRule ? evalValue : cellValue;
-            } catch (Exception ex) {
-                MyLog.add2Log(ex);
-
-                DataChildItem dataChildItem = new DataChildItem(
-                        Status.ERROR,
-                        obj.getTitle() + " [" + obj.getFormName() + "]",
-                        fieldTitle,
-                        ex.toString()
-                );
-                dataChildItems.add(dataChildItem);
-            } finally {
-                if (ruleSortedList != null)
-                    ruleSortedList.dispose();
-            }
-
-            if (cellValueReal.isEmpty() && field.isEmptyFlag()) {
-                DataChildItem dataChildItem = new DataChildItem(
-                        Status.WARNING_OBJECT_WILL_NOT_CREATE,
-                        "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
-                        fieldTitle,
-                        "Значение ячейки пустое, объект создан не будет"
-                );
-                dataChildItems.add(dataChildItem);
-                rObject.setFlagEmpty(true);
-            }
-
-            if ("#ADDRESS".equalsIgnoreCase(field.getTitleSys())) {
-                if (fuzzySearchAddress == null)
-                    fuzzySearchAddress = new FuzzySearch();
-                Address address = fuzzySearchAddress.getAddress(cellValue, dataChildItems);
-
-                fillRecordObjectFieldsAddress(rFields, address);
-            } else if ("#ADDRESS_STRUCTURED_1".equalsIgnoreCase(field.getTitleSys())) {
-                if (fuzzySearchAddress == null)
-                    fuzzySearchAddress = new FuzzySearch();
-                Address address = fuzzySearchAddress.getAddressStructured1(cellValue, dataChildItems);
-
-                fillRecordObjectFieldsAddress(rFields, address);
-            } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
-                if (fuzzySearchAddress == null)
-                    fuzzySearchAddress = new FuzzySearch();
-                Passport passport = fuzzySearchAddress.getPassport(cellValue, dataChildItems);
-
-                fillRecordObjectFieldsPassport(rFields, passport);
-            } else {
-                if (cellValue.isEmpty() && field.isEmptyFlagSignal()) {
                     DataChildItem dataChildItem = new DataChildItem(
-                            Status.WARNING_EMPTY_FIELD,
-                            "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                            Status.ERROR,
+                            obj.getTitle() + " [" + obj.getFormName() + "]",
                             fieldTitle,
-                            "Значение ячейки пустое"
+                            ex.toString()
                     );
                     dataChildItems.add(dataChildItem);
+                } finally {
+                    if (ruleSortedList != null)
+                        ruleSortedList.dispose();
                 }
 
-                rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType());
-                rFields.add(rField);
+                if (cellValueReal.isEmpty() && field.isEmptyFlag()) {
+                    DataChildItem dataChildItem = new DataChildItem(
+                            Status.WARNING_OBJECT_WILL_NOT_CREATE,
+                            "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                            fieldTitle,
+                            "Значение ячейки пустое, объект создан не будет"
+                    );
+                    dataChildItems.add(dataChildItem);
+                    rObject.setFlagEmpty(true);
+                }
+
+                if ("#ADDRESS".equalsIgnoreCase(field.getTitleSys())) {
+                    if (fuzzySearchAddress == null)
+                        fuzzySearchAddress = new FuzzySearch();
+                    Address address = fuzzySearchAddress.getAddress(cellValue, dataChildItems);
+
+                    fillRecordObjectFieldsAddress(rFields, address);
+                } else if ("#ADDRESS_STRUCTURED_1".equalsIgnoreCase(field.getTitleSys())) {
+                    if (fuzzySearchAddress == null)
+                        fuzzySearchAddress = new FuzzySearch();
+                    Address address = fuzzySearchAddress.getAddressStructured1(cellValue, dataChildItems);
+
+                    fillRecordObjectFieldsAddress(rFields, address);
+                } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
+                    if (fuzzySearchAddress == null)
+                        fuzzySearchAddress = new FuzzySearch();
+                    Passport passport = fuzzySearchAddress.getPassport(cellValue, dataChildItems);
+
+                    fillRecordObjectFieldsPassport(rFields, passport);
+                } else {
+                    if (cellValue.isEmpty() && field.isEmptyFlagSignal()) {
+                        DataChildItem dataChildItem = new DataChildItem(
+                                Status.WARNING_EMPTY_FIELD,
+                                "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                                fieldTitle,
+                                "Значение ячейки пустое"
+                        );
+                        dataChildItems.add(dataChildItem);
+                    }
+
+                    rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType());
+                    rFields.add(rField);
+                }
+            }
+        } catch (Exception ex) {
+            MyLog.add2Log(ex);
+
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.ERROR,
+                    obj.getTitle() + " [" + obj.getFormName() + "]",
+                    "Ошибка работы с документом",
+                    ex.toString()
+            );
+            dataChildItems.add(dataChildItem);
+        } finally {
+            if (fieldSortedList != null)
+                fieldSortedList.dispose();
+
+            if (document != null) {
+                document.recycle();
             }
         }
 
-        rField = new RecordObjectField("UNIDFI", "", importKey, Field.TYPE.TEXT);
+        rField = new RecordObjectField("UNIDIF", "", importKey, Field.TYPE.TEXT);
         rFields.add(rField);
     }
 

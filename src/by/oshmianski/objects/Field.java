@@ -10,6 +10,7 @@ import ca.odell.glazedlists.EventList;
  * Time: 1:38 PM
  */
 public class Field {
+    private int num;
     private String unid;
     private String titleSys;
     private String titleUser;
@@ -31,6 +32,7 @@ public class Field {
     private EventList<Rule> rules = new BasicEventList<Rule>();
 
     public Field(
+            int num,
             String unid,
             String titleSys,
             String titleUser,
@@ -40,6 +42,7 @@ public class Field {
             boolean emptyFlag,
             boolean emptyFlagSignal,
             boolean fake) {
+        this.num = num;
         this.unid = unid;
         this.titleSys = titleSys;
         this.titleUser = titleUser;
@@ -59,6 +62,14 @@ public class Field {
             this.type = TYPE.AUTHORS;
         if ("readers".equals(type))
             this.type = TYPE.READERS;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getUnid() {

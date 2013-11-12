@@ -24,6 +24,7 @@ public class MyLog {
     }
 
     public static void add2Log(Exception e) {
+        e.printStackTrace();
         try {
             StringWriter writerStr = new StringWriter();
             PrintWriter myPrinter = new PrintWriter(writerStr);

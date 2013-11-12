@@ -114,6 +114,16 @@ public class TemplateImport {
         return null;
     }
 
+    public Link getLinkByMainAndChildTitle(String mainTitle, String childTitle){
+        if (links == null) return null;
+
+        for (Link link : links) {
+            if (mainTitle.equals(link.getMainObject().getFormName()) && childTitle.equals(link.getChildObject().getFormName())) return link;
+        }
+
+        return null;
+    }
+
     public Object getObjectByFormName(String formName) {
         if (objects == null) return null;
 

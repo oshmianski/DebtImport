@@ -402,6 +402,7 @@ public class LoadTemplateImport implements Runnable, Loader {
 
         try {
             field = new Field(
+                    docField.getItemValueInteger("num"),
                     docField.getUniversalID(),
                     docField.getItemValueString("titleSys"),
                     docField.getItemValueString("titleUser"),
