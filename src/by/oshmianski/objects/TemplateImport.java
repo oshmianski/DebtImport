@@ -11,6 +11,7 @@ import ca.odell.glazedlists.EventList;
  */
 public class TemplateImport {
     private String unid;
+    private int num;
     private String title;
     private String description;
     private boolean createFI;
@@ -22,8 +23,9 @@ public class TemplateImport {
     private EventList<Link> links = new BasicEventList<Link>();
     private Object importFact;
 
-    public TemplateImport(String unid, String title, String description, boolean createFI, boolean attachFile, String db, String dbID) {
+    public TemplateImport(String unid, int num, String title, String description, boolean createFI, boolean attachFile, String db, String dbID) {
         this.unid = unid;
+        this.num = num;
         this.title = title;
         this.description = description;
         this.createFI = createFI;
@@ -141,6 +143,14 @@ public class TemplateImport {
 
     public void setImportFact(Object importFact) {
         this.importFact = importFact;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     @Override

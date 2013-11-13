@@ -140,6 +140,7 @@ public class LoadTemplateImport implements Runnable, Loader {
                     templateImport =
                             new TemplateImport(
                                     ve.getUniversalID(),
+                                    doc.getItemValueInteger("num"),
                                     doc.getItemValueString("title"),
                                     doc.getItemValueString("description"),
                                     "1".equals(doc.getItemValueString("isCreateImportFact")),

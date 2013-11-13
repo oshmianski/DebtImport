@@ -14,6 +14,8 @@ import by.oshmianski.utils.IconContainer;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.GlazedLists;
+import ca.odell.glazedlists.SortedList;
 import ca.odell.glazedlists.matchers.TextMatcherEditor;
 import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import ca.odell.glazedlists.swing.DefaultEventComboBoxModel;
@@ -222,7 +224,12 @@ public class DockHeader extends DockSimple {
 
     public void setTemplateImports(EventList<TemplateImport> templateImports) {
         this.templateImports.clear();
-        this.templateImports.addAll(templateImports);
+
+        SortedList<TemplateImport> templateImportSortedList = new SortedList<TemplateImport>(templateImports, GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(TemplateImport.class, "num")));
+        for (TemplateImport templateImport : templateImportSortedList){
+            this.templateImports.add(templateImport);
+        }
+        templateImportSortedList.dispose();
     }
 
     public void startLoadTI() {
