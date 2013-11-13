@@ -139,6 +139,7 @@ public class Importer {
                 noteFI.replaceItemValue("fileNameShort", StringUtils.right(path, path.length() - path.lastIndexOf("\\") - 1));
                 noteFI.replaceItemValue("form", "ImportFact");
                 noteFI.replaceItemValue("TemplateImportTitle", templateImport.getTitle());
+                noteFI.replaceItemValue("unid", noteFI.getUniversalID());
                 bodyFile = noteFI.createRichTextItem("file");
                 bodyFile.embedObject(EmbeddedObject.EMBED_ATTACHMENT, "", noteFI.getItemValueString("fileName").replaceAll("\\\\", "/"), "");
 
@@ -205,6 +206,7 @@ public class Importer {
 
                                 document = dbMap.get(object.getDb()).createDocument();
                                 document.replaceItemValue("form", object.getFormName());
+                                document.replaceItemValue("unid", document.getUniversalID());
 
                                 if (rObject.isComputeWithForm())
                                     document.computeWithForm(false, false);
