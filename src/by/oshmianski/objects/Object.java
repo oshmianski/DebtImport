@@ -18,11 +18,21 @@ public class Object {
     private String dbUser;
     private String db;
     private boolean importTemplate;
+    private boolean computeWithForm;
 
     private EventList<Field> fields;
     private EventList<Key> keys;
 
-    public Object(String unid, boolean importTemplate, int number, String title, String description, String formName, String dbUser, String db) {
+    public Object(
+            String unid,
+            boolean importTemplate,
+            int number,
+            String title,
+            String description,
+            String formName,
+            String dbUser,
+            String db,
+            boolean computeWithForm) {
         this.importTemplate = importTemplate;
         this.number = number;
         this.unid = unid;
@@ -31,6 +41,7 @@ public class Object {
         this.formName = formName;
         this.dbUser = dbUser;
         this.db = db;
+        this.computeWithForm = computeWithForm;
 
         fields = new BasicEventList<Field>();
         keys = new BasicEventList<Key>();
@@ -120,5 +131,13 @@ public class Object {
 
     public void setImportTemplate(boolean importTemplate) {
         this.importTemplate = importTemplate;
+    }
+
+    public boolean isComputeWithForm() {
+        return computeWithForm;
+    }
+
+    public void setComputeWithForm(boolean computeWithForm) {
+        this.computeWithForm = computeWithForm;
     }
 }

@@ -142,17 +142,19 @@ public class Importer {
                 bodyFile = noteFI.createRichTextItem("file");
                 bodyFile.embedObject(EmbeddedObject.EMBED_ATTACHMENT, "", noteFI.getItemValueString("fileName").replaceAll("\\\\", "/"), "");
 
-                if(templateImport.getImportFact() != null){
+                Object importFact = templateImport.getImportFact();
+
+                if (importFact != null) {
                     Vector v;
                     StringBuilder sb = new StringBuilder();
                     String evalValue = "";
 
-                    for(Field field : templateImport.getImportFact().getFields()){
+                    for (Field field : importFact.getFields()) {
                         evalValue = "";
 
                         for (Rule rule : field.getRules()) {
                             if ("1".equals(rule.getType())) {
-                                v = session.evaluate(rule.getFormula());
+                                v = session.evaluate(rule.getFormula(), noteFI);
                                 for (int vindex = 0; vindex < v.size(); vindex++)
                                     sb.append(v.get(vindex));
 
@@ -167,7 +169,8 @@ public class Importer {
                     }
                 }
 
-                noteFI.computeWithForm(false, false);
+                if (importFact.isComputeWithForm())
+                    noteFI.computeWithForm(false, false);
             }
 
             EventList<DataMainItem> items = loader.getUi().getDataMainItems();
@@ -202,7 +205,9 @@ public class Importer {
 
                                 document = dbMap.get(object.getDb()).createDocument();
                                 document.replaceItemValue("form", object.getFormName());
-                                document.computeWithForm(false, false);
+
+                                if (rObject.isComputeWithForm())
+                                    document.computeWithForm(false, false);
 
                                 for (RecordObjectField field : rObject.getFields()) {
                                     java.lang.Object val = null;
@@ -496,7 +501,7 @@ public class Importer {
                 }
 
                 for (Object obj : templateImport.getObjects()) {
-                    rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getFormName(), obj.getTitle(), obj.getDb());
+                    rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getFormName(), obj.getTitle(), obj.getDb(), obj.isComputeWithForm());
                     rObjects.add(rObject);
                     rFields = new ArrayList<RecordObjectField>();
 

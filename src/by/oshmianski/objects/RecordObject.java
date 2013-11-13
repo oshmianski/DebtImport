@@ -18,6 +18,7 @@ public class RecordObject implements Comparable<RecordObject> {
     private boolean flagEmpty;
     private boolean existInDB;
     private boolean existInPrevios;
+    private boolean computeWithForm;
     private String linkKey;
     private String db;
     private ArrayList<RecordObject> mainObjects;
@@ -29,12 +30,14 @@ public class RecordObject implements Comparable<RecordObject> {
             int number,
             String title,
             String titleUser,
-            String db) {
+            String db,
+            boolean computeWithForm) {
         this.objUnid = objUnid;
         this.number = number;
         this.title = title;
         this.titleUser = titleUser;
         this.db = db;
+        this.computeWithForm = computeWithForm;
 
         fields = new ArrayList<RecordObjectField>();
         mainObjects = new ArrayList<RecordObject>();
@@ -147,6 +150,14 @@ public class RecordObject implements Comparable<RecordObject> {
 
     public void setObjUnid(String objUnid) {
         this.objUnid = objUnid;
+    }
+
+    public boolean isComputeWithForm() {
+        return computeWithForm;
+    }
+
+    public void setComputeWithForm(boolean computeWithForm) {
+        this.computeWithForm = computeWithForm;
     }
 
     @Override

@@ -6,11 +6,11 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
+    <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -68,7 +68,7 @@
     <file path="/Rule.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379500668776" ignored="false" />
     <file path="/Field.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384270063660" ignored="false" />
     <file path="/Key.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379501258666" ignored="false" />
-    <file path="/Object.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384277197345" ignored="false" />
+    <file path="/Object.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384331693873" ignored="false" />
     <file path="/Link.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379503686592" ignored="false" />
     <file path="/TemplateImport.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384277060260" ignored="false" />
     <file path="/DockableRichText.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379523312815" ignored="false" />
@@ -79,11 +79,11 @@
     <file path="/FilteratorDataMainItem.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379595467991" ignored="false" />
     <file path="/StatusBar.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1379665955871" ignored="false" />
     <file path="/IconContainer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534258434" ignored="false" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384276545197" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384331438975" ignored="false" />
     <file path="/GUIFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273153113" ignored="false" />
     <file path="/DockingContainerFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380273089309" ignored="false" />
     <file path="/AppletWindowFrame.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380824074613" ignored="false" />
-    <file path="/RecordObject.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384276370616" ignored="false" />
+    <file path="/RecordObject.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384331616805" ignored="false" />
     <file path="/RecordObjectField.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381403879122" ignored="false" />
     <file path="/RecordNodeFieldType.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380534949145" ignored="false" />
     <file path="/DockObjectTree.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381408979106" ignored="false" />
@@ -96,7 +96,7 @@
     <file path="/ColorRenderer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380574390262" ignored="false" />
     <file path="/LoadImportData.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380711312044" ignored="false" />
     <file path="/LoadDataToDB.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380711103853" ignored="false" />
-    <file path="/Importer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384278069532" ignored="false" />
+    <file path="/Importer.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1384332542174" ignored="false" />
     <file path="/Loader.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1380710108614" ignored="false" />
     <file path="/FuzzySearch.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1383139613417" ignored="false" />
     <file path="/RecordObjectsTreeModel.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1381408895691" ignored="false" />
@@ -172,13 +172,13 @@
       <file leaf-file-name="Importer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="150" column="39" selection-start="5310" selection-end="5310" vertical-scroll-proportion="0.22913505">
+            <state line="208" column="63" selection-start="8151" selection-end="8151" vertical-scroll-proportion="1.329588">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#976#998#0" expanded="true" />
                 <element signature="e#3727#3745#0" expanded="true" />
-                <element signature="e#16730#16748#0" expanded="true" />
-                <element signature="e#16799#16813#0" expanded="true" />
+                <element signature="e#16897#16915#0" expanded="true" />
+                <element signature="e#16966#16980#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -232,7 +232,7 @@
       <file leaf-file-name="LoadTemplateImport.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="156" column="60" selection-start="5119" selection-end="5119" vertical-scroll-proportion="0.0">
+            <state line="309" column="61" selection-start="10974" selection-end="10991" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -241,10 +241,8 @@
       <file leaf-file-name="Object.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Object.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="39" selection-start="2484" selection-end="2484" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#2046#2053#0" expanded="true" />
-              </folding>
+            <state line="135" column="40" selection-start="2895" selection-end="2895" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -261,7 +259,7 @@
       <file leaf-file-name="RecordObject.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="48" selection-start="1044" selection-end="1044" vertical-scroll-proportion="0.0">
+            <state line="20" column="36" selection-start="485" selection-end="521" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -302,8 +300,8 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Field.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
@@ -345,34 +343,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="DebtImport">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="DebtImport">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT=".idea">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -601,6 +571,34 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="DebtImport">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="DebtImport">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT=".idea">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -617,12 +615,12 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -670,6 +668,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -695,19 +706,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -953,7 +951,11 @@
       <created>1384276568323</created>
       <updated>1384276568323</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1384278380789</created>
+      <updated>1384278380789</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -990,11 +992,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30041724" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32485548" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19368723" sideWeight="0.3449235" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19368723" sideWeight="0.15716273" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19368723" sideWeight="0.6550765" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.54520166" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19368723" sideWeight="0.2976356" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.54520166" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45479834" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1076,23 +1078,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="27" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="15" column="27" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="161" column="65" selection-start="5407" selection-end="5407" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="161" column="65" selection-start="5407" selection-end="5407" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="170" column="71" selection-start="6622" selection-end="6622" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="170" column="71" selection-start="6622" selection-end="6622" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/lib/Notes.jar!/lotus/domino/Session.class">
@@ -1123,9 +1119,7 @@
     </entry>
     <entry file="jar://$PROJECT_DIR$/lib/docking-frames-core.jar!/bibliothek/gui/dock/security/GlassedPane.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="21" selection-start="2421" selection-end="2421" vertical-scroll-proportion="0.3313783">
-          <folding />
-        </state>
+        <state line="56" column="21" selection-start="2421" selection-end="2421" vertical-scroll-proportion="0.3313783" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java">
@@ -1142,13 +1136,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="48" selection-start="1044" selection-end="1044" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -1156,31 +1143,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="36" selection-start="485" selection-end="521" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Object.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="39" selection-start="2484" selection-end="2484" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#2046#2053#0" expanded="true" />
-          </folding>
+        <state line="135" column="40" selection-start="2895" selection-end="2895" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="156" column="60" selection-start="5119" selection-end="5119" vertical-scroll-proportion="0.0">
+        <state line="309" column="61" selection-start="10974" selection-end="10991" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="150" column="39" selection-start="5310" selection-end="5310" vertical-scroll-proportion="0.22913505">
+        <state line="208" column="63" selection-start="8151" selection-end="8151" vertical-scroll-proportion="1.329588">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#976#998#0" expanded="true" />
             <element signature="e#3727#3745#0" expanded="true" />
-            <element signature="e#16730#16748#0" expanded="true" />
-            <element signature="e#16799#16813#0" expanded="true" />
+            <element signature="e#16897#16915#0" expanded="true" />
+            <element signature="e#16966#16980#0" expanded="true" />
           </folding>
         </state>
       </provider>
