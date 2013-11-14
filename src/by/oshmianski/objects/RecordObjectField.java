@@ -11,12 +11,19 @@ public class RecordObjectField {
     private String titleUser;
     private String value;
     private Field.TYPE type;
+    private boolean multiple;
 
-    public RecordObjectField(String title, String titleUser, String value, Field.TYPE type) {
+    public RecordObjectField(
+            String title,
+            String titleUser,
+            String value,
+            Field.TYPE type,
+            boolean multiple) {
         this.title = title;
         this.titleUser = titleUser;
         this.value = value;
         this.type = type;
+        this.multiple = multiple;
     }
 
     public Field.TYPE getType() {
@@ -49,6 +56,14 @@ public class RecordObjectField {
 
     public void setTitleUser(String titleUser) {
         this.titleUser = titleUser;
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
     }
 
     @Override

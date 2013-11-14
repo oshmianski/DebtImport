@@ -414,6 +414,7 @@ public class LoadTemplateImport implements Runnable, Loader {
                     docField.getItemValueString("titleUser"),
                     docField.getItemValueString("description"),
                     docField.getItemValueString("type"),
+                    "1".equals(docField.getItemValueString("isMultiple")),
                     docField.getItemValueString("xlsCell"),
                     "1".equals(docField.getItemValueString("emptyFlag")),
                     "1".equals(docField.getItemValueString("emptyFlagSignal")),

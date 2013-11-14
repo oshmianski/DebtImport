@@ -36,6 +36,7 @@ public class Importer {
     private final SimpleDateFormat formatterDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     private FormulaEvaluator evaluator = null;
     private DecimalFormat formatNumber = (DecimalFormat) DecimalFormat.getInstance();
+    private static final String MULTY_SEPARATOR = "-+||+-";
 
     public Importer(LoadImportData loader) {
         this.loader = loader;
@@ -186,6 +187,7 @@ public class Importer {
                 if (dataMainItem.getStatusFromChild() != Status.ERROR) {
                     Document document = null;
                     Document docParent = null;
+                    Item item = null;
                     EventList<RecordObject> recordObjectEventList = null;
                     SortedList<RecordObject> recordObjectSortedList = null;
                     DateTime dateTime = null;
@@ -215,21 +217,29 @@ public class Importer {
                                     java.lang.Object val = null;
 
                                     if (!field.getValue().isEmpty()) {
-                                        if (field.getType() == Field.TYPE.TEXT || field.getType() == Field.TYPE.AUTHORS || field.getType() == Field.TYPE.READERS)
-                                            val = field.getValue();
+                                        if (field.getType() == Field.TYPE.TEXT || field.getType() == Field.TYPE.AUTHORS || field.getType() == Field.TYPE.READERS) {
+                                            val = field.isMultiple() ? new Vector(Arrays.asList(StringUtils.split(field.getValue(), MULTY_SEPARATOR))) : field.getValue();
+                                        }
 
-                                        if (field.getType() == Field.TYPE.NUMBER)
+                                        if (field.getType() == Field.TYPE.NUMBER) {
                                             val = parseDecimal(field.getValue());
+                                            //TODO: обработать мультизначность для чисео
+                                        }
 
                                         if (field.getType() == Field.TYPE.DATETIME) {
                                             dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(field.getValue()));
                                             val = dateTime;
+                                            //TODO: обработать мультизначность для дат
                                         }
                                     } else {
                                         val = "";
                                     }
 
-                                    document.replaceItemValue(field.getTitle(), val);
+                                    item = document.replaceItemValue(field.getTitle(), val);
+                                    if (field.getType() == Field.TYPE.AUTHORS)
+                                        item.setAuthors(true);
+                                    if (field.getType() == Field.TYPE.READERS)
+                                        item.setReaders(true);
                                 }
 
                                 for (RecordObject mainRecordObject : rObject.getMainObject()) {
@@ -836,8 +846,10 @@ public class Importer {
                     for (Rule rule : ruleSortedList) {
                         if ("1".equals(rule.getType())) {
                             v = session.evaluate(rule.getFormula().replaceAll("%value%", isRule ? evalValue : cellValue), document);
-                            for (int vindex = 0; vindex < v.size(); vindex++)
+                            for (int vindex = 0; vindex < v.size(); vindex++) {
+                                if (sb.length() > 0) sb.append(MULTY_SEPARATOR);
                                 sb.append(v.get(vindex));
+                            }
 
                             evalValue = sb.toString();
                             sb.setLength(0);
@@ -908,7 +920,7 @@ public class Importer {
                         dataChildItems.add(dataChildItem);
                     }
 
-                    rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType());
+                    rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType(), field.isMultiple());
                     rFields.add(rField);
                 }
             }
@@ -931,57 +943,57 @@ public class Importer {
             }
         }
 
-        rField = new RecordObjectField("UNIDIF", "", importKey, Field.TYPE.TEXT);
+        rField = new RecordObjectField("UNIDIF", "", importKey, Field.TYPE.TEXT, false);
         rFields.add(rField);
     }
 
     private void fillRecordObjectFieldsPassport(ArrayList<RecordObjectField> rFields, Passport passport) {
         RecordObjectField rField;
 
-        rField = new RecordObjectField("passType", "Тип", passport.getPassType(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("passType", "Тип", passport.getPassType(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passNum", "Номер", passport.getPassNum(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("passNum", "Номер", passport.getPassNum(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passDate", "Дата выдачи", passport.getPassDate(), Field.TYPE.DATETIME);
+        rField = new RecordObjectField("passDate", "Дата выдачи", passport.getPassDate(), Field.TYPE.DATETIME, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passOrg", "Организация", passport.getPassOrg(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("passOrg", "Организация", passport.getPassOrg(), Field.TYPE.TEXT, false);
         rFields.add(rField);
     }
 
     private void fillRecordObjectFieldsAddress(ArrayList<RecordObjectField> rFields, Address address) {
         RecordObjectField rField;
 
-        rField = new RecordObjectField("index", "Индекс", address.getIndex(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("index", "Индекс", address.getIndex(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("country", "Страна", address.getCountry(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("country", "Страна", address.getCountry(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("region", "Область", address.getRegion(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("region", "Область", address.getRegion(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("district", "Район", address.getDistrict(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("district", "Район", address.getDistrict(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("city", "Нас. пункт", address.getCity(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("city", "Нас. пункт", address.getCity(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("cityType", "Тип нас. пункта", address.getCityType(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("cityType", "Тип нас. пункта", address.getCityType(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("street", "Улица", address.getStreet(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("street", "Улица", address.getStreet(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("streetType", "Тип улицы", address.getStreetType(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("streetType", "Тип улицы", address.getStreetType(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("house", "Дом", address.getHouse(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("house", "Дом", address.getHouse(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("flat", "Квартира", address.getFlat(), Field.TYPE.TEXT);
+        rField = new RecordObjectField("flat", "Квартира", address.getFlat(), Field.TYPE.TEXT, false);
         rFields.add(rField);
     }
 

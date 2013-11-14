@@ -16,6 +16,7 @@ public class Field {
     private String titleUser;
     private String description;
     private TYPE type;
+    private boolean multiple;
     private String xmlCell;
     private boolean emptyFlag;
     private boolean emptyFlagSignal;
@@ -38,6 +39,7 @@ public class Field {
             String titleUser,
             String description,
             String type,
+            boolean multiple,
             String xmlCell,
             boolean emptyFlag,
             boolean emptyFlagSignal,
@@ -62,6 +64,8 @@ public class Field {
             this.type = TYPE.AUTHORS;
         if ("readers".equals(type))
             this.type = TYPE.READERS;
+
+        this.multiple = multiple;
     }
 
     public int getNum() {
@@ -154,5 +158,13 @@ public class Field {
 
     public void setFake(boolean fake) {
         this.fake = fake;
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
     }
 }
