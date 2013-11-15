@@ -131,20 +131,25 @@ public class Importer {
             TemplateImport templateImport = loader.getUi().getTemplateImport();
 
             if (templateImport.isCreateFI()) {
+                Object importFact = templateImport.getImportFact();
+
                 dbFI = session.getDatabase(null, null);
                 dbFI.openByReplicaID(AppletParams.getInstance().getServer(), templateImport.getDbID());
                 noteFI = dbFI.createDocument();
                 noteFI.setUniversalID(importKey);
+                noteFI.replaceItemValue("form", "ImportFact");
+
+                if (importFact.isComputeWithForm())
+                    noteFI.computeWithForm(false, false);
+
                 noteFI.replaceItemValue("fileName", loader.getUi().getFileField().getText());
                 String path = loader.getUi().getFileField().getText();
                 noteFI.replaceItemValue("fileNameShort", StringUtils.right(path, path.length() - path.lastIndexOf("\\") - 1));
-                noteFI.replaceItemValue("form", "ImportFact");
                 noteFI.replaceItemValue("TemplateImportTitle", templateImport.getTitle());
-                noteFI.replaceItemValue("unid", noteFI.getUniversalID());
                 bodyFile = noteFI.createRichTextItem("file");
                 bodyFile.embedObject(EmbeddedObject.EMBED_ATTACHMENT, "", noteFI.getItemValueString("fileName").replaceAll("\\\\", "/"), "");
 
-                Object importFact = templateImport.getImportFact();
+                noteFI.replaceItemValue(importFact.getUnidTitle(), noteFI.getUniversalID());
 
                 if (importFact != null) {
                     Vector v;
@@ -170,9 +175,6 @@ public class Importer {
                         noteFI.replaceItemValue(field.getTitleSys(), evalValue);
                     }
                 }
-
-                if (importFact.isComputeWithForm())
-                    noteFI.computeWithForm(false, false);
             }
 
             EventList<DataMainItem> items = loader.getUi().getDataMainItems();
@@ -208,10 +210,12 @@ public class Importer {
 
                                 document = dbMap.get(object.getDb()).createDocument();
                                 document.replaceItemValue("form", object.getFormName());
-                                document.replaceItemValue("unid", document.getUniversalID());
 
-                                if (rObject.isComputeWithForm())
+                                if (rObject.isComputeWithForm()) {
                                     document.computeWithForm(false, false);
+                                }
+
+                                document.replaceItemValue(rObject.getUnidTitle(), document.getUniversalID());
 
                                 for (RecordObjectField field : rObject.getFields()) {
                                     java.lang.Object val = null;
@@ -513,7 +517,7 @@ public class Importer {
                 }
 
                 for (Object obj : templateImport.getObjects()) {
-                    rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getFormName(), obj.getTitle(), obj.getDb(), obj.isComputeWithForm());
+                    rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getUnidTitle(), obj.getFormName(), obj.getTitle(), obj.getDb(), obj.isComputeWithForm());
                     rObjects.add(rObject);
                     rFields = new ArrayList<RecordObjectField>();
 

@@ -15,6 +15,7 @@ public class Object {
     private String title;
     private String description;
     private String formName;
+    private String unidTitle;
     private String dbUser;
     private String db;
     private boolean importTemplate;
@@ -30,6 +31,7 @@ public class Object {
             String title,
             String description,
             String formName,
+            String unidTitle,
             String dbUser,
             String db,
             boolean computeWithForm) {
@@ -39,6 +41,7 @@ public class Object {
         this.title = title;
         this.description = description;
         this.formName = formName;
+        this.unidTitle = unidTitle;
         this.dbUser = dbUser;
         this.db = db;
         this.computeWithForm = computeWithForm;
@@ -139,5 +142,13 @@ public class Object {
 
     public void setComputeWithForm(boolean computeWithForm) {
         this.computeWithForm = computeWithForm;
+    }
+
+    public String getUnidTitle() {
+        return unidTitle;
+    }
+
+    public void setUnidTitle(String unidTitle) {
+        this.unidTitle = unidTitle;
     }
 }

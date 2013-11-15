@@ -306,6 +306,7 @@ public class LoadTemplateImport implements Runnable, Loader {
                     docObject.getItemValueString("title"),
                     docObject.getItemValueString("description"),
                     docObject.getItemValueString("formName"),
+                    docObject.getItemValueString("unidTitle"),
                     docObject.getItemValueString("dbUser"),
                     docObject.getItemValueString("db"),
                     "1".equals(docObject.getItemValueString("isComputeWithForm"))

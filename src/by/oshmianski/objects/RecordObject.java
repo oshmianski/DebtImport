@@ -13,6 +13,7 @@ import java.util.Comparator;
 public class RecordObject implements Comparable<RecordObject> {
     private String objUnid;
     private int number;
+    private String unidTitle;
     private String title;
     private String titleUser;
     private boolean flagEmpty;
@@ -28,12 +29,14 @@ public class RecordObject implements Comparable<RecordObject> {
     public RecordObject(
             String objUnid,
             int number,
+            String unidTitle,
             String title,
             String titleUser,
             String db,
             boolean computeWithForm) {
         this.objUnid = objUnid;
         this.number = number;
+        this.unidTitle = unidTitle;
         this.title = title;
         this.titleUser = titleUser;
         this.db = db;
@@ -158,6 +161,14 @@ public class RecordObject implements Comparable<RecordObject> {
 
     public void setComputeWithForm(boolean computeWithForm) {
         this.computeWithForm = computeWithForm;
+    }
+
+    public String getUnidTitle() {
+        return unidTitle;
+    }
+
+    public void setUnidTitle(String unidTitle) {
+        this.unidTitle = unidTitle;
     }
 
     @Override
