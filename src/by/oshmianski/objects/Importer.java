@@ -139,8 +139,9 @@ public class Importer {
                 noteFI.setUniversalID(importKey);
                 noteFI.replaceItemValue("form", "ImportFact");
 
-                if (importFact.isComputeWithForm())
-                    noteFI.computeWithForm(false, false);
+                if (importFact != null)
+                    if (importFact.isComputeWithForm())
+                        noteFI.computeWithForm(false, false);
 
                 noteFI.replaceItemValue("fileName", loader.getUi().getFileField().getText());
                 String path = loader.getUi().getFileField().getText();
@@ -149,9 +150,18 @@ public class Importer {
                 bodyFile = noteFI.createRichTextItem("file");
                 bodyFile.embedObject(EmbeddedObject.EMBED_ATTACHMENT, "", noteFI.getItemValueString("fileName").replaceAll("\\\\", "/"), "");
 
-                noteFI.replaceItemValue(importFact.getUnidTitle(), noteFI.getUniversalID());
+                if (importFact != null) {
+                    noteFI.replaceItemValue(importFact.getUnidTitle(), noteFI.getUniversalID());
+                } else {
+                    noteFI.replaceItemValue("UNID", noteFI.getUniversalID());
+                }
 
                 if (importFact != null) {
+                    if (importFact.isComputeWithForm())
+                        noteFI.computeWithForm(false, false);
+
+                    noteFI.replaceItemValue(importFact.getUnidTitle(), noteFI.getUniversalID());
+
                     Vector v;
                     StringBuilder sb = new StringBuilder();
                     String evalValue = "";
@@ -1102,12 +1112,22 @@ public class Importer {
 
         input = input.trim();
 
-        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.FRANCE);
+        DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
+        DecimalFormatSymbols symbols = format.getDecimalFormatSymbols();
+        String sep = symbols.getDecimalSeparator() + "";
+        if (".".equals(sep)) {
+            input = input.replaceAll(",", sep);
+        }
+        if (",".equals(sep)) {
+            input = input.replaceAll("\\.", sep);
+        }
+
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
         ParsePosition parsePosition = new ParsePosition(0);
         Number number = numberFormat.parse(input, parsePosition);
 
         if (parsePosition.getIndex() != input.length()) {
-            throw new ParseException("Invalid input", parsePosition.getIndex());
+            throw new ParseException("Invalid input. Value = " + input, parsePosition.getIndex());
         }
 
         return number.doubleValue();

@@ -113,7 +113,7 @@ public class FuzzySearch {
         AddressCityWithType cityWithType = new AddressCityWithType();
         ArrayList<AliasValue> aliasValues = new ArrayList<AliasValue>();
 
-        aliasValues.add(new AliasValue("н.п.", "н.п."));
+//        aliasValues.add(new AliasValue("н.п.", "н.п."));
         aliasValues.add(new AliasValue("г.п.", "г.п."));
         aliasValues.add(new AliasValue("г.", "город"));
         aliasValues.add(new AliasValue("гор.", "город"));
@@ -151,6 +151,12 @@ public class FuzzySearch {
         aliasValues.add(new AliasValue("проспект", "проспект"));
         aliasValues.add(new AliasValue("п-д", "проезд"));
         aliasValues.add(new AliasValue("проезд", "проезд"));
+        aliasValues.add(new AliasValue("м-н", "микрорайон"));
+        aliasValues.add(new AliasValue("мик-н", "микрорайон"));
+        aliasValues.add(new AliasValue("микрорайон", "микрорайон"));
+        aliasValues.add(new AliasValue("тракт", "тракт"));
+        aliasValues.add(new AliasValue("бульвар", "бульвар"));
+        aliasValues.add(new AliasValue("б-р", "бульвар"));
 
         if (streetUnprocessed.isEmpty())
             return streetWithType;
@@ -161,6 +167,8 @@ public class FuzzySearch {
                 streetWithType.setStreetType(aliasValue.getValue());
                 streetUnprocessed = streetUnprocessed.replace(aliasValue.getAlias(), "");
             }
+
+
 
         streetWithType.setStreet(streetUnprocessed.trim());
 
