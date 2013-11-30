@@ -12,6 +12,6 @@ public class ComparatorDMStatuses implements Comparator<DataMainItem> {
     }
 
     public int compare(DataMainItem x0, DataMainItem x1) {
-        return ArrayUtils.isEquals(x0.getStatuses(), x1.getStatuses()) ? 0 : -1;
+        return ArrayUtils.isEquals(x0.getStatusesFilter(), x1.getStatusesFilter()) ? 0 : -1;
     }
 }

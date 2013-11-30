@@ -28,8 +28,9 @@ public class StatusRenderer extends DefaultTableCellRenderer implements TableCel
 
         if (value == Status.OK || value == Status.INFO)
             label.setForeground(new Color(0x008000));
-
-        if (
+        else if (value == Status.ERROR)
+            label.setForeground(new Color(0xFF0000));
+        else if (
                 value == Status.WARNING_ALREADY_EXIST_IN_DB
                         || value == Status.WARNING_ALREADY_EXIST_IN_PREVIOUS
                         || value == Status.WARNING_OBJECT_WILL_NOT_CREATE
@@ -50,8 +51,6 @@ public class StatusRenderer extends DefaultTableCellRenderer implements TableCel
                 )
             label.setForeground(new Color(0xC26802));
 
-        if (value == Status.ERROR)
-            label.setForeground(new Color(0xFF0000));
 
         if (swingConstantsAlign != -1) {
             label.setHorizontalAlignment(swingConstantsAlign);

@@ -3,6 +3,10 @@ package by.oshmianski.models;
 import by.oshmianski.objects.DataMainItem;
 import ca.odell.glazedlists.gui.TableFormat;
 import ca.odell.glazedlists.gui.WritableTableFormat;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.lang.reflect.Array;
+import java.util.HashSet;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,7 +33,7 @@ public class DataMainModel implements WritableTableFormat<DataMainItem> {
             case 0:
                 return dataMainItem.getLineNum();
             case 1:
-                return dataMainItem.getStatusFromChild();
+                return new HashSet(dataMainItem.getStatuses());
             case 2:
                 return dataMainItem.getDescription();
             default:

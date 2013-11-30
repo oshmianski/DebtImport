@@ -3,6 +3,8 @@ package by.oshmianski.objects;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: VintsalovichS
@@ -18,12 +20,21 @@ public class TemplateImport {
     private boolean attachFile;
     private String db;
     private String dbID;
+    private ArrayList<Integer> excludeStatuses = new ArrayList<Integer>();
 
     private EventList<Object> objects = new BasicEventList<Object>();
     private EventList<Link> links = new BasicEventList<Link>();
     private Object importFact;
 
-    public TemplateImport(String unid, int num, String title, String description, boolean createFI, boolean attachFile, String db, String dbID) {
+    public TemplateImport(
+            String unid,
+            int num,
+            String title,
+            String description,
+            boolean createFI,
+            boolean attachFile,
+            String db,
+            String dbID) {
         this.unid = unid;
         this.num = num;
         this.title = title;
@@ -151,6 +162,14 @@ public class TemplateImport {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public void addExcludeStatus(Status status){
+        excludeStatuses.add(status.statusOrdinal);
+    }
+
+    public ArrayList<Integer> getExcludeStatuses(){
+        return excludeStatuses;
     }
 
     @Override

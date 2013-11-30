@@ -48,8 +48,13 @@ public class MyLog {
     public static void add2Log(String text, boolean isFocus, Color color) {
         if (dockableText != null) {
             if (isFocus) {
-                dockableText.setVisible(true);
-                dockableText.toFront();
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        dockableText.setVisible(true);
+                        dockableText.toFront();
+                    }
+                });
             }
 
             dockableText.appendText(text, color);

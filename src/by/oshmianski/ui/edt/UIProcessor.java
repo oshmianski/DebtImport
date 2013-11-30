@@ -14,6 +14,9 @@ import java.util.ArrayList;
  */
 public interface UIProcessor {
     @RequiresEDT
+    void setFilteredCount();
+
+    @RequiresEDT
     void setProgressLabelText(String text);
 
     @RequiresEDT

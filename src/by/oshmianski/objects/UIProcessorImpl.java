@@ -38,6 +38,11 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
+    public void setFilteredCount() {
+        dockDataMain.setFilteredCount();
+    }
+
+    @Override
     public void startLoadingTI() {
         System.out.println("Start loading TI...");
         dockHeader.startLoadTI();
@@ -77,30 +82,16 @@ public class UIProcessorImpl implements UIProcessor {
 
         if (dataMainItem.getStatusFromChild() == Status.OK || dataMainItem.getStatusFromChild() == Status.INFO) {
             dockInfo.countIncOk();
+
+            return;
         }
         if (dataMainItem.getStatusFromChild() == Status.ERROR) {
             dockInfo.countIncError();
+
+            return;
         }
-        if (dataMainItem.getStatusFromChild() == Status.WARNING_ALREADY_EXIST_IN_DB
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ALREADY_EXIST_IN_PREVIOUS
-                || dataMainItem.getStatusFromChild() == Status.WARNING_OBJECT_WILL_NOT_CREATE
-                || dataMainItem.getStatusFromChild() == Status.WARNING_EMPTY_FIELD
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_INDEX
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_COUTRY
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_REGION
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_DISTRICT
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_STREET_TYPE
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_STREET
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_CITY_TYPE
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_CITY
-                || dataMainItem.getStatusFromChild() == Status.WARNING_ADDRESS_NO_HOUSE
-                || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_TYPE
-                || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_NUM
-                || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_DATE
-                || dataMainItem.getStatusFromChild() == Status.WARNING_PASSPORT_NO_ORG
-                ) {
-            dockInfo.countIncWarning();
-        }
+
+        dockInfo.countIncWarning();
     }
 
     @Override

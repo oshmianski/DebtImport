@@ -1,8 +1,10 @@
 package by.oshmianski.filter.DM;
 
+import by.oshmianski.docks.Setup.DockingContainer;
 import by.oshmianski.filter.FilterComponent;
 import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.objects.Status;
+import by.oshmianski.ui.edt.UIProcessor;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.EventList;
@@ -62,12 +64,19 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
 
     private int heaght;
     private boolean visibleControl;
+    private DockingContainer container;
 
-    public MatcherEditorDMStatuses(EventList issues, DefaultEventTableModel model, int heaght, boolean visibleControl) {
+    public MatcherEditorDMStatuses(
+            EventList issues,
+            DefaultEventTableModel model,
+            int heaght,
+            boolean visibleControl,
+            DockingContainer container) {
         super();
         this.model = model;
         this.heaght = heaght;
         this.visibleControl = visibleControl;
+        this.container = container;
 
         issuesByStatus = new GroupingList(issues, new ComparatorDMStatuses());
         this.issuesByStatusSwingThread = GlazedListsSwing.swingThreadProxyList(issuesByStatus);
@@ -145,7 +154,7 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
             if (type == ListEvent.INSERT) {
                 List issuesOfThisStatus = (List) issuesByStatusSwingThread.get(index);
                 DataMainItem dataMainItem = ((DataMainItem) issuesOfThisStatus.get(0));
-                for (Status status1 : dataMainItem.getStatuses()) {
+                for (Status status1 : dataMainItem.getStatusesFilter()) {
                     if (!statusesArray.contains(status1)) {
                         statusesArray.add(status1);
                         statuses.add(index, status1);
@@ -212,6 +221,9 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
         } else {
             System.out.println("model = null");
         }
+
+        if (container.getUIProcessor() != null)
+            container.getUIProcessor().setFilteredCount();
     }
 
     /**
@@ -232,7 +244,7 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
 
         public boolean matches(Object x0) {
             DataMainItem issue = (DataMainItem) x0;
-            for (Status status : issue.getStatuses()) {
+            for (Status status : issue.getStatusesFilter()) {
                 if (this.allowedStatuses.contains(status)) return true;
             }
             return false;
@@ -263,6 +275,9 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
                 } else {
                     System.out.println("model = null");
                 }
+
+                if (container.getUIProcessor() != null)
+                    container.getUIProcessor().setFilteredCount();
             }
         };
     }
@@ -285,6 +300,9 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
                 } else {
                     System.out.println("model = null");
                 }
+
+                if (container.getUIProcessor() != null)
+                    container.getUIProcessor().setFilteredCount();
             }
         };
     }

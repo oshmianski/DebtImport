@@ -126,9 +126,9 @@ public class FuzzySearch {
             return cityWithType;
 
         for (AliasValue aliasValue : aliasValues)
-            if (cityUnprocessed.indexOf(aliasValue.getAlias()) > -1) {
+            if (cityUnprocessed.toLowerCase().indexOf(aliasValue.getAlias().toLowerCase()) > -1) {
                 cityWithType.setCityType(aliasValue.getValue());
-                cityUnprocessed = cityUnprocessed.replace(aliasValue.getAlias(), "");
+                cityUnprocessed = cityUnprocessed.replaceAll("(?i)" + aliasValue.getAlias().replaceAll("\\.", "\\\\."), "");
             }
 
         cityWithType.setCity(cityUnprocessed.trim());
@@ -157,17 +157,24 @@ public class FuzzySearch {
         aliasValues.add(new AliasValue("тракт", "тракт"));
         aliasValues.add(new AliasValue("бульвар", "бульвар"));
         aliasValues.add(new AliasValue("б-р", "бульвар"));
+        aliasValues.add(new AliasValue("аллея", "аллея"));
+        aliasValues.add(new AliasValue("ал.", "аллея"));
+        aliasValues.add(new AliasValue("набережная", "набережная"));
+        aliasValues.add(new AliasValue("наб.", "набережная"));
+        aliasValues.add(new AliasValue("шоссе", "шоссе"));
+        aliasValues.add(new AliasValue("ш.", "шоссе"));
+        aliasValues.add(new AliasValue("площадь", "площадь"));
+        aliasValues.add(new AliasValue("пл.", "площадь"));
 
         if (streetUnprocessed.isEmpty())
             return streetWithType;
 
 
         for (AliasValue aliasValue : aliasValues)
-            if (streetUnprocessed.indexOf(aliasValue.getAlias()) > -1) {
+            if (streetUnprocessed.toLowerCase().indexOf(aliasValue.getAlias().toLowerCase()) > -1) {
                 streetWithType.setStreetType(aliasValue.getValue());
-                streetUnprocessed = streetUnprocessed.replace(aliasValue.getAlias(), "");
+                streetUnprocessed = streetUnprocessed.replaceAll("(?i)" + aliasValue.getAlias().replaceAll("\\.", "\\\\."), "");
             }
-
 
 
         streetWithType.setStreet(streetUnprocessed.trim());

@@ -6,6 +6,7 @@ import by.oshmianski.filter.DM.FilterPanel;
 import by.oshmianski.main.AppletWindow;
 import by.oshmianski.models.DataMainModel;
 import by.oshmianski.objects.DataMainItem;
+import by.oshmianski.ui.edt.UIProcessor;
 import by.oshmianski.ui.utils.BetterJTable;
 import by.oshmianski.ui.utils.ColorRenderer;
 import by.oshmianski.ui.utils.StatusRenderer;
@@ -39,9 +40,10 @@ public class DockDataMain extends DockSimple {
     private JTable table;
     private DefaultEventSelectionModel issuesSelectionModel;
     private FilterPanel filterPanel;
+    private static final String frameTitle = "Данные";
 
     public DockDataMain(DockingContainer dockingContainer) {
-        super("DockDataMain", IconContainer.getInstance().loadImage("grid.png"), "Данные");
+        super("DockDataMain", IconContainer.getInstance().loadImage("grid.png"), frameTitle);
 
         this.dockingContainer = dockingContainer;
 
@@ -53,7 +55,7 @@ public class DockDataMain extends DockSimple {
         try {
             entries = GlazedListsSwing.swingThreadProxyList(this.dataMainItems);
 
-            filterPanel = new FilterPanel(entries, true);
+            filterPanel = new FilterPanel(entries, true, dockingContainer);
 
             sortedEntries = new SortedList<DataMainItem>(entries, null);
 
@@ -74,7 +76,7 @@ public class DockDataMain extends DockSimple {
 
             DecimalFormat df = new DecimalFormat("###,##0");
             table.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer(Color.BLUE, false, df));
-            table.getColumnModel().getColumn(1).setCellRenderer(new StatusRenderer(false, -1));
+            table.getColumnModel().getColumn(1).setCellRenderer(new ColorRenderer(new Color(0xC26802), false));
             table.getColumnModel().getColumn(2).setCellRenderer(new ColorRenderer(Color.BLACK, false));
 
             table.setRowHeight(20);
@@ -169,5 +171,9 @@ public class DockDataMain extends DockSimple {
 
         filterPanel.dispose();
         System.out.println("DockDataMain clear...OK");
+    }
+
+    public void setFilteredCount(){
+        setTitleText(frameTitle + " [" + filteredEntries.size() + "]");
     }
 }

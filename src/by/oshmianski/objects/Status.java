@@ -41,6 +41,72 @@ public enum Status {
         statusOrdinal = i;
     }
 
+    public static Status getStatusByAlias(String alias){
+        Status status = null;
+
+        if("ERROR".equalsIgnoreCase(alias))
+            return Status.ERROR;
+
+        if("WARNING_EMPTY_FIELD".equalsIgnoreCase(alias))
+            return Status.WARNING_EMPTY_FIELD;
+
+        if("WARNING_OBJECT_WILL_NOT_CREATE".equalsIgnoreCase(alias))
+            return Status.WARNING_OBJECT_WILL_NOT_CREATE;
+
+        if("WARNING_ADDRESS_NO_INDEX".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_INDEX;
+
+        if("WARNING_ADDRESS_NO_COUTRY".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_COUTRY;
+
+        if("WARNING_ADDRESS_NO_REGION".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_REGION;
+
+        if("WARNING_ADDRESS_NO_DISTRICT".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_DISTRICT;
+
+        if("WARNING_ADDRESS_NO_CITY_TYPE".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_CITY_TYPE;
+
+        if("WARNING_ADDRESS_NO_CITY".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_CITY;
+
+        if("WARNING_ADDRESS_NO_STREET_TYPE".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_STREET_TYPE;
+
+        if("WARNING_ADDRESS_NO_STREET".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_STREET;
+
+        if("WARNING_ADDRESS_NO_HOUSE".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NO_HOUSE;
+
+        if("WARNING_PASSPORT_NO_TYPE".equalsIgnoreCase(alias))
+            return Status.WARNING_PASSPORT_NO_TYPE;
+
+        if("WARNING_PASSPORT_NO_NUM".equalsIgnoreCase(alias))
+            return Status.WARNING_PASSPORT_NO_NUM;
+
+        if("WARNING_PASSPORT_NO_DATE".equalsIgnoreCase(alias))
+            return Status.WARNING_PASSPORT_NO_DATE;
+
+        if("WARNING_PASSPORT_NO_ORG".equalsIgnoreCase(alias))
+            return Status.WARNING_PASSPORT_NO_ORG;
+
+        if("WARNING_ALREADY_EXIST_IN_DB".equalsIgnoreCase(alias))
+            return Status.WARNING_ALREADY_EXIST_IN_DB;
+
+        if("WARNING_ALREADY_EXIST_IN_PREVIOUS".equalsIgnoreCase(alias))
+            return Status.WARNING_ALREADY_EXIST_IN_PREVIOUS;
+
+        if("OK".equalsIgnoreCase(alias))
+            return Status.OK;
+
+        if("INFO".equalsIgnoreCase(alias))
+            return Status.INFO;
+
+        return status;
+    }
+
     public static Status[] STATUS_INDEXED = new Status[]{
             null,
             ERROR,

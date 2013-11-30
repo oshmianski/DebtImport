@@ -1,6 +1,8 @@
 package by.oshmianski.filter.DM;
 
+import by.oshmianski.docks.Setup.DockingContainer;
 import by.oshmianski.filter.FilterComponent;
+import by.oshmianski.ui.edt.UIProcessor;
 import by.oshmianski.ui.utils.RoundedPanel;
 import by.oshmianski.main.AppletWindow;
 import by.oshmianski.objects.DataMainItem;
@@ -52,20 +54,22 @@ public class FilterPanel {
     private boolean visibleControl;
 
     private DefaultEventTableModel model;
+    private DockingContainer container;
 
-    public FilterPanel(EventList<DataMainItem> items, boolean visibleControl) {
+    public FilterPanel(EventList<DataMainItem> items, boolean visibleControl, DockingContainer container) {
         this.items = items;
         this.matcherEditors = new FunctionList(selectedFilterComponents, new CloseableFilterComponentToMatcherEditor<DataMainItem>());
         this.matcherEditor = new CompositeMatcherEditor(matcherEditors);
         this.visibleControl = visibleControl;
+        this.container = container;
     }
 
     public void install(DefaultEventTableModel model) {
         // select some initial filters
         this.model = model;
 
-        matcherEditorDMStatuses = new MatcherEditorDMStatuses(items, model, 150, visibleControl);
-        textFilterComponent = new TextFilterComponent();
+        matcherEditorDMStatuses = new MatcherEditorDMStatuses(items, model, 150, visibleControl, container);
+        textFilterComponent = new TextFilterComponent(container);
 
         this.selectedFilterComponents.add(new CloseableFilterComponent(model, matcherEditorDMStatuses, selectedFilterComponents, remainingFilterComponents, visibleControl));
         // and then have the rest
@@ -135,6 +139,7 @@ public class FilterPanel {
             this.model = model;
             this.selectedFilterComponents = selectedFilterComponents;
             this.remainingFilterComponents = remainingFilterComponents;
+
             this.closeButton = new JButton();
             this.closeButton.addActionListener(this);
             this.closeButton.setOpaque(false);

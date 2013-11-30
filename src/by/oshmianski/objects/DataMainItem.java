@@ -15,11 +15,13 @@ public class DataMainItem {
 
     private ArrayList<DataChildItem> dataChildItems;
     private ArrayList<RecordObject> objects;
+    private TemplateImport ti;
 
-    public DataMainItem(long lineNum, Status status, String description) {
+    public DataMainItem(long lineNum, Status status, String description, TemplateImport ti) {
         this.lineNum = lineNum;
         this.status = status;
         this.description = description;
+        this.ti = ti;
     }
 
     public long getLineNum() {
@@ -104,7 +106,20 @@ public class DataMainItem {
         ArrayList<Status> statuses = new ArrayList<Status>();
 
         for (DataChildItem dataChildItem : dataChildItems) {
-            statuses.add(dataChildItem.getStatus());
+                statuses.add(dataChildItem.getStatus());
+        }
+
+        return statuses;
+    }
+
+    public ArrayList<Status> getStatusesFilter() {
+        ArrayList<Status> statuses = new ArrayList<Status>();
+        ArrayList<Integer> statusesTI = ti.getExcludeStatuses();
+
+        for (DataChildItem dataChildItem : dataChildItems) {
+            Integer i = dataChildItem.getStatus().statusOrdinal;
+            if (!statusesTI.contains(i))
+                statuses.add(dataChildItem.getStatus());
         }
 
         return statuses;

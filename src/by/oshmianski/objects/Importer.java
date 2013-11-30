@@ -499,7 +499,7 @@ public class Importer {
             while (it.hasNext() && i <= end) {
                 row = it.next();
 
-                dataMainItem = new DataMainItem(i + 1, Status.OK, col2Description == -1 ? "" : getCellString(wb, row.getCell(col2Description)));
+                dataMainItem = new DataMainItem(i + 1, Status.OK, col2Description == -1 ? "" : getCellString(wb, row.getCell(col2Description)), templateImport);
                 dataChildItems = new ArrayList<DataChildItem>();
                 rObjects = new ArrayList<RecordObject>();
 
@@ -614,6 +614,7 @@ public class Importer {
                 loader.getUi().appendDataImport(dataMainItem);
 
                 loader.getUi().setProgressValue(i + 1);
+                loader.getUi().setFilteredCount();
 
                 Thread.sleep(3);
 

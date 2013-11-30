@@ -9,6 +9,8 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import lotus.domino.*;
 
+import java.util.Vector;
+
 public class LoadTemplateImport implements Runnable, Loader {
     private boolean executed = false;
     private boolean canceled = false;
@@ -148,6 +150,12 @@ public class LoadTemplateImport implements Runnable, Loader {
                                     doc.getItemValueString("dbFI"),
                                     doc.getItemValueString("dbIDFI")
                             );
+                    Vector excludeStatuses = doc.getItemValue("excludeStatuses");
+                    for (int vindex = 0; vindex < excludeStatuses.size(); vindex++) {
+                        if (!excludeStatuses.get(vindex).toString().isEmpty())
+                            templateImport.addExcludeStatus(Status.getStatusByAlias(excludeStatuses.get(vindex).toString()));
+                    }
+
                     templateImports.add(templateImport);
 
                     colObject = viewObject.getAllDocumentsByKey(doc.getUniversalID(), true);
