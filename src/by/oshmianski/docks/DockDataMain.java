@@ -6,6 +6,7 @@ import by.oshmianski.filter.DM.FilterPanel;
 import by.oshmianski.main.AppletWindow;
 import by.oshmianski.models.DataMainModel;
 import by.oshmianski.objects.DataMainItem;
+import by.oshmianski.objects.RecordObject;
 import by.oshmianski.ui.edt.UIProcessor;
 import by.oshmianski.ui.utils.BetterJTable;
 import by.oshmianski.ui.utils.ColorRenderer;
@@ -156,8 +157,10 @@ public class DockDataMain extends DockSimple {
     public void dispose() {
         System.out.println("DockDataMain clear...");
 
-        for (DataMainItem dataMainItem : dataMainItems)
+        for (DataMainItem dataMainItem : dataMainItems){
             dataMainItem.getDataChildItems().clear();
+            dataMainItem.getObjects().clear();
+        }
 
         dataMainItems.clear();
         dataMainItems.dispose();

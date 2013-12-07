@@ -57,6 +57,7 @@ public class EDTInvocationHandler implements InvocationHandler {
                         try {
                             invocationResult = method.invoke(ui, args);
                         } catch (Exception ex) {
+                            System.out.println("method = " + method.getName());
                             throw new RuntimeException(ex);
                         }
                     }

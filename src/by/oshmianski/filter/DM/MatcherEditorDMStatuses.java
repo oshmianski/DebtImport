@@ -163,25 +163,28 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
                 count = issuesOfThisStatus.size();
                 listChangeType = "INSERT";
             } else if (type == ListEvent.UPDATE) {
-                List issuesOfThisStatus = (List) issuesByStatusSwingThread.get(index);
-                status = (Status) statuses.get(index);
-                count = issuesOfThisStatus.size();
-                statusesArray.add(status);
-                listChangeType = "UPDATE";
-            } else if (type == ListEvent.DELETE) {
-                status = (Status) statuses.remove(index);
-                statusesArray.add(status);
-                count = 0;
-
-                JCheckBox checkBox = (JCheckBox) statusCheckBoxes.get(status);
-
-                if (checkBox != null) {
-                    checkBoxPanel.remove(checkBox);
-                    checkBoxPanel.revalidate();
-                    checkBoxPanel.repaint();
-                    statusCheckBoxes.remove(status);
+                if (!statuses.isEmpty()) {
+                    List issuesOfThisStatus = (List) issuesByStatusSwingThread.get(index);
+                    status = (Status) statuses.get(index);
+                    count = issuesOfThisStatus.size();
+                    statusesArray.add(status);
+                    listChangeType = "UPDATE";
                 }
+            } else if (type == ListEvent.DELETE) {
+                if (!statuses.isEmpty()) {
+                    status = (Status) statuses.remove(index);
+                    statusesArray.add(status);
+                    count = 0;
 
+                    JCheckBox checkBox = (JCheckBox) statusCheckBoxes.get(status);
+
+                    if (checkBox != null) {
+                        checkBoxPanel.remove(checkBox);
+                        checkBoxPanel.revalidate();
+                        checkBoxPanel.repaint();
+                        statusCheckBoxes.remove(status);
+                    }
+                }
                 isDelete = true;
                 listChangeType = "DELETE";
             } else {
@@ -312,6 +315,7 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
         try {
             statusCheckBoxes.clear();
             statuses.clear();
+            statusesArray.clear();
 //            issuesByStatus.dispose();
 //            issuesByStatusSwingThread.dispose();
 //            if (model != null) model.dispose();

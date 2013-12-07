@@ -101,11 +101,18 @@ public class LoadTemplateImport implements Runnable, Loader {
         Document docChildObject = null;
 
         try {
+            System.out.println("NotesThread.sinitThread()");
             NotesThread.sinitThread();
             session = NotesFactory.createSession();
+            System.out.println("db = session.getDatabase(null, null);");
             db = session.getDatabase(null, null);
+
+            System.out.println("db.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbReplicaID());");
+            System.out.println("AppletParams.getInstance().getServer()=" + AppletParams.getInstance().getServer());
+            System.out.println("AppletParams.getInstance().getDbReplicaID()=" + AppletParams.getInstance().getDbReplicaID());
             db.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbReplicaID());
 
+            System.out.println("view = db.getView(AppletParams.getInstance().getViewTI());");
             view = db.getView(AppletParams.getInstance().getViewTI());
             view.setAutoUpdate(false);
 
@@ -120,6 +127,7 @@ public class LoadTemplateImport implements Runnable, Loader {
             viewRule = db.getView(AppletParams.getInstance().getViewRuleRef());
             viewRule.setAutoUpdate(false);
 
+            System.out.println("nav = view.createViewNav();");
             nav = view.createViewNav();
 
             if (Integer.valueOf(session.evaluate("@Version").firstElement().toString()) >= 379) {
@@ -133,6 +141,8 @@ public class LoadTemplateImport implements Runnable, Loader {
             Object objectMain;
             Object objectChild;
             Link link;
+
+            System.out.println("nav.getCount()=" + nav.getCount());
 
             ve = nav.getFirst();
             while (ve != null) {

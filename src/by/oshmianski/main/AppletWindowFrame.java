@@ -1,5 +1,7 @@
 package by.oshmianski.main;
 
+import by.oshmianski.loaders.LoadTemplateImport;
+import by.oshmianski.loaders.Loader;
 import by.oshmianski.ui.GUIFrame;
 import by.oshmianski.ui.utils.Icons;
 import by.oshmianski.utils.AppletParams;
@@ -42,7 +44,7 @@ public class AppletWindowFrame extends JFrame {
     public AppletWindowFrame(String server) {
         SwingUIUtils.getInstance().setLAF();
 
-        InputStream in = getClass().getClassLoader().getResourceAsStream("config.properies");
+        InputStream in = getClass().getClassLoader().getResourceAsStream("config.properties");
         Properties props = new Properties();
         try {
             props.load(in);
@@ -59,6 +61,8 @@ public class AppletWindowFrame extends JFrame {
         ap.setViewRuleRef(props.getProperty("viewRuleRef"));
         ap.setViewObjectRef(props.getProperty("viewObjectRef"));
         ap.setViewTI(props.getProperty("viewTI"));
+        ap.setDbGEO(props.getProperty("dbGEO"));
+        ap.setViewGEOCity(props.getProperty("viewGEOCity"));
 
         gui = new GUIFrame(this);
         gui.create();

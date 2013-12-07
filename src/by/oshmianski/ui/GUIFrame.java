@@ -48,11 +48,11 @@ public class GUIFrame {
     }
 
     public void show() {
-        frame.getContentPane().add(panelMain);
-        dockingContainer.setVisibleFilters(false);
-
         Loader loaderTI = new LoadTemplateImport(dockingContainer.getUIProcessor());
         loaderTI.execute();
+
+        frame.getContentPane().add(panelMain);
+        dockingContainer.setVisibleFilters(false);
     }
 
     public void stop() {
@@ -67,5 +67,9 @@ public class GUIFrame {
         }
 
         control.destroy();
+    }
+
+    public DockingContainer getDockingContainer() {
+        return dockingContainer;
     }
 }

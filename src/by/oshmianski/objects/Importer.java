@@ -344,7 +344,7 @@ public class Importer {
                     }
                 }
 
-                Thread.sleep(2);
+//                Thread.sleep(2);
                 i++;
 
                 loader.getUi().setProgressValue(i + 1);
@@ -414,7 +414,9 @@ public class Importer {
     private void startTest() {
         Session session = null;
         Database db = null;
+        Database dbGEO = null;
         View view = null;
+        View viewGEO = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -435,6 +437,10 @@ public class Importer {
 
             db = session.getDatabase(null, null);
             db.openByReplicaID(AppletParams.getInstance().getServer(), templateImport.getDbID());
+            dbGEO = session.getDatabase(null, null);
+            dbGEO.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbGEO());
+            viewGEO = dbGEO.getView(AppletParams.getInstance().getViewGEOCity());
+            viewGEO.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -535,6 +541,7 @@ public class Importer {
                         processFields(
                                 session,
                                 db,
+                                viewGEO,
                                 wb,
                                 row,
                                 obj,
@@ -648,6 +655,9 @@ public class Importer {
                 if (view != null) {
                     view.recycle();
                 }
+                if (viewGEO != null) {
+                    viewGEO.recycle();
+                }
 
                 if (!viewMap.isEmpty()) {
                     Iterator i = viewMap.entrySet().iterator();
@@ -669,6 +679,9 @@ public class Importer {
 
                 if (db != null) {
                     db.recycle();
+                }
+                if (dbGEO != null) {
+                    dbGEO.recycle();
                 }
 
                 if (session != null) {
@@ -804,6 +817,7 @@ public class Importer {
     private void processFields(
             Session session,
             Database db,
+            View viewGEO,
             XSSFWorkbook wb,
             Row row,
             Object obj,
@@ -908,19 +922,19 @@ public class Importer {
 
                 if ("#ADDRESS".equalsIgnoreCase(field.getTitleSys())) {
                     if (fuzzySearchAddress == null)
-                        fuzzySearchAddress = new FuzzySearch();
+                        fuzzySearchAddress = new FuzzySearch(viewGEO);
                     Address address = fuzzySearchAddress.getAddress(cellValue, dataChildItems);
 
                     fillRecordObjectFieldsAddress(rFields, address);
                 } else if ("#ADDRESS_STRUCTURED_1".equalsIgnoreCase(field.getTitleSys())) {
                     if (fuzzySearchAddress == null)
-                        fuzzySearchAddress = new FuzzySearch();
+                        fuzzySearchAddress = new FuzzySearch(viewGEO);
                     Address address = fuzzySearchAddress.getAddressStructured1(cellValue, dataChildItems);
 
                     fillRecordObjectFieldsAddress(rFields, address);
                 } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
                     if (fuzzySearchAddress == null)
-                        fuzzySearchAddress = new FuzzySearch();
+                        fuzzySearchAddress = new FuzzySearch(viewGEO);
                     Passport passport = fuzzySearchAddress.getPassport(cellValue, dataChildItems);
 
                     fillRecordObjectFieldsPassport(rFields, passport);
@@ -1029,27 +1043,27 @@ public class Importer {
                 if (key.getField1() != null) {
                     recordObjectField = rObject.getFieldByTitle(key.getField1().getTitleSys());
                     keyStr.append(key.getPref1());
-                    keyStr.append(recordObjectField.getValue());
+                    keyStr.append(recordObjectField == null ? "" : recordObjectField.getValue());
                 }
                 if (key.getField2() != null) {
                     recordObjectField = rObject.getFieldByTitle(key.getField2().getTitleSys());
                     keyStr.append(key.getPref2());
-                    keyStr.append(recordObjectField.getValue());
+                    keyStr.append(recordObjectField == null ? "" : recordObjectField.getValue());
                 }
                 if (key.getField3() != null) {
                     recordObjectField = rObject.getFieldByTitle(key.getField3().getTitleSys());
                     keyStr.append(key.getPref3());
-                    keyStr.append(recordObjectField.getValue());
+                    keyStr.append(recordObjectField == null ? "" : recordObjectField.getValue());
                 }
                 if (key.getField4() != null) {
                     recordObjectField = rObject.getFieldByTitle(key.getField4().getTitleSys());
                     keyStr.append(key.getPref4());
-                    keyStr.append(recordObjectField.getValue());
+                    keyStr.append(recordObjectField == null ? "" : recordObjectField.getValue());
                 }
                 if (key.getField5() != null) {
                     recordObjectField = rObject.getFieldByTitle(key.getField5().getTitleSys());
                     keyStr.append(key.getPref5());
-                    keyStr.append(recordObjectField.getValue());
+                    keyStr.append(recordObjectField == null ? "" : recordObjectField.getValue());
                 }
                 if (!dbMap.containsKey(key.getDb())) {
                     Database database = session.getDatabase(null, null);

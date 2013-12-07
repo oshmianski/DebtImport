@@ -1,10 +1,15 @@
 package by.oshmianski.objects;
 
+import by.oshmianski.utils.MyLog;
+import lotus.domino.View;
+import lotus.domino.ViewEntry;
+import lotus.domino.ViewEntryCollection;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +25,7 @@ public class FuzzySearch {
     private String[] districts = {"Барановичский", "Белыничский", "Березинский", "Березовский", "Берестовицкий", "Бешенковичский",
             "Бобруйский", "Борисовский", "Брагинский", "Браславский", "Брестский", "Буда-Кошелевский", "Быховский",
             "Верхнедвинский", "Ветковский", "Вилейский", "Витебский", "Волковысский", "Воложинский", "Вороновский",
-            "Ганцевичский", " Глубокский", " Глусский", " Гомельский", " Горецкий", " Городокский", " Гродненский", " Дзержинский",
+            "Ганцевичский", "Глубокский", "Глусский", "Гомельский", "Горецкий", "Городокский", "Гродненский", "Дзержинский",
             "Добрушский", "Докшицкий", "Дрибинский", "Дрогичинский", "Дубровенский", "Дятловский", "Ельский", "Жабинковский",
             "Житковичский", "Жлобинский", "Зельвенский", "Ивановский", "Ивацевичский", "Ивьевский", "Калинковичский", "Каменецкий",
             "Кировский", "Клецкий", "Климовичский", "Кличевский", "Кобринский", "Копыльский", "Кореличский", "Кормянский",
@@ -35,6 +40,12 @@ public class FuzzySearch {
             "Шкловский", "Шумилинский", "Щучинский"
     };
     private final SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+    private View viewGEO;
+
+    public FuzzySearch(View viewGEO) {
+        this.viewGEO = viewGEO;
+    }
 
     public static void main(String[] args) {
         String t = " .";
@@ -104,6 +115,11 @@ public class FuzzySearch {
                 address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""));
             }
         }
+
+        if (address.getCityType().isEmpty()) {
+            processCityTypeWithGEO(address);
+        }
+
         processWarningAddress(address, dataChildItems);
 
         return address;
@@ -114,13 +130,17 @@ public class FuzzySearch {
         ArrayList<AliasValue> aliasValues = new ArrayList<AliasValue>();
 
 //        aliasValues.add(new AliasValue("н.п.", "н.п."));
-        aliasValues.add(new AliasValue("г.п.", "г.п."));
-        aliasValues.add(new AliasValue("г.", "город"));
-        aliasValues.add(new AliasValue("гор.", "город"));
-        aliasValues.add(new AliasValue("город", "город"));
-        aliasValues.add(new AliasValue("д.", "деревня"));
-        aliasValues.add(new AliasValue("дер.", "деревня"));
-        aliasValues.add(new AliasValue("деревня", "деревня"));
+        aliasValues.add(new AliasValue("город", "г"));
+        aliasValues.add(new AliasValue("деревня", "д"));
+        aliasValues.add(new AliasValue("гор.", "г"));
+        aliasValues.add(new AliasValue("дер.", "д"));
+        aliasValues.add(new AliasValue("г.п.", "гп"));
+        aliasValues.add(new AliasValue("гп.", "гп"));
+        aliasValues.add(new AliasValue("кп.", "кп"));
+        aliasValues.add(new AliasValue("п.", "п"));
+        aliasValues.add(new AliasValue("с.", "с"));
+        aliasValues.add(new AliasValue("г.", "г"));
+        aliasValues.add(new AliasValue("д.", "д"));
 
         if (cityUnprocessed.isEmpty())
             return cityWithType;
@@ -197,6 +217,13 @@ public class FuzzySearch {
         isRegion = false;
         isDistrict = false;
 
+        //очищу от лишних пробелов
+        int index = 0;
+        for (String s : addressArray) {
+            addressArray[index] = s.trim();
+            index++;
+        }
+
         //четкий поиск страны
         for (String str : addressArray) {
             strTmp = str.trim().toLowerCase();
@@ -228,13 +255,14 @@ public class FuzzySearch {
         for (String str : addressArray) {
             strTmp = str.trim().toLowerCase();
 
-            for (String district : districts)
-                if (strTmp.indexOf(district.toLowerCase()) > -1) {
-                    address.setDistrict(district);
-                    isDistrict = true;
+            if (!strTmp.isEmpty())
+                for (String district : districts)
+                    if (strTmp.indexOf(district.toLowerCase()) > -1) {
+                        address.setDistrict(district);
+                        isDistrict = true;
 
-                    break;
-                }
+                        break;
+                    }
 
             if (isDistrict) break;
         }
@@ -297,16 +325,80 @@ public class FuzzySearch {
 
         val = "";
         //город
-        Pattern patternCity = Pattern.compile("(?<=(г\\.|гор\\.)\\s{0,}).*");
-        Matcher matcherCity = patternCity.matcher(addressStr);
-        if (matcherCity.find())
+        if (addressStr.indexOf("@") > -1) {
+            String s = addressStr.substring(addressStr.indexOf("н.п.") + 4);
+            s = s.substring(0, s.indexOf("@"));
 
-        {
-            val = matcherCity.group().trim();
-            if (val.indexOf(" ") != -1)
-                val = StringUtils.left(val, val.indexOf(" "));
-            val = val.replaceAll(",", "").trim();
-            address.setCity(val);
+            address.setCity(s);
+        } else {
+            Pattern patternCity = Pattern.compile("(?<=(г\\.|гор\\.)\\s{0,}).*");
+            Matcher matcherCity = patternCity.matcher(addressStr);
+            if (matcherCity.find())
+
+            {
+                val = matcherCity.group().trim();
+                if (val.contains(" "))
+                    val = StringUtils.left(val, val.indexOf(" "));
+                val = val.replaceAll(",", "").trim();
+                address.setCity(val);
+                address.setCityType("г");
+            }
+            Pattern patternCity2 = Pattern.compile("(?<=(н\\.п\\.|нп\\.)\\s*).*");
+            Matcher matcherCity2 = patternCity2.matcher(addressStr);
+            if (matcherCity2.find())
+
+            {
+                val = matcherCity2.group().trim();
+                if (val.contains(" "))
+                    val = StringUtils.left(val, val.indexOf(" "));
+                val = val.replaceAll(",", "").trim();
+                address.setCity(val);
+            }
+
+            Pattern patternCity3 = Pattern.compile("(?<=(д\\.|дер\\.)\\s*)\\D.*");
+            Matcher matcherCity3 = patternCity3.matcher(addressStr);
+            if (matcherCity3.find())
+
+            {
+                val = matcherCity3.group().trim();
+                if (val.contains(" "))
+                    val = StringUtils.left(val, val.indexOf(" "));
+                val = val.replaceAll(",", "").trim();
+                address.setCity(val);
+                address.setCityType("д");
+            }
+        }
+
+        //улица
+        if(addressStr.indexOf("~") > -1){
+            String s = addressStr.substring(addressStr.indexOf("&") + 1);
+            s = s.substring(0, s.indexOf("~"));
+
+            String streetType = s.substring(0, 1);
+
+            if("Т".equalsIgnoreCase(streetType)){
+                address.setStreetType("тракт");
+            }
+            if("С".equalsIgnoreCase(streetType)){
+                address.setStreetType("улица");
+            }
+            if("П".equalsIgnoreCase(streetType)){
+                address.setStreetType("проспект");
+            }
+            if("М".equalsIgnoreCase(streetType)){
+                address.setStreetType("микрорайон");
+            }
+            if("Н".equalsIgnoreCase(streetType)){
+//                address.setStreetType("улица");
+            }
+            if("Р".equalsIgnoreCase(streetType)){
+                address.setStreetType("переулок");
+            }
+            if("Б".equalsIgnoreCase(streetType)){
+                address.setStreetType("бульвар");
+            }
+
+            address.setStreet(s.substring(1));
         }
 
         val = "";
@@ -317,7 +409,7 @@ public class FuzzySearch {
 
         {
             val = matcher.group().trim();
-            if (val.indexOf(" ") != -1)
+            if (val.contains(" "))
                 val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
             address.setHouse(val);
@@ -331,10 +423,14 @@ public class FuzzySearch {
 
         {
             val = matcher2.group().trim();
-            if (val.indexOf(" ") != -1)
+            if (val.contains(" "))
                 val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
             address.setFlat(val);
+        }
+
+        if (address.getCityType().isEmpty() && !address.getCity().isEmpty()) {
+            processCityTypeWithGEO(address);
         }
 
         processWarningAddress(address, dataChildItems);
@@ -469,6 +565,85 @@ public class FuzzySearch {
 
         private void setValue(String value) {
             this.value = value;
+        }
+    }
+
+    private void processCityTypeWithGEO(Address address) {
+        String cityType = "";
+        boolean equal = true;
+
+        ViewEntryCollection vec = null;
+        ViewEntry ve = null;
+        ViewEntry vetmp = null;
+
+        try {
+            vec = viewGEO.getAllEntriesByKey(address.getCity(), true);
+
+            if (vec.getCount() == 1) {
+                ve = vec.getFirstEntry();
+                Vector vals = ve.getColumnValues();
+                address.setCityType(vals.elementAt(3).toString());
+
+                return;
+            }
+
+            if (vec.getCount() > 1) {
+                Vector key = new Vector();
+                key.addElement(address.getCity());
+                key.addElement(address.getDistrict());
+                vec = viewGEO.getAllEntriesByKey(key, true);
+
+                if (vec.getCount() == 1) {
+                    ve = vec.getFirstEntry();
+                    Vector vals = ve.getColumnValues();
+                    address.setCityType(vals.elementAt(3).toString());
+
+                    return;
+                }
+
+                if (vec.getCount() > 1) {
+                    ve = vec.getFirstEntry();
+                    Vector vals = ve.getColumnValues();
+
+                    cityType = vals.elementAt(3).toString();
+                    vetmp = vec.getNextEntry();
+                    ve.recycle();
+                    ve = vetmp;
+                    while (ve != null) {
+                        vals = ve.getColumnValues();
+
+                        if (!cityType.equals(vals.elementAt(3).toString())) {
+                            equal = false;
+                            break;
+                        }
+
+                        vetmp = vec.getNextEntry();
+                        ve.recycle();
+                        ve = vetmp;
+                    }
+
+                    if (equal) {
+                        address.setCityType(cityType);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            MyLog.add2Log(e);
+        } finally {
+            try {
+                if (vetmp != null) {
+                    vetmp.recycle();
+                }
+                if (ve != null) {
+                    ve.recycle();
+                }
+                if (vec != null) {
+                    vec.recycle();
+                }
+            } catch (Exception e) {
+                MyLog.add2Log(e);
+            }
         }
     }
 }
