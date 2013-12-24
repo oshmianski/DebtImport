@@ -35,7 +35,8 @@ public class Importer {
     private FuzzySearch fuzzySearchAddress;
     private final SimpleDateFormat formatterDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     private FormulaEvaluator evaluator = null;
-    private DecimalFormat formatNumber = (DecimalFormat) DecimalFormat.getInstance();
+//    private DecimalFormat formatNumber = (DecimalFormat) DecimalFormat.getInstance();
+    private DecimalFormat formatNumber = new DecimalFormat("0.######");
     private static final String MULTY_SEPARATOR = "-+||+-";
 
     public Importer(LoadImportData loader) {
