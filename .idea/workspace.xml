@@ -7,8 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItem.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemTypeValue.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -74,28 +76,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AppletWindowFrame.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="34" selection-start="3405" selection-end="3405" vertical-scroll-proportion="0.0" vertical-offset="1462" max-vertical-offset="2057">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoadImportData.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="13" selection-start="563" selection-end="563" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1785">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Importer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="2346" max-vertical-offset="19346">
+            <state line="829" column="33" selection-start="33661" selection-end="33661" vertical-scroll-proportion="0.0" vertical-offset="15159" max-vertical-offset="19346">
               <folding>
                 <marker date="1387873272996" expanded="true" signature="23095:23936" placeholder="..." />
               </folding>
@@ -103,10 +87,79 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FuzzySearch.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AddressParser.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="28" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseItem.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="205" selection-end="205" vertical-scroll-proportion="0.20564516" vertical-offset="0" max-vertical-offset="1496">
+              <folding>
+                <element signature="e#452#453#0" expanded="true" />
+                <element signature="e#479#480#0" expanded="true" />
+                <element signature="e#519#520#0" expanded="true" />
+                <element signature="e#551#552#0" expanded="true" />
+                <element signature="e#588#589#0" expanded="true" />
+                <element signature="e#621#622#0" expanded="true" />
+                <element signature="e#673#674#0" expanded="true" />
+                <element signature="e#717#718#0" expanded="true" />
+                <element signature="e#753#754#0" expanded="true" />
+                <element signature="e#785#786#0" expanded="true" />
+                <element signature="e#835#836#0" expanded="true" />
+                <element signature="e#877#878#0" expanded="true" />
+                <element signature="e#915#916#0" expanded="true" />
+                <element signature="e#942#943#0" expanded="true" />
+                <element signature="e#989#990#0" expanded="true" />
+                <element signature="e#1021#1022#0" expanded="true" />
+                <element signature="e#1069#1070#0" expanded="true" />
+                <element signature="e#1101#1102#0" expanded="true" />
+                <element signature="e#1163#1164#0" expanded="true" />
+                <element signature="e#1205#1206#0" expanded="true" />
+                <element signature="e#1259#1260#0" expanded="true" />
+                <element signature="e#1297#1298#0" expanded="true" />
+                <element signature="e#1371#1372#0" expanded="true" />
+                <element signature="e#1425#1426#0" expanded="true" />
+                <element signature="e#1467#1468#0" expanded="true" />
+                <element signature="e#1505#1506#0" expanded="true" />
+                <element signature="e#1568#1569#0" expanded="true" />
+                <element signature="e#1622#1623#0" expanded="true" />
+                <element signature="e#1654#1655#0" expanded="true" />
+                <element signature="e#1682#1683#0" expanded="true" />
+                <element signature="e#1725#1726#0" expanded="true" />
+                <element signature="e#1759#1760#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseItemTypeValue.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemTypeValue.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="8" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseItemType.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="10" selection-start="145" selection-end="145" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FuzzySearch.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="6" selection-start="2613" selection-end="2613" vertical-scroll-proportion="0.59408605" vertical-offset="51" max-vertical-offset="10812">
+            <state line="24" column="42" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="10812">
               <folding />
             </state>
           </provider>
@@ -152,6 +205,11 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/AddressParser.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemType.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemTypeValue.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItem.java" />
       </list>
     </option>
   </component>
@@ -329,6 +387,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="objects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="objects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addressParser" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -599,6 +683,26 @@
       <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -679,6 +783,25 @@
       </option>
       <envs />
       <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
     <configuration default="false" name="AppletWindow" type="Applet" factoryName="Applet">
@@ -932,7 +1055,11 @@
       <created>1386575346861</created>
       <updated>1386575346861</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1387890730042</created>
+      <updated>1387890730042</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -969,6 +1096,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5006954" sideWeight="0.40575275" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32823366" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2974026" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3240612" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27222222" sideWeight="0.34805194" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -980,7 +1108,6 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45479834" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2974026" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -1009,20 +1136,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="34" selection-start="3405" selection-end="3405" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2057">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="563" selection-end="563" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1785">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="68" selection-start="1379" selection-end="1379" vertical-scroll-proportion="0.0" vertical-offset="646" max-vertical-offset="19346">
@@ -1335,19 +1448,80 @@
         <state line="42" column="11" selection-start="1016" selection-end="1016" vertical-scroll-proportion="0.3449235" vertical-offset="449" max-vertical-offset="1394" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="42" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="10812">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="2346" max-vertical-offset="19346">
+        <state line="829" column="33" selection-start="33661" selection-end="33661" vertical-scroll-proportion="0.0" vertical-offset="15159" max-vertical-offset="19346">
           <folding>
             <marker date="1387873272996" expanded="true" signature="23095:23936" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="6" selection-start="2613" selection-end="2613" vertical-scroll-proportion="0.59408605" vertical-offset="51" max-vertical-offset="10812">
+        <state line="5" column="28" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="10" selection-start="145" selection-end="145" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemTypeValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="8" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="205" selection-end="205" vertical-scroll-proportion="0.20564516" vertical-offset="0" max-vertical-offset="1496">
+          <folding>
+            <element signature="e#452#453#0" expanded="true" />
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#519#520#0" expanded="true" />
+            <element signature="e#551#552#0" expanded="true" />
+            <element signature="e#588#589#0" expanded="true" />
+            <element signature="e#621#622#0" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="e#717#718#0" expanded="true" />
+            <element signature="e#753#754#0" expanded="true" />
+            <element signature="e#785#786#0" expanded="true" />
+            <element signature="e#835#836#0" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#942#943#0" expanded="true" />
+            <element signature="e#989#990#0" expanded="true" />
+            <element signature="e#1021#1022#0" expanded="true" />
+            <element signature="e#1069#1070#0" expanded="true" />
+            <element signature="e#1101#1102#0" expanded="true" />
+            <element signature="e#1163#1164#0" expanded="true" />
+            <element signature="e#1205#1206#0" expanded="true" />
+            <element signature="e#1259#1260#0" expanded="true" />
+            <element signature="e#1297#1298#0" expanded="true" />
+            <element signature="e#1371#1372#0" expanded="true" />
+            <element signature="e#1425#1426#0" expanded="true" />
+            <element signature="e#1467#1468#0" expanded="true" />
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1568#1569#0" expanded="true" />
+            <element signature="e#1622#1623#0" expanded="true" />
+            <element signature="e#1654#1655#0" expanded="true" />
+            <element signature="e#1682#1683#0" expanded="true" />
+            <element signature="e#1725#1726#0" expanded="true" />
+            <element signature="e#1759#1760#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
