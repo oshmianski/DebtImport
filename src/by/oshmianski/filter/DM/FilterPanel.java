@@ -46,6 +46,7 @@ public class FilterPanel {
 
     private MatcherEditorDMStatuses matcherEditorDMStatuses;
     private TextFilterComponent textFilterComponent;
+    private TextFilterComponentStatus textFilterComponentStatus;
 
     private EventList<MatcherEditor<DataMainItem>> matcherEditors;
 
@@ -70,11 +71,13 @@ public class FilterPanel {
 
         matcherEditorDMStatuses = new MatcherEditorDMStatuses(items, model, 150, visibleControl, container);
         textFilterComponent = new TextFilterComponent(container);
+        textFilterComponentStatus = new TextFilterComponentStatus(container);
 
         this.selectedFilterComponents.add(new CloseableFilterComponent(model, matcherEditorDMStatuses, selectedFilterComponents, remainingFilterComponents, visibleControl));
         // and then have the rest
 
         this.remainingFilterComponents.add(new CloseableFilterComponent(model, textFilterComponent, selectedFilterComponents, remainingFilterComponents, visibleControl));
+        this.remainingFilterComponents.add(new CloseableFilterComponent(model, textFilterComponentStatus, selectedFilterComponents, remainingFilterComponents, visibleControl));
 
         // create the filters panel
         JPanel filtersPanel = new JEventListPanel(selectedFilterComponents, new CloseableFilterComponentPanelFormat<DataMainItem>());

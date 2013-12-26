@@ -35,7 +35,7 @@ public class Importer {
     private FuzzySearch fuzzySearchAddress;
     private final SimpleDateFormat formatterDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     private FormulaEvaluator evaluator = null;
-//    private DecimalFormat formatNumber = (DecimalFormat) DecimalFormat.getInstance();
+    //    private DecimalFormat formatNumber = (DecimalFormat) DecimalFormat.getInstance();
     private DecimalFormat formatNumber = new DecimalFormat("0.######");
     private static final String MULTY_SEPARATOR = "-+||+-";
 
@@ -256,7 +256,6 @@ public class Importer {
                                     if (field.getType() == Field.TYPE.READERS)
                                         item.setReaders(true);
                                 }
-
                                 for (RecordObject mainRecordObject : rObject.getMainObject()) {
                                     if (mainRecordObject != null) {
                                         while (mainRecordObject.isFlagEmpty()) {
@@ -264,7 +263,7 @@ public class Importer {
                                             mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
                                         }
 
-                                        if (mainRecordObject.isExistInPrevios()) {
+                                        while (mainRecordObject.isExistInPrevios() && !mainRecordObject.isExistInDB()) {
                                             mainRecordObject = recordObjectMap.get(mainRecordObject.getLinkKey());
                                         }
 
@@ -462,7 +461,7 @@ public class Importer {
             }
             int end = loader.getUi().getEndTo();
             if (end == -1) {
-                end = 1000000; //костыль, но по жругому пока не знаю как
+                end = 1000000; //костыль, но по другому пока не знаю как
             } else {
                 end--;
             }
