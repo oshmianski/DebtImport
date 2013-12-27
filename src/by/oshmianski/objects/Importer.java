@@ -272,7 +272,7 @@ public class Importer {
                                             database.openByReplicaID(AppletParams.getInstance().getServer(), mainRecordObject.getDb());
                                             dbMap.put(mainRecordObject.getDb(), database);
                                         }
-                                        docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getLinkKey());
+                                        docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getUnidKey());
 
                                         Link link = loader.getUi().getTemplateImport().getLinkByMainAndChildTitle(mainRecordObject.getTitle(), rObject.getTitle());
                                         switch (Integer.valueOf(link.getResponseField())) {
@@ -309,9 +309,10 @@ public class Importer {
                                     }
                                 }
 
-                                rObject.setLinkKey(document.getUniversalID());
+                                rObject.setUnidKey(document.getUniversalID());
 
-                                document.save();
+                                if (!loader.getUi().isTestImport())
+                                    document.save();
                                 loader.getUi().countIncImported();
                                 j++;
                             }
@@ -353,7 +354,8 @@ public class Importer {
             if (templateImport.isCreateFI()) {
                 if (j > 0) {
                     noteFI.replaceItemValue("importedObjectCount", j);
-                    noteFI.save();
+                    if (!loader.getUi().isTestImport())
+                        noteFI.save();
                 } else {
                     Calendar now = Calendar.getInstance();
                     MyLog.add2Log(formatterDateTime.format(now.getTime()) + " Факт импорта не создан, т.к. ничего не импортировано!", true, new Color(0xC26802));
@@ -1089,7 +1091,7 @@ public class Importer {
                         dataChildItems.add(dataChildItem);
                         rObject.setExistInDB(true);
                         document = col.getFirstDocument();
-                        rObject.setLinkKey(document.getUniversalID());
+                        rObject.setUnidKey(document.getUniversalID());
                         document.recycle();
                     } else {
                         if (recordObjectMap.containsKey(keyStr.toString())) {

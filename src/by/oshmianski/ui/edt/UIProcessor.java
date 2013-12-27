@@ -61,6 +61,8 @@ public interface UIProcessor {
     @RequiresEDT
     boolean isHeaderCorrect();
 
+    boolean isTestImport();
+
     @RequiresEDT
     boolean isCanImport();
 

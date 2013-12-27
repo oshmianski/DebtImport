@@ -21,6 +21,7 @@ public class RecordObject implements Comparable<RecordObject> {
     private boolean existInPrevios;
     private boolean computeWithForm;
     private String linkKey;
+    private String unidKey;
     private String db;
     private ArrayList<RecordObject> mainObjects;
 
@@ -169,6 +170,14 @@ public class RecordObject implements Comparable<RecordObject> {
 
     public void setUnidTitle(String unidTitle) {
         this.unidTitle = unidTitle;
+    }
+
+    public String getUnidKey() {
+        return unidKey;
+    }
+
+    public void setUnidKey(String unidKey) {
+        this.unidKey = unidKey;
     }
 
     @Override

@@ -95,6 +95,11 @@ public class UIProcessorImpl implements UIProcessor {
     }
 
     @Override
+    public boolean isTestImport() {
+        return dockHeader.isTestImport();
+    }
+
+    @Override
     public void clearDataImport() {
         dockDataMain.clearDataMain();
         dockDataChild.clearDataChild();

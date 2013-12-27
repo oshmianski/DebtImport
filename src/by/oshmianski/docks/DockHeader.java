@@ -60,6 +60,7 @@ public class DockHeader extends DockSimple {
     private JLabel loadLabel;
     private JComboBox template;
     private JComboBox headers;
+    private JCheckBox testImport;
 
     private Loader loaderTI;
 
@@ -103,6 +104,7 @@ public class DockHeader extends DockSimple {
         startFrom = new JTextField("2");
         endTo = new JTextField("");
         col2Description = new JTextField("A");
+        testImport = new JCheckBox("тест импорта (без создания документов)");
 
         final JFileChooser fileChooser = new JFileChooser();
 
@@ -154,7 +156,7 @@ public class DockHeader extends DockSimple {
 
         FormLayout layout = new FormLayout(
                 "5px, right:60px, 5px, 300px, 5px, 20px, 5px, 30px, 5px, right:130px, 5px, 60px, 5px, right:130px, 5px, 60px, 5px", // columns
-                "5px, 30px, 5px, 30px, pref");      // rows
+                "5px, 30px, 5px, 30px, 5px, 30px, pref");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
 //        builder.setDefaultDialogBorder();
@@ -176,6 +178,7 @@ public class DockHeader extends DockSimple {
         builder.add(bOpenFile, cc.xy(6, 4));
         builder.addLabel("Колонка в описание", cc.xy(10, 4));
         builder.add(headers, cc.xyw(12, 4, 5));
+//        builder.add(testImport, cc.xy(4, 6));
 
         panel.add(builder.getPanel());
     }
@@ -272,5 +275,9 @@ public class DockHeader extends DockSimple {
 
     public EventList<CellHeader> getCellHeaders() {
         return cellHeaders;
+    }
+
+    public boolean isTestImport(){
+        return testImport.isSelected();
     }
 }
