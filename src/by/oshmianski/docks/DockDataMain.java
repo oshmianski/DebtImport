@@ -147,6 +147,7 @@ public class DockDataMain extends DockSimple {
 
             dockingContainer.getUIProcessor().setDockDataChildItems(selectedItem);
             dockingContainer.getUIProcessor().setDockObjectTreeObjects(selectedItem);
+            dockingContainer.getUIProcessor().setDockAddressParserItems(selectedItem);
         }
     }
 

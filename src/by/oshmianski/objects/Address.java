@@ -17,13 +17,14 @@ public class Address {
     private String streetType;
     private String street;
     private String house;
+    private String building;
     private String flat;
 
     public Address() {
-        this("", "", "", "", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "", "", "", "", "");
     }
 
-    public Address(String index, String country, String region, String district, String unit, String cityType, String city, String streetType, String street, String house, String flat) {
+    public Address(String index, String country, String region, String district, String unit, String cityType, String city, String streetType, String street, String house, String building, String flat) {
         this.index = index;
         this.country = country;
         this.region = region;
@@ -34,6 +35,7 @@ public class Address {
         this.streetType = streetType;
         this.street = street;
         this.house = house;
+        this.building = building;
         this.flat = flat;
     }
 
@@ -123,5 +125,13 @@ public class Address {
 
     public void setFlat(String flat) {
         this.flat = flat;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
     }
 }

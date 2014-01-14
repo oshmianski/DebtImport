@@ -70,6 +70,9 @@ public interface UIProcessor {
     void setDockDataChildItems(DataMainItem dataMainItem);
 
     @RequiresEDT
+    void setDockAddressParserItems(DataMainItem dataMainItem);
+
+    @RequiresEDT
     void setDockObjectTreeObjects(DataMainItem dataMainItem);
 
 //    @RequiresEDT

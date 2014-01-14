@@ -1,5 +1,7 @@
 package by.oshmianski.objects;
 
+import by.oshmianski.objects.addressParser.AddressParser;
+
 import java.util.ArrayList;
 
 /**
@@ -16,6 +18,7 @@ public class DataMainItem {
     private ArrayList<DataChildItem> dataChildItems;
     private ArrayList<RecordObject> objects;
     private TemplateImport ti;
+    private AddressParser addressParser;
 
     public DataMainItem(long lineNum, Status status, String description, TemplateImport ti) {
         this.lineNum = lineNum;
@@ -123,5 +126,21 @@ public class DataMainItem {
         }
 
         return statuses;
+    }
+
+    public AddressParser getAddressParser() {
+        return addressParser;
+    }
+
+    public void setAddressParser(AddressParser addressParser) {
+        this.addressParser = addressParser;
+    }
+
+    public TemplateImport getTi() {
+        return ti;
+    }
+
+    public void setTi(TemplateImport ti) {
+        this.ti = ti;
     }
 }

@@ -542,32 +542,6 @@ public class FuzzySearch {
         }
     }
 
-    private static class AliasValue {
-        private String alias;
-        private String value;
-
-        private AliasValue(String alias, String value) {
-            this.alias = alias;
-            this.value = value;
-        }
-
-        private String getAlias() {
-            return alias;
-        }
-
-        private void setAlias(String alias) {
-            this.alias = alias;
-        }
-
-        private String getValue() {
-            return value;
-        }
-
-        private void setValue(String value) {
-            this.value = value;
-        }
-    }
-
     private void processCityTypeWithGEO(Address address) {
         String cityType = "";
         boolean equal = true;

@@ -5,7 +5,6 @@ import by.oshmianski.ui.edt.UIProcessor;
 import ca.odell.glazedlists.EventList;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,6 +19,7 @@ public class UIProcessorImpl implements UIProcessor {
     private DockDataChild dockDataChild;
     private DockActions dockActions;
     private DockObjectTree dockObjectTree;
+    private DockAddressParser dockAddressParser;
 
     public UIProcessorImpl(
             DockHeader dockHeader,
@@ -27,7 +27,8 @@ public class UIProcessorImpl implements UIProcessor {
             DockInfo dockInfo,
             DockDataMain dockDataMain,
             DockDataChild dockDataChild,
-            DockObjectTree dockObjectTree) {
+            DockObjectTree dockObjectTree,
+            DockAddressParser dockAddressParser) {
 
         this.dockHeader = dockHeader;
         this.dockActions = dockActions;
@@ -35,6 +36,7 @@ public class UIProcessorImpl implements UIProcessor {
         this.dockDataMain = dockDataMain;
         this.dockDataChild = dockDataChild;
         this.dockObjectTree = dockObjectTree;
+        this.dockAddressParser = dockAddressParser;
     }
 
     @Override
@@ -104,6 +106,7 @@ public class UIProcessorImpl implements UIProcessor {
         dockDataMain.clearDataMain();
         dockDataChild.clearDataChild();
         dockObjectTree.cleareObject();
+        dockAddressParser.clearItems();
         dockInfo.progressSetValue(0);
         dockInfo.countClearAll();
     }
@@ -141,6 +144,11 @@ public class UIProcessorImpl implements UIProcessor {
     @Override
     public void setDockDataChildItems(DataMainItem dataMainItem) {
         dockDataChild.setDataChildItems(dataMainItem);
+    }
+
+    @Override
+    public void setDockAddressParserItems(DataMainItem dataMainItem) {
+        dockAddressParser.setAddressParserItems(dataMainItem);
     }
 
     @Override

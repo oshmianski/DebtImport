@@ -42,6 +42,7 @@ public class DockingContainer {
     private DockObjectTree dockObjectTree;
     private DockActions dockActions;
     private DockInfo dockInfo;
+    private DockAddressParser dockAddressParser;
     private DockLog dockLog;
     private JPanel mainPanel;
 
@@ -95,6 +96,7 @@ public class DockingContainer {
         dockActions = new DockActions(this);
         dockLog = new DockLog();
         dockObjectTree = new DockObjectTree(this, null);
+        dockAddressParser = new DockAddressParser(this);
         MyLog.setDock(dockLog);
 
         control.addDockable(dockLog);
@@ -102,10 +104,11 @@ public class DockingContainer {
         uiProcessor = (UIProcessor) Proxy.newProxyInstance(
                 getClass().getClassLoader(),
                 new Class[]{UIProcessor.class},
-                new EDTInvocationHandler(new UIProcessorImpl(dockHeader, dockActions, dockInfo, dockDataMain, dockDataChild, dockObjectTree)));
+                new EDTInvocationHandler(new UIProcessorImpl(dockHeader, dockActions, dockInfo, dockDataMain, dockDataChild, dockObjectTree, dockAddressParser)));
 
         control.addDockable(dockDataMainFilter);
         control.addDockable(dockDataChildFilter);
+        control.addDockable(dockAddressParser);
 
         grid.add(0, 0, 80, 20, dockHeader);
         grid.add(0, 20, 60, 40, dockDataMain);
@@ -239,6 +242,7 @@ public class DockingContainer {
         System.out.println("DockingContainer clear...");
         dockDataMain.dispose();
         dockDataChild.dispose();
+        dockAddressParser.dispose();
         dockHeader.dispose();
         System.out.println("DockingContainer clear...OK");
     }

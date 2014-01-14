@@ -1,6 +1,7 @@
 package by.oshmianski.objects;
 
 import by.oshmianski.loaders.LoadImportData;
+import by.oshmianski.objects.addressParser.AddressParser;
 import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
@@ -547,6 +548,7 @@ public class Importer {
                                 wb,
                                 row,
                                 obj,
+                                dataMainItem,
                                 dataChildItems,
                                 rFields,
                                 rObject);
@@ -823,6 +825,7 @@ public class Importer {
             XSSFWorkbook wb,
             Row row,
             Object obj,
+            DataMainItem dataMainItem,
             ArrayList<DataChildItem> dataChildItems,
             ArrayList<RecordObjectField> rFields,
             RecordObject rObject) throws Exception {
@@ -934,6 +937,10 @@ public class Importer {
                     Address address = fuzzySearchAddress.getAddressStructured1(cellValue, dataChildItems);
 
                     fillRecordObjectFieldsAddress(rFields, address);
+                } else if ("#ADDRESS_2".equalsIgnoreCase(field.getTitleSys())) {
+                    AddressParser addressParser = new AddressParser(cellValue);
+                    addressParser.parse();
+                    dataMainItem.setAddressParser(addressParser);
                 } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
                     if (fuzzySearchAddress == null)
                         fuzzySearchAddress = new FuzzySearch(viewGEO);
