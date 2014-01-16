@@ -331,6 +331,19 @@ public class FuzzySearch {
 
             address.setCity(s);
         } else {
+            Pattern patternCity3 = Pattern.compile("(?<=(д\\.|дер\\.)\\s*)\\D.*");
+            Matcher matcherCity3 = patternCity3.matcher(addressStr);
+            if (matcherCity3.find())
+
+            {
+                val = matcherCity3.group().trim();
+                if (val.contains(" "))
+                    val = StringUtils.left(val, val.indexOf(" "));
+                val = val.replaceAll(",", "").trim();
+                address.setCity(val);
+                address.setCityType("д");
+            }
+
             Pattern patternCity = Pattern.compile("(?<=(г\\.|гор\\.)\\s{0,}).*");
             Matcher matcherCity = patternCity.matcher(addressStr);
             if (matcherCity.find())
@@ -353,52 +366,47 @@ public class FuzzySearch {
                     val = StringUtils.left(val, val.indexOf(" "));
                 val = val.replaceAll(",", "").trim();
                 address.setCity(val);
-            }
-
-            Pattern patternCity3 = Pattern.compile("(?<=(д\\.|дер\\.)\\s*)\\D.*");
-            Matcher matcherCity3 = patternCity3.matcher(addressStr);
-            if (matcherCity3.find())
-
-            {
-                val = matcherCity3.group().trim();
-                if (val.contains(" "))
-                    val = StringUtils.left(val, val.indexOf(" "));
-                val = val.replaceAll(",", "").trim();
-                address.setCity(val);
-                address.setCityType("д");
+                address.setCityType("");
             }
         }
 
         //улица
-        if(addressStr.indexOf("~") > -1){
-            String s = addressStr.substring(addressStr.indexOf("&") + 1);
-            s = s.substring(0, s.indexOf("~"));
+        if (addressStr.indexOf("~") > -1) {
+            String s = addressStr.substring(addressStr.indexOf("~") + 1);
+            s = s.substring(0, s.indexOf("&") + 2);
 
-            String streetType = s.substring(0, 1);
+            String streetType = StringUtils.right(s, 1);
+            s = s.substring(0, s.length() - 2);
 
-            if("Т".equalsIgnoreCase(streetType)){
+            if ("Т".equalsIgnoreCase(streetType)) {
                 address.setStreetType("тракт");
             }
-            if("С".equalsIgnoreCase(streetType)){
+            if ("С".equalsIgnoreCase(streetType)) {
                 address.setStreetType("улица");
             }
-            if("П".equalsIgnoreCase(streetType)){
+            if ("П".equalsIgnoreCase(streetType)) {
                 address.setStreetType("проспект");
             }
-            if("М".equalsIgnoreCase(streetType)){
+            if ("М".equalsIgnoreCase(streetType)) {
                 address.setStreetType("микрорайон");
             }
-            if("Н".equalsIgnoreCase(streetType)){
+            if ("Н".equalsIgnoreCase(streetType)) {
 //                address.setStreetType("улица");
             }
-            if("Р".equalsIgnoreCase(streetType)){
+            if ("Р".equalsIgnoreCase(streetType)) {
                 address.setStreetType("переулок");
             }
-            if("Б".equalsIgnoreCase(streetType)){
+            if ("Б".equalsIgnoreCase(streetType)) {
                 address.setStreetType("бульвар");
             }
+            if ("Ш".equalsIgnoreCase(streetType)) {
+                address.setStreetType("шоссе");
+            }
+            if ("Д".equalsIgnoreCase(streetType)) {
+                address.setStreetType("проезд");
+            }
 
-            address.setStreet(s.substring(1));
+            address.setStreet(s.trim());
         }
 
         val = "";
@@ -414,6 +422,21 @@ public class FuzzySearch {
             val = val.replaceAll(",", "").trim();
             address.setHouse(val);
         }
+
+        val = "";
+        //корпус
+        Pattern patternBuild = Pattern.compile("(?<=(корп\\.|корпус)\\s{0,})\\d.*");
+        Matcher matcherBuild = patternBuild.matcher(addressStr);
+        if (matcherBuild.find())
+
+        {
+            val = matcherBuild.group().trim();
+            if (val.contains(" "))
+                val = StringUtils.left(val, val.indexOf(" "));
+            val = val.replaceAll(",", "").trim();
+            address.setBuilding(val);
+        }
+        if (address.getBuilding().length() > 0) address.setHouse(address.getHouse() + "/" + address.getBuilding());
 
         val = "";
         //квартира
