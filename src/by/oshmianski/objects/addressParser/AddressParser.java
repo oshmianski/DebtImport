@@ -49,6 +49,64 @@ public class AddressParser {
                 start = start + addr.length() + 1;  //+1 для _
             }
         }
+
+        AddressParserItem prev;
+        AddressParserItem next;
+
+        //пробегусь по служебным типам
+        for (AddressParserItem item : parserItems) {
+            if (item.isService()) {
+                //поиск области
+                if (AddressParserItemTypeValue.region.equals(item.getTypeValue())) {
+                    if (item.getNumber() > 0) {
+                        prev = parserItems.get(item.getNumber() - 2);
+                        if (!prev.isService())
+                            if (AddressParserHelper.regions.contains(prev.getText().toLowerCase())) {
+                                item.setProcessed(true);
+                                prev.setProcessed(true);
+
+                                address.setRegion(prev.getText());
+                            } else {
+                                if (parserItems.size() > item.getNumber()) {
+                                    next = parserItems.get(item.getNumber());
+                                    if (!next.isService())
+                                        if (AddressParserHelper.regions.contains(next.getText().toLowerCase())) {
+                                            item.setProcessed(true);
+                                            next.setProcessed(true);
+
+                                            address.setRegion(next.getText());
+                                        }
+                                }
+                            }
+                    }
+                }
+
+                //поиск района
+                if (AddressParserItemTypeValue.district.equals(item.getTypeValue())) {
+                    if (item.getNumber() > 0) {
+                        prev = parserItems.get(item.getNumber() - 2);
+                        if (!prev.isService())
+                            if (AddressParserHelper.districts.contains(prev.getText().toLowerCase())) {
+                                item.setProcessed(true);
+                                prev.setProcessed(true);
+
+                                address.setDistrict(prev.getText());
+                            } else {
+                                if (parserItems.size() > item.getNumber()) {
+                                    next = parserItems.get(item.getNumber());
+                                    if (!next.isService())
+                                        if (AddressParserHelper.districts.contains(next.getText().toLowerCase())) {
+                                            item.setProcessed(true);
+                                            next.setProcessed(true);
+
+                                            address.setDistrict(next.getText());
+                                        }
+                                }
+                            }
+                    }
+                }
+            }
+        }
     }
 
     public Address getAddress() {
@@ -80,53 +138,7 @@ public class AddressParser {
     }
 
     private void setTypeAndtypeValue(AddressParserItem addressParserItem) {
-        ArrayList<AliasValueType> aliasValues = new ArrayList<AliasValueType>();
 
-        aliasValues.add(new AliasValueType("обл", AddressParserItemTypeValue.region, "область"));
-        aliasValues.add(new AliasValueType("область", AddressParserItemTypeValue.region, "область"));
-
-        aliasValues.add(new AliasValueType("р-н", AddressParserItemTypeValue.district, "район"));
-        aliasValues.add(new AliasValueType("район", AddressParserItemTypeValue.district, "район"));
-
-        aliasValues.add(new AliasValueType("нп", AddressParserItemTypeValue.city, ""));     //населенный пункт
-        aliasValues.add(new AliasValueType("гп", AddressParserItemTypeValue.city, "гп"));     //городской поселок
-        aliasValues.add(new AliasValueType("пгт", AddressParserItemTypeValue.city, "пгт"));    //поселок городского типа
-        aliasValues.add(new AliasValueType("кп", AddressParserItemTypeValue.city, "кп"));     //курортный поселок
-        aliasValues.add(new AliasValueType("город", AddressParserItemTypeValue.city, "г"));
-        aliasValues.add(new AliasValueType("гор", AddressParserItemTypeValue.city, "г"));
-        aliasValues.add(new AliasValueType("г", AddressParserItemTypeValue.city, "г"));
-        aliasValues.add(new AliasValueType("дер", AddressParserItemTypeValue.city, "д"));
-        aliasValues.add(new AliasValueType("деревня", AddressParserItemTypeValue.city, "д"));
-        aliasValues.add(new AliasValueType("пос", AddressParserItemTypeValue.city, "п"));
-        aliasValues.add(new AliasValueType("поселок", AddressParserItemTypeValue.city, "п"));
-        aliasValues.add(new AliasValueType("рп", AddressParserItemTypeValue.city, "рп"));
-        aliasValues.add(new AliasValueType("с", AddressParserItemTypeValue.city, "с"));
-        aliasValues.add(new AliasValueType("село", AddressParserItemTypeValue.city, "с"));
-        aliasValues.add(new AliasValueType("снп", AddressParserItemTypeValue.city, "снп"));
-        aliasValues.add(new AliasValueType("х", AddressParserItemTypeValue.city, "х"));
-        aliasValues.add(new AliasValueType("аг", AddressParserItemTypeValue.city, "аг"));
-
-        aliasValues.add(new AliasValueType("ул", AddressParserItemTypeValue.street, "улица"));
-        aliasValues.add(new AliasValueType("улица", AddressParserItemTypeValue.street, "улица"));
-        aliasValues.add(new AliasValueType("пр-т", AddressParserItemTypeValue.street, "проспект"));
-        aliasValues.add(new AliasValueType("пр-кт", AddressParserItemTypeValue.street, "проспект"));
-        aliasValues.add(new AliasValueType("проспект", AddressParserItemTypeValue.street, "проспект"));
-        aliasValues.add(new AliasValueType("бульвар", AddressParserItemTypeValue.street, "бульвар"));
-        aliasValues.add(new AliasValueType("пр", AddressParserItemTypeValue.street, "проезд"));
-        aliasValues.add(new AliasValueType("проезд", AddressParserItemTypeValue.street, "проезд"));
-        aliasValues.add(new AliasValueType("аллея", AddressParserItemTypeValue.street, "аллея"));
-        aliasValues.add(new AliasValueType("микрорайон", AddressParserItemTypeValue.street, "микрорайон"));
-        aliasValues.add(new AliasValueType("м-н", AddressParserItemTypeValue.street, "микрорайон"));
-        aliasValues.add(new AliasValueType("набережная", AddressParserItemTypeValue.street, "набережная"));
-        aliasValues.add(new AliasValueType("пер", AddressParserItemTypeValue.street, "переулок"));
-        aliasValues.add(new AliasValueType("переулок", AddressParserItemTypeValue.street, "переулок"));
-        aliasValues.add(new AliasValueType("тракт", AddressParserItemTypeValue.street, "тракт"));
-        aliasValues.add(new AliasValueType("шоссе", AddressParserItemTypeValue.street, "шоссе"));
-
-        aliasValues.add(new AliasValueType("дом", AddressParserItemTypeValue.house, "дом"));
-
-        aliasValues.add(new AliasValueType("кв", AddressParserItemTypeValue.UNKNOW, ""));
-        aliasValues.add(new AliasValueType("д", AddressParserItemTypeValue.UNKNOW, ""));
 
         for (AliasValueType aliasValue : aliasValues)
             if (addressParserItem.getText().equalsIgnoreCase(aliasValue.getAlias())) {
@@ -152,30 +164,6 @@ public class AddressParser {
         index = realStrExclusion.indexOf(addressParserItem.getText(), start);
         if ((index - 1) > 0)
             addressParserItem.setCharBefore(String.valueOf(realStrExclusion.charAt(index - 1)));
-    }
-
-    private static class AliasValueType {
-        private String alias;
-        private AddressParserItemTypeValue typeValue;
-        private String typeValue2;
-
-        private AliasValueType(String alias, AddressParserItemTypeValue typeValue, String typeValue2) {
-            this.alias = alias;
-            this.typeValue = typeValue;
-            this.typeValue2 = typeValue2;
-        }
-
-        public String getAlias() {
-            return alias;
-        }
-
-        public AddressParserItemTypeValue getTypeValue() {
-            return typeValue;
-        }
-
-        public String getTypeValue2() {
-            return typeValue2;
-        }
     }
 
     public String getRealStr() {
