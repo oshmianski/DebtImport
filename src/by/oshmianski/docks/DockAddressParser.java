@@ -261,6 +261,9 @@ public class DockAddressParser extends DockSimple {
                     addressItem = new AddressItem("house", address.getHouse());
                     itemsA.add(addressItem);
 
+                    addressItem = new AddressItem("building", address.getBuilding());
+                    itemsA.add(addressItem);
+
                     addressItem = new AddressItem("flat", address.getFlat());
                     itemsA.add(addressItem);
 

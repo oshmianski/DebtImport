@@ -8,7 +8,7 @@ public class AliasValueType {
     private AddressParserItemTypeValue typeValue;
     private String typeValue2;
 
-    private AliasValueType(String alias, AddressParserItemTypeValue typeValue, String typeValue2) {
+    public AliasValueType(String alias, AddressParserItemTypeValue typeValue, String typeValue2) {
         this.alias = alias;
         this.typeValue = typeValue;
         this.typeValue2 = typeValue2;

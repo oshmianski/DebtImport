@@ -9,6 +9,7 @@ public enum AddressParserItemTypeValue {
     city,
     street,
     house,
+    build,
     flat,
     UNKNOW
 }

@@ -15,7 +15,7 @@ public class AddressParserHelper {
 
     public static Set<String> regions = new HashSet<String>();
     public static Set<String> districts = new HashSet<String>();
-    public ArrayList<AliasValueType> aliasValues = new ArrayList<AliasValueType>();
+    public static ArrayList<AliasValueType> aliasValues = new ArrayList<AliasValueType>();
 
     static {
         regions.add("брестская");
@@ -85,8 +85,13 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("переулок", AddressParserItemTypeValue.street, "переулок"));
         aliasValues.add(new AliasValueType("тракт", AddressParserItemTypeValue.street, "тракт"));
         aliasValues.add(new AliasValueType("шоссе", AddressParserItemTypeValue.street, "шоссе"));
+        aliasValues.add(new AliasValueType("квартал", AddressParserItemTypeValue.street, "квартал"));
 
         aliasValues.add(new AliasValueType("дом", AddressParserItemTypeValue.house, "дом"));
+
+        aliasValues.add(new AliasValueType("корпус", AddressParserItemTypeValue.build, "корпус"));
+        aliasValues.add(new AliasValueType("корп", AddressParserItemTypeValue.build, "корпус"));
+        aliasValues.add(new AliasValueType("кор", AddressParserItemTypeValue.build, "корпус"));
 
         aliasValues.add(new AliasValueType("кв", AddressParserItemTypeValue.UNKNOW, ""));
         aliasValues.add(new AliasValueType("д", AddressParserItemTypeValue.UNKNOW, ""));

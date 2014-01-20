@@ -938,7 +938,7 @@ public class Importer {
 
                     fillRecordObjectFieldsAddress(rFields, address);
                 } else if ("#ADDRESS_2".equalsIgnoreCase(field.getTitleSys())) {
-                    AddressParser addressParser = new AddressParser(cellValue);
+                    AddressParser addressParser = new AddressParser(cellValue, viewGEO);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
                 } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
