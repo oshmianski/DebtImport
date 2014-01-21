@@ -69,7 +69,7 @@ public class AddressParser {
                 if ("д".equalsIgnoreCase(item.getText())) {
                     if (parserItems.size() > item.getNumber()) {
                         next = parserItems.get(item.getNumber());
-                        if (Character.isDigit(next.getText().charAt(0))) {
+                        if (next.isBeginWithNumber()) {
                             item.setTypeValue(AddressParserItemTypeValue.house);
                             item.setTypeValue2("дом");
                         } else {
@@ -83,7 +83,7 @@ public class AddressParser {
                 if ("кв".equalsIgnoreCase(item.getText())) {
                     if (parserItems.size() > item.getNumber()) {
                         next = parserItems.get(item.getNumber());
-                        if (Character.isDigit(next.getText().charAt(0))) {
+                        if (next.isBeginWithNumber()) {
                             item.setTypeValue(AddressParserItemTypeValue.flat);
                             item.setTypeValue2("квартира");
                         } else {
