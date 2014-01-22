@@ -326,10 +326,10 @@ public class FuzzySearch {
         val = "";
         //город
         if (addressStr.indexOf("@") > -1) {
-            String s = addressStr.substring(addressStr.indexOf("н.п.") + 4);
+            String s = addressStr.substring(addressStr.lastIndexOf("н.п.") + 4);
             s = s.substring(0, s.indexOf("@"));
 
-            address.setCity(s);
+            address.setCity(s.trim());
         } else {
             Pattern patternCity3 = Pattern.compile("(?<=(д\\.|дер\\.)\\s*)\\D.*");
             Matcher matcherCity3 = patternCity3.matcher(addressStr);
@@ -340,7 +340,7 @@ public class FuzzySearch {
                 if (val.contains(" "))
                     val = StringUtils.left(val, val.indexOf(" "));
                 val = val.replaceAll(",", "").trim();
-                address.setCity(val);
+                address.setCity(val.trim());
                 address.setCityType("д");
             }
 
@@ -353,19 +353,28 @@ public class FuzzySearch {
                 if (val.contains(" "))
                     val = StringUtils.left(val, val.indexOf(" "));
                 val = val.replaceAll(",", "").trim();
-                address.setCity(val);
+                address.setCity(val.trim());
                 address.setCityType("г");
             }
-            Pattern patternCity2 = Pattern.compile("(?<=(н\\.п\\.|нп\\.)\\s*).*");
-            Matcher matcherCity2 = patternCity2.matcher(addressStr);
-            if (matcherCity2.find())
 
-            {
-                val = matcherCity2.group().trim();
-                if (val.contains(" "))
-                    val = StringUtils.left(val, val.indexOf(" "));
-                val = val.replaceAll(",", "").trim();
-                address.setCity(val);
+//            Pattern patternCity2 = Pattern.compile("(?<=(н\\.п\\.|нп\\.)\\s*).*");
+//            Matcher matcherCity2 = patternCity2.matcher(addressStr);
+//            if (matcherCity2.find())
+//            {
+//                val = matcherCity2.group().trim();
+//                if (val.contains(" "))
+//                    val = StringUtils.left(val, val.indexOf(" "));
+//                val = val.replaceAll(",", "").trim();
+//                address.setCity(val);
+//                address.setCityType("");
+//            }
+            if (addressStr.lastIndexOf("н.п.") > -1) {
+                String s = addressStr.substring(addressStr.lastIndexOf("н.п.") + 4).trim();
+                if (s.indexOf(" ") > -1) {
+                    s = s.substring(0, s.indexOf(" "));
+                }
+
+                address.setCity(s.replace(",", ""));
                 address.setCityType("");
             }
         }

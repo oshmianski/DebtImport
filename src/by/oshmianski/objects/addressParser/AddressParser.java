@@ -49,7 +49,7 @@ public class AddressParser {
                 }
                 if (Character.isDigit(addr.charAt(0))) addressParserItem.setBeginWithNumber(true);
 
-                setTypeAndtypeValue(addressParserItem);
+                setTypeAndTypeValue(addressParserItem);
                 setCharAfter(addressParserItem, start);
                 setCharBefore(addressParserItem, start);
 
@@ -303,9 +303,9 @@ public class AddressParser {
         return matcher.find();
     }
 
-    private void setTypeAndtypeValue(AddressParserItem addressParserItem) {
+    private void setTypeAndTypeValue(AddressParserItem addressParserItem) {
         for (AliasValueType aliasValue : AddressParserHelper.aliasValues)
-            if (addressParserItem.getText().equalsIgnoreCase(aliasValue.getAlias())) {
+            if (addressParserItem.getText().equalsIgnoreCase(aliasValue.getAlias()) && !Character.isUpperCase(addressParserItem.getText().charAt(0))) {
                 addressParserItem.setType(AddressParserItemType.service);
                 addressParserItem.setTypeValue(aliasValue.getTypeValue());
                 addressParserItem.setTypeValue2(aliasValue.getTypeValue2());
