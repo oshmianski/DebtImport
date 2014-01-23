@@ -434,7 +434,7 @@ public class FuzzySearch {
 
         val = "";
         //корпус
-        Pattern patternBuild = Pattern.compile("(?<=(корп\\.|корпус)\\s{0,})\\d.*");
+        Pattern patternBuild = Pattern.compile("(?<=(корп\\.|корпус)\\s{0,}).*");
         Matcher matcherBuild = patternBuild.matcher(addressStr);
         if (matcherBuild.find())
 

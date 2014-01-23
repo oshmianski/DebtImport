@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
  */
 public class AddressParser {
     private View viewGEO;
+    private View viewGEOStreet;
 
     private String realStr = "";
     private String realStrExclusion = "";
@@ -24,11 +25,12 @@ public class AddressParser {
     private ArrayList<AddressParserItem> parserItems = new ArrayList<AddressParserItem>();
     private Address address = new Address();
 
-    public AddressParser(String realStr, View viewGEO) {
+    public AddressParser(String realStr, View viewGEO, View viewGEOStreet) {
         this.realStr = realStr;
         realStrExclusion = realStr;
 
         this.viewGEO = viewGEO;
+        this.viewGEOStreet = viewGEOStreet;
     }
 
     public void parse() {
@@ -186,7 +188,7 @@ public class AddressParser {
                     if (!streetGood)
                         if (parserItems.size() > item.getNumber()) {
                             next = parserItems.get(item.getNumber());
-                            if (!next.isService() && !next.isProcessed()) {
+                            if (!next.isService() && !next.isProcessed() && !",".equals(item.getCharAfter())) {
                                 item.setProcessed(true);
                                 next.setProcessed(true);
 
@@ -253,6 +255,9 @@ public class AddressParser {
             }
         }
 
+        boolean isBelarus = false;
+        AddressParserItem itemBelarus = null;
+
         for (AddressParserItem item : parserItems) {
             if (AddressParserHelper.regions.contains(item.getText().toLowerCase())) {
                 address.setRegion(item.getText());
@@ -269,8 +274,49 @@ public class AddressParser {
             }
 
             if (!item.isService() && !item.isProcessed()) {
-                if (address.getCity().isEmpty())
-                    processCityWithGEO(address, item);
+                //сначала поищу все н.п., кроме Беларусь
+                //потому что это может быть и н.п. и страна
+                if (!"Беларусь".equalsIgnoreCase(item.getText())) {
+                    if (address.getCity().isEmpty())
+                        processCityWithGEO(address, item);
+                } else {
+                    isBelarus = true;
+                    itemBelarus = item;
+                }
+            }
+        }
+
+        //а теперь, если город все еще пуст и бало указано Беларусь, то считаю, что это н.п.
+        if (isBelarus)
+            if (address.getCity().isEmpty()) {
+                processCityWithGEO(address, itemBelarus);
+            } else {
+                if (address.getCountry().isEmpty()) {
+                    address.setCountry(itemBelarus.getText().trim());
+                    itemBelarus.setProcessed(true);
+                }
+            }
+
+        //пытаюсь найти улицы
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed()) {
+                if (address.getStreet().isEmpty())
+                    if(processStreetWithGEO(address, item.getText())){
+                        address.setStreet(item.getText());
+                        item.setProcessed(true);
+                    }
+
+                //если не нашли, поищу совместно со следующим значением
+                if (address.getStreet().isEmpty())
+                    if (parserItems.size() > item.getNumber() && !",".equals(item.getCharAfter())) {
+                        next = parserItems.get(item.getNumber());
+                        if (!next.isService()) {
+                            if(processStreetWithGEO(address, item.getText() + " " + next.getText())){
+                                address.setStreet(item.getText());
+                                item.setProcessed(true);
+                            }
+                        }
+                    }
             }
         }
     }
@@ -463,5 +509,32 @@ public class AddressParser {
                 MyLog.add2Log(e);
             }
         }
+    }
+
+    private boolean processStreetWithGEO(Address address, String streetTitle) {
+        ViewEntry ve = null;
+
+        try {
+            ve = viewGEOStreet.getEntryByKey(streetTitle, true);
+
+            if (ve != null) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            MyLog.add2Log(e);
+        } finally {
+            try {
+                if (ve != null) {
+                    ve.recycle();
+                }
+            } catch (Exception e) {
+                MyLog.add2Log(e);
+            }
+        }
+
+        return false;
     }
 }

@@ -420,6 +420,7 @@ public class Importer {
         Database dbGEO = null;
         View view = null;
         View viewGEO = null;
+        View viewGEOStreet = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -443,7 +444,9 @@ public class Importer {
             dbGEO = session.getDatabase(null, null);
             dbGEO.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbGEO());
             viewGEO = dbGEO.getView(AppletParams.getInstance().getViewGEOCity());
+            viewGEOStreet = dbGEO.getView(AppletParams.getInstance().getViewGEOStreet());
             viewGEO.setAutoUpdate(false);
+            viewGEOStreet.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -515,8 +518,8 @@ public class Importer {
                 int j = 0;
                 for (Cell cell : rowFirst) {
                     Cell cell1 = row.getCell(j);
-                    //TODO: В следующей строчке плавающая ошибка: nullPointerException. нужно разобраться
                     String value = "";
+                    //TODO: В следующей строчке плавающая ошибка: nullPointerException. нужно разобраться
                     if (loader.getUi().getCellHeaders().size() - 1 < j)
                         value = CellReference.convertNumToColString(j);
                     else
@@ -545,6 +548,7 @@ public class Importer {
                                 session,
                                 db,
                                 viewGEO,
+                                viewGEOStreet,
                                 wb,
                                 row,
                                 obj,
@@ -661,6 +665,9 @@ public class Importer {
                 }
                 if (viewGEO != null) {
                     viewGEO.recycle();
+                }
+                if (viewGEOStreet != null) {
+                    viewGEOStreet.recycle();
                 }
 
                 if (!viewMap.isEmpty()) {
@@ -822,6 +829,7 @@ public class Importer {
             Session session,
             Database db,
             View viewGEO,
+            View viewGEOStreet,
             XSSFWorkbook wb,
             Row row,
             Object obj,
@@ -938,7 +946,7 @@ public class Importer {
 
                     fillRecordObjectFieldsAddress(rFields, address);
                 } else if ("#ADDRESS_2".equalsIgnoreCase(field.getTitleSys())) {
-                    AddressParser addressParser = new AddressParser(cellValue, viewGEO);
+                    AddressParser addressParser = new AddressParser(cellValue, viewGEO, viewGEOStreet);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
                 } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {

@@ -89,6 +89,8 @@ public class AddressParserHelper {
 
         aliasValues.add(new AliasValueType("дом", AddressParserItemTypeValue.house, "дом"));
 
+        aliasValues.add(new AliasValueType("ком", AddressParserItemTypeValue.flat, "квартира"));
+
         aliasValues.add(new AliasValueType("корпус", AddressParserItemTypeValue.build, "корпус"));
         aliasValues.add(new AliasValueType("корп", AddressParserItemTypeValue.build, "корпус"));
         aliasValues.add(new AliasValueType("кор", AddressParserItemTypeValue.build, "корпус"));
