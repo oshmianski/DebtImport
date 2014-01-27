@@ -14,7 +14,7 @@ import java.util.Map;
  * Time: 3:23 PM
  */
 public class AddressParserModel implements WritableTableFormat<AddressParserItem> {
-    private String[] columnNames = {"Номер", "Текст", "После", "До", "Тип", "Значение", "Значение2", "Начинается с цифры", "Является индексом", "Разобрано?"};
+    private String[] columnNames = {"Номер", "Текст", "Разобрано?", "После", "До", "Тип", "Значение", "Значение2", "Начинается с цифры", "Является индексом"};
 
     public AddressParserModel() {
 
@@ -38,21 +38,21 @@ public class AddressParserModel implements WritableTableFormat<AddressParserItem
             case 1:
                 return item.getText();
             case 2:
-                return item.getCharAfter();
-            case 3:
-                return item.getCharBefore();
-            case 4:
-                return item.getType();
-            case 5:
-                return item.getTypeValue();
-            case 6:
-                return item.getTypeValue2();
-            case 7:
-                return item.isBeginWithNumber();
-            case 8:
-                return item.isIndex();
-            case 9:
                 return item.isProcessed();
+            case 3:
+                return item.getCharAfter();
+            case 4:
+                return item.getCharBefore();
+            case 5:
+                return item.getType();
+            case 6:
+                return item.getTypeValue();
+            case 7:
+                return item.getTypeValue2();
+            case 8:
+                return item.isBeginWithNumber();
+            case 9:
+                return item.isIndex();
             default:
                 return null;
         }

@@ -31,6 +31,9 @@ public enum Status {
     WARNING_ALREADY_EXIST_IN_DB(70),
     WARNING_ALREADY_EXIST_IN_PREVIOUS(71),
 
+    WARNING_ADDRESS_NOT_PROCESS_FULL(90),
+    WARNING_ADDRESS_NOT_PROCESS_FULL_NOT_SERVICE(91),
+
     OK(200),
 
     INFO(300);
@@ -98,6 +101,12 @@ public enum Status {
         if("WARNING_ALREADY_EXIST_IN_PREVIOUS".equalsIgnoreCase(alias))
             return Status.WARNING_ALREADY_EXIST_IN_PREVIOUS;
 
+        if("WARNING_ADDRESS_NOT_PROCESS_FULL".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NOT_PROCESS_FULL;
+
+        if("WARNING_ADDRESS_NOT_PROCESS_FULL_NOT_SERVICE".equalsIgnoreCase(alias))
+            return Status.WARNING_ADDRESS_NOT_PROCESS_FULL_NOT_SERVICE;
+
         if("OK".equalsIgnoreCase(alias))
             return Status.OK;
 
@@ -123,6 +132,8 @@ public enum Status {
             WARNING_ADDRESS_NO_HOUSE,
             WARNING_ALREADY_EXIST_IN_DB,
             WARNING_ALREADY_EXIST_IN_PREVIOUS,
+            WARNING_ADDRESS_NOT_PROCESS_FULL,
+            WARNING_ADDRESS_NOT_PROCESS_FULL_NOT_SERVICE,
             INFO,
             OK};
 

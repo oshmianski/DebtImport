@@ -3,6 +3,7 @@ package by.oshmianski.objects.addressParser;
 import by.oshmianski.objects.Address;
 import by.oshmianski.objects.AliasValue;
 import by.oshmianski.utils.MyLog;
+import lotus.domino.Document;
 import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
@@ -43,12 +44,13 @@ public class AddressParser {
         int i = 1;
         int start = 0;
         for (String addr : addressArray) {
-            if (!addr.isEmpty() && !"-".equals(addr)) {
+            if (!addr.isEmpty()) {
                 AddressParserItem addressParserItem = new AddressParserItem(i, addr);
                 if (isIndex(addr)) {
                     addressParserItem.setIndex(true);
                     address.setIndex(addr);
                     addressParserItem.setProcessed(true);
+                    addressParserItem.setTypeValue(AddressParserItemTypeValue.index);
                 }
                 if (Character.isDigit(addr.charAt(0))) addressParserItem.setBeginWithNumber(true);
 
@@ -98,6 +100,28 @@ public class AddressParser {
             }
         }
 
+        for (AddressParserItem item : parserItems) {
+            if (AddressParserHelper.regions.contains(item.getText().toLowerCase())) {
+                if (address.getRegion().isEmpty()) {
+                    address.setRegion(item.getText());
+                    item.setProcessed(true);
+                    item.setTypeValue(AddressParserItemTypeValue.region);
+                }
+
+                continue;
+            }
+
+            if (AddressParserHelper.districts.contains(item.getText().toLowerCase())) {
+                if (address.getDistrict().isEmpty()) {
+                    address.setDistrict(item.getText());
+                    item.setProcessed(true);
+                    item.setTypeValue(AddressParserItemTypeValue.district);
+                }
+
+                continue;
+            }
+        }
+
         //пробегусь по служебным типам
         for (AddressParserItem item : parserItems) {
             if (item.isService()) {
@@ -109,6 +133,7 @@ public class AddressParser {
                             if (AddressParserHelper.regions.contains(prev.getText().toLowerCase())) {
                                 item.setProcessed(true);
                                 prev.setProcessed(true);
+                                prev.setTypeValue(item.getTypeValue());
 
                                 address.setRegion(prev.getText());
                             } else {
@@ -118,6 +143,7 @@ public class AddressParser {
                                         if (AddressParserHelper.regions.contains(next.getText().toLowerCase())) {
                                             item.setProcessed(true);
                                             next.setProcessed(true);
+                                            next.setTypeValue(item.getTypeValue());
 
                                             address.setRegion(next.getText());
                                         }
@@ -134,6 +160,7 @@ public class AddressParser {
                             if (AddressParserHelper.districts.contains(prev.getText().toLowerCase())) {
                                 item.setProcessed(true);
                                 prev.setProcessed(true);
+                                prev.setTypeValue(item.getTypeValue());
 
                                 address.setDistrict(prev.getText());
                             } else {
@@ -143,6 +170,7 @@ public class AddressParser {
                                         if (AddressParserHelper.districts.contains(next.getText().toLowerCase())) {
                                             item.setProcessed(true);
                                             next.setProcessed(true);
+                                            next.setTypeValue(item.getTypeValue());
 
                                             address.setDistrict(next.getText());
                                         }
@@ -157,11 +185,12 @@ public class AddressParser {
                         if (parserItems.size() > item.getNumber()) {
                             next = parserItems.get(item.getNumber());
                             if (!next.isService() && !next.isProcessed()) {
-                                processCityNext(next);
+                                processCityNext(next, item.getTypeValue());
 
                                 if (address.getCity().isEmpty()) {
                                     item.setProcessed(true);
                                     next.setProcessed(true);
+                                    next.setTypeValue(item.getTypeValue());
 
                                     address.setCityType(item.getTypeValue2());
                                     address.setCity(next.getText());
@@ -176,11 +205,12 @@ public class AddressParser {
                         if (item.getNumber() > 0) {
                             prev = parserItems.get(item.getNumber() - 2);
                             if (!prev.isService() && !prev.isProcessed()) {
-                                processCityPrev(prev);
+                                processCityPrev(prev, item.getTypeValue());
 
                                 if (address.getCity().isEmpty()) {
                                     item.setProcessed(true);
                                     prev.setProcessed(true);
+                                    prev.setTypeValue(item.getTypeValue());
 
                                     address.setCityType(item.getTypeValue2());
                                     address.setCity(prev.getText());
@@ -204,6 +234,7 @@ public class AddressParser {
                                 if (address.getStreet().isEmpty()) {//если таки не нашли улицу, то присваиваю только первое следующее слово
                                     item.setProcessed(true);
                                     next.setProcessed(true);
+                                    next.setTypeValue(AddressParserItemTypeValue.street);
 
                                     address.setStreetType(item.getTypeValue2());
                                     address.setStreet(next.getText());
@@ -224,6 +255,7 @@ public class AddressParser {
                                 if (address.getStreet().isEmpty()) {//если таки не нашли улицу, то присваиваю только первое предыдущее слово
                                     item.setProcessed(true);
                                     prev.setProcessed(true);
+                                    prev.setTypeValue(AddressParserItemTypeValue.street);
 
                                     address.setStreetType(item.getTypeValue2());
                                     address.setStreet(prev.getText());
@@ -242,21 +274,29 @@ public class AddressParser {
                         if (!next.isService()) {
                             item.setProcessed(true);
                             next.setProcessed(true);
+                            next.setTypeValue(AddressParserItemTypeValue.house);
 
                             address.setHouse(next.getText());
                         }
                     }
                 }
 
+                String build = "";
                 //поиск корпуса
                 if (AddressParserItemTypeValue.build.equals(item.getTypeValue())) {
                     if (parserItems.size() > item.getNumber()) {
                         next = parserItems.get(item.getNumber());
                         if (!next.isService()) {
+                            build = clearDraft(next.getText());
+
                             item.setProcessed(true);
                             next.setProcessed(true);
 
-                            address.setBuilding(next.getText());
+                            if (!build.isEmpty()) {
+                                next.setTypeValue(AddressParserItemTypeValue.build);
+
+                                address.setBuilding(next.getText());
+                            }
                         }
                     }
                 }
@@ -268,6 +308,7 @@ public class AddressParser {
                         if (!next.isService()) {
                             item.setProcessed(true);
                             next.setProcessed(true);
+                            next.setTypeValue(AddressParserItemTypeValue.flat);
 
                             address.setFlat(next.getText());
                         }
@@ -280,27 +321,12 @@ public class AddressParser {
         AddressParserItem itemBelarus = null;
 
         for (AddressParserItem item : parserItems) {
-            if (AddressParserHelper.regions.contains(item.getText().toLowerCase())) {
-                address.setRegion(item.getText());
-                item.setProcessed(true);
-
-                continue;
-            }
-
-            if (AddressParserHelper.districts.contains(item.getText().toLowerCase())) {
-                address.setDistrict(item.getText());
-                item.setProcessed(true);
-
-                continue;
-            }
-
-
             if (!item.isService() && !item.isProcessed()) {
                 //сначала поищу все н.п., кроме Беларусь
                 //потому что это может быть и н.п. и страна
                 if (!"Беларусь".equalsIgnoreCase(item.getText())) {
                     if (address.getCity().isEmpty()) {
-                        processCityNext(item);
+                        processCityNext(item, AddressParserItemTypeValue.city);
                     }
                 } else {
                     isBelarus = true;
@@ -309,7 +335,7 @@ public class AddressParser {
             }
         }
 
-        //а теперь, если город все еще пуст и бало указано Беларусь, то считаю, что это н.п.
+        //а теперь, если город все еще пуст и было указано Беларусь, то считаю, что это н.п.
         if (isBelarus)
             if (address.getCity().isEmpty()) {
                 processCityWithGEO(address, itemBelarus.getText());
@@ -317,6 +343,7 @@ public class AddressParser {
                 if (address.getCountry().isEmpty()) {
                     address.setCountry(itemBelarus.getText().trim());
                     itemBelarus.setProcessed(true);
+                    itemBelarus.setTypeValue(AddressParserItemTypeValue.country);
                 }
             }
 
@@ -329,6 +356,88 @@ public class AddressParser {
                 }
             }
         }
+
+        ArrayList<AddressParserItem> items = new ArrayList<AddressParserItem>();
+        //пытаюсь найти дом, корпус и квартиру
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed() && item.isBeginWithNumber()) {
+                items.add(item);
+            }
+        }
+
+        for (AddressParserItem item : items) {
+            prev = getPrevProcessedItem(item);
+            if (prev != null) {
+                if (prev.getTypeValue() == AddressParserItemTypeValue.street) {
+                    item.setProcessed(true);
+                    item.setTypeValue(AddressParserItemTypeValue.house);
+
+                    address.setHouse(item.getText());
+                }
+
+                if (prev.getTypeValue() == AddressParserItemTypeValue.house) {
+                    if (items.size() == items.indexOf(item) + 1) {
+                        item.setTypeValue(AddressParserItemTypeValue.flat);
+                        address.setFlat(item.getText());
+                    } else {
+                        item.setTypeValue(AddressParserItemTypeValue.build);
+                        address.setBuilding(item.getText());
+                    }
+
+                    item.setProcessed(true);
+                }
+
+                if (prev.getTypeValue() == AddressParserItemTypeValue.build) {
+                    item.setProcessed(true);
+                    item.setTypeValue(AddressParserItemTypeValue.flat);
+
+                    address.setFlat(item.getText());
+                }
+            }
+        }
+
+        String build = "";
+        //пробую обработать корпуса
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed()) {
+                prev = getPrevProcessedItem(item);
+                if (prev != null) {
+                    if (prev.getTypeValue() == AddressParserItemTypeValue.house) {
+                        build = clearDraft(item.getText());
+
+                        if (!build.isEmpty()) {
+                            if (address.getBuilding().isEmpty()) {
+                                item.setTypeValue(AddressParserItemTypeValue.build);
+                                address.setBuilding(item.getText());
+                            }
+                        }
+
+                        item.setProcessed(true);
+                    }
+                }
+            }
+        }
+
+        //проверяю, все ли обработано
+        //это нужно сделать ТОЛЬКО В САМОМ КОНЦЕ,
+        //т.е. после этого кода больше НИКАКОГО РАЗБОРА
+        boolean isProcessedFullNotService = true;
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed()) {
+                isProcessedFullNotService = false;
+                break;
+            }
+        }
+        address.setProcessedFullNotService(isProcessedFullNotService);
+
+        boolean isProcessedFull = true;
+        for (AddressParserItem item : parserItems) {
+            if (!item.isProcessed()) {
+                isProcessedFull = false;
+                break;
+            }
+        }
+        address.setProcessedFull(isProcessedFull);
     }
 
     public Address getAddress() {
@@ -343,6 +452,10 @@ public class AddressParser {
         ArrayList<AliasValue> aliasValues = new ArrayList<AliasValue>();
 
         aliasValues.add(new AliasValue("н.п.", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("н.п,", "нп.,"));     //населенный пункт
+        aliasValues.add(new AliasValue("н\\п", "нп.,"));     //населенный пункт
+        aliasValues.add(new AliasValue("н/п", "нп.,"));     //населенный пункт
+        aliasValues.add(new AliasValue("н.п ", "нп.,"));     //населенный пункт
         aliasValues.add(new AliasValue("г.п.", "гп."));     //городской поселок
         aliasValues.add(new AliasValue("п.г.т.", "пгт."));  //поселок городского типа
         aliasValues.add(new AliasValue("к.п.", "кп."));     //курортный поселок
@@ -406,6 +519,7 @@ public class AddressParser {
         ViewEntryCollection vecDist = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
+        Document noteCity = null;
 
         boolean retVal = false;
 
@@ -415,19 +529,21 @@ public class AddressParser {
             if (vec.getCount() > 0) {
                 if (vec.getCount() == 1) {
                     ve = vec.getFirstEntry();
-                    Vector vals = ve.getColumnValues();
 
-                    address.setCityType(vals.elementAt(3).toString());
-                    address.setCity(vals.elementAt(0).toString());
+                    noteCity = ve.getDocument();
+
+                    address.setCityType(noteCity.getItemValueString("cityType"));
+                    address.setCity(noteCity.getItemValueString("title"));
 
                     retVal = true;
                 }
 
                 if (vec.getCount() > 1) {
                     ve = vec.getFirstEntry();
-                    Vector vals = ve.getColumnValues();
+                    if (noteCity != null) noteCity.recycle();
+                    noteCity = ve.getDocument();
 
-                    address.setCity(vals.elementAt(0).toString());
+                    address.setCity(noteCity.getItemValueString("title"));
 
                     if (!address.getDistrict().isEmpty()) {
                         Vector key = new Vector();
@@ -437,23 +553,29 @@ public class AddressParser {
 
                         if (vecDist.getCount() == 1) {
                             ve = vecDist.getFirstEntry();
-                            vals = ve.getColumnValues();
 
-                            address.setCityType(vals.elementAt(3).toString());
+                            if (noteCity != null) noteCity.recycle();
+                            noteCity = ve.getDocument();
+
+                            address.setCityType(noteCity.getItemValueString("cityType"));
                         }
 
                         if (vecDist.getCount() > 1) {
                             ve = vecDist.getFirstEntry();
-                            vals = ve.getColumnValues();
 
-                            cityType = vals.elementAt(3).toString();
+                            if (noteCity != null) noteCity.recycle();
+                            noteCity = ve.getDocument();
+
+                            cityType = noteCity.getItemValueString("cityType");
                             vetmp = vecDist.getNextEntry();
                             ve.recycle();
                             ve = vetmp;
                             while (ve != null) {
-                                vals = ve.getColumnValues();
 
-                                if (!cityType.equals(vals.elementAt(3).toString())) {
+                                if (noteCity != null) noteCity.recycle();
+                                noteCity = ve.getDocument();
+
+                                if (!cityType.equals(noteCity.getItemValueString("cityType"))) {
                                     equal = false;
                                     break;
                                 }
@@ -469,16 +591,20 @@ public class AddressParser {
                         }
                     } else {
                         ve = vec.getFirstEntry();
-                        vals = ve.getColumnValues();
 
-                        cityType = vals.elementAt(3).toString();
+                        if (noteCity != null) noteCity.recycle();
+                        noteCity = ve.getDocument();
+
+                        cityType = noteCity.getItemValueString("cityType");
                         vetmp = vec.getNextEntry();
                         ve.recycle();
                         ve = vetmp;
                         while (ve != null) {
-                            vals = ve.getColumnValues();
 
-                            if (!cityType.equals(vals.elementAt(3).toString())) {
+                            if (noteCity != null) noteCity.recycle();
+                            noteCity = ve.getDocument();
+
+                            if (!cityType.equals(noteCity.getItemValueString("cityType"))) {
                                 equal = false;
                                 break;
                             }
@@ -500,6 +626,9 @@ public class AddressParser {
             MyLog.add2Log(e);
         } finally {
             try {
+                if (noteCity != null) {
+                    noteCity.recycle();
+                }
                 if (vetmp != null) {
                     vetmp.recycle();
                 }
@@ -520,22 +649,27 @@ public class AddressParser {
         return retVal;
     }
 
-    private boolean processStreetWithGEO(String streetTitle) {
+    private String processStreetWithGEO(String streetTitle) {
         ViewEntry ve = null;
+        Document note = null;
 
         try {
             ve = viewGEOStreet.getEntryByKey(streetTitle, true);
 
             if (ve != null) {
-                return true;
+                note = ve.getDocument();
+                return note.getItemValueString("title");
             } else {
-                return false;
+                return null;
             }
 
         } catch (Exception e) {
             MyLog.add2Log(e);
         } finally {
             try {
+                if (note != null) {
+                    note.recycle();
+                }
                 if (ve != null) {
                     ve.recycle();
                 }
@@ -544,7 +678,7 @@ public class AddressParser {
             }
         }
 
-        return false;
+        return null;
     }
 
     private void processStreetNext(AddressParserItem item) {
@@ -559,39 +693,57 @@ public class AddressParser {
             street = item.getText();
         }
         //todo: если начинается на цифру, то нужно поискать дальше на совпадение
-        if (processStreetWithGEO(street) && !item.isBeginWithNumber()) {
-            address.setStreet(street);
+        String st = processStreetWithGEO(street);
+        if (!item.isBeginWithNumber() && item.getText().length() > 1 && st != null) {
+            address.setStreet(st);
             item.setProcessed(true);
+            item.setTypeValue(AddressParserItemTypeValue.street);
         } else {
             if (parserItems.size() > item.getNumber() && !",".equals(item.getCharAfter())) {
                 item2 = parserItems.get(item.getNumber());  //второе
                 if (!item2.isService()) {
                     street = street + " " + item2.getText();
-                    if (processStreetWithGEO(street)) {
-                        address.setStreet(street);
+                    st = processStreetWithGEO(street);
+                    if (st != null) {
+                        address.setStreet(st);
                         item.setProcessed(true);
                         item2.setProcessed(true);
+
+                        item.setTypeValue(AddressParserItemTypeValue.street);
+                        item2.setTypeValue(AddressParserItemTypeValue.street);
                     } else {
                         if (parserItems.size() > item2.getNumber() && !",".equals(item2.getCharAfter())) {
                             item3 = parserItems.get(item2.getNumber()); //третье
                             if (!item3.isService()) {
                                 street = street + " " + item3.getText();
-                                if (processStreetWithGEO(street)) {
-                                    address.setStreet(street);
+
+                                st = processStreetWithGEO(street);
+                                if (st != null) {
+                                    address.setStreet(st);
                                     item.setProcessed(true);
                                     item2.setProcessed(true);
                                     item3.setProcessed(true);
+
+                                    item.setTypeValue(AddressParserItemTypeValue.street);
+                                    item2.setTypeValue(AddressParserItemTypeValue.street);
+                                    item3.setTypeValue(AddressParserItemTypeValue.street);
                                 } else {
                                     if (parserItems.size() > item3.getNumber() && !",".equals(item3.getCharAfter())) {
                                         item4 = parserItems.get(item3.getNumber()); //четвертое
                                         if (!item4.isService()) {
                                             street = street + " " + item4.getText();
-                                            if (processStreetWithGEO(street)) {
-                                                address.setStreet(street);
+                                            st = processStreetWithGEO(street);
+                                            if (st != null) {
+                                                address.setStreet(st);
                                                 item.setProcessed(true);
                                                 item2.setProcessed(true);
                                                 item3.setProcessed(true);
                                                 item4.setProcessed(true);
+
+                                                item.setTypeValue(AddressParserItemTypeValue.street);
+                                                item2.setTypeValue(AddressParserItemTypeValue.street);
+                                                item3.setTypeValue(AddressParserItemTypeValue.street);
+                                                item4.setTypeValue(AddressParserItemTypeValue.street);
                                             } else {
 
                                             }
@@ -618,9 +770,12 @@ public class AddressParser {
             street = item.getText();
         }
         //todo: если начинается на цифру, то нужно поискать дальше на совпадение
-        if (processStreetWithGEO(street) && street.length() > 1) {
-            address.setStreet(street);
+        String st = processStreetWithGEO(street);
+        if (st != null && street.length() > 1) {
+            address.setStreet(st);
             item.setProcessed(true);
+
+            item.setTypeValue(AddressParserItemTypeValue.street);
         } else {
             if (item.getNumber() > 0) {
                 item2 = parserItems.get(item.getNumber() - 2);
@@ -631,10 +786,14 @@ public class AddressParser {
                         street = item2.getText() + " " + street;
                     }
 
-                    if (processStreetWithGEO(street)) {
-                        address.setStreet(street);
+                    st = processStreetWithGEO(street);
+                    if (st != null) {
+                        address.setStreet(st);
                         item.setProcessed(true);
                         item2.setProcessed(true);
+
+                        item.setTypeValue(AddressParserItemTypeValue.street);
+                        item2.setTypeValue(AddressParserItemTypeValue.street);
                     } else {
                         if (item2.getNumber() > 0) {
                             item3 = parserItems.get(item2.getNumber() - 2);
@@ -644,11 +803,17 @@ public class AddressParser {
                                 } else {
                                     street = item3.getText() + " " + street;
                                 }
-                                if (processStreetWithGEO(street)) {
-                                    address.setStreet(street);
+
+                                st = processStreetWithGEO(street);
+                                if (st != null) {
+                                    address.setStreet(st);
                                     item.setProcessed(true);
                                     item2.setProcessed(true);
                                     item3.setProcessed(true);
+
+                                    item.setTypeValue(AddressParserItemTypeValue.street);
+                                    item2.setTypeValue(AddressParserItemTypeValue.street);
+                                    item3.setTypeValue(AddressParserItemTypeValue.street);
                                 } else {
                                     if (item3.getNumber() > 0) {
                                         item4 = parserItems.get(item2.getNumber() - 2);
@@ -658,12 +823,19 @@ public class AddressParser {
                                             } else {
                                                 street = item4.getText() + " " + street;
                                             }
-                                            if (processStreetWithGEO(street)) {
-                                                address.setStreet(street);
+
+                                            st = processStreetWithGEO(street);
+                                            if (st != null) {
+                                                address.setStreet(st);
                                                 item.setProcessed(true);
                                                 item2.setProcessed(true);
                                                 item3.setProcessed(true);
                                                 item4.setProcessed(true);
+
+                                                item.setTypeValue(AddressParserItemTypeValue.street);
+                                                item2.setTypeValue(AddressParserItemTypeValue.street);
+                                                item3.setTypeValue(AddressParserItemTypeValue.street);
+                                                item4.setTypeValue(AddressParserItemTypeValue.street);
                                             } else {
 
                                             }
@@ -696,7 +868,7 @@ public class AddressParser {
                         "", ""});
     }
 
-    private void processCityNext(AddressParserItem item) {
+    private void processCityNext(AddressParserItem item, AddressParserItemTypeValue typeValue) {
         AddressParserItem item2 = null;
         AddressParserItem item3 = null;
         String city = "";
@@ -704,6 +876,7 @@ public class AddressParser {
         city = item.getText();
         if (processCityWithGEO(address, city)) {
             item.setProcessed(true);
+            item.setTypeValue(typeValue);
         } else {
             if (parserItems.size() > item.getNumber() && !",".equals(item.getCharAfter())) {
                 item2 = parserItems.get(item.getNumber());  //второе
@@ -712,6 +885,9 @@ public class AddressParser {
                     if (processCityWithGEO(address, city)) {
                         item.setProcessed(true);
                         item2.setProcessed(true);
+
+                        item.setTypeValue(typeValue);
+                        item2.setTypeValue(typeValue);
                     } else {
                         if (parserItems.size() > item2.getNumber() && !",".equals(item2.getCharAfter())) {
                             item3 = parserItems.get(item2.getNumber());  //третье
@@ -721,6 +897,10 @@ public class AddressParser {
                                     item.setProcessed(true);
                                     item2.setProcessed(true);
                                     item3.setProcessed(true);
+
+                                    item.setTypeValue(typeValue);
+                                    item2.setTypeValue(typeValue);
+                                    item3.setTypeValue(typeValue);
                                 } else {
 
                                 }
@@ -732,7 +912,7 @@ public class AddressParser {
         }
     }
 
-    private void processCityPrev(AddressParserItem item) {
+    private void processCityPrev(AddressParserItem item, AddressParserItemTypeValue typeValue) {
         AddressParserItem item2 = null;
         AddressParserItem item3 = null;
         String city = "";
@@ -754,11 +934,16 @@ public class AddressParser {
             if (processCityWithGEO(address, city)) {
                 item.setProcessed(true);
                 item2.setProcessed(true);
+
+                item.setTypeValue(typeValue);
+                item2.setTypeValue(typeValue);
             }
         } else {
             city = item.getText();
             if (processCityWithGEO(address, city)) {
                 item.setProcessed(true);
+
+                item.setTypeValue(typeValue);
             } else {
                 if (item.getNumber() > 0) {
                     item2 = parserItems.get(item.getNumber() - 2);
@@ -767,6 +952,9 @@ public class AddressParser {
                         if (processCityWithGEO(address, city)) {
                             item.setProcessed(true);
                             item2.setProcessed(true);
+
+                            item.setTypeValue(typeValue);
+                            item2.setTypeValue(typeValue);
                         } else {
                             if (item2.getNumber() > 0) {
                                 item3 = parserItems.get(item2.getNumber() - 2);
@@ -776,6 +964,10 @@ public class AddressParser {
                                         item.setProcessed(true);
                                         item2.setProcessed(true);
                                         item3.setProcessed(true);
+
+                                        item.setTypeValue(typeValue);
+                                        item2.setTypeValue(typeValue);
+                                        item3.setTypeValue(typeValue);
                                     } else {
                                     }
                                 }
@@ -785,5 +977,36 @@ public class AddressParser {
                 }
             }
         }
+    }
+
+    private AddressParserItem getPrevProcessedItem(AddressParserItem item) {
+        AddressParserItem prev = null;
+
+        if (item.getNumber() > 1) {
+            prev = parserItems.get(item.getNumber() - 2);
+        }
+
+
+        while (prev != null && !prev.isProcessed() && prev.getNumber() > 1) {
+            prev = parserItems.get(prev.getNumber() - 2);
+        }
+
+        return prev;
+    }
+
+    private String clearDraft(String text) {
+        return StringUtils.replaceEach(text,
+                new String[]{
+                        "общ", "общежитие",
+                        "частный",
+                        "нет",
+                        "-",
+                        "ч"},
+                new String[]{
+                        "", "",
+                        "",
+                        "",
+                        "",
+                        ""});
     }
 }

@@ -1,5 +1,7 @@
 package by.oshmianski.objects;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 /**
  * Created with IntelliJ IDEA.
  * User: VintsalovichS
@@ -19,6 +21,8 @@ public class Address {
     private String house;
     private String building;
     private String flat;
+    private boolean isProcessedFull;
+    private boolean isProcessedFullNotService;
 
     public Address() {
         this("", "", "", "", "", "", "", "", "", "", "", "");
@@ -108,7 +112,14 @@ public class Address {
     }
 
     public void setStreet(String street) {
-        this.street = street;
+        this.street = org.apache.commons.lang3.StringUtils.replaceEach(
+                WordUtils.capitalizeFully(street, new char[]{'-', ' ', '.'}),
+                new String[]{
+                        "Бсср",
+                        "Ссср"},
+                new String[]{
+                        "БССР",
+                        "СССР"});
     }
 
     public String getHouse() {
@@ -133,5 +144,21 @@ public class Address {
 
     public void setBuilding(String building) {
         this.building = building;
+    }
+
+    public boolean isProcessedFull() {
+        return isProcessedFull;
+    }
+
+    public void setProcessedFull(boolean isProcessedFull) {
+        this.isProcessedFull = isProcessedFull;
+    }
+
+    public boolean isProcessedFullNotService() {
+        return isProcessedFullNotService;
+    }
+
+    public void setProcessedFullNotService(boolean isProcessedFullNotService) {
+        this.isProcessedFullNotService = isProcessedFullNotService;
     }
 }

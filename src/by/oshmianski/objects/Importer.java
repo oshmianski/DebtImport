@@ -949,6 +949,26 @@ public class Importer {
                     AddressParser addressParser = new AddressParser(cellValue, viewGEO, viewGEOStreet);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
+
+                    if(!addressParser.getAddress().isProcessedFull()){
+                        DataChildItem dataChildItem = new DataChildItem(
+                                Status.WARNING_ADDRESS_NOT_PROCESS_FULL,
+                                "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                                fieldTitle,
+                                "Не полностью разобрано"
+                        );
+                        dataChildItems.add(dataChildItem);
+                    }
+
+                    if(!addressParser.getAddress().isProcessedFullNotService()){
+                        DataChildItem dataChildItem = new DataChildItem(
+                                Status.WARNING_ADDRESS_NOT_PROCESS_FULL_NOT_SERVICE,
+                                "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                                fieldTitle,
+                                "Не полностью разобрано (без служебных)"
+                        );
+                        dataChildItems.add(dataChildItem);
+                    }
                 } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
                     if (fuzzySearchAddress == null)
                         fuzzySearchAddress = new FuzzySearch(viewGEO);

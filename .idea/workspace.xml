@@ -7,9 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BooleanRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -65,38 +71,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" line="275" class="by.oshmianski.objects.Importer" package="by.oshmianski.objects">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" line="614" class="by.oshmianski.objects.addressParser.AddressParser" package="by.oshmianski.objects.addressParser">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -109,25 +84,41 @@
       <file leaf-file-name="AddressParser.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="187" column="73" selection-start="8283" selection-end="8283" vertical-scroll-proportion="0.76836157" vertical-offset="2448" max-vertical-offset="13158">
+            <state line="47" column="73" selection-start="1513" selection-end="1513" vertical-scroll-proportion="0.26907074" vertical-offset="401" max-vertical-offset="13906">
+              <folding>
+                <element signature="method#isIndex#0;class#AddressParser#0" expanded="false" />
+                <element signature="method#setTypeAndTypeValue#0;class#AddressParser#0" expanded="false" />
+                <element signature="method#setCharAfter#0;class#AddressParser#0" expanded="false" />
+                <element signature="method#setCharBefore#0;class#AddressParser#0" expanded="false" />
+                <element signature="method#processCityWithGEO#0;class#AddressParser#0" expanded="false" />
+                <element signature="method#replaceStreetSuffix#0;class#AddressParser#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BooleanRenderer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/BooleanRenderer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="51" column="17" selection-start="1825" selection-end="1825" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1326">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Address.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Address.java">
+      <file leaf-file-name="DockAddressParser.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="16" selection-start="2385" selection-end="2385" vertical-scroll-proportion="0.0" vertical-offset="1853" max-vertical-offset="2431">
+            <state line="112" column="75" selection-start="4748" selection-end="4748" vertical-scroll-proportion="0.0" vertical-offset="741" max-vertical-offset="4624">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddressParserItemType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemType.java">
+      <file leaf-file-name="AddressParserModel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="12" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="255">
+            <state line="16" column="66" selection-start="510" selection-end="510" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="1309">
               <folding />
             </state>
           </provider>
@@ -136,26 +127,10 @@
       <file leaf-file-name="AddressParserHelper.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="0" selection-start="7288" selection-end="7288" vertical-scroll-proportion="0.0" vertical-offset="1411" max-vertical-offset="11832">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Importer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="19941">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddressParserItemTypeValue.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="10" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="357">
-              <folding />
+            <state line="81" column="46" selection-start="5821" selection-end="5821" vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="11917">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -184,7 +159,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
@@ -210,17 +184,19 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressItem.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItem.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AliasValueType.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BooleanRenderer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
       </list>
     </option>
@@ -260,30 +236,16 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
+      <pane id="PackagesPane">
+        <subPane>
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="DebtImport">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="DebtImport">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT=".idea">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -361,6 +323,84 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TreeTable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="panels" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -620,16 +660,30 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
           <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DebtImport" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DebtImport" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            <PATH_ELEMENT USER_OBJECT="DebtImport">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="DebtImport">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT=".idea">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -661,11 +715,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="by.oshmianski.ui.utils" />
       <recent name="by.oshmianski.models" />
       <recent name="by.oshmianski.docks" />
       <recent name="by.oshmianski.filter.DM" />
       <recent name="by.oshmianski.main" />
-      <recent name="by.oshmianski.docks.Setup" />
     </key>
   </component>
   <component name="RunManager" selected="Applet.AppletWindow">
@@ -1118,7 +1172,11 @@
       <created>1390492429389</created>
       <updated>1390492429389</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1390578502570</created>
+      <updated>1390578502570</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1157,12 +1215,12 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32797858" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2904953" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3240612" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22389127" sideWeight="0.3587684" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2081545" sideWeight="0.3601071" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22389127" sideWeight="0.6412316" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5421687" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2081545" sideWeight="0.6398929" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.54083" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1195,31 +1253,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="39" selection-start="1545" selection-end="1545" vertical-scroll-proportion="0.43098593" vertical-offset="255" max-vertical-offset="2618" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="13" selection-start="616" selection-end="616" vertical-scroll-proportion="0.37621024" vertical-offset="0" max-vertical-offset="901" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="386" selection-end="386" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1479" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2805" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/DataChildModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="11" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1105" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="106" column="0" selection-start="4161" selection-end="4161" vertical-scroll-proportion="0.2243502" vertical-offset="1230" max-vertical-offset="3825">
@@ -1376,23 +1409,9 @@
         <state line="0" column="0" selection-start="0" selection-end="10693" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3621" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="98" selection-start="542" selection-end="542" vertical-scroll-proportion="-0.11971831" vertical-offset="272" max-vertical-offset="1190">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.6.0_45/src.zip!/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1902" column="18" selection-start="72667" selection-end="72667" vertical-scroll-proportion="0.0" vertical-offset="31826" max-vertical-offset="50864">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="12" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
           <folding />
         </state>
       </provider>
@@ -1412,20 +1431,6 @@
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="0" selection-start="461" selection-end="461" vertical-scroll-proportion="0.0" vertical-offset="14" max-vertical-offset="918">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="263" column="59" selection-start="11427" selection-end="11427" vertical-scroll-proportion="0.0" vertical-offset="3472" max-vertical-offset="4522">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="10" selection-start="204" selection-end="204" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
           <folding />
         </state>
       </provider>
@@ -1462,30 +1467,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="45" selection-start="2501" selection-end="2501" vertical-scroll-proportion="0.41714287" vertical-offset="830" max-vertical-offset="1530">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AliasValueType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="10" selection-start="242" selection-end="242" vertical-scroll-proportion="0.24285714" vertical-offset="0" max-vertical-offset="700" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="19601">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Address.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="16" selection-start="2385" selection-end="2385" vertical-scroll-proportion="0.0" vertical-offset="907" max-vertical-offset="1615">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/lib/commons-lang3-3.1.jar!/org/apache/commons/lang3/StringUtils.class">
@@ -1500,17 +1484,110 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="12" selection-start="106" selection-end="106" vertical-scroll-proportion="0.11789182" vertical-offset="0" max-vertical-offset="721">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="30" selection-start="2547" selection-end="2564" vertical-scroll-proportion="0.0" vertical-offset="712" max-vertical-offset="1530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="66" selection-start="510" selection-end="510" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1190">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Status.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="53" selection-start="774" selection-end="869" vertical-scroll-proportion="0.60714287" vertical-offset="153" max-vertical-offset="2482">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="12" selection-start="158" selection-end="158" vertical-scroll-proportion="0.16504854" vertical-offset="0" max-vertical-offset="721">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Address.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="119" column="29" selection-start="2819" selection-end="2819" vertical-scroll-proportion="0.0" vertical-offset="1077" max-vertical-offset="1972">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Downloads/commons-lang3-3.2.1-src.zip!/commons-lang3-3.2.1-src/src/main/java/org/apache/commons/lang3/text/WordUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="238" column="25" selection-start="9544" selection-end="9544" vertical-scroll-proportion="0.0" vertical-offset="3738" max-vertical-offset="8279">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1105" column="0" selection-start="46981" selection-end="46981" vertical-scroll-proportion="0.0" vertical-offset="17833" max-vertical-offset="19941">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="0" selection-start="7288" selection-end="7288" vertical-scroll-proportion="0.0" vertical-offset="1411" max-vertical-offset="11832">
+        <state line="81" column="46" selection-start="5821" selection-end="5821" vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="11917">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="13" selection-start="372" selection-end="372" vertical-scroll-proportion="-0.55857146" vertical-offset="510" max-vertical-offset="1530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="53" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.481276" vertical-offset="44" max-vertical-offset="1377">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="75" selection-start="4748" selection-end="4748" vertical-scroll-proportion="0.0" vertical-offset="741" max-vertical-offset="4624">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/BooleanRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="17" selection-start="1825" selection-end="1825" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="1326">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="187" column="73" selection-start="8283" selection-end="8283" vertical-scroll-proportion="0.76836157" vertical-offset="2448" max-vertical-offset="13158">
-          <folding />
+        <state line="47" column="73" selection-start="1513" selection-end="1513" vertical-scroll-proportion="0.26907074" vertical-offset="401" max-vertical-offset="13906">
+          <folding>
+            <element signature="method#isIndex#0;class#AddressParser#0" expanded="false" />
+            <element signature="method#setTypeAndTypeValue#0;class#AddressParser#0" expanded="false" />
+            <element signature="method#setCharAfter#0;class#AddressParser#0" expanded="false" />
+            <element signature="method#setCharBefore#0;class#AddressParser#0" expanded="false" />
+            <element signature="method#processCityWithGEO#0;class#AddressParser#0" expanded="false" />
+            <element signature="method#replaceStreetSuffix#0;class#AddressParser#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

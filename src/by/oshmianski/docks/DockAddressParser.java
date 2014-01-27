@@ -15,6 +15,7 @@ import by.oshmianski.objects.addressParser.AddressItem;
 import by.oshmianski.objects.addressParser.AddressParser;
 import by.oshmianski.objects.addressParser.AddressParserItem;
 import by.oshmianski.ui.utils.BetterJTable;
+import by.oshmianski.ui.utils.BooleanRenderer;
 import by.oshmianski.ui.utils.ColorRenderer;
 import by.oshmianski.ui.utils.StatusRenderer;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
@@ -98,18 +99,18 @@ public class DockAddressParser extends DockSimple {
             table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             table.getColumnModel().getColumn(0).setPreferredWidth(50);
             table.getColumnModel().getColumn(1).setPreferredWidth(200);
-            table.getColumnModel().getColumn(2).setPreferredWidth(50);
+            table.getColumnModel().getColumn(2).setPreferredWidth(150);
             table.getColumnModel().getColumn(3).setPreferredWidth(50);
-            table.getColumnModel().getColumn(4).setPreferredWidth(120);
+            table.getColumnModel().getColumn(4).setPreferredWidth(50);
             table.getColumnModel().getColumn(5).setPreferredWidth(120);
-            table.getColumnModel().getColumn(6).setPreferredWidth(150);
+            table.getColumnModel().getColumn(6).setPreferredWidth(120);
             table.getColumnModel().getColumn(7).setPreferredWidth(150);
             table.getColumnModel().getColumn(8).setPreferredWidth(150);
             table.getColumnModel().getColumn(9).setPreferredWidth(150);
 
             table.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer(Color.BLUE, false));
             table.getColumnModel().getColumn(1).setCellRenderer(new ColorRenderer(Color.BLACK, false));
-            table.getColumnModel().getColumn(2).setCellRenderer(new ColorRenderer(Color.BLUE, false));
+            table.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer(Color.BLUE, false));
             table.getColumnModel().getColumn(3).setCellRenderer(new ColorRenderer(Color.BLACK, false));
             table.getColumnModel().getColumn(4).setCellRenderer(new ColorRenderer(Color.BLUE, false));
             table.getColumnModel().getColumn(5).setCellRenderer(new ColorRenderer(Color.BLACK, false));
@@ -138,7 +139,7 @@ public class DockAddressParser extends DockSimple {
             tableA.setSelectionForeground(Color.BLACK);
 
             tableA.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            tableA.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tableA.getColumnModel().getColumn(0).setPreferredWidth(150);
             tableA.getColumnModel().getColumn(1).setPreferredWidth(200);
             tableA.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer(Color.BLUE, false));
             tableA.getColumnModel().getColumn(1).setCellRenderer(new ColorRenderer(Color.BLACK, false));
@@ -265,6 +266,12 @@ public class DockAddressParser extends DockSimple {
                     itemsA.add(addressItem);
 
                     addressItem = new AddressItem("flat", address.getFlat());
+                    itemsA.add(addressItem);
+
+                    addressItem = new AddressItem("isProcessFull", address.isProcessedFull() + "");
+                    itemsA.add(addressItem);
+
+                    addressItem = new AddressItem("isProcessFullNotService", address.isProcessedFullNotService() + "");
                     itemsA.add(addressItem);
 
                 }
