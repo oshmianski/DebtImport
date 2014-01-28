@@ -1040,14 +1040,14 @@ public class AddressParser_B2 {
         boolean processWith2Words = false;
 
         //Получу сразу второе слева слово, если возможно и проверю на вхождение в служебные
-        if (item.getNumber() > 1) {
-            item2 = parserItems.get(item.getNumber() - 2);
-            if (!item2.isService() && !",".equals(item2.getCharAfter())) {
-                if (AddressParserHelper.cityFirst.contains(item2.getText().toLowerCase())) {
-                    processWith2Words = true;
-                }
-            }
-        }
+//        if (item.getNumber() > 1) {
+//            item2 = parserItems.get(item.getNumber() - 2);
+//            if (!item2.isService() && !",".equals(item2.getCharAfter())) {
+//                if (AddressParserHelper.cityFirst.contains(item2.getText().toLowerCase())) {
+//                    processWith2Words = true;
+//                }
+//            }
+//        }
 
         if (processWith2Words) {
             city = item2.getText() + " " + item.getText();

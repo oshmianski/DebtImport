@@ -12,7 +12,7 @@ public class AddressProcessCityResult {
     ArrayList<AddressParserItem> items;
 
     public AddressProcessCityResult() {
-        ArrayList<AddressParserItem> items = new ArrayList<AddressParserItem>();
+        items = new ArrayList<AddressParserItem>();
     }
 
     public boolean isFind() {
