@@ -64,7 +64,7 @@ public class Address {
     }
 
     public void setRegion(String region) {
-        this.region = region;
+        this.region = WordUtils.capitalizeFully(region);
     }
 
     public String getDistrict() {
@@ -72,7 +72,7 @@ public class Address {
     }
 
     public void setDistrict(String district) {
-        this.district = district;
+        this.district = WordUtils.capitalizeFully(district);
     }
 
     public String getUnit() {

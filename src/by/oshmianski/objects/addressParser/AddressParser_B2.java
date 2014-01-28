@@ -7,7 +7,6 @@ import lotus.domino.Document;
 import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.regex.Pattern;
 /**
  * Created by vintselovich on 24.12.13.
  */
-public class AddressParser {
+public class AddressParser_B2 {
     private View viewGEO;
     private View viewGEOStreet;
 
@@ -28,7 +27,7 @@ public class AddressParser {
     private ArrayList<AddressParserItem> parserItems = new ArrayList<AddressParserItem>();
     private Address address = new Address();
 
-    public AddressParser(String realStr, View viewGEO, View viewGEOStreet) {
+    public AddressParser_B2(String realStr, View viewGEO, View viewGEOStreet) {
         this.realStr = realStr.replaceAll("ё", "е").replaceAll("Ё", "Е");
         realStrExclusion = this.realStr;
 
@@ -110,9 +109,6 @@ public class AddressParser {
             }
         }
 
-        AddressProcessCityResult processCityResult;
-        AddressProcessCityWithGEOResult processCityWithGEOResult;
-
         //пробегусь по служебным типам
         for (int j = parserItems.size() - 1; j > -1; j--) {
             AddressParserItem item = parserItems.get(j);
@@ -171,15 +167,19 @@ public class AddressParser {
                     }
                 }
 
+                boolean isCityNext = false;
+                boolean isCityPrev = false;
+                AliasValue cityNext = new AliasValue("", "");
+                AliasValue cityPrev = new AliasValue("", "");
                 //поиск города
                 if (AddressParserItemTypeValue.city.equals(item.getTypeValue())) {
                     if (address.getCity().isEmpty())
                         if (parserItems.size() > item.getNumber()) {
                             next = parserItems.get(item.getNumber());
                             if (!next.isService() && !next.isProcessed()) {
-                                processCityResult = processCityNext(next);
+                                processCityNext(next, item.getTypeValue(), false);
 
-                                if (!processCityResult.isFind()) {
+                                if (address.getCity().isEmpty()) {
                                     item.setProcessed(true);
                                     next.setProcessed(true);
                                     next.setTypeValue(item.getTypeValue());
@@ -187,11 +187,8 @@ public class AddressParser {
                                     address.setCityType(item.getTypeValue2());
                                     address.setCity(next.getText());
                                 } else {
+                                    if (address.getCityType().isEmpty()) address.setCityType(item.getTypeValue2());
                                     item.setProcessed(true);
-
-                                    address.setCityType(processCityResult.getCityType());
-                                    address.setCity(processCityResult.getCity());
-                                    processCityResult.processAllItems(AddressParserItemTypeValue.city);
                                 }
                             }
                         }
@@ -345,12 +342,7 @@ public class AddressParser {
                 //потому что это может быть и н.п. и страна
                 if (!"Беларусь".equalsIgnoreCase(item.getText())) {
                     if (address.getCity().isEmpty()) {
-                        processCityResult = processCityNext(item);
-                        if (processCityResult.isFind()) {
-                            address.setCityType(processCityResult.getCityType());
-                            address.setCity(processCityResult.getCity());
-                            processCityResult.processAllItems(AddressParserItemTypeValue.city);
-                        }
+                        processCityNext(item, AddressParserItemTypeValue.city, false);
                     }
                 } else {
                     isBelarus = true;
@@ -366,24 +358,16 @@ public class AddressParser {
         }
 
         //а теперь, если город все еще пуст и было указано Беларусь, то считаю, что это н.п.
-        if (isBelarus) {
+        if (isBelarus)
             if (address.getCity().isEmpty()) {
-                processCityWithGEOResult = processCityWithGEO(itemBelarus.getText());
-                if (processCityWithGEOResult.isFind()) {
-                    address.setCity(processCityWithGEOResult.getCity());
-                    address.setCityType(processCityWithGEOResult.getCityType());
-                } else {
-                    address.setCity(itemBelarus.getText());
-                }
+                processCityWithGEO(address, itemBelarus.getText());
             } else {
                 if (address.getCountry().isEmpty()) {
                     address.setCountry(itemBelarus.getText().trim());
+                    itemBelarus.setProcessed(true);
                     itemBelarus.setTypeValue(AddressParserItemTypeValue.country);
                 }
             }
-
-            itemBelarus.setProcessed(true);
-        }
 
 
         //пытаюсь найти улицы
@@ -468,9 +452,7 @@ public class AddressParser {
                 if (prev != null && !prev.isService()) {
                     if (prev.getTypeValue() == AddressParserItemTypeValue.city) {
                         city = prev.getText() + " " + item.getText();
-
-                        processCityWithGEOResult = processCityWithGEO(city);
-                        if (processCityWithGEOResult.isFind()) {
+                        if (processCityWithGEO(address, city)) {
                             item.setProcessed(true);
                             item.setTypeValue(prev.getTypeValue());
 
@@ -494,12 +476,7 @@ public class AddressParser {
                     next = getNextItem(item);
                     if (next != null && !next.isService()) {
                         if (next.getTypeValue() == AddressParserItemTypeValue.city) {
-                            processCityResult = processCityNext(item);
-                            if(processCityResult.isFind()){
-                                address.setCity(processCityResult.getCity());
-                                address.setCityType(processCityResult.getCityType());
-                                processCityResult.processAllItems(AddressParserItemTypeValue.city);
-                            }
+                            processCityNext(item, AddressParserItemTypeValue.city, true);
                         }
                         if (next.getTypeValue() == AddressParserItemTypeValue.street) {
                             processStreetNext(item, true);
@@ -569,7 +546,6 @@ public class AddressParser {
         aliasValues.add(new AliasValue("ПР-т", "пр-т"));
         aliasValues.add(new AliasValue("Микрорайон", "микрорайон"));
         aliasValues.add(new AliasValue("1ый", "1-ый"));
-        aliasValues.add(new AliasValue("а.г.", "аг."));
 
         aliasValues.add(new AliasValue("улица неизвестна,", ""));
         aliasValues.add(new AliasValue("улицы нет,", ""));
@@ -655,9 +631,7 @@ public class AddressParser {
         return realStr_;
     }
 
-    private AddressProcessCityWithGEOResult processCityWithGEO(String city) {
-        AddressProcessCityWithGEOResult result = new AddressProcessCityWithGEOResult();
-
+    private boolean processCityWithGEO(Address address, String city) {
         ViewEntryCollection vec = null;
         String cityType = "";
         boolean equal = true;
@@ -666,6 +640,8 @@ public class AddressParser {
         ViewEntry ve = null;
         ViewEntry vetmp = null;
         Document noteCity = null;
+
+        boolean retVal = false;
 
         try {
             vec = viewGEO.getAllEntriesByKey(city, true);
@@ -676,9 +652,10 @@ public class AddressParser {
 
                     noteCity = ve.getDocument();
 
-                    result.setFind(true);
-                    result.setCityType(noteCity.getItemValueString("cityType"));
-                    result.setCity(noteCity.getItemValueString("title"));
+                    address.setCityType(noteCity.getItemValueString("cityType"));
+                    address.setCity(noteCity.getItemValueString("title"));
+
+                    retVal = true;
                 }
 
                 if (vec.getCount() > 1) {
@@ -686,8 +663,7 @@ public class AddressParser {
                     if (noteCity != null) noteCity.recycle();
                     noteCity = ve.getDocument();
 
-                    result.setFind(true);
-                    result.setCity(noteCity.getItemValueString("title"));
+                    address.setCity(noteCity.getItemValueString("title"));
 
                     if (!address.getDistrict().isEmpty()) {
                         Vector key = new Vector();
@@ -701,7 +677,7 @@ public class AddressParser {
                             if (noteCity != null) noteCity.recycle();
                             noteCity = ve.getDocument();
 
-                            result.setCityType(noteCity.getItemValueString("cityType"));
+                            address.setCityType(noteCity.getItemValueString("cityType"));
                         }
 
                         if (vecDist.getCount() > 1) {
@@ -730,7 +706,7 @@ public class AddressParser {
                             }
 
                             if (equal) {
-                                result.setCityType(cityType);
+                                address.setCityType(cityType);
                             }
                         }
                     } else {
@@ -759,9 +735,11 @@ public class AddressParser {
                         }
 
                         if (equal) {
-                            result.setCityType(cityType);
+                            address.setCityType(cityType);
                         }
                     }
+
+                    retVal = true;
                 }
             }
         } catch (Exception e) {
@@ -788,7 +766,7 @@ public class AddressParser {
             }
         }
 
-        return result;
+        return retVal;
     }
 
     private String processStreetWithGEO(String streetTitle) {
@@ -1010,42 +988,48 @@ public class AddressParser {
                         "", ""});
     }
 
-    private AddressProcessCityResult processCityNext(AddressParserItem item) {
-        AddressProcessCityWithGEOResult resultGEO;
-        AddressProcessCityResult result = new AddressProcessCityResult();
-        AddressParserItem next;
+    private void processCityNext(AddressParserItem item, AddressParserItemTypeValue typeValue, boolean startWithNext) {
+        AddressParserItem item2 = null;
+        AddressParserItem item3 = null;
         String city = "";
 
         city = item.getText();
-        resultGEO = processCityWithGEO(city);
-        if (resultGEO.isFind()) {
-            result.setFind(true);
-            result.setCity(resultGEO.getCity());
-            result.setCityType(resultGEO.getCityType());
-            result.getItems().add(item);
-        }
+        if (processCityWithGEO(address, city) && !startWithNext) {
+            item.setProcessed(true);
+            item.setTypeValue(typeValue);
+        } else {
+            if (parserItems.size() > item.getNumber() && !",".equals(item.getCharAfter())) {
+                item2 = parserItems.get(item.getNumber());  //второе
+                if (!item2.isService()) {
+                    city = city + " " + item2.getText();
+                    if (processCityWithGEO(address, city)) {
+                        item.setProcessed(true);
+                        item2.setProcessed(true);
 
-        if (!",".equals(item.getCharAfter())) {
-            next = getNextItem(item);
-            while (next != null && !next.isService() && !next.isProcessed()) {
-                city = city + " " + next.getText();
-                resultGEO = processCityWithGEO(city);
-                if (resultGEO.isFind()) {
-                    result.setFind(true);
-                    result.setCity(resultGEO.getCity());
-                    result.setCityType(resultGEO.getCityType());
-                    result.getItems().add(next);
+                        item.setTypeValue(typeValue);
+                        item2.setTypeValue(typeValue);
+                    } else {
+                        if (parserItems.size() > item2.getNumber() && !",".equals(item2.getCharAfter())) {
+                            item3 = parserItems.get(item2.getNumber());  //третье
+                            if (!item3.isService()) {
+                                city = city + " " + item3.getText();
+                                if (processCityWithGEO(address, city)) {
+                                    item.setProcessed(true);
+                                    item2.setProcessed(true);
+                                    item3.setProcessed(true);
+
+                                    item.setTypeValue(typeValue);
+                                    item2.setTypeValue(typeValue);
+                                    item3.setTypeValue(typeValue);
+                                } else {
+
+                                }
+                            }
+                        }
+                    }
                 }
-
-
-                if (",".equals(next.getCharAfter())) {
-                    break;
-                }
-                next = getNextItem(next);
             }
         }
-
-        return result;
     }
 
     private void processCityPrev(AddressParserItem item, AddressParserItemTypeValue typeValue) {

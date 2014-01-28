@@ -508,6 +508,8 @@ public class Importer {
 
             rowFirst = sheet1.getRow(0);
 
+            int headerSize = loader.getUi().getCellHeaders().size();
+            EventList<CellHeader> cellHeadrs = loader.getUi().getCellHeaders();
             while (it.hasNext() && i <= end) {
                 row = it.next();
 
@@ -520,10 +522,10 @@ public class Importer {
                     Cell cell1 = row.getCell(j);
                     String value = "";
                     //TODO: В следующей строчке плавающая ошибка: nullPointerException. нужно разобраться
-                    if (loader.getUi().getCellHeaders().size() - 1 < j)
+                    if (headerSize - 1 < j)
                         value = CellReference.convertNumToColString(j);
                     else
-                        value = loader.getUi().getCellHeaders().get(j).toString();
+                        value = cellHeadrs.get(j).toString();
 
                     String description = getCellString(wb, cell1);
 

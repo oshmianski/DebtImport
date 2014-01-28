@@ -15,6 +15,7 @@ public class AddressParserItem implements Comparable<AddressParserItem> {
     private boolean beginWithNumber;
     private boolean index;
     private boolean processed;
+    private boolean processedWithoutValue;
 
     public AddressParserItem(int number, String text) {
         this.number = number;
@@ -111,6 +112,14 @@ public class AddressParserItem implements Comparable<AddressParserItem> {
 
     public void setTypeValue2(String typeValue2) {
         this.typeValue2 = typeValue2;
+    }
+
+    public boolean isProcessedWithoutValue() {
+        return processedWithoutValue;
+    }
+
+    public void setProcessedWithoutValue(boolean processedWithoutValue) {
+        this.processedWithoutValue = processedWithoutValue;
     }
 
     @Override
