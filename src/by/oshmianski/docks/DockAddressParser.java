@@ -14,6 +14,7 @@ import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.objects.addressParser.AddressItem;
 import by.oshmianski.objects.addressParser.AddressParser;
 import by.oshmianski.objects.addressParser.AddressParserItem;
+import by.oshmianski.objects.addressParser.AddressParserOperation;
 import by.oshmianski.ui.utils.*;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import by.oshmianski.utils.IconContainer;
@@ -63,7 +64,7 @@ public class DockAddressParser extends DockSimple {
 
         this.dockingContainer = dockingContainer;
 
-        table = new BetterJTable(null);
+        table = new BetterJTable(null, true);
         tableA = new BetterJTable(null);
 
         realStr = new JLabel("");
@@ -95,16 +96,17 @@ public class DockAddressParser extends DockSimple {
 
             table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             table.getColumnModel().getColumn(0).setPreferredWidth(50);
-            table.getColumnModel().getColumn(1).setPreferredWidth(200);
-            table.getColumnModel().getColumn(2).setPreferredWidth(150);
+            table.getColumnModel().getColumn(1).setPreferredWidth(130);
+            table.getColumnModel().getColumn(2).setPreferredWidth(85);
             table.getColumnModel().getColumn(3).setPreferredWidth(150);
             table.getColumnModel().getColumn(4).setPreferredWidth(50);
             table.getColumnModel().getColumn(5).setPreferredWidth(50);
-            table.getColumnModel().getColumn(6).setPreferredWidth(120);
-            table.getColumnModel().getColumn(7).setPreferredWidth(120);
-            table.getColumnModel().getColumn(8).setPreferredWidth(150);
+            table.getColumnModel().getColumn(6).setPreferredWidth(60);
+            table.getColumnModel().getColumn(7).setPreferredWidth(75);
+            table.getColumnModel().getColumn(8).setPreferredWidth(75);
             table.getColumnModel().getColumn(9).setPreferredWidth(150);
             table.getColumnModel().getColumn(10).setPreferredWidth(150);
+            table.getColumnModel().getColumn(11).setPreferredWidth(300);
 
             table.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer(Color.BLUE, false));
             table.getColumnModel().getColumn(1).setCellRenderer(new ColorRenderer(Color.BLACK, false));
@@ -117,6 +119,7 @@ public class DockAddressParser extends DockSimple {
             table.getColumnModel().getColumn(8).setCellRenderer(new ColorRenderer(Color.BLUE, false));
             table.getColumnModel().getColumn(9).setCellRenderer(new ColorRenderer(Color.BLACK, false));
             table.getColumnModel().getColumn(10).setCellRenderer(new ColorRenderer(Color.BLUE, false));
+            table.getColumnModel().getColumn(11).setCellRenderer(new ColorRenderer(Color.BLACK, false));
 
             table.setRowHeight(20);
             table.setShowHorizontalLines(true);
@@ -139,9 +142,12 @@ public class DockAddressParser extends DockSimple {
 
             tableA.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             tableA.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tableA.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tableA.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tableA.getColumnModel().getColumn(2).setPreferredWidth(300);
+
             tableA.getColumnModel().getColumn(0).setCellRenderer(new ColorRenderer(Color.BLUE, false));
             tableA.getColumnModel().getColumn(1).setCellRenderer(new ColorRenderer(Color.BLACK, false));
+            tableA.getColumnModel().getColumn(2).setCellRenderer(new ColorRenderer(Color.BLUE, false));
 
             sp = new NiceScrollPane(table);
             spA = new NiceScrollPane(tableA);
@@ -231,46 +237,46 @@ public class DockAddressParser extends DockSimple {
 
                     address = dataMainItem.getAddressParser().getAddress();
 
-                    addressItem = new AddressItem("index", address.getIndex());
+                    addressItem = new AddressItem("index", address.getIndex(), address.getIndexOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("country", address.getCountry());
+                    addressItem = new AddressItem("country", address.getCountry(), address.getCountryOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("region", address.getRegion());
+                    addressItem = new AddressItem("region", address.getRegion(), address.getRegionOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("district", address.getDistrict());
+                    addressItem = new AddressItem("district", address.getDistrict(), address.getDistrictOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("unit", address.getUnit());
+                    addressItem = new AddressItem("unit", address.getUnit(), address.getUnitOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("cityType", address.getCityType());
+                    addressItem = new AddressItem("cityType", address.getCityType(), address.getCityTypeOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("city", address.getCity());
+                    addressItem = new AddressItem("city", address.getCity(), address.getCityOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("streetType", address.getStreetType());
+                    addressItem = new AddressItem("streetType", address.getStreetType(), address.getStreetTypeOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("street", address.getStreet());
+                    addressItem = new AddressItem("street", address.getStreet(), address.getStreetOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("house", address.getHouse());
+                    addressItem = new AddressItem("house", address.getHouse(), address.getHouseOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("building", address.getBuilding());
+                    addressItem = new AddressItem("building", address.getBuilding(), address.getBuildingOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("flat", address.getFlat());
+                    addressItem = new AddressItem("flat", address.getFlat(), address.getFlatOperation());
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("isProcessFull", address.isProcessedFull() + "");
+                    addressItem = new AddressItem("isProcessFull", address.isProcessedFull() + "", AddressParserOperation.UNKNOWN);
                     itemsA.add(addressItem);
 
-                    addressItem = new AddressItem("isProcessFullNotService", address.isProcessedFullNotService() + "");
+                    addressItem = new AddressItem("isProcessFullNotService", address.isProcessedFullNotService() + "", AddressParserOperation.UNKNOWN);
                     itemsA.add(addressItem);
 
                 }

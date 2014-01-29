@@ -7,7 +7,6 @@ import lotus.domino.Document;
 import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -46,471 +45,61 @@ public class AddressParser {
         String[] addressArray = realStr_.split("_");
         int i = 1;
         int start = 0;
+
         for (String addr : addressArray) {
             if (!addr.isEmpty()) {
                 AddressParserItem addressParserItem = new AddressParserItem(i, addr);
-                if (isIndex(addr)) {
-                    addressParserItem.setIndex(true);
-                    address.setIndex(addr);
-                    addressParserItem.setProcessed(true);
-                    addressParserItem.setTypeValue(AddressParserItemTypeValue.index);
-                }
-                if (Character.isDigit(addr.charAt(0))) addressParserItem.setBeginWithNumber(true);
 
-                setTypeAndTypeValue(addressParserItem);
-                setCharAfter(addressParserItem, start);
-                setCharBefore(addressParserItem, start);
+                if (Character.isDigit(addr.charAt(0))) {
+                    addressParserItem.setBeginWithNumber(true);
+                }
 
                 parserItems.add(addressParserItem);
                 i++;
-                start = start + addr.length() + 1;  //+1 для _
             }
         }
 
-        AddressParserItem prev;
-        AddressParserItem next;
+        //PROCESS_OPERATION_1
+        for (AddressParserItem item : parserItems) {
+            if (isIndex(item.getText())) {
+                item.setIndex(true);
+                address.setIndex(item.getText(), AddressParserOperation.PROCESS_OPERATION_1);
+                item.setProcessed(true, AddressParserOperation.PROCESS_OPERATION_1);
+                item.setTypeValue(AddressParserItemTypeValue.index);
+            }
+
+            setTypeAndTypeValue(item);
+
+            setCharAfter(item, start);
+            setCharBefore(item, start);
+
+            start = start + item.getText().length() + 1;  //+1 для _
+
+        }
 
         if (parserItems.size() > 0) {
             if ("-1".equalsIgnoreCase(parserItems.get(0).getText()) || "0".equalsIgnoreCase(parserItems.get(0).getText())) {
                 parserItems.get(0).setIndex(true);
-                parserItems.get(0).setProcessed(true);
+                parserItems.get(0).setProcessed(true, AddressParserOperation.PROCESS_OPERATION_1);
             }
         }
 
-        //пытаюсь разрешить UNKNOW
-        for (AddressParserItem item : parserItems) {
-            if (item.getTypeValue() == AddressParserItemTypeValue.UNKNOW) {
-                //дом
-                if ("д".equalsIgnoreCase(item.getText())) {
-                    if (parserItems.size() > item.getNumber()) {
-                        next = parserItems.get(item.getNumber());
-                        if (next.isBeginWithNumber()) {
-                            item.setTypeValue(AddressParserItemTypeValue.house);
-                            item.setTypeValue2("дом");
-                        } else {
-                            item.setTypeValue(AddressParserItemTypeValue.city);
-                            item.setTypeValue2("д");
-                        }
-                    }
-                }
+        processServices();
 
-                //квартира
-                if ("кв".equalsIgnoreCase(item.getText())) {
-                    if (parserItems.size() > item.getNumber()) {
-                        next = parserItems.get(item.getNumber());
-                        if (next.isBeginWithNumber()) {
-                            item.setTypeValue(AddressParserItemTypeValue.flat);
-                            item.setTypeValue2("квартира");
-                        } else {
-                            item.setTypeValue(AddressParserItemTypeValue.street);
-                            item.setTypeValue2("квартал");
-                        }
-                    }
-                }
-            }
-        }
+        processCountry();
 
-        AddressProcessCityResult processCityResult;
-        AddressProcessCityWithGEOResult processCityWithGEOResult;
+        processRegionDistrict();
 
-        //пробегусь по служебным типам
-        for (int j = parserItems.size() - 1; j > -1; j--) {
-            AddressParserItem item = parserItems.get(j);
-            if (item.isService()) {
-                //поиск области
-                if (AddressParserItemTypeValue.region.equals(item.getTypeValue())) {
-                    if (item.getNumber() > 1) {
-                        prev = parserItems.get(item.getNumber() - 2);
-                        if (!prev.isService())
-                            if (AddressParserHelper.regions.contains(prev.getText().toLowerCase())) {
-                                item.setProcessed(true);
-                                prev.setProcessed(true);
-                                prev.setTypeValue(item.getTypeValue());
+        transpositionStreetTypeAndPartOfStreet();
 
-                                address.setRegion(prev.getText());
-                            } else {
-                                if (parserItems.size() > item.getNumber()) {
-                                    next = parserItems.get(item.getNumber());
-                                    if (!next.isService())
-                                        if (AddressParserHelper.regions.contains(next.getText().toLowerCase())) {
-                                            item.setProcessed(true);
-                                            next.setProcessed(true);
-                                            next.setTypeValue(item.getTypeValue());
+        processHouseBuildFlat();
 
-                                            address.setRegion(next.getText());
-                                        }
-                                }
-                            }
-                    }
-                }
+        processStreetOnly();
 
-                //поиск района
-                if (AddressParserItemTypeValue.district.equals(item.getTypeValue())) {
-                    if (item.getNumber() > 1) {
-                        prev = parserItems.get(item.getNumber() - 2);
-                        if (!prev.isService())
-                            if (AddressParserHelper.districts.contains(prev.getText().toLowerCase())) {
-                                item.setProcessed(true);
-                                prev.setProcessed(true);
-                                prev.setTypeValue(item.getTypeValue());
+        processRestWithCityAndStreet();
 
-                                address.setDistrict(prev.getText());
-                            } else {
-                                if (parserItems.size() > item.getNumber()) {
-                                    next = parserItems.get(item.getNumber());
-                                    if (!next.isService())
-                                        if (AddressParserHelper.districts.contains(next.getText().toLowerCase())) {
-                                            item.setProcessed(true);
-                                            next.setProcessed(true);
-                                            next.setTypeValue(item.getTypeValue());
+        processCityAndStreetWithPrevAndNext();
 
-                                            address.setDistrict(next.getText());
-                                        }
-                                }
-                            }
-                    }
-                }
-
-                //поиск города
-                if (AddressParserItemTypeValue.city.equals(item.getTypeValue())) {
-                    if (address.getCity().isEmpty())
-                        if (parserItems.size() > item.getNumber()) {
-                            next = parserItems.get(item.getNumber());
-                            if (!next.isService() && !next.isProcessed()) {
-                                processCityResult = processCityNext(next);
-
-                                if (!processCityResult.isFind()) {
-                                    item.setProcessed(true);
-                                    next.setProcessed(true);
-                                    next.setTypeValue(item.getTypeValue());
-
-                                    address.setCityType(item.getTypeValue2());
-                                    address.setCity(next.getText());
-                                } else {
-                                    item.setProcessed(true);
-
-                                    address.setCityType(item.getTypeValue2().isEmpty() ? processCityResult.getCityType() : item.getTypeValue2());
-                                    address.setCity(processCityResult.getCity());
-                                    processCityResult.processAllItems(AddressParserItemTypeValue.city);
-                                }
-                            }
-                        }
-
-                    if (address.getCity().isEmpty())
-                        if (item.getNumber() > 1) {
-                            prev = parserItems.get(item.getNumber() - 2);
-                            if (!prev.isService() && !prev.isProcessed()) {
-                                processCityResult = processCityPrev(prev);
-
-                                if (!processCityResult.isFind()) {
-                                    item.setProcessed(true);
-                                    prev.setProcessed(true);
-                                    prev.setTypeValue(item.getTypeValue());
-
-                                    address.setCityType(item.getTypeValue2());
-                                    address.setCity(prev.getText());
-                                } else {
-                                    item.setProcessed(true);
-
-                                    address.setCityType(item.getTypeValue2().isEmpty() ? processCityResult.getCityType() : item.getTypeValue2());
-                                    address.setCity(processCityResult.getCity());
-                                    processCityResult.processAllItems(AddressParserItemTypeValue.city);
-                                }
-                            }
-                        }
-                }
-
-                //поиск улицы
-                if (AddressParserItemTypeValue.street.equals(item.getTypeValue())) {
-                    //ищу после служебного слова
-                    if (address.getStreet().isEmpty())
-                        if (parserItems.size() > item.getNumber()) {
-                            next = parserItems.get(item.getNumber());
-                            if (!next.isService() && !next.isProcessed() && !",".equals(item.getCharAfter())) {
-                                processStreetNext(next, false);
-
-                                if (address.getStreet().isEmpty()) {//если таки не нашли улицу, то присваиваю только первое следующее слово
-                                    item.setProcessed(true);
-                                    next.setProcessed(true);
-                                    next.setTypeValue(AddressParserItemTypeValue.street);
-
-                                    address.setStreetType(item.getTypeValue2());
-                                    address.setStreet(next.getText());
-                                } else {
-                                    address.setStreetType(item.getTypeValue2());
-                                    item.setProcessed(true);
-                                }
-                            }
-                        }
-
-                    //ищу до служебного слова
-                    if (address.getStreet().isEmpty())
-                        if (item.getNumber() > 1) {
-                            prev = parserItems.get(item.getNumber() - 2);
-                            if (!prev.isService() && !prev.isProcessed()) {
-                                processStreetPrev(prev);
-
-                                if (address.getStreet().isEmpty()) {//если таки не нашли улицу, то присваиваю только первое предыдущее слово
-                                    item.setProcessed(true);
-                                    prev.setProcessed(true);
-                                    prev.setTypeValue(AddressParserItemTypeValue.street);
-
-                                    address.setStreetType(item.getTypeValue2());
-                                    address.setStreet(prev.getText());
-                                } else {
-                                    address.setStreetType(item.getTypeValue2());
-                                    item.setProcessed(true);
-                                }
-                            }
-                        }
-                }
-
-                //поиск дома
-                if (AddressParserItemTypeValue.house.equals(item.getTypeValue())) {
-                    if (parserItems.size() > item.getNumber()) {
-                        next = parserItems.get(item.getNumber());
-                        if (!next.isService()) {
-                            item.setProcessed(true);
-                            next.setProcessed(true);
-                            next.setTypeValue(AddressParserItemTypeValue.house);
-
-                            address.setHouse(next.getText());
-                        }
-                    }
-                }
-
-                String build = "";
-                //поиск корпуса
-                if (AddressParserItemTypeValue.build.equals(item.getTypeValue())) {
-                    if (parserItems.size() > item.getNumber()) {
-                        next = parserItems.get(item.getNumber());
-                        if (!next.isService()) {
-                            build = clearDraft(next.getText());
-
-                            item.setProcessed(true);
-                            next.setProcessed(true);
-                            next.setTypeValue(AddressParserItemTypeValue.build);
-
-                            if (!build.isEmpty()) {
-                                address.setBuilding(next.getText());
-                            }
-                        }
-                    }
-                }
-
-                //поиск квартиры
-                if (AddressParserItemTypeValue.flat.equals(item.getTypeValue())) {
-                    if (parserItems.size() > item.getNumber()) {
-                        next = parserItems.get(item.getNumber());
-                        if (!next.isService()) {
-                            item.setProcessed(true);
-                            next.setProcessed(true);
-                            next.setTypeValue(AddressParserItemTypeValue.flat);
-
-                            address.setFlat(next.getText());
-                        }
-                    }
-                }
-            }
-        }
-
-        //область и район
-        for (AddressParserItem item : parserItems) {
-            if (!item.isService() && !item.isProcessed()) {
-                if (AddressParserHelper.regions.contains(item.getText().toLowerCase())) {
-                    if (address.getRegion().isEmpty()) {
-                        address.setRegion(item.getText());
-                        item.setProcessed(true);
-                        item.setTypeValue(AddressParserItemTypeValue.region);
-                    }
-
-                    continue;
-                }
-
-                if (AddressParserHelper.districts.contains(item.getText().toLowerCase())) {
-                    if (address.getDistrict().isEmpty()) {
-                        address.setDistrict(item.getText());
-                        item.setProcessed(true);
-                        item.setTypeValue(AddressParserItemTypeValue.district);
-                    }
-
-                    continue;
-                }
-            }
-        }
-
-        boolean isBelarus = false;
-        AddressParserItem itemBelarus = null;
-
-        for (AddressParserItem item : parserItems) {
-            if (!item.isService() && !item.isProcessed()) {
-                //сначала поищу все н.п., кроме Беларусь
-                //потому что это может быть и н.п. и страна
-                if (!"Беларусь".equalsIgnoreCase(item.getText())) {
-                    if (address.getCity().isEmpty()) {
-                        processCityResult = processCityNext(item);
-                        if (processCityResult.isFind()) {
-                            address.setCityType(processCityResult.getCityType());
-                            address.setCity(processCityResult.getCity());
-                            processCityResult.processAllItems(AddressParserItemTypeValue.city);
-                        }
-                    }
-                } else {
-                    isBelarus = true;
-                    itemBelarus = item;
-                }
-
-                if ("РБ".equalsIgnoreCase(item.getText())) {
-                    address.setCountry("Беларусь");
-                    item.setProcessed(true);
-                    item.setTypeValue(AddressParserItemTypeValue.country);
-                }
-            }
-        }
-
-        //а теперь, если город все еще пуст и было указано Беларусь, то считаю, что это н.п.
-        if (isBelarus) {
-            if (address.getCity().isEmpty()) {
-                processCityWithGEOResult = processCityWithGEO(itemBelarus.getText());
-                if (processCityWithGEOResult.isFind()) {
-                    address.setCity(processCityWithGEOResult.getCity());
-                    address.setCityType(processCityWithGEOResult.getCityType());
-                } else {
-                    address.setCity(itemBelarus.getText());
-                }
-            } else {
-                if (address.getCountry().isEmpty()) {
-                    address.setCountry(itemBelarus.getText().trim());
-                    itemBelarus.setTypeValue(AddressParserItemTypeValue.country);
-                }
-            }
-
-            itemBelarus.setProcessed(true);
-        }
-
-
-        //пытаюсь найти улицы
-        for (AddressParserItem item : parserItems) {
-            if (!item.isService() && !item.isProcessed()) {
-                if (address.getStreet().isEmpty()) {
-                    processStreetNext(item, false);
-                }
-            }
-        }
-
-        ArrayList<AddressParserItem> items = new ArrayList<AddressParserItem>();
-        //пытаюсь найти дом, корпус и квартиру
-        for (AddressParserItem item : parserItems) {
-            if (!item.isService() && !item.isProcessed() && item.isBeginWithNumber()) {
-                items.add(item);
-            }
-        }
-
-        for (AddressParserItem item : items) {
-            prev = getPrevProcessedItem(item);
-            if (prev != null) {
-                if (prev.getTypeValue() == AddressParserItemTypeValue.street
-                        || (prev.getTypeValue() == AddressParserItemTypeValue.city && !isContainValueType(AddressParserItemTypeValue.street))) {
-                    item.setProcessed(true);
-                    item.setTypeValue(AddressParserItemTypeValue.house);
-
-                    address.setHouse(item.getText());
-                }
-
-                if (prev.getTypeValue() == AddressParserItemTypeValue.house) {
-                    if (items.size() == items.indexOf(item) + 1) {
-                        item.setTypeValue(AddressParserItemTypeValue.flat);
-                        address.setFlat(item.getText());
-                    } else {
-                        item.setTypeValue(AddressParserItemTypeValue.build);
-                        address.setBuilding(item.getText());
-                    }
-
-                    item.setProcessed(true);
-                }
-
-                if (prev.getTypeValue() == AddressParserItemTypeValue.build) {
-                    item.setProcessed(true);
-                    item.setTypeValue(AddressParserItemTypeValue.flat);
-
-                    address.setFlat(item.getText());
-                }
-            }
-        }
-
-        String build = "";
-        //пробую обработать корпуса
-        for (AddressParserItem item : parserItems) {
-            if (!item.isService() && !item.isProcessed()) {
-                prev = getPrevProcessedItem(item);
-                if (prev != null) {
-                    if (prev.getTypeValue() == AddressParserItemTypeValue.house) {
-                        build = clearDraft(item.getText());
-
-                        if (!build.isEmpty()) {
-                            item.setTypeValue(AddressParserItemTypeValue.build);
-
-                            if (address.getBuilding().isEmpty()) {
-                                address.setBuilding(item.getText());
-                            }
-                        }
-
-                        item.setProcessed(true);
-                    }
-                }
-            }
-        }
-
-        String city = "";
-        String street = "";
-
-        //пытаюсь разобрать оставшиеся слова (только в разрезе Н.П. и улицы)
-        for (AddressParserItem item : parserItems) {
-            if (!item.isService() && !item.isProcessed()) {
-                prev = getPrevItem(item);
-                if (prev != null && !prev.isService()) {
-                    if (prev.getTypeValue() == AddressParserItemTypeValue.city) {
-                        city = prev.getText() + " " + item.getText();
-
-                        processCityWithGEOResult = processCityWithGEO(city);
-                        if (processCityWithGEOResult.isFind()) {
-                            item.setProcessed(true);
-                            item.setTypeValue(prev.getTypeValue());
-
-                            address.setCity(city);
-                        }
-                    }
-
-                    if (prev.getTypeValue() == AddressParserItemTypeValue.street) {
-                        street = prev.getText() + " " + item.getText();
-                        street = processStreetWithGEO(street);
-                        if (street != null) {
-                            item.setProcessed(true);
-                            item.setTypeValue(prev.getTypeValue());
-
-                            address.setStreet(street);
-                        }
-                    }
-                }
-
-                if (!item.isProcessed()) {//если все еще не разобран, то беру следующие за ним слова
-                    next = getNextItem(item);
-                    if (next != null && !next.isService()) {
-                        if (next.getTypeValue() == AddressParserItemTypeValue.city) {
-                            processCityResult = processCityNext(item);
-                            if (processCityResult.isFind()) {
-                                address.setCity(processCityResult.getCity());
-                                address.setCityType(processCityResult.getCityType());
-                                processCityResult.processAllItems(AddressParserItemTypeValue.city);
-                            }
-                        }
-                        if (next.getTypeValue() == AddressParserItemTypeValue.street) {
-                            processStreetNext(item, true);
-                        }
-                    }
-                }
-            }
-        }
 
         //проверяю, все ли обработано
         //это нужно сделать ТОЛЬКО В САМОМ КОНЦЕ,
@@ -535,7 +124,7 @@ public class AddressParser {
         if (isProcessedFullNotService && !isProcessedFull) {
             for (AddressParserItem item : parserItems) {
                 if (item.isService() && !item.isProcessed()) {
-                    item.setProcessed(true);
+                    item.setProcessed(true, AddressParserOperation.PROCESS_OPERATION_CLOSE_NOT_USED_SERVICE_9);
                     item.setProcessedWithoutValue(true);
                 }
             }
@@ -558,25 +147,52 @@ public class AddressParser {
     private void processExclusion() {
         ArrayList<AliasValue> aliasValues = new ArrayList<AliasValue>();
 
+        aliasValues.add(new AliasValue("г. н.п.", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("п.г.т.", "пгт."));  //поселок городского типа
         aliasValues.add(new AliasValue("н.п.", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("н.н.", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("н.а.", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("н. п.", "нп."));     //населенный пункт
         aliasValues.add(new AliasValue("Н.П.", "нп."));     //населенный пункт
         aliasValues.add(new AliasValue("н.п,", "нп.,"));     //населенный пункт
-        aliasValues.add(new AliasValue(" н,п.", "нп.,"));     //населенный пункт
-        aliasValues.add(new AliasValue("н\\п", "нп.,"));     //населенный пункт
-        aliasValues.add(new AliasValue("н/п", "нп.,"));     //населенный пункт
-        aliasValues.add(new AliasValue("н.п ", "нп.,"));     //населенный пункт
+        aliasValues.add(new AliasValue(" н,п.", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("н\\п", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("н/п", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("н.п ", "нп."));     //населенный пункт
         aliasValues.add(new AliasValue("г.п.", "гп."));     //городской поселок
-        aliasValues.add(new AliasValue("п.г.т.", "пгт."));  //поселок городского типа
+        aliasValues.add(new AliasValue("Г.П.", "гп."));     //городской поселок
         aliasValues.add(new AliasValue("к.п.", "кп."));     //курортный поселок
         aliasValues.add(new AliasValue("Б-р", "б-р"));
         aliasValues.add(new AliasValue("Ул.", "ул."));
+        aliasValues.add(new AliasValue("ПГТ", "пгт"));
         aliasValues.add(new AliasValue("ПР-т", "пр-т"));
-        aliasValues.add(new AliasValue("Микрорайон", "микрорайон"));
+        aliasValues.add(new AliasValue("М-Н", "м-н"));
         aliasValues.add(new AliasValue("1ый", "1-ый"));
         aliasValues.add(new AliasValue("а.г.", "аг."));
-        aliasValues.add(new AliasValue("ПГТ", "пгт"));
         aliasValues.add(new AliasValue("в.ч.", "вч."));
+        aliasValues.add(new AliasValue(" д.д.", " д. "));
+        aliasValues.add(new AliasValue(" д.д ", " д. "));
+        aliasValues.add(new AliasValue("ПЕР.", "пер."));
+
         aliasValues.add(new AliasValue("УЛИЦА", "улица"));
+        aliasValues.add(new AliasValue("Школа-интернат", "школа-интернат"));
+        aliasValues.add(new AliasValue("Проспект", "проспект"));
+        aliasValues.add(new AliasValue("Область", "область"));
+        aliasValues.add(new AliasValue("Бульвар", "бульвар"));
+        aliasValues.add(new AliasValue("Пер.", "пер."));
+        aliasValues.add(new AliasValue("дом д.", "д."));
+        aliasValues.add(new AliasValue("газ.", "газеты"));
+        aliasValues.add(new AliasValue("аг.гор.", "агрогородок "));
+        aliasValues.add(new AliasValue("Республика Беларусь", "Беларусь"));
+        aliasValues.add(new AliasValue("республика беларусь", "Беларусь"));
+        aliasValues.add(new AliasValue("республика Беларусь", "Беларусь"));
+        aliasValues.add(new AliasValue(" Гостиниц ", " Гостинец "));
+        aliasValues.add(new AliasValue("Держинский", "Дзержинский"));
+        aliasValues.add(new AliasValue("Молодеченский", "Молодечненский"));
+        aliasValues.add(new AliasValue("Сморгоньский", "Сморгонский"));
+        aliasValues.add(new AliasValue("Мозырьский", "Мозырский"));
+        aliasValues.add(new AliasValue("Речецкий", "Речицкий"));
+        aliasValues.add(new AliasValue("Волковыский", "Волковысский"));
 
         aliasValues.add(new AliasValue("улица неизвестна,", ""));
         aliasValues.add(new AliasValue("улицы нет,", ""));
@@ -585,7 +201,10 @@ public class AddressParser {
         aliasValues.add(new AliasValue("неизвестна,", ""));
         aliasValues.add(new AliasValue("неизвестно,", ""));
         aliasValues.add(new AliasValue("Не известна", ""));
+        aliasValues.add(new AliasValue("Неизвестна,", ""));
+        aliasValues.add(new AliasValue("НЕ ИЗВЕСТНА", ""));
         aliasValues.add(new AliasValue("не известна", ""));
+        aliasValues.add(new AliasValue("не извесна", ""));
         aliasValues.add(new AliasValue("не  известна", ""));
         aliasValues.add(new AliasValue("г. Не известно", ""));
         aliasValues.add(new AliasValue("Не известно", ""));
@@ -595,6 +214,8 @@ public class AddressParser {
         aliasValues.add(new AliasValue("не указано", ""));
         aliasValues.add(new AliasValue("не указан", ""));
         aliasValues.add(new AliasValue("не указаны", ""));
+        aliasValues.add(new AliasValue("без улицы", ""));
+        aliasValues.add(new AliasValue("нет улицы", ""));
         aliasValues.add(new AliasValue("xxx", ""));
         aliasValues.add(new AliasValue(" нет,", ""));
         aliasValues.add(new AliasValue("корп. .,", ""));
@@ -602,12 +223,23 @@ public class AddressParser {
         aliasValues.add(new AliasValue("корп..,", ""));
         aliasValues.add(new AliasValue("корп.,", ""));
         aliasValues.add(new AliasValue("(частный дом)", ""));
+        aliasValues.add(new AliasValue("(частный)", ""));
+        aliasValues.add(new AliasValue("(част.)", ""));
         aliasValues.add(new AliasValue("частный дом", ""));
         aliasValues.add(new AliasValue("част дом", ""));
         aliasValues.add(new AliasValue("част.дом", ""));
         aliasValues.add(new AliasValue("част. дом", ""));
         aliasValues.add(new AliasValue(" -,", ""));
         aliasValues.add(new AliasValue(" нету,", ""));
+        aliasValues.add(new AliasValue(" ,", ","));
+        aliasValues.add(new AliasValue(".,", ","));
+        aliasValues.add(new AliasValue("\"", ""));
+        aliasValues.add(new AliasValue("70лет", "70 лет"));
+        aliasValues.add(new AliasValue("60лет", "60 лет"));
+        aliasValues.add(new AliasValue("50лет", "50 лет"));
+        aliasValues.add(new AliasValue("40лет", "40 лет"));
+        aliasValues.add(new AliasValue("30лет", "30 лет"));
+        aliasValues.add(new AliasValue("20лет", "20 лет"));
 
         for (AliasValue aliasValue : aliasValues)
             if (realStrExclusion.toLowerCase().indexOf(aliasValue.getAlias().toLowerCase()) > -1) {
@@ -627,14 +259,66 @@ public class AddressParser {
     }
 
     private void setTypeAndTypeValue(AddressParserItem addressParserItem) {
-        for (AliasValueType aliasValue : AddressParserHelper.aliasValues)
+        AddressParserItem next;
+        AliasValueType aliasValueType = new AliasValueType("", AddressParserItemTypeValue.UNKNOW, "");
+        boolean isAliasValueType;
+
+        for (AliasValueType aliasValue : AddressParserHelper.aliasValues) {
+            isAliasValueType = false;
+
             if (addressParserItem.getText().equalsIgnoreCase(aliasValue.getAlias()) && !Character.isUpperCase(addressParserItem.getText().charAt(0))) {
-                addressParserItem.setType(AddressParserItemType.service);
-                addressParserItem.setTypeValue(aliasValue.getTypeValue());
-                addressParserItem.setTypeValue2(aliasValue.getTypeValue2());
+
+                if (aliasValue.getTypeValue() == AddressParserItemTypeValue.UNKNOW) {
+                    //дом
+                    if ("д".equalsIgnoreCase(addressParserItem.getText())) {
+                        next = getNextItem(addressParserItem);
+                        if (next != null) {
+                            if (next.isBeginWithNumber()) {
+                                aliasValueType.setTypeValue(AddressParserItemTypeValue.house);
+                                aliasValueType.setTypeValue2("дом");
+                            } else {
+                                aliasValueType.setTypeValue(AddressParserItemTypeValue.city);
+                                aliasValueType.setTypeValue2("д");
+                            }
+
+                            isAliasValueType = true;
+                        }
+                    }
+
+                    //квартира
+                    if ("кв".equalsIgnoreCase(addressParserItem.getText())) {
+                        next = getNextItem(addressParserItem);
+                        if (next != null) {
+                            if (next.isBeginWithNumber()) {
+                                aliasValueType.setTypeValue(AddressParserItemTypeValue.flat);
+                                aliasValueType.setTypeValue2("квартира");
+                            } else {
+                                aliasValueType.setTypeValue(AddressParserItemTypeValue.street);
+                                aliasValueType.setTypeValue2("квартал");
+                            }
+
+                            isAliasValueType = true;
+                        }
+                    }
+                }
+
+                if (isAliasValueType) {
+                    if (!isContainValueType(aliasValueType.getTypeValue())) {
+                        addressParserItem.setType(AddressParserItemType.service);
+                        addressParserItem.setTypeValue(aliasValueType.getTypeValue());
+                        addressParserItem.setTypeValue2(aliasValueType.getTypeValue2());
+                    }
+                } else {
+                    if (!isContainValueType(aliasValue.getTypeValue())) {
+                        addressParserItem.setType(AddressParserItemType.service);
+                        addressParserItem.setTypeValue(aliasValue.getTypeValue());
+                        addressParserItem.setTypeValue2(aliasValue.getTypeValue2());
+                    }
+                }
 
                 break;
             }
+        }
     }
 
     private void setCharAfter(AddressParserItem addressParserItem, int start) {
@@ -801,7 +485,8 @@ public class AddressParser {
         return result;
     }
 
-    private String processStreetWithGEO(String streetTitle) {
+    private AddressProcessStreetWithGEOResult processStreetWithGEO(String streetTitle) {
+        AddressProcessStreetWithGEOResult result = new AddressProcessStreetWithGEOResult();
         ViewEntry ve = null;
         Document note = null;
 
@@ -810,9 +495,8 @@ public class AddressParser {
 
             if (ve != null) {
                 note = ve.getDocument();
-                return note.getItemValueString("title");
-            } else {
-                return null;
+                result.setFind(true);
+                result.setStreet(note.getItemValueString("title"));
             }
 
         } catch (Exception e) {
@@ -830,176 +514,77 @@ public class AddressParser {
             }
         }
 
-        return null;
+        return result;
     }
 
-    private void processStreetNext(AddressParserItem item, boolean isStartWithNext) {
-        AddressParserItem item2 = null;
-        AddressParserItem item3 = null;
-        AddressParserItem item4 = null;
+    private AddressProcessStreetResult processStreetNext(AddressParserItem item) {
+        AddressProcessStreetWithGEOResult resultGEO;
+        AddressProcessStreetResult result = new AddressProcessStreetResult();
+        AddressParserItem next;
         String street = "";
 
-        if (item.isBeginWithNumber()) {
-            street = replaceStreetSuffix(item.getText());
-        } else {
-            street = item.getText();
+        street = replaceStreetSuffix(item.getText());
+        resultGEO = processStreetWithGEO(street);
+        if (resultGEO.isFind()) {
+            result.setFind(true);
+            result.setStreet(resultGEO.getStreet());
         }
-        //todo: если начинается на цифру, то нужно поискать дальше на совпадение
-        String st = processStreetWithGEO(street);
-        if (!item.isBeginWithNumber() && item.getText().length() > 1 && st != null && !isStartWithNext) {
-            address.setStreet(st);
-            item.setProcessed(true);
-            item.setTypeValue(AddressParserItemTypeValue.street);
-        } else {
-            if (parserItems.size() > item.getNumber() && !",".equals(item.getCharAfter())) {
-                item2 = parserItems.get(item.getNumber());  //второе
-                if (!item2.isService()) {
-                    street = street + " " + item2.getText();
-                    st = processStreetWithGEO(street);
-                    if (st != null) {
-                        address.setStreet(st);
-                        item.setProcessed(true);
-                        item2.setProcessed(true);
+        result.getItems().add(item);
 
-                        item.setTypeValue(AddressParserItemTypeValue.street);
-                        item2.setTypeValue(AddressParserItemTypeValue.street);
-                    } else {
-                        if (parserItems.size() > item2.getNumber() && !",".equals(item2.getCharAfter())) {
-                            item3 = parserItems.get(item2.getNumber()); //третье
-                            if (!item3.isService()) {
-                                street = street + " " + item3.getText();
-
-                                st = processStreetWithGEO(street);
-                                if (st != null) {
-                                    address.setStreet(st);
-                                    item.setProcessed(true);
-                                    item2.setProcessed(true);
-                                    item3.setProcessed(true);
-
-                                    item.setTypeValue(AddressParserItemTypeValue.street);
-                                    item2.setTypeValue(AddressParserItemTypeValue.street);
-                                    item3.setTypeValue(AddressParserItemTypeValue.street);
-                                } else {
-                                    if (parserItems.size() > item3.getNumber() && !",".equals(item3.getCharAfter())) {
-                                        item4 = parserItems.get(item3.getNumber()); //четвертое
-                                        if (!item4.isService()) {
-                                            street = street + " " + item4.getText();
-                                            st = processStreetWithGEO(street);
-                                            if (st != null) {
-                                                address.setStreet(st);
-                                                item.setProcessed(true);
-                                                item2.setProcessed(true);
-                                                item3.setProcessed(true);
-                                                item4.setProcessed(true);
-
-                                                item.setTypeValue(AddressParserItemTypeValue.street);
-                                                item2.setTypeValue(AddressParserItemTypeValue.street);
-                                                item3.setTypeValue(AddressParserItemTypeValue.street);
-                                                item4.setTypeValue(AddressParserItemTypeValue.street);
-                                            } else {
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+        if (!",".equals(item.getCharAfter())) {
+            next = getNextItem(item);
+            while (next != null && !next.isService() && !next.isProcessed()) {
+                street = street + " " + replaceStreetSuffix(next.getText());
+                resultGEO = processStreetWithGEO(street);
+                if (resultGEO.isFind()) {
+                    result.setFind(true);
+                    result.setStreet(resultGEO.getStreet());
+                } else {
+                    result.setFind(false);
                 }
+                result.getItems().add(next);
+
+                if (",".equals(next.getCharAfter())) {
+                    break;
+                }
+                next = getNextItem(next);
             }
         }
+
+        return result;
     }
 
-    private void processStreetPrev(AddressParserItem item) {
-        AddressParserItem item2 = null;
-        AddressParserItem item3 = null;
-        AddressParserItem item4 = null;
+    private AddressProcessStreetResult processStreetPrev(AddressParserItem item) {
+        AddressProcessStreetWithGEOResult resultGEO;
+        AddressProcessStreetResult result = new AddressProcessStreetResult();
+        AddressParserItem prev;
         String street = "";
 
-        if (item.isBeginWithNumber()) {
-            street = replaceStreetSuffix(item.getText());
-        } else {
-            street = item.getText();
+        street = replaceStreetSuffix(item.getText());
+        resultGEO = processStreetWithGEO(street);
+        if (resultGEO.isFind()) {
+            result.setFind(true);
+            result.setStreet(resultGEO.getStreet());
         }
-        //todo: если начинается на цифру, то нужно поискать дальше на совпадение
-        String st = processStreetWithGEO(street);
-        if (st != null && street.length() > 1) {
-            address.setStreet(st);
-            item.setProcessed(true);
+        result.getItems().add(item);
 
-            item.setTypeValue(AddressParserItemTypeValue.street);
-        } else {
-            if (item.getNumber() > 1) {
-                item2 = parserItems.get(item.getNumber() - 2);
-                if (!item2.isService() && !",".equals(item2.getCharAfter())) {
-                    if (item2.isBeginWithNumber()) {
-                        street = replaceStreetSuffix(item2.getText()) + " " + street;
-                    } else {
-                        street = item2.getText() + " " + street;
-                    }
+        prev = getPrevItem(item);
+        while (prev != null && !",".equals(prev.getCharAfter()) && !prev.isService() && !prev.isProcessed()) {
 
-                    st = processStreetWithGEO(street);
-                    if (st != null) {
-                        address.setStreet(st);
-                        item.setProcessed(true);
-                        item2.setProcessed(true);
-
-                        item.setTypeValue(AddressParserItemTypeValue.street);
-                        item2.setTypeValue(AddressParserItemTypeValue.street);
-                    } else {
-                        if (item2.getNumber() > 1) {
-                            item3 = parserItems.get(item2.getNumber() - 2);
-                            if (!item3.isService() && !",".equals(item3.getCharAfter())) {
-                                if (item3.isBeginWithNumber()) {
-                                    street = replaceStreetSuffix(item3.getText()) + " " + street;
-                                } else {
-                                    street = item3.getText() + " " + street;
-                                }
-
-                                st = processStreetWithGEO(street);
-                                if (st != null) {
-                                    address.setStreet(st);
-                                    item.setProcessed(true);
-                                    item2.setProcessed(true);
-                                    item3.setProcessed(true);
-
-                                    item.setTypeValue(AddressParserItemTypeValue.street);
-                                    item2.setTypeValue(AddressParserItemTypeValue.street);
-                                    item3.setTypeValue(AddressParserItemTypeValue.street);
-                                } else {
-                                    if (item3.getNumber() > 1) {
-                                        item4 = parserItems.get(item2.getNumber() - 2);
-                                        if (!item4.isService() && !",".equals(item4.getCharAfter())) {
-                                            if (item4.isBeginWithNumber()) {
-                                                street = replaceStreetSuffix(item4.getText()) + " " + street;
-                                            } else {
-                                                street = item4.getText() + " " + street;
-                                            }
-
-                                            st = processStreetWithGEO(street);
-                                            if (st != null) {
-                                                address.setStreet(st);
-                                                item.setProcessed(true);
-                                                item2.setProcessed(true);
-                                                item3.setProcessed(true);
-                                                item4.setProcessed(true);
-
-                                                item.setTypeValue(AddressParserItemTypeValue.street);
-                                                item2.setTypeValue(AddressParserItemTypeValue.street);
-                                                item3.setTypeValue(AddressParserItemTypeValue.street);
-                                                item4.setTypeValue(AddressParserItemTypeValue.street);
-                                            } else {
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            street = replaceStreetSuffix(prev.getText()) + " " + street;
+            resultGEO = processStreetWithGEO(street);
+            if (resultGEO.isFind()) {
+                result.setFind(true);
+                result.setStreet(resultGEO.getStreet());
+            } else {
+                result.setFind(false);
             }
+            result.getItems().add(prev);
+
+            prev = getPrevItem(prev);
         }
+
+        return result;
     }
 
     private String replaceStreetSuffix(String street) {
@@ -1032,10 +617,8 @@ public class AddressParser {
             result.setFind(true);
             result.setCity(resultGEO.getCity());
             result.setCityType(resultGEO.getCityType());
-            result.getItems().add(item);
-        } else {
-            result.getItems().add(item);
         }
+        result.getItems().add(item);
 
         if (!",".equals(item.getCharAfter())) {
             next = getNextItem(item);
@@ -1046,10 +629,10 @@ public class AddressParser {
                     result.setFind(true);
                     result.setCity(resultGEO.getCity());
                     result.setCityType(resultGEO.getCityType());
-                    result.getItems().add(next);
                 } else {
-                    result.getItems().add(item);
+                    result.setFind(false);
                 }
+                result.getItems().add(next);
 
 
                 if (",".equals(next.getCharAfter())) {
@@ -1074,11 +657,11 @@ public class AddressParser {
             result.setFind(true);
             result.setCity(resultGEO.getCity());
             result.setCityType(resultGEO.getCityType());
-            result.getItems().add(item);
         }
+        result.getItems().add(item);
 
         prev = getPrevItem(item);
-        while (prev != null && !",".equals(prev.getCharAfter())) {
+        while (prev != null && !",".equals(prev.getCharAfter()) && !prev.isService() && !prev.isProcessed()) {
 
             city = prev.getText() + " " + city;
             resultGEO = processCityWithGEO(city);
@@ -1086,8 +669,10 @@ public class AddressParser {
                 result.setFind(true);
                 result.setCity(resultGEO.getCity());
                 result.setCityType(resultGEO.getCityType());
-                result.getItems().add(prev);
+            } else {
+                result.setFind(false);
             }
+            result.getItems().add(prev);
 
             prev = getPrevItem(prev);
         }
@@ -1096,18 +681,81 @@ public class AddressParser {
     }
 
     private AddressParserItem getPrevProcessedItem(AddressParserItem item) {
-        AddressParserItem prev = null;
+        AddressParserItem prev;
+        AddressParserItem returnItem = null;
 
-        if (item.getNumber() > 1) {
-            prev = parserItems.get(item.getNumber() - 2);
+        prev = getPrevItem(item);
+
+        while (prev != null) {
+
+            if (prev.isProcessed()) {
+                returnItem = prev;
+
+                break;
+            }
+
+            prev = getPrevItem(prev);
         }
 
+        return returnItem;
+    }
 
-        while (prev != null && !prev.isProcessed() && prev.getNumber() > 1) {
-            prev = parserItems.get(prev.getNumber() - 2);
+    private AddressParserItem getNextProcessedItem(AddressParserItem item) {
+        AddressParserItem next;
+        AddressParserItem returnItem = null;
+
+        next = getNextItem(item);
+
+        while (next != null) {
+
+            if (next.isProcessed()) {
+                returnItem = next;
+
+                break;
+            }
+
+            next = getNextItem(next);
         }
 
-        return prev;
+        return returnItem;
+    }
+
+    private AddressParserItem getPrevServiceItem(AddressParserItem item) {
+        AddressParserItem prev;
+        AddressParserItem returnItem = null;
+
+        prev = getPrevItem(item);
+        while (prev != null) {
+
+            if (prev.isService()) {
+                returnItem = prev;
+
+                break;
+            }
+
+            prev = getPrevItem(prev);
+        }
+
+        return returnItem;
+    }
+
+    private AddressParserItem getNextServiceItem(AddressParserItem item) {
+        AddressParserItem next;
+        AddressParserItem returnItem = null;
+
+        next = getNextItem(item);
+        while (next != null) {
+
+            if (next.isService()) {
+                returnItem = next;
+
+                break;
+            }
+
+            next = getNextItem(next);
+        }
+
+        return returnItem;
     }
 
     private AddressParserItem getPrevItem(AddressParserItem item) {
@@ -1154,5 +802,622 @@ public class AddressParser {
         }
 
         return false;
+    }
+
+    private void processServices() {
+        AddressProcessCityResult processCityResult;
+        AddressProcessStreetResult processStreetResult;
+        AddressProcessCityWithGEOResult processCityWithGEOResult;
+        AddressProcessStreetWithGEOResult processStreetWithGEOResult;
+
+        AddressParserItem next;
+        AddressParserItem prev;
+
+        //пробегусь по служебным типам с конца в начало
+        for (int j = parserItems.size() - 1; j > -1; j--) {
+            AddressParserItem item = parserItems.get(j);
+            if (item.isService()) {
+                //поиск области
+                if (AddressParserItemTypeValue.region.equals(item.getTypeValue())) {
+                    if (item.getNumber() > 1) {
+                        prev = parserItems.get(item.getNumber() - 2);
+                        if (!prev.isService())
+                            if (AddressParserHelper.regions.contains(prev.getText().toLowerCase())) {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_REGION_2);
+                                prev.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_REGION_2);
+                                prev.setTypeValue(item.getTypeValue());
+
+                                address.setRegion(prev.getText(), AddressParserOperation.PROCESS_SERVICES_REGION_2);
+                            } else {
+                                if (parserItems.size() > item.getNumber()) {
+                                    next = parserItems.get(item.getNumber());
+                                    if (!next.isService())
+                                        if (AddressParserHelper.regions.contains(next.getText().toLowerCase())) {
+                                            item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_REGION_2);
+                                            next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_REGION_2);
+                                            next.setTypeValue(item.getTypeValue());
+
+                                            address.setRegion(next.getText(), AddressParserOperation.PROCESS_SERVICES_REGION_2);
+                                        }
+                                }
+                            }
+                    }
+                }
+
+                //поиск района
+                if (AddressParserItemTypeValue.district.equals(item.getTypeValue())) {
+                    if (item.getNumber() > 1) {
+                        prev = parserItems.get(item.getNumber() - 2);
+                        if (!prev.isService())
+                            if (AddressParserHelper.districts.contains(prev.getText().toLowerCase())) {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_DISTRICT_2);
+                                prev.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_DISTRICT_2);
+                                prev.setTypeValue(item.getTypeValue());
+
+                                address.setDistrict(prev.getText(), AddressParserOperation.PROCESS_SERVICES_DISTRICT_2);
+                            } else {
+                                if (parserItems.size() > item.getNumber()) {
+                                    next = parserItems.get(item.getNumber());
+                                    if (!next.isService())
+                                        if (AddressParserHelper.districts.contains(next.getText().toLowerCase())) {
+                                            item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_DISTRICT_2);
+                                            next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_DISTRICT_2);
+                                            next.setTypeValue(item.getTypeValue());
+
+                                            address.setDistrict(next.getText(), AddressParserOperation.PROCESS_SERVICES_DISTRICT_2);
+                                        }
+                                }
+                            }
+                    }
+                }
+
+                //поиск города
+                if (AddressParserItemTypeValue.city.equals(item.getTypeValue())) {
+                    if (address.getCity().isEmpty()) {
+                        next = getNextItem(item);
+                        if (next != null && !next.isService() && !next.isProcessed() && !",".equalsIgnoreCase(item.getCharAfter())) {
+                            processCityResult = processCityNext(next);
+
+                            if (!processCityResult.isFind()) {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_CITY_NEXT_NOT_FOUND_2);
+                                next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_CITY_NEXT_NOT_FOUND_2);
+                                next.setTypeValue(item.getTypeValue());
+
+                                address.setCityType(item.getTypeValue2(), AddressParserOperation.PROCESS_SERVICES_CITY_NEXT_NOT_FOUND_2);
+                                address.setCity(next.getText(), AddressParserOperation.PROCESS_SERVICES_CITY_NEXT_NOT_FOUND_2);
+                            } else {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_CITY_NEXT_FOUND_2);
+
+                                address.setCityType(item.getTypeValue2().isEmpty() ? processCityResult.getCityType() : item.getTypeValue2(), AddressParserOperation.PROCESS_SERVICES_CITY_NEXT_FOUND_2);
+                                address.setCity(processCityResult.getCity(), AddressParserOperation.PROCESS_SERVICES_CITY_NEXT_FOUND_2);
+                                processCityResult.processAllItems(AddressParserOperation.PROCESS_SERVICES_CITY_NEXT_FOUND_2);
+                            }
+                        }
+                    }
+
+                    if (address.getCity().isEmpty()) {
+                        prev = getPrevItem(item);
+                        if (prev != null && !prev.isService() && !prev.isProcessed() && !",".equalsIgnoreCase(prev.getCharAfter())) {
+                            processCityResult = processCityPrev(prev);
+
+                            if (!processCityResult.isFind()) {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_CITY_PREV_NOT_FOUND_2);
+                                prev.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_CITY_PREV_NOT_FOUND_2);
+                                prev.setTypeValue(item.getTypeValue());
+
+                                address.setCityType(item.getTypeValue2(), AddressParserOperation.PROCESS_SERVICES_CITY_PREV_NOT_FOUND_2);
+                                address.setCity(prev.getText(), AddressParserOperation.PROCESS_SERVICES_CITY_PREV_NOT_FOUND_2);
+                            } else {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_CITY_PREV_FOUND_2);
+
+                                address.setCityType(item.getTypeValue2().isEmpty() ? processCityResult.getCityType() : item.getTypeValue2(), AddressParserOperation.PROCESS_SERVICES_CITY_PREV_FOUND_2);
+                                address.setCity(processCityResult.getCity(), AddressParserOperation.PROCESS_SERVICES_CITY_PREV_FOUND_2);
+                                processCityResult.processAllItems(AddressParserOperation.PROCESS_SERVICES_CITY_PREV_FOUND_2);
+                            }
+                        }
+                    }
+                }
+
+                //поиск улицы
+                if (AddressParserItemTypeValue.street.equals(item.getTypeValue())) {
+                    //ищу после служебного слова
+                    if (address.getStreet().isEmpty()) {
+                        next = getNextItem(item);
+                        if (next != null && !next.isService() && !next.isProcessed() && !",".equals(item.getCharAfter())) {
+                            processStreetResult = processStreetNext(next);
+
+                            if (!processStreetResult.isFind()) {//если таки не нашли улицу, то присваиваю только первое следующее слово
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_STREET_NEXT_NOT_FOUND_2);
+                                next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_STREET_NEXT_NOT_FOUND_2);
+                                next.setTypeValue(AddressParserItemTypeValue.street);
+
+                                address.setStreetType(item.getTypeValue2(), AddressParserOperation.PROCESS_SERVICES_STREET_NEXT_NOT_FOUND_2);
+                                address.setStreet(next.getText(), AddressParserOperation.PROCESS_SERVICES_STREET_NEXT_NOT_FOUND_2);
+                            } else {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_STREET_NEXT_FOUND_2);
+
+                                address.setStreetType(item.getTypeValue2(), AddressParserOperation.PROCESS_SERVICES_STREET_NEXT_FOUND_2);
+                                address.setStreet(processStreetResult.getStreet(), AddressParserOperation.PROCESS_SERVICES_STREET_NEXT_FOUND_2);
+                                processStreetResult.processAllItems(AddressParserOperation.PROCESS_SERVICES_STREET_NEXT_FOUND_2);
+                            }
+                        }
+                    }
+
+                    //ищу до служебного слова
+                    if (address.getStreet().isEmpty()) {
+                        prev = getPrevItem(item);
+                        if (prev != null && !prev.isService() && !prev.isProcessed() && !",".equalsIgnoreCase(prev.getCharAfter())) {
+                            processStreetResult = processStreetPrev(prev);
+
+                            if (!processStreetResult.isFind()) {//если таки не нашли улицу, то присваиваю только первое предыдущее слово
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_STREET_PREV_NOT_FOUND_2);
+                                prev.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_STREET_PREV_NOT_FOUND_2);
+                                prev.setTypeValue(AddressParserItemTypeValue.street);
+
+                                address.setStreetType(item.getTypeValue2(), AddressParserOperation.PROCESS_SERVICES_STREET_PREV_NOT_FOUND_2);
+                                address.setStreet(prev.getText(), AddressParserOperation.PROCESS_SERVICES_STREET_PREV_NOT_FOUND_2);
+                            } else {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_STREET_PREV_FOUND_2);
+
+                                address.setStreetType(item.getTypeValue2(), AddressParserOperation.PROCESS_SERVICES_STREET_PREV_FOUND_2);
+                                address.setStreet(processStreetResult.getStreet(), AddressParserOperation.PROCESS_SERVICES_STREET_PREV_FOUND_2);
+                                processStreetResult.processAllItems(AddressParserOperation.PROCESS_SERVICES_STREET_PREV_FOUND_2);
+                            }
+                        }
+                    }
+                }
+
+                //поиск дома
+                if (AddressParserItemTypeValue.house.equals(item.getTypeValue())) {
+                    if (parserItems.size() > item.getNumber()) {
+                        next = parserItems.get(item.getNumber());
+                        if (!next.isService()) {
+                            item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_HOUSE_FOUND_2);
+                            next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_HOUSE_FOUND_2);
+                            next.setTypeValue(AddressParserItemTypeValue.house);
+
+                            address.setHouse(next.getText(), AddressParserOperation.PROCESS_SERVICES_HOUSE_FOUND_2);
+                        }
+                    }
+                }
+
+                String build = "";
+                //поиск корпуса
+                if (AddressParserItemTypeValue.build.equals(item.getTypeValue())) {
+                    if (parserItems.size() > item.getNumber()) {
+                        next = parserItems.get(item.getNumber());
+                        if (!next.isService()) {
+                            build = clearDraft(next.getText());
+
+                            item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
+                            next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
+                            next.setTypeValue(AddressParserItemTypeValue.build);
+
+                            if (!build.isEmpty()) {
+                                address.setBuilding(next.getText(), AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
+                            }
+                        }
+                    }
+                }
+
+                //поиск квартиры
+                if (AddressParserItemTypeValue.flat.equals(item.getTypeValue())) {
+                    if (parserItems.size() > item.getNumber()) {
+                        next = parserItems.get(item.getNumber());
+                        if (!next.isService()) {
+                            item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_FLAT_FOUND_2);
+                            next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_FLAT_FOUND_2);
+                            next.setTypeValue(AddressParserItemTypeValue.flat);
+
+                            address.setFlat(next.getText(), AddressParserOperation.PROCESS_SERVICES_FLAT_FOUND_2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void processHouseBuildFlat() {
+        AddressParserItem next;
+        AddressParserItem prev;
+        ArrayList<AddressParserItem> items = new ArrayList<AddressParserItem>();
+        boolean isCanHouseBuildFlat;
+
+        //пытаюсь найти дом, корпус и квартиру
+        for (AddressParserItem item : parserItems) {
+            isCanHouseBuildFlat = true;
+
+            if (!item.isService() && !item.isProcessed() && item.isBeginWithNumber()) {
+
+                next = getNextProcessedItem(item);
+
+                if (next != null &&
+                        (
+                                next.getTypeValue() == AddressParserItemTypeValue.index ||
+                                        next.getTypeValue() == AddressParserItemTypeValue.country ||
+                                        next.getTypeValue() == AddressParserItemTypeValue.region ||
+                                        next.getTypeValue() == AddressParserItemTypeValue.district ||
+                                        next.getTypeValue() == AddressParserItemTypeValue.city ||
+                                        next.getTypeValue() == AddressParserItemTypeValue.street ||
+                                        next.getTypeValue() == AddressParserItemTypeValue.house
+                        )) {
+                    isCanHouseBuildFlat = false;
+                }
+
+                if (isCanHouseBuildFlat) {
+
+                    next = getNextServiceItem(item);
+
+                    if (next != null &&
+                            (
+                                    next.getTypeValue() == AddressParserItemTypeValue.index ||
+                                            next.getTypeValue() == AddressParserItemTypeValue.country ||
+                                            next.getTypeValue() == AddressParserItemTypeValue.region ||
+                                            next.getTypeValue() == AddressParserItemTypeValue.district ||
+                                            next.getTypeValue() == AddressParserItemTypeValue.city ||
+                                            next.getTypeValue() == AddressParserItemTypeValue.street ||
+                                            next.getTypeValue() == AddressParserItemTypeValue.house
+                            )) {
+                        isCanHouseBuildFlat = false;
+                    }
+                }
+
+                if (isCanHouseBuildFlat) {
+                    items.add(item);
+                }
+            }
+        }
+
+        for (AddressParserItem item : items) {
+            prev = getPrevProcessedItem(item);
+            if (prev != null) {
+                if (prev.getTypeValue() == AddressParserItemTypeValue.street
+                        || (prev.getTypeValue() == AddressParserItemTypeValue.city && !isContainValueType(AddressParserItemTypeValue.street))) {
+                    item.setProcessed(true, AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                    item.setTypeValue(AddressParserItemTypeValue.house);
+
+                    address.setHouse(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                }
+
+                if (prev.getTypeValue() == AddressParserItemTypeValue.house) {
+                    if (items.size() == items.indexOf(item) + 1) {
+                        item.setTypeValue(AddressParserItemTypeValue.flat);
+                        address.setFlat(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                    } else {
+                        item.setTypeValue(AddressParserItemTypeValue.build);
+                        address.setBuilding(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                    }
+
+                    item.setProcessed(true, AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                }
+
+                if (prev.getTypeValue() == AddressParserItemTypeValue.build) {
+                    item.setProcessed(true, AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                    item.setTypeValue(AddressParserItemTypeValue.flat);
+
+                    address.setFlat(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                }
+            }
+        }
+
+        String build = "";
+        //пробую обработать корпуса
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed()) {
+                prev = getPrevProcessedItem(item);
+                if (prev != null) {
+                    if (prev.getTypeValue() == AddressParserItemTypeValue.house) {
+                        build = clearDraft(item.getText());
+
+                        if (!build.isEmpty()) {
+                            item.setTypeValue(AddressParserItemTypeValue.build);
+
+                            if (address.getBuilding().isEmpty()) {
+                                address.setBuilding(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                            }
+                        }
+
+                        item.setProcessed(true, AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                    }
+                }
+            }
+        }
+    }
+
+    private void processRegionDistrict() {
+        AddressParserItem prev;
+
+        boolean isCanRegion;
+        boolean isCanDistrict;
+
+        //область и район
+        for (AddressParserItem item : parserItems) {
+            isCanRegion = true;
+            isCanDistrict = true;
+
+            if (!item.isService() && !item.isProcessed()) {
+                if (AddressParserHelper.regions.contains(item.getText().toLowerCase())) {
+                    if (address.getRegion().isEmpty()) {
+                        prev = getPrevProcessedItem(item);
+
+                        if (prev != null &&
+                                (
+                                        prev.getTypeValue() == AddressParserItemTypeValue.district ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.city ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.street ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.house ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.build ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.flat
+                                )) {
+                            isCanRegion = false;
+                        }
+
+                        if (isCanRegion) {
+                            address.setRegion(item.getText(), AddressParserOperation.PROCESS_REGION_DISTRICT_4);
+                            item.setProcessed(true, AddressParserOperation.PROCESS_REGION_DISTRICT_4);
+                            item.setTypeValue(AddressParserItemTypeValue.region);
+                        }
+                    }
+
+                    continue;
+                }
+
+                if (AddressParserHelper.districts.contains(item.getText().toLowerCase())) {
+                    if (address.getDistrict().isEmpty()) {
+                        prev = getPrevProcessedItem(item);
+
+                        if (prev != null &&
+                                (
+                                        prev.getTypeValue() == AddressParserItemTypeValue.city ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.street ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.house ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.build ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.flat
+                                )) {
+                            isCanDistrict = false;
+                        }
+
+                        if (isCanDistrict) {
+                            address.setDistrict(item.getText(), AddressParserOperation.PROCESS_REGION_DISTRICT_4);
+                            item.setProcessed(true, AddressParserOperation.PROCESS_REGION_DISTRICT_4);
+                            item.setTypeValue(AddressParserItemTypeValue.district);
+                        }
+                    }
+
+                    continue;
+                }
+            }
+        }
+    }
+
+    private void processCountry() {
+        AddressProcessCityResult processCityResult;
+        AddressProcessCityWithGEOResult processCityWithGEOResult;
+
+        boolean isBelarus = false;
+        AddressParserItem itemBelarus = null;
+
+        //сначала поищу все н.п., кроме Беларусь
+        //потому что это может быть и н.п. и страна
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed()) {
+                if (!"Беларусь".equalsIgnoreCase(item.getText())) {
+                    if (address.getCity().isEmpty()) {
+                        processCityResult = processCityNext(item);
+                        if (processCityResult.isFind()) {
+                            address.setCityType(processCityResult.getCityType(), AddressParserOperation.PROCESS_COUNTRY_NOT_3);
+                            address.setCity(processCityResult.getCity(), AddressParserOperation.PROCESS_COUNTRY_NOT_3);
+                            processCityResult.processAllItems(AddressParserOperation.PROCESS_COUNTRY_NOT_3);
+                        }
+                    }
+                } else {
+                    isBelarus = true;
+                    itemBelarus = item;
+                }
+
+                if ("РБ".equalsIgnoreCase(item.getText())) {
+                    address.setCountry("Беларусь", AddressParserOperation.PROCESS_COUNTRY_NOT_3);
+                    item.setProcessed(true, AddressParserOperation.PROCESS_COUNTRY_NOT_3);
+                    item.setTypeValue(AddressParserItemTypeValue.country);
+                }
+            }
+        }
+
+        //а теперь, если город все еще пуст и было указано Беларусь, то считаю, что это н.п.
+        if (isBelarus) {
+            if (address.getCity().isEmpty()) {
+                processCityWithGEOResult = processCityWithGEO(itemBelarus.getText());
+                if (processCityWithGEOResult.isFind()) {
+                    address.setCity(processCityWithGEOResult.getCity(), AddressParserOperation.PROCESS_COUNTRY_3);
+                    address.setCityType(processCityWithGEOResult.getCityType(), AddressParserOperation.PROCESS_COUNTRY_3);
+                } else {
+                    address.setCity(itemBelarus.getText(), AddressParserOperation.PROCESS_COUNTRY_3);
+                }
+            } else {
+                if (address.getCountry().isEmpty()) {
+                    address.setCountry(itemBelarus.getText().trim(), AddressParserOperation.PROCESS_COUNTRY_3);
+                    itemBelarus.setTypeValue(AddressParserItemTypeValue.country);
+                }
+            }
+
+            itemBelarus.setProcessed(true, AddressParserOperation.PROCESS_COUNTRY_3);
+        }
+    }
+
+    private void processStreetOnly() {
+        AddressParserItem next;
+        AddressParserItem prev;
+        AddressProcessStreetResult processStreetResult;
+
+        if (!address.getStreet().isEmpty()) {
+            return;
+        }
+
+        boolean isCanBeStreet;
+        //пытаюсь найти улицы
+        for (AddressParserItem item : parserItems) {
+            isCanBeStreet = true;
+            if (!item.isService() && !item.isProcessed()) {
+                if (address.getStreet().isEmpty()) {
+                    processStreetResult = processStreetNext(item);
+
+                    if (processStreetResult.isFind()) {
+                        next = getNextItem(item);
+                        if (next != null &&
+                                (
+                                        next.getTypeValue() == AddressParserItemTypeValue.index ||
+                                                next.getTypeValue() == AddressParserItemTypeValue.country ||
+                                                next.getTypeValue() == AddressParserItemTypeValue.region ||
+                                                next.getTypeValue() == AddressParserItemTypeValue.district ||
+                                                next.getTypeValue() == AddressParserItemTypeValue.city
+                                )
+                                ) {
+                            isCanBeStreet = false;
+                        }
+
+                        prev = getPrevItem(item);
+                        if (prev != null &&
+                                (
+                                        prev.getTypeValue() == AddressParserItemTypeValue.house ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.build ||
+                                                prev.getTypeValue() == AddressParserItemTypeValue.house
+                                )
+                                ) {
+                            isCanBeStreet = false;
+                        }
+
+                        if (isCanBeStreet) {
+                            address.setStreet(processStreetResult.getStreet(), AddressParserOperation.PROCESS_STREET_ONLY_6);
+                            processStreetResult.processAllItems(AddressParserOperation.PROCESS_STREET_ONLY_6);
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    private void transpositionStreetTypeAndPartOfStreet() {
+        //todo:переставить местами
+        AddressParserItem item4Transposition;
+        //пытаюсь найти улицы путем перестановки слов, начинающихся с цифры,
+        //которые находятся перед "," и после них служебное слово с типом = улица
+        //это нужно ОБЯЗАТЕЛЬНО ПЕРЕД последующим разбором улиц
+//        for (AddressParserItem item : parserItems) {
+//            if (!item.isService() && !item.isProcessed()) {
+//                prev = getPrevItem(item);
+//                next = getNextItem(item);
+//                if(prev != null && next != null && ",".equalsIgnoreCase(prev.getCharAfter()) && next.getTypeValue() == AddressParserItemTypeValue.street){
+//                    item4Transposition = item;
+//                    next = item;
+//                    item = item4Transposition;
+//                }
+//            }
+//        }
+    }
+
+    private void processRestWithCityAndStreet() {
+        AddressProcessCityResult processCityResult;
+        AddressProcessStreetResult processStreetResult;
+        AddressProcessCityWithGEOResult processCityWithGEOResult;
+        AddressProcessStreetWithGEOResult processStreetWithGEOResult;
+
+        AddressParserItem prev;
+        AddressParserItem next;
+
+        String city = "";
+        String street = "";
+
+        //пытаюсь разобрать оставшиеся слова (только в разрезе Н.П. и улицы)
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed()) {
+                prev = getPrevItem(item);
+                if (prev != null && !prev.isService()) {
+                    if (prev.getTypeValue() == AddressParserItemTypeValue.city) {
+                        if (address.getCity().isEmpty()) {
+                            city = prev.getText() + " " + item.getText();
+
+                            processCityWithGEOResult = processCityWithGEO(city);
+                            if (processCityWithGEOResult.isFind()) {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_REST_CITY_STREET_PREV_7);
+                                item.setTypeValue(prev.getTypeValue());
+
+                                address.setCity(city, AddressParserOperation.PROCESS_REST_CITY_STREET_PREV_7);
+                            }
+                        }
+                    }
+
+                    if (prev.getTypeValue() == AddressParserItemTypeValue.street) {
+                        if (address.getStreet().isEmpty()) {
+                            street = prev.getText() + " " + item.getText();
+                            processStreetWithGEOResult = processStreetWithGEO(street);
+                            if (processStreetWithGEOResult.isFind()) {
+                                item.setProcessed(true, AddressParserOperation.PROCESS_REST_CITY_STREET_PREV_7);
+                                item.setTypeValue(prev.getTypeValue());
+
+                                address.setStreet(processStreetWithGEOResult.getStreet(), AddressParserOperation.PROCESS_REST_CITY_STREET_PREV_7);
+                            }
+                        }
+                    }
+                }
+
+                if (!item.isProcessed()) {//если все еще не разобран, то беру следующие за ним слова
+                    next = getNextItem(item);
+                    if (next != null && !next.isService()) {
+                        if (next.getTypeValue() == AddressParserItemTypeValue.city) {
+                            if (address.getCity().isEmpty()) {
+                                processCityResult = processCityNext(item);
+                                if (processCityResult.isFind()) {
+                                    address.setCity(processCityResult.getCity(), AddressParserOperation.PROCESS_REST_CITY_STREET_NEXT_7);
+                                    address.setCityType(processCityResult.getCityType(), AddressParserOperation.PROCESS_REST_CITY_STREET_NEXT_7);
+                                    processCityResult.processAllItems(AddressParserOperation.PROCESS_REST_CITY_STREET_NEXT_7);
+                                }
+                            }
+                        }
+                        if (next.getTypeValue() == AddressParserItemTypeValue.street) {
+                            if (address.getStreet().isEmpty()) {
+                                processStreetResult = processStreetNext(item);
+                                if (processStreetResult.isFind()) {
+                                    address.setStreet(processStreetResult.getStreet(), AddressParserOperation.PROCESS_REST_CITY_STREET_NEXT_7);
+                                    processStreetResult.processAllItems(AddressParserOperation.PROCESS_REST_CITY_STREET_NEXT_7);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void processCityAndStreetWithPrevAndNext() {
+        AddressParserItem prev;
+        AddressParserItem next;
+
+        //пытаюсь найти улицы и города, учитывая предыдущие и следующие значения
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed()) {
+                if (address.getStreet().isEmpty()) {
+                    prev = getPrevItem(item);
+                    next = getNextItem(item);
+
+                    if (prev != null && next != null && prev.getTypeValue() == AddressParserItemTypeValue.city && next.getTypeValue() == AddressParserItemTypeValue.house) {
+                        address.setStreet(item.getText(), AddressParserOperation.PROCESS_CITY_STREET_WITH_PREV_AND_NEXT_8);
+                        item.setProcessed(true, AddressParserOperation.PROCESS_CITY_STREET_WITH_PREV_AND_NEXT_8);
+                        item.setTypeValue(AddressParserItemTypeValue.street);
+                    }
+                }
+
+                if (address.getCity().isEmpty()) {
+                    prev = getPrevItem(item);
+                    next = getNextItem(item);
+
+                    if (prev != null && next != null && prev.getTypeValue() == AddressParserItemTypeValue.district && next.getTypeValue() == AddressParserItemTypeValue.street) {
+                        address.setCity(item.getText(), AddressParserOperation.PROCESS_CITY_STREET_WITH_PREV_AND_NEXT_8);
+                        item.setProcessed(true, AddressParserOperation.PROCESS_CITY_STREET_WITH_PREV_AND_NEXT_8);
+                        item.setTypeValue(AddressParserItemTypeValue.city);
+                    }
+                }
+            }
+        }
     }
 }

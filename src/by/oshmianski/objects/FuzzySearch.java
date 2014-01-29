@@ -1,5 +1,6 @@
 package by.oshmianski.objects;
 
+import by.oshmianski.objects.addressParser.AddressParserOperation;
 import by.oshmianski.utils.MyLog;
 import lotus.domino.View;
 import lotus.domino.ViewEntry;
@@ -104,15 +105,15 @@ public class FuzzySearch {
                 cityWithType = processCityUnprocessed(cityUnprocessed);
                 streetWithType = processStreetUnprocessed(streetUnprocessed);
 
-                address.setIndex(addressArray[0].trim());
-                address.setRegion(addressArray[1].trim());
-                address.setDistrict(addressArray[2].trim());
-                address.setCity(cityWithType.getCity());
-                address.setCityType(cityWithType.getCityType());
-                address.setStreet(streetWithType.getStreet());
-                address.setStreetType(streetWithType.getStreetType());
-                address.setHouse(addressArray[5].trim().replaceAll("^\\.$", ""));
-                address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""));
+                address.setIndex(addressArray[0].trim(), AddressParserOperation.UNKNOWN);
+                address.setRegion(addressArray[1].trim(), AddressParserOperation.UNKNOWN);
+                address.setDistrict(addressArray[2].trim(), AddressParserOperation.UNKNOWN);
+                address.setCity(cityWithType.getCity(), AddressParserOperation.UNKNOWN);
+                address.setCityType(cityWithType.getCityType(), AddressParserOperation.UNKNOWN);
+                address.setStreet(streetWithType.getStreet(), AddressParserOperation.UNKNOWN);
+                address.setStreetType(streetWithType.getStreetType(), AddressParserOperation.UNKNOWN);
+                address.setHouse(addressArray[5].trim().replaceAll("^\\.$", ""), AddressParserOperation.UNKNOWN);
+                address.setFlat(addressArray[6].trim().replaceAll("^\\.$", ""), AddressParserOperation.UNKNOWN);
             }
         }
 
@@ -229,7 +230,7 @@ public class FuzzySearch {
             strTmp = str.trim().toLowerCase();
 
             if (strTmp.indexOf(country.toLowerCase()) > -1) {
-                address.setCountry(country);
+                address.setCountry(country, AddressParserOperation.UNKNOWN);
                 isCountry = true;
 
                 break;
@@ -242,7 +243,7 @@ public class FuzzySearch {
 
             for (String region : regions)
                 if (strTmp.indexOf(region.toLowerCase()) > -1) {
-                    address.setRegion(region);
+                    address.setRegion(region, AddressParserOperation.UNKNOWN);
                     isRegion = true;
 
                     break;
@@ -258,7 +259,7 @@ public class FuzzySearch {
             if (!strTmp.isEmpty())
                 for (String district : districts)
                     if (strTmp.indexOf(district.toLowerCase()) > -1) {
-                        address.setDistrict(district);
+                        address.setDistrict(district, AddressParserOperation.UNKNOWN);
                         isDistrict = true;
 
                         break;
@@ -319,7 +320,7 @@ public class FuzzySearch {
         if (matcher3.find())
 
         {
-            address.setIndex(matcher3.group());
+            address.setIndex(matcher3.group(), AddressParserOperation.UNKNOWN);
             addressStr.replace(matcher3.group(), "");
         }
 
@@ -329,7 +330,7 @@ public class FuzzySearch {
             String s = addressStr.substring(addressStr.lastIndexOf("н.п.") + 4);
             s = s.substring(0, s.indexOf("@"));
 
-            address.setCity(s.trim());
+            address.setCity(s.trim(), AddressParserOperation.UNKNOWN);
         } else {
             Pattern patternCity3 = Pattern.compile("(?<=(д\\.|дер\\.)\\s*)\\D.*");
             Matcher matcherCity3 = patternCity3.matcher(addressStr);
@@ -340,8 +341,8 @@ public class FuzzySearch {
                 if (val.contains(" "))
                     val = StringUtils.left(val, val.indexOf(" "));
                 val = val.replaceAll(",", "").trim();
-                address.setCity(val.trim());
-                address.setCityType("д");
+                address.setCity(val.trim(), AddressParserOperation.UNKNOWN);
+                address.setCityType("д", AddressParserOperation.UNKNOWN);
             }
 
             Pattern patternCity = Pattern.compile("(?<=(г\\.|гор\\.)\\s{0,}).*");
@@ -353,8 +354,8 @@ public class FuzzySearch {
                 if (val.contains(" "))
                     val = StringUtils.left(val, val.indexOf(" "));
                 val = val.replaceAll(",", "").trim();
-                address.setCity(val.trim());
-                address.setCityType("г");
+                address.setCity(val.trim(), AddressParserOperation.UNKNOWN);
+                address.setCityType("г", AddressParserOperation.UNKNOWN);
             }
 
 //            Pattern patternCity2 = Pattern.compile("(?<=(н\\.п\\.|нп\\.)\\s*).*");
@@ -374,8 +375,8 @@ public class FuzzySearch {
                     s = s.substring(0, s.indexOf(" "));
                 }
 
-                address.setCity(s.replace(",", ""));
-                address.setCityType("");
+                address.setCity(s.replace(",", ""), AddressParserOperation.UNKNOWN);
+                address.setCityType("", AddressParserOperation.UNKNOWN);
             }
         }
 
@@ -388,34 +389,34 @@ public class FuzzySearch {
             s = s.substring(0, s.length() - 2);
 
             if ("Т".equalsIgnoreCase(streetType)) {
-                address.setStreetType("тракт");
+                address.setStreetType("тракт", AddressParserOperation.UNKNOWN);
             }
             if ("С".equalsIgnoreCase(streetType)) {
-                address.setStreetType("улица");
+                address.setStreetType("улица", AddressParserOperation.UNKNOWN);
             }
             if ("П".equalsIgnoreCase(streetType)) {
-                address.setStreetType("проспект");
+                address.setStreetType("проспект", AddressParserOperation.UNKNOWN);
             }
             if ("М".equalsIgnoreCase(streetType)) {
-                address.setStreetType("микрорайон");
+                address.setStreetType("микрорайон", AddressParserOperation.UNKNOWN);
             }
             if ("Н".equalsIgnoreCase(streetType)) {
 //                address.setStreetType("улица");
             }
             if ("Р".equalsIgnoreCase(streetType)) {
-                address.setStreetType("переулок");
+                address.setStreetType("переулок", AddressParserOperation.UNKNOWN);
             }
             if ("Б".equalsIgnoreCase(streetType)) {
-                address.setStreetType("бульвар");
+                address.setStreetType("бульвар", AddressParserOperation.UNKNOWN);
             }
             if ("Ш".equalsIgnoreCase(streetType)) {
-                address.setStreetType("шоссе");
+                address.setStreetType("шоссе", AddressParserOperation.UNKNOWN);
             }
             if ("Д".equalsIgnoreCase(streetType)) {
-                address.setStreetType("проезд");
+                address.setStreetType("проезд", AddressParserOperation.UNKNOWN);
             }
 
-            address.setStreet(s.trim());
+            address.setStreet(s.trim(), AddressParserOperation.UNKNOWN);
         }
 
         val = "";
@@ -429,7 +430,7 @@ public class FuzzySearch {
             if (val.contains(" "))
                 val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
-            address.setHouse(val);
+            address.setHouse(val, AddressParserOperation.UNKNOWN);
         }
 
         val = "";
@@ -443,9 +444,9 @@ public class FuzzySearch {
             if (val.contains(" "))
                 val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
-            address.setBuilding(val);
+            address.setBuilding(val, AddressParserOperation.UNKNOWN);
         }
-        if (address.getBuilding().length() > 0) address.setHouse(address.getHouse() + "/" + address.getBuilding());
+        if (address.getBuilding().length() > 0) address.setHouse(address.getHouse() + "/" + address.getBuilding(), AddressParserOperation.UNKNOWN);
 
         val = "";
         //квартира
@@ -458,7 +459,7 @@ public class FuzzySearch {
             if (val.contains(" "))
                 val = StringUtils.left(val, val.indexOf(" "));
             val = val.replaceAll(",", "").trim();
-            address.setFlat(val);
+            address.setFlat(val, AddressParserOperation.UNKNOWN);
         }
 
         if (address.getCityType().isEmpty() && !address.getCity().isEmpty()) {
@@ -588,7 +589,7 @@ public class FuzzySearch {
             if (vec.getCount() == 1) {
                 ve = vec.getFirstEntry();
                 Vector vals = ve.getColumnValues();
-                address.setCityType(vals.elementAt(3).toString());
+                address.setCityType(vals.elementAt(3).toString(), AddressParserOperation.UNKNOWN);
 
                 return;
             }
@@ -602,7 +603,7 @@ public class FuzzySearch {
                 if (vec.getCount() == 1) {
                     ve = vec.getFirstEntry();
                     Vector vals = ve.getColumnValues();
-                    address.setCityType(vals.elementAt(3).toString());
+                    address.setCityType(vals.elementAt(3).toString(), AddressParserOperation.UNKNOWN);
 
                     return;
                 }
@@ -629,7 +630,7 @@ public class FuzzySearch {
                     }
 
                     if (equal) {
-                        address.setCityType(cityType);
+                        address.setCityType(cityType, AddressParserOperation.UNKNOWN);
                     }
                 }
             }

@@ -5,13 +5,12 @@ import java.util.ArrayList;
 /**
  * Created by vintselovich on 28.01.14.
  */
-public class AddressProcessCityResult {
+public class AddressProcessStreetResult {
     boolean find;
-    String city;
-    String cityType;
+    String street;
     ArrayList<AddressParserItem> items;
 
-    public AddressProcessCityResult() {
+    public AddressProcessStreetResult() {
         items = new ArrayList<AddressParserItem>();
     }
 
@@ -31,26 +30,18 @@ public class AddressProcessCityResult {
         this.items = items;
     }
 
-    public String getCity() {
-        return city;
+    public String getStreet() {
+        return street;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCityType() {
-        return cityType;
-    }
-
-    public void setCityType(String cityType) {
-        this.cityType = cityType;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public void processAllItems(AddressParserOperation operation){
         for(AddressParserItem item : items){
             item.setProcessed(true, operation);
-            item.setTypeValue(AddressParserItemTypeValue.city);
+            item.setTypeValue(AddressParserItemTypeValue.street);
         }
     }
 }
