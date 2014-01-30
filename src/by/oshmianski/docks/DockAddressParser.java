@@ -65,7 +65,7 @@ public class DockAddressParser extends DockSimple {
         this.dockingContainer = dockingContainer;
 
         table = new BetterJTable(null, true);
-        tableA = new BetterJTable(null);
+        tableA = new BetterJTable(null, true);
 
         realStr = new JLabel("");
         realStr.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));

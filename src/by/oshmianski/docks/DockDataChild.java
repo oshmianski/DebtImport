@@ -68,7 +68,7 @@ public class DockDataChild extends DockSimple {
 
         treeFormatCriterion = new DataChildItemTreeFormat(critetionList);
 
-        table = new BetterJTable(null);
+        table = new BetterJTable(null, true);
 
         JScrollPane sp;
 

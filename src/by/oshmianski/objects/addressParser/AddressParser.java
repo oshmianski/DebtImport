@@ -84,13 +84,14 @@ public class AddressParser {
             }
         }
 
+        transpositionStreetTypeAndPartOfStreet();
+
         processServices();
 
         processCountry();
 
         processRegionDistrict();
 
-        transpositionStreetTypeAndPartOfStreet();
 
         processHouseBuildFlat();
 
@@ -1298,22 +1299,63 @@ public class AddressParser {
     }
 
     private void transpositionStreetTypeAndPartOfStreet() {
-        //todo:переставить местами
-        AddressParserItem item4Transposition;
         //пытаюсь найти улицы путем перестановки слов, начинающихся с цифры,
         //которые находятся перед "," и после них служебное слово с типом = улица
         //это нужно ОБЯЗАТЕЛЬНО ПЕРЕД последующим разбором улиц
-//        for (AddressParserItem item : parserItems) {
-//            if (!item.isService() && !item.isProcessed()) {
-//                prev = getPrevItem(item);
-//                next = getNextItem(item);
-//                if(prev != null && next != null && ",".equalsIgnoreCase(prev.getCharAfter()) && next.getTypeValue() == AddressParserItemTypeValue.street){
-//                    item4Transposition = item;
-//                    next = item;
-//                    item = item4Transposition;
-//                }
-//            }
-//        }
+        //todo:переставить местами
+
+        AddressParserItem item4Transposition = new AddressParserItem(0, "");
+        AddressParserItem prev;
+        AddressParserItem next;
+
+        for (AddressParserItem item : parserItems) {
+            if (!item.isService() && !item.isProcessed() && item.isBeginWithNumber()) {
+                prev = getPrevItem(item);
+                next = getNextItem(item);
+                if(
+                        prev != null &&
+                                next != null &&
+                                ",".equalsIgnoreCase(prev.getCharAfter()) &&
+                                item.isBeginWithNumber() &&
+                                next.isService() &&
+                                next.getTypeValue() == AddressParserItemTypeValue.street){
+
+                    item4Transposition.setNumber(next.getNumber());
+                    item4Transposition.setIndex(next.isIndex());
+                    item4Transposition.setCharBefore(next.getCharBefore());
+                    item4Transposition.setCharAfter(next.getCharBefore());
+                    item4Transposition.setText(next.getText());
+                    item4Transposition.setType(next.getType());
+                    item4Transposition.setTypeValue(next.getTypeValue());
+                    item4Transposition.setTypeValue2(next.getTypeValue2());
+                    item4Transposition.setBeginWithNumber(next.isBeginWithNumber());
+                    item4Transposition.setProcessed(next.isProcessed());
+                    item4Transposition.setProcessedWithoutValue(next.isProcessedWithoutValue());
+                    item4Transposition.setOperation(next.getOperation());
+                    item4Transposition.setFoundInCategory(next.getFoundInCategory());
+
+                    next.setText(item.getText());
+                    next.setType(item.getType());
+                    next.setTypeValue(item.getTypeValue());
+                    next.setTypeValue2(item.getTypeValue2());
+                    next.setBeginWithNumber(item.isBeginWithNumber());
+                    next.setProcessed(item.isProcessed());
+                    next.setProcessedWithoutValue(item.isProcessedWithoutValue());
+                    next.setOperation(item.getOperation());
+                    next.setFoundInCategory(item.getFoundInCategory());
+
+                    item.setText(item4Transposition.getText());
+                    item.setType(item4Transposition.getType());
+                    item.setTypeValue(item4Transposition.getTypeValue());
+                    item.setTypeValue2(item4Transposition.getTypeValue2());
+                    item.setBeginWithNumber(item4Transposition.isBeginWithNumber());
+                    item.setProcessed(item4Transposition.isProcessed());
+                    item.setProcessedWithoutValue(item4Transposition.isProcessedWithoutValue());
+                    item.setOperation(item4Transposition.getOperation());
+                    item.setFoundInCategory(item4Transposition.getFoundInCategory());
+                }
+            }
+        }
     }
 
     private void processRestWithCityAndStreet() {

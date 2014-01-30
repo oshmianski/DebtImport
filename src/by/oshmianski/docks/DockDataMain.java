@@ -66,7 +66,7 @@ public class DockDataMain extends DockSimple {
 
             filterPanel.install(model);
 
-            table = new BetterJTable(null);
+            table = new BetterJTable(null, true);
 
             table.setModel(model);
 
@@ -88,7 +88,7 @@ public class DockDataMain extends DockSimple {
             table.setSelectionBackground(new Color(217, 235, 245));
             table.setSelectionForeground(Color.BLACK);
 
-            TableComparatorChooser.install(table, sortedEntries, AbstractTableComparatorChooser.MULTIPLE_COLUMN_KEYBOARD);
+//            TableComparatorChooser.install(table, sortedEntries, AbstractTableComparatorChooser.MULTIPLE_COLUMN_KEYBOARD);
 
             issuesSelectionModel = new DefaultEventSelectionModel(filteredEntries);
             issuesSelectionModel.setSelectionMode(ListSelection.MULTIPLE_INTERVAL_SELECTION);

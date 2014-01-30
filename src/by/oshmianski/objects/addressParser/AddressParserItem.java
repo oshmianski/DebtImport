@@ -136,6 +136,7 @@ public class AddressParserItem implements Comparable<AddressParserItem> {
         this.operation = operation;
     }
 
+
     @Override
     public int compareTo(AddressParserItem o) {
         final int BEFORE = -1;
