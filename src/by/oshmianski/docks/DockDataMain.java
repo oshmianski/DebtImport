@@ -3,25 +3,31 @@ package by.oshmianski.docks;
 import by.oshmianski.docks.Setup.DockSimple;
 import by.oshmianski.docks.Setup.DockingContainer;
 import by.oshmianski.filter.DM.FilterPanel;
+import by.oshmianski.loaders.LoadImportData;
 import by.oshmianski.main.AppletWindow;
 import by.oshmianski.models.DataMainModel;
 import by.oshmianski.objects.DataMainItem;
-import by.oshmianski.objects.RecordObject;
-import by.oshmianski.ui.edt.UIProcessor;
-import by.oshmianski.ui.utils.BetterJTable;
+import by.oshmianski.ui.utils.BetterJTable2;
 import by.oshmianski.ui.utils.ColorRenderer;
-import by.oshmianski.ui.utils.StatusRenderer;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import by.oshmianski.utils.IconContainer;
 import by.oshmianski.utils.MyLog;
-import ca.odell.glazedlists.*;
-import ca.odell.glazedlists.gui.AbstractTableComparatorChooser;
-import ca.odell.glazedlists.swing.*;
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.FilterList;
+import ca.odell.glazedlists.SortedList;
+import ca.odell.glazedlists.swing.DefaultEventSelectionModel;
+import ca.odell.glazedlists.swing.DefaultEventTableModel;
+import ca.odell.glazedlists.swing.GlazedListsSwing;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 
 /**
@@ -42,6 +48,8 @@ public class DockDataMain extends DockSimple {
     private DefaultEventSelectionModel issuesSelectionModel;
     private FilterPanel filterPanel;
     private static final String frameTitle = "Данные";
+    private JPopupMenu ppmenu;
+    private LoadImportData loader;
 
     public DockDataMain(DockingContainer dockingContainer) {
         super("DockDataMain", IconContainer.getInstance().loadImage("grid.png"), frameTitle);
@@ -66,7 +74,22 @@ public class DockDataMain extends DockSimple {
 
             filterPanel.install(model);
 
-            table = new BetterJTable(null, true);
+            table = new BetterJTable2(null, true);
+
+            ppmenu = createPopupMenu();
+            table.addMouseListener(new MouseAdapter() {
+                public void mouseReleased(MouseEvent Me) {
+                    if (Me.isPopupTrigger()) {
+                        int row = table.rowAtPoint(Me.getPoint());
+                        int col = table.columnAtPoint(Me.getPoint());
+
+                        if (!table.isRowSelected(row))
+                            table.changeSelection(row, col, false, false);
+
+                        ppmenu.show(Me.getComponent(), Me.getX(), Me.getY());
+                    }
+                }
+            });
 
             table.setModel(model);
 
@@ -158,7 +181,7 @@ public class DockDataMain extends DockSimple {
     public void dispose() {
         System.out.println("DockDataMain clear...");
 
-        for (DataMainItem dataMainItem : dataMainItems){
+        for (DataMainItem dataMainItem : dataMainItems) {
             dataMainItem.getDataChildItems().clear();
             dataMainItem.getObjects().clear();
         }
@@ -177,7 +200,86 @@ public class DockDataMain extends DockSimple {
         System.out.println("DockDataMain clear...OK");
     }
 
-    public void setFilteredCount(){
+    public void setFilteredCount() {
         setTitleText(frameTitle + " [" + filteredEntries.size() + "]");
+    }
+
+    private JPopupMenu createPopupMenu() {
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        JMenuItem menuAdd = new JMenuItem("Перчитать строку");
+        menuAdd.setIcon(IconContainer.getInstance().loadImage("actions.png"));
+        menuAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DataMainItem selectedItem = null;
+
+                loader = dockingContainer.getLoader();
+                loader.setTest(true);
+
+                if (loader.isExecuted()) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "В данные момент выполняется загрузка!\n" +
+                                    "Действие отменено.",
+                            "Внимание",
+                            JOptionPane.ERROR_MESSAGE);
+
+                    return;
+                }
+
+                if (issuesSelectionModel.getSelected().size() > 0) {
+                    Object selectedObject = issuesSelectionModel.getSelected().get(0);
+                    if (selectedObject instanceof DataMainItem) {
+                        selectedItem = (DataMainItem) selectedObject;
+                    }
+                }
+
+                if (selectedItem == null) return;
+
+                selectedItem.clearData();
+
+                DataMainItem dataMainItem = loader.getImporter().reloadItem((int) selectedItem.getLineNum());
+
+                selectedItem.setAddressParser(dataMainItem.getAddressParser());
+                selectedItem.setDataChildItems(dataMainItem.getDataChildItems());
+                selectedItem.setObjects(dataMainItem.getObjects());
+                if (selectedItem.getAddressParser().getAddress().isProcessedFull() && selectedItem.getAddressParser().getAddress().isProcessedFullNotService()) {
+                    selectedItem.setFlag2color(2);
+                } else {
+                    selectedItem.setFlag2color(1);
+                }
+
+                dockingContainer.getUIProcessor().setDockDataChildItems(selectedItem);
+                dockingContainer.getUIProcessor().setDockObjectTreeObjects(selectedItem);
+                dockingContainer.getUIProcessor().setDockAddressParserItems(selectedItem);
+            }
+        });
+        popupMenu.add(menuAdd);
+
+//        JMenuItem menuRefreshModel = new JMenuItem("Обновить");
+////        menuAdd.setIcon(IconContainer.getInstance().loadImage("actions.png"));
+//        menuRefreshModel.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                loader = dockingContainer.getLoader();
+//
+//                if (loader.isExecuted()) {
+//                    JOptionPane.showMessageDialog(
+//                            null,
+//                            "В данные момент выполняется загрузка!\n" +
+//                                    "Действие отменено.",
+//                            "Внимание",
+//                            JOptionPane.ERROR_MESSAGE);
+//
+//                    return;
+//                }
+//
+//                model.fireTableDataChanged();
+//            }
+//        });
+//        popupMenu.add(menuRefreshModel);
+
+        return popupMenu;
     }
 }

@@ -1,5 +1,6 @@
 package by.oshmianski.ui.utils;
 
+import by.oshmianski.objects.DataMainItem;
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import ca.odell.glazedlists.swing.DefaultEventTableModel;
 
@@ -12,7 +13,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class BetterJTable extends JTable {
+public class BetterJTable2 extends JTable {
     private JTable templateTable;
     private static TableCellRenderer defaultRenderer;
 
@@ -23,19 +24,19 @@ public class BetterJTable extends JTable {
 
     private boolean reorderingAllowed;
 
-    public BetterJTable(TableModel dm, boolean reorderingAllowed) {
+    public BetterJTable2(TableModel dm, boolean reorderingAllowed) {
         super(dm);
         this.reorderingAllowed = reorderingAllowed;
         init();
     }
 
-    public BetterJTable(TableModel dm) {
+    public BetterJTable2(TableModel dm) {
         super(dm);
         reorderingAllowed = false;
         init();
     }
 
-    public BetterJTable() {
+    public BetterJTable2() {
         super();
         reorderingAllowed = false;
         init();
@@ -105,13 +106,24 @@ public class BetterJTable extends JTable {
 //        }
 //        return component;
 
+        DefaultEventTableModel model = (DefaultEventTableModel) getModel();
+        DataMainItem dataMainItem = (DataMainItem) model.getElementAt(row);
+
         Component returnComp = super.prepareRenderer(renderer, row, column);
         Color alternateColor = new Color(247, 247, 247);
         Color whiteColor = Color.WHITE;
         if (returnComp.getBackground() != null) {
-            if (!returnComp.getBackground().equals(getSelectionBackground())) {
-                Color bg = (row % 2 == 0 ? alternateColor : whiteColor);
-                returnComp.setBackground(bg);
+            if (dataMainItem.getFlag2color() == 1) {
+                returnComp.setBackground(new Color(0xFDE9D9));
+            } else {
+                if (dataMainItem.getFlag2color() == 2) {
+                    returnComp.setBackground(new Color(0xD8E4BC));
+                } else {
+                    if (!returnComp.getBackground().equals(getSelectionBackground())) {
+                        Color bg = (row % 2 == 0 ? alternateColor : whiteColor);
+                        returnComp.setBackground(bg);
+                    }
+                }
             }
         }
         return returnComp;

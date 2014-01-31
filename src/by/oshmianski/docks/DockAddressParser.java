@@ -201,6 +201,7 @@ public class DockAddressParser extends DockSimple {
 
     public void clearItems() {
         items.clear();
+        itemsA.clear();
     }
 
     public void setAddressParserItems(DataMainItem dataMainItem) {
@@ -216,7 +217,7 @@ public class DockAddressParser extends DockSimple {
 
             items.getReadWriteLock().writeLock().lock();
             try {
-                if (addressParserItems == null) {
+                if (addressParserItems == null || addressParserItems.size() == 0) {
                     items.clear();
                 } else {
                     items.clear();
@@ -230,7 +231,7 @@ public class DockAddressParser extends DockSimple {
 
             itemsA.getReadWriteLock().writeLock().lock();
             try {
-                if (addressParserItems == null) {
+                if (addressParserItems == null || addressParserItems.size() == 0) {
                     itemsA.clear();
                 } else {
                     itemsA.clear();
@@ -295,6 +296,7 @@ public class DockAddressParser extends DockSimple {
         if (sortedEntries != null) sortedEntries.dispose();
         if (entries != null) entries.dispose();
         if (items != null) items.dispose();
+        if (itemsA != null) itemsA.dispose();
 
         System.out.println("DockAddressParser clear...OK");
     }

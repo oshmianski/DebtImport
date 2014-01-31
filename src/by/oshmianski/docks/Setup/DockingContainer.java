@@ -15,6 +15,7 @@ import bibliothek.gui.dock.util.color.ColorManager;
 import by.oshmianski.docks.*;
 import by.oshmianski.filter.DM.FilterPanel;
 import by.oshmianski.filter.CM.FilterPanelChild;
+import by.oshmianski.loaders.LoadImportData;
 import by.oshmianski.main.AppletWindow;
 import by.oshmianski.objects.UIProcessorImpl;
 import by.oshmianski.ui.edt.EDTInvocationHandler;
@@ -46,6 +47,7 @@ public class DockingContainer {
     private DockLog dockLog;
     private JPanel mainPanel;
 
+    private LoadImportData loader;
     private UIProcessor uiProcessor;
 
     public DockingContainer(JFrame frame, JPanel mainPanel) {
@@ -105,6 +107,8 @@ public class DockingContainer {
                 getClass().getClassLoader(),
                 new Class[]{UIProcessor.class},
                 new EDTInvocationHandler(new UIProcessorImpl(dockHeader, dockActions, dockInfo, dockDataMain, dockDataChild, dockObjectTree, dockAddressParser)));
+
+        loader = new LoadImportData(uiProcessor, true);
 
         control.addDockable(dockDataMainFilter);
         control.addDockable(dockDataChildFilter);
@@ -245,5 +249,9 @@ public class DockingContainer {
         dockAddressParser.dispose();
         dockHeader.dispose();
         System.out.println("DockingContainer clear...OK");
+    }
+
+    public LoadImportData getLoader() {
+        return loader;
     }
 }

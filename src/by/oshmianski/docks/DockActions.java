@@ -24,14 +24,14 @@ import java.awt.event.ActionListener;
 public class DockActions extends DockSimple {
     private DockingContainer dockingContainer;
 
-    private Loader loader;
+    private LoadImportData loader;
 
     private JButton bTestStart;
     private JButton bTestStop;
     private JButton bImportStart;
     private JButton bImportStop;
 
-    public DockActions(DockingContainer dockingContainer) {
+    public DockActions(final DockingContainer dockingContainer) {
         super("DockActions", IconContainer.getInstance().loadImage("actions.png"), "Действия");
 
         this.dockingContainer = dockingContainer;
@@ -45,7 +45,8 @@ public class DockActions extends DockSimple {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (getDockingContainer().getUIProcessor().isHeaderCorrect()) {
-                    loader = new LoadImportData(getDockingContainer().getUIProcessor(), true);
+                    loader = dockingContainer.getLoader();
+                    loader.setTest(true);
                     loader.execute();
                 }
             }
@@ -62,7 +63,8 @@ public class DockActions extends DockSimple {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (getDockingContainer().getUIProcessor().isHeaderCorrect()) {
-                    loader = new LoadImportData(getDockingContainer().getUIProcessor(), false);
+                    loader = dockingContainer.getLoader();
+                    loader.setTest(false);
                     loader.execute();
                 }
             }

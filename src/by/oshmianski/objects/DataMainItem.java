@@ -14,6 +14,7 @@ public class DataMainItem {
     private long lineNum;
     private Status status;
     private String description;
+    private int flag2color;
 
     private ArrayList<DataChildItem> dataChildItems;
     private ArrayList<RecordObject> objects;
@@ -142,5 +143,20 @@ public class DataMainItem {
 
     public void setTi(TemplateImport ti) {
         this.ti = ti;
+    }
+
+    public void clearData(){
+        dataChildItems.clear();
+        objects.clear();
+        addressParser.getParserItems().clear();
+        addressParser.setAddress(null);
+    }
+
+    public int getFlag2color() {
+        return flag2color;
+    }
+
+    public void setFlag2color(int flag2color) {
+        this.flag2color = flag2color;
     }
 }
