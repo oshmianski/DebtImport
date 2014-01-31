@@ -7,7 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/DataChildModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/DataChildModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/CM/MatcherEditorCMStatus.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/CM/MatcherEditorCMStatus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/MyTreeCellRenderer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/MyTreeCellRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/XTableColumnModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/XTableColumnModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -72,78 +84,7 @@
     <favorites_list name="DebtImport" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AddressParser.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="147" column="17" selection-start="4487" selection-end="4487" vertical-scroll-proportion="0.0" vertical-offset="2499" max-vertical-offset="24990">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddressParserHelper.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="48" selection-start="5992" selection-end="5992" vertical-scroll-proportion="0.0" vertical-offset="1394" max-vertical-offset="2448">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoadTemplateImport.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="165" column="62" selection-start="5611" selection-end="5611" vertical-scroll-proportion="0.0" vertical-offset="2805" max-vertical-offset="8143">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DockAddressParser.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="44" selection-start="2560" selection-end="2560" vertical-scroll-proportion="0.0" vertical-offset="1139" max-vertical-offset="5321">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DockDataMain.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="47" selection-start="2446" selection-end="2446" vertical-scroll-proportion="0.0" vertical-offset="1156" max-vertical-offset="3213">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DockDataChild.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="45" selection-start="4399" selection-end="4399" vertical-scroll-proportion="0.0" vertical-offset="1190" max-vertical-offset="2805">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Importer.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1247" column="0" selection-start="51126" selection-end="51126" vertical-scroll-proportion="2.4847162" vertical-offset="19492" max-vertical-offset="21301">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1034#1056#0" expanded="true" />
-                <element signature="e#3831#3849#0" expanded="true" />
-                <element signature="e#18637#18655#0" expanded="true" />
-                <element signature="e#18706#18720#0" expanded="true" />
-                <element signature="e#45844#45852#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -167,12 +108,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatuses.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/ui/GUIFrame.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/AddressParser.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemType.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/ParseItemTypeValue.java" />
@@ -188,7 +123,6 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/edt/EDTInvocationHandler.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java" />
@@ -199,23 +133,32 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressProcessCityWithGEOResult.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AliasValueType.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressProcessStreetWithGEOResult.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressItem.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressProcessStreetResult.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser_B1.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressProcessCityResult.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BetterJTable.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserOperation.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItem.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/models/DataChildModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/category/datachild/DataChildItemTreeFormat.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/filter/CM/MatcherEditorCMStatus.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/ui/utils/XTableColumnModel.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/category/datachild/MyTreeCellRenderer.java" />
       </list>
     </option>
   </component>
@@ -1210,7 +1153,11 @@
       <created>1391102937004</created>
       <updated>1391102937004</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1391159182082</created>
+      <updated>1391159182082</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1235,13 +1182,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49933067" sideWeight="0.59363526" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45247656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249694" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45515394" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49799734" sideWeight="0.40575275" order="10" side_tool="true" content_ui="tabs" />
@@ -1253,13 +1201,12 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24034335" sideWeight="0.502008" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24034335" sideWeight="0.502008" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39892906" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.54083" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45247656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
@@ -1287,107 +1234,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Field.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="130" column="16" selection-start="2865" selection-end="2865" vertical-scroll-proportion="0.33285713" vertical-offset="1450" max-vertical-offset="2159" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Rule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="11" selection-start="346" selection-end="346" vertical-scroll-proportion="0.114285715" vertical-offset="209" max-vertical-offset="1037" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="42" selection-start="3026" selection-end="3026" vertical-scroll-proportion="-0.96045196" vertical-offset="1326" max-vertical-offset="3910">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="9" selection-start="1424" selection-end="1424" vertical-scroll-proportion="0.33285713" vertical-offset="923" max-vertical-offset="1666">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="150" column="39" selection-start="4016" selection-end="4016" vertical-scroll-proportion="0.0" vertical-offset="2225" max-vertical-offset="3859">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.6.0_45/src.zip!/java/awt/Container.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="955" column="16" selection-start="39331" selection-end="39334" vertical-scroll-proportion="1.4858757" vertical-offset="14486" max-vertical-offset="78098" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="0" selection-start="3543" selection-end="3543" vertical-scroll-proportion="0.7725381" vertical-offset="599" max-vertical-offset="1700">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockSimple.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="66" selection-start="508" selection-end="566" vertical-scroll-proportion="0.41285715" vertical-offset="0" max-vertical-offset="700" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jgoodies-forms-1.7.1.jar!/com/jgoodies/forms/layout/FormLayout.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="10693" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3621" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.6.0_45/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1902" column="18" selection-start="72667" selection-end="72667" vertical-scroll-proportion="0.0" vertical-offset="31826" max-vertical-offset="50864">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1343" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.6.0_45/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="37" selection-start="6972" selection-end="6973" vertical-scroll-proportion="0.30929264" vertical-offset="2599" max-vertical-offset="10132">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="64" selection-start="2635" selection-end="2635" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1683">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/main/AppletWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="40" selection-start="1915" selection-end="1915" vertical-scroll-proportion="0.0" vertical-offset="388" max-vertical-offset="1088">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="0" selection-start="3038" selection-end="3038" vertical-scroll-proportion="0.75714284" vertical-offset="949" max-vertical-offset="1649" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/commons-lang3-3.1.jar!/org/apache/commons/lang3/StringUtils.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="35" selection-start="12648" selection-end="12648" vertical-scroll-proportion="0.0" vertical-offset="3392" max-vertical-offset="6188" />
-      </provider>
-    </entry>
-    <entry file="jar://D:/Downloads/commons-lang3-3.2.1-src.zip!/commons-lang3-3.2.1-src/src/main/java/org/apache/commons/lang3/StringUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4624" column="39" selection-start="188309" selection-end="188310" vertical-scroll-proportion="0.0" vertical-offset="74809" max-vertical-offset="126837" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="12" selection-start="106" selection-end="106" vertical-scroll-proportion="0.11789182" vertical-offset="0" max-vertical-offset="721">
@@ -1397,7 +1243,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Status.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="53" selection-start="774" selection-end="869" vertical-scroll-proportion="0.60714287" vertical-offset="153" max-vertical-offset="2482" />
+        <state line="34" column="53" selection-start="774" selection-end="869" vertical-scroll-proportion="0.60714287" vertical-offset="153" max-vertical-offset="2482">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="jar://D:/Downloads/commons-lang3-3.2.1-src.zip!/commons-lang3-3.2.1-src/src/main/java/org/apache/commons/lang3/text/WordUtils.java">
@@ -1405,14 +1253,11 @@
         <state line="238" column="25" selection-start="9544" selection-end="9544" vertical-scroll-proportion="0.0" vertical-offset="3738" max-vertical-offset="8279" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="372" selection-end="372" vertical-scroll-proportion="-0.55857146" vertical-offset="510" max-vertical-offset="1530" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="53" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.481276" vertical-offset="44" max-vertical-offset="1377" />
+        <state line="28" column="53" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.481276" vertical-offset="44" max-vertical-offset="1377">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/BooleanRenderer.java">
@@ -1424,7 +1269,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="4" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391" />
+        <state line="8" column="4" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/NotBooleanRenderer.java">
@@ -1461,17 +1308,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AliasValueType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="40" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680" />
+        <state line="28" column="40" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
+          <folding>
+            <element signature="e#731#732#0" expanded="false" />
+            <element signature="e#801#802#0" expanded="false" />
+            <element signature="e#843#844#0" expanded="false" />
+            <element signature="e#895#896#0" expanded="false" />
+            <element signature="e#939#940#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressProcessStreetWithGEOResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="46" selection-start="107" selection-end="140" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Address.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="234" column="33" selection-start="6672" selection-end="6672" vertical-scroll-proportion="0.0" vertical-offset="2930" max-vertical-offset="3638" />
+        <state line="5" column="46" selection-start="107" selection-end="140" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <folding>
+            <element signature="e#398#399#0" expanded="false" />
+            <element signature="e#427#428#0" expanded="false" />
+            <element signature="e#471#472#0" expanded="false" />
+            <element signature="e#507#508#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/lib/glazedlists_java15-1.9.0.jar!/ca/odell/glazedlists/swing/DefaultEventTableModel.class">
@@ -1493,12 +1350,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="461" column="28" selection-start="19592" selection-end="19592" vertical-scroll-proportion="0.33333334" vertical-offset="7397" max-vertical-offset="11050" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="44" selection-start="943" selection-end="943" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="952">
+        <state line="461" column="28" selection-start="19592" selection-end="19592" vertical-scroll-proportion="0.33333334" vertical-offset="7397" max-vertical-offset="11050">
           <folding />
         </state>
       </provider>
@@ -1524,33 +1376,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="42" selection-start="1736" selection-end="1736" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/BetterJTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="34" selection-start="1139" selection-end="1139" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3587" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserOperation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="26" selection-start="713" selection-end="713" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="25" selection-start="512" selection-end="517" vertical-scroll-proportion="0.35367545" vertical-offset="0" max-vertical-offset="1802" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="147" column="17" selection-start="4487" selection-end="4487" vertical-scroll-proportion="0.0" vertical-offset="2246" max-vertical-offset="22338">
           <folding />
         </state>
       </provider>
@@ -1562,23 +1390,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="62" selection-start="5611" selection-end="5611" vertical-scroll-proportion="0.0" vertical-offset="2414" max-vertical-offset="7956">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="67" column="44" selection-start="2560" selection-end="2560" vertical-scroll-proportion="0.0" vertical-offset="1581" max-vertical-offset="4743">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="47" selection-start="2446" selection-end="2446" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="2805">
           <folding />
         </state>
       </provider>
@@ -1611,17 +1425,201 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://D:/Downloads/commons-lang3-3.2.1-src.zip!/commons-lang3-3.2.1-src/src/main/java/org/apache/commons/lang3/StringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2514" column="27" selection-start="102034" selection-end="102034" vertical-scroll-proportion="0.18486172" vertical-offset="42220" max-vertical-offset="126837">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="11" selection-start="738" selection-end="738" vertical-scroll-proportion="0.0" vertical-offset="185" max-vertical-offset="2363">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="327" column="18" selection-start="11710" selection-end="11716" vertical-scroll-proportion="0.0" vertical-offset="5892" max-vertical-offset="8041">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="8" selection-start="1090" selection-end="1090" vertical-scroll-proportion="0.0" vertical-offset="512" max-vertical-offset="935">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="8" selection-start="1890" selection-end="1890" vertical-scroll-proportion="0.0" vertical-offset="831" max-vertical-offset="1241">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/DataChildModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="9" selection-start="1535" selection-end="1535" vertical-scroll-proportion="0.0" vertical-offset="665" max-vertical-offset="1088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="8" selection-start="1182" selection-end="1182" vertical-scroll-proportion="0.0" vertical-offset="461" max-vertical-offset="884">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/ActionButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0" vertical-offset="53" max-vertical-offset="1445">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/BetterJTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="19" selection-start="438" selection-end="438" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="3587">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="797" column="14" selection-start="29183" selection-end="29183" vertical-scroll-proportion="0.0" vertical-offset="13046" max-vertical-offset="24616">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="19" selection-start="4082" selection-end="4082" vertical-scroll-proportion="0.0" vertical-offset="1889" max-vertical-offset="2397">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="12" selection-start="1259" selection-end="1259" vertical-scroll-proportion="0.0" vertical-offset="869" max-vertical-offset="1666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/AbstractTreeTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="197" column="84" selection-start="7273" selection-end="7273" vertical-scroll-proportion="0.0" vertical-offset="3130" max-vertical-offset="3621">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/BetterJTableEdittSelectAll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="144" column="14" selection-start="4597" selection-end="4597" vertical-scroll-proportion="0.0" vertical-offset="1927" max-vertical-offset="2329">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/category/datachild/DataChildItemTreeFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="21" selection-start="849" selection-end="849" vertical-scroll-proportion="0.0" vertical-offset="325" max-vertical-offset="1241">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1247" column="0" selection-start="51126" selection-end="51126" vertical-scroll-proportion="2.4847162" vertical-offset="19492" max-vertical-offset="21301">
+        <state line="175" column="32" selection-start="6323" selection-end="6323" vertical-scroll-proportion="0.0" vertical-offset="2846" max-vertical-offset="21607">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1034#1056#0" expanded="true" />
             <element signature="e#3831#3849#0" expanded="true" />
             <element signature="e#18637#18655#0" expanded="true" />
             <element signature="e#18706#18720#0" expanded="true" />
-            <element signature="e#45844#45852#0" expanded="true" />
+            <element signature="e#46471#46479#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/category/datachild/ItemCatSumsAll.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="8" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0" vertical-offset="376" max-vertical-offset="1207">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/category/datachild/ItemCatSumsOne.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="68" selection-start="2618" selection-end="2618" vertical-scroll-proportion="0.1822034" vertical-offset="840" max-vertical-offset="2346">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="26" selection-start="4249" selection-end="4249" vertical-scroll-proportion="0.0" vertical-offset="1073" max-vertical-offset="2805">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="140" column="43" selection-start="3348" selection-end="3348" vertical-scroll-proportion="0.0" vertical-offset="1362" max-vertical-offset="1802">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/DataChildItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="39" selection-start="1379" selection-end="1379" vertical-scroll-proportion="0.0" vertical-offset="601" max-vertical-offset="1003">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Address.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="139" column="32" selection-start="4281" selection-end="4281" vertical-scroll-proportion="0.0" vertical-offset="1877" max-vertical-offset="3196">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="53" selection-start="2005" selection-end="2005" vertical-scroll-proportion="0.0" vertical-offset="699" max-vertical-offset="1530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/CM/MatcherEditorCMStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="183" column="45" selection-start="7193" selection-end="7193" vertical-scroll-proportion="0.0" vertical-offset="2535" max-vertical-offset="4420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/ui/utils/XTableColumnModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="169" column="33" selection-start="6971" selection-end="6971" vertical-scroll-proportion="0.17891817" vertical-offset="2693" max-vertical-offset="4607">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="214" column="45" selection-start="8382" selection-end="8382" vertical-scroll-proportion="0.0" vertical-offset="3045" max-vertical-offset="5151">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/category/datachild/MyTreeCellRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -747,6 +747,11 @@ public class Importer {
         SortedList<Field> fieldSortedList = null;
         Vector v;
         StringBuilder sb = new StringBuilder();
+        StringBuilder sbFieldTitle = new StringBuilder();
+        String colStr;
+        String col;
+        String colStrArray[];
+        Vector vec;
 
         try {
             document = db.createDocument();
@@ -758,19 +763,24 @@ public class Importer {
                 evalValue = "";
                 cellValue = "";
                 cellValueReal = "";
-                String fieldTitle = "ячейка " + field.getXmlCell() + ", " + field.getTitleUser() + " [" + field.getTitleSys() + "]";
+                sbFieldTitle.append("ячейка ");
+                sbFieldTitle.append(field.getXmlCell());
+                sbFieldTitle.append(", ");
+                sbFieldTitle.append(field.getTitleUser());
+                sbFieldTitle.append(" [");
+                sbFieldTitle.append(field.getTitleSys());
+                sbFieldTitle.append("]");
 
                 try {
-                    String colStr = field.getXmlCell();
-                    String col = "";
+                    colStr = field.getXmlCell();
                     if (!colStr.isEmpty()) {
                         if ("@".equals(colStr.substring(0, 1))) {
-                            String colStrArray[] = StringUtils.substringsBetween(colStr, "<", ">");
+                            colStrArray = StringUtils.substringsBetween(colStr, "<", ">");
                             for (String str : colStrArray) {
                                 colStr = colStr.replaceAll("\\<" + str + "\\>", "\"" + row.getCell(CellReference.convertColStringToIndex(str)) + "\"").replaceAll("null", "");
                             }
 
-                            Vector vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
+                            vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
                             col = vec.get(0).toString();
                         } else {
                             col = colStr;
@@ -812,7 +822,7 @@ public class Importer {
                     DataChildItem dataChildItem = new DataChildItem(
                             Status.ERROR,
                             obj.getTitle() + " [" + obj.getFormName() + "]",
-                            fieldTitle,
+                            sbFieldTitle.toString(),
                             ex.toString()
                     );
                     dataChildItems.add(dataChildItem);
@@ -825,7 +835,7 @@ public class Importer {
                     DataChildItem dataChildItem = new DataChildItem(
                             Status.WARNING_OBJECT_WILL_NOT_CREATE,
                             "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
-                            fieldTitle,
+                            sbFieldTitle.toString(),
                             "Значение ячейки пустое, объект создан не будет"
                     );
                     dataChildItems.add(dataChildItem);
@@ -853,7 +863,7 @@ public class Importer {
                         DataChildItem dataChildItem = new DataChildItem(
                                 Status.WARNING_ADDRESS_NOT_PROCESS_FULL,
                                 "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
-                                fieldTitle,
+                                sbFieldTitle.toString(),
                                 "Не полностью разобрано"
                         );
                         dataChildItems.add(dataChildItem);
@@ -863,11 +873,13 @@ public class Importer {
                         DataChildItem dataChildItem = new DataChildItem(
                                 Status.WARNING_ADDRESS_NOT_PROCESS_FULL_NOT_SERVICE,
                                 "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
-                                fieldTitle,
+                                sbFieldTitle.toString(),
                                 "Не полностью разобрано (без служебных)"
                         );
                         dataChildItems.add(dataChildItem);
                     }
+
+                    fillRecordObjectFieldsAddress(rFields, addressParser.getAddress());
                 } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
                     if (fuzzySearchAddress == null)
                         fuzzySearchAddress = new FuzzySearch(viewGEO);
@@ -879,7 +891,7 @@ public class Importer {
                         DataChildItem dataChildItem = new DataChildItem(
                                 Status.WARNING_EMPTY_FIELD,
                                 "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
-                                fieldTitle,
+                                sbFieldTitle.toString(),
                                 "Значение ячейки пустое"
                         );
                         dataChildItems.add(dataChildItem);
@@ -888,6 +900,8 @@ public class Importer {
                     rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType(), field.isMultiple());
                     rFields.add(rField);
                 }
+
+                sbFieldTitle.setLength(0);
             }
         } catch (Exception ex) {
             MyLog.add2Log(ex);
@@ -958,6 +972,9 @@ public class Importer {
         rField = new RecordObjectField("house", "Дом", address.getHouse(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
+        rField = new RecordObjectField("build", "Корпус", address.getBuilding(), Field.TYPE.TEXT, false);
+        rFields.add(rField);
+
         rField = new RecordObjectField("flat", "Квартира", address.getFlat(), Field.TYPE.TEXT, false);
         rFields.add(rField);
     }
@@ -970,6 +987,9 @@ public class Importer {
             Map<String, View> viewMap,
             Map<String, RecordObject> recordObjectMap,
             ArrayList<DataChildItem> dataChildItems) throws Exception {
+
+        DocumentCollection col = null;
+        Document document = null;
 
         //проверка на уникальность
         if (!rObject.isFlagEmpty()) {
@@ -1011,8 +1031,6 @@ public class Importer {
                     viewMap.put(key.getView(), dbMap.get(key.getDb()).getView(key.getView()));
                 }
 
-                DocumentCollection col = null;
-                Document document = null;
                 try {
                     col = viewMap.get(key.getView()).getAllDocumentsByKey(keyStr.toString(), true);
                     if (col.getCount() > 0) {

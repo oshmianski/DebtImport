@@ -44,8 +44,7 @@ public class DataMainModel implements WritableTableFormat<DataMainItem> {
 
     @Override
     public boolean isEditable(DataMainItem dataMainItem, int i) {
-        if(i == 2) return true;
-        return false;
+        return i == 2;
     }
 
     @Override

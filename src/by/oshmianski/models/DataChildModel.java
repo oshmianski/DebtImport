@@ -55,8 +55,7 @@ public class DataChildModel implements WritableTableFormat<DataChildItem> {
 
     @Override
     public boolean isEditable(DataChildItem dataChildItem, int i) {
-        if(i == 2) return true;
-        return false;
+        return i == 2;
     }
 
     @Override

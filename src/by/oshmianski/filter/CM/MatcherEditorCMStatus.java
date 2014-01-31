@@ -181,7 +181,7 @@ public class MatcherEditorCMStatus extends AbstractMatcherEditor implements List
     }
 
     public void actionPerformed(ActionEvent e) {
-        final boolean isCheckBoxSelected = ((JCheckBox) (JCheckBox) e.getSource()).isSelected();
+        final boolean isCheckBoxSelected = ((JCheckBox) e.getSource()).isSelected();
         final StatusMatcher statusMatcher = this.buildMatcher();
         if (statusMatcher.getStateCount() == 0) this.fireMatchNone();
         else if (statusMatcher.getStateCount() == this.statusCheckBoxes.size()) this.fireMatchAll();

@@ -91,7 +91,7 @@ public class DockDataMain extends DockSimple {
 //            TableComparatorChooser.install(table, sortedEntries, AbstractTableComparatorChooser.MULTIPLE_COLUMN_KEYBOARD);
 
             issuesSelectionModel = new DefaultEventSelectionModel(filteredEntries);
-            issuesSelectionModel.setSelectionMode(ListSelection.MULTIPLE_INTERVAL_SELECTION);
+            issuesSelectionModel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
             issuesSelectionModel.addListSelectionListener(new IssuesSelectionListener(dockingContainer, issuesSelectionModel));
             table.setSelectionModel(issuesSelectionModel);
 

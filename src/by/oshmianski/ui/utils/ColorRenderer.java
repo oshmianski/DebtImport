@@ -53,7 +53,7 @@ public class ColorRenderer extends DefaultTableCellRenderer implements TableCell
                 label.setText(formatter.format(value));
             }
             if (value instanceof Number) {
-                label.setText(formatterNumber.format((Number) value));
+                label.setText(formatterNumber.format(value));
                 label.setHorizontalAlignment(SwingConstants.RIGHT);
 
                 if (Float.parseFloat(value.toString()) < 0) {

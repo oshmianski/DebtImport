@@ -133,6 +133,7 @@ public class LoadTemplateImport implements Runnable, Loader {
             Object objectMain;
             Object objectChild;
             Link link;
+            Object obj;
 
             ve = nav.getFirst();
             while (ve != null) {
@@ -161,7 +162,7 @@ public class LoadTemplateImport implements Runnable, Loader {
                     colObject = viewObject.getAllDocumentsByKey(doc.getUniversalID(), true);
                     docObject = colObject.getFirstDocument();
                     while ((docObject != null)) {
-                        Object obj = produceObject(db, docObject, viewKey, viewField, viewRule);
+                        obj = produceObject(db, docObject, viewKey, viewField, viewRule);
                         if (obj.isImportTemplate())
                             templateImport.setImportFact(obj);
                         else
@@ -170,7 +171,9 @@ public class LoadTemplateImport implements Runnable, Loader {
                         docObjectTmp = colObject.getNextDocument();
                         docObject.recycle();
                         docObject = docObjectTmp;
+                        obj = null;
                     }
+                    colObject.recycle();
 
                     colLink = viewLink.getAllDocumentsByKey(doc.getUniversalID(), true);
                     docLink = colLink.getFirstDocument();
@@ -208,6 +211,8 @@ public class LoadTemplateImport implements Runnable, Loader {
                         docLink.recycle();
                         docLink = docLinkTmp;
                     }
+
+                    colLink.recycle();
                 }
 
                 vetmp = nav.getNext();

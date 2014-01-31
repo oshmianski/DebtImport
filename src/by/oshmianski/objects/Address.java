@@ -134,7 +134,7 @@ public class Address {
 
     public void setStreet(String street, AddressParserOperation streetOperation) {
         this.street = org.apache.commons.lang3.StringUtils.replaceEach(
-                WordUtils.capitalizeFully(street, new char[]{'-', ' ', '.'}),
+                WordUtils.capitalizeFully(street, '-', ' ', '.'),
                 new String[]{
                         "Бсср",
                         "Ссср"},

@@ -64,8 +64,7 @@ public class AddressParserModel implements WritableTableFormat<AddressParserItem
 
     @Override
     public boolean isEditable(AddressParserItem item, int i) {
-        if (i == 1) return true;
-        return false;
+        return i == 1;
     }
 
     @Override

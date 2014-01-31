@@ -43,8 +43,7 @@ public class AddressModel implements WritableTableFormat<AddressItem> {
 
     @Override
     public boolean isEditable(AddressItem item, int i) {
-        if (i == 1) return true;
-        return false;
+        return i == 1;
     }
 
     @Override
