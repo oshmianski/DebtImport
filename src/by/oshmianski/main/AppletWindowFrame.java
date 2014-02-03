@@ -74,22 +74,22 @@ public class AppletWindowFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                try {
-//                    SwingUtilities.invokeAndWait(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            try {
-                    gui.stop();
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    });
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                } finally {
-                    dispose();
+                if (gui.getDockingContainer().getLoader().isExecuted()) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "В данные момент выполняется загрузка!\n" +
+                                    "Действие отменено.",
+                            "Внимание",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    try {
+                        gui.stop();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    } finally {
+                        dispose();
 //                    System.exit();
+                    }
                 }
             }
         });

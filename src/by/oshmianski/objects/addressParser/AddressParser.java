@@ -130,7 +130,7 @@ public class AddressParser {
                 }
             }
 
-            isProcessedFull = true;
+//            isProcessedFull = true;
         }
 
         address.setProcessedFullNotService(isProcessedFullNotService);
