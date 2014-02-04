@@ -24,10 +24,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.text.DecimalFormat;
 
 /**
@@ -110,6 +107,8 @@ public class DockDataMain extends DockSimple {
             table.setGridColor(AppletWindow.DATA_TABLE_GRID_COLOR);
             table.setSelectionBackground(new Color(217, 235, 245));
             table.setSelectionForeground(Color.BLACK);
+
+            table.addKeyListener(new KeyEventListener(issuesSelectionModel));
 
 //            TableComparatorChooser.install(table, sortedEntries, AbstractTableComparatorChooser.MULTIPLE_COLUMN_KEYBOARD);
 
@@ -212,47 +211,7 @@ public class DockDataMain extends DockSimple {
         menuAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DataMainItem selectedItem = null;
-
-                loader = dockingContainer.getLoader();
-                loader.setTest(true);
-
-                if (loader.isExecuted()) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "В данные момент выполняется загрузка!\n" +
-                                    "Действие отменено.",
-                            "Внимание",
-                            JOptionPane.ERROR_MESSAGE);
-
-                    return;
-                }
-
-                if (issuesSelectionModel.getSelected().size() > 0) {
-                    Object selectedObject = issuesSelectionModel.getSelected().get(0);
-                    if (selectedObject instanceof DataMainItem) {
-                        selectedItem = (DataMainItem) selectedObject;
-                    }
-                }
-
-                if (selectedItem == null) return;
-
-                selectedItem.clearData();
-
-                DataMainItem dataMainItem = loader.getImporter().reloadItem((int) selectedItem.getLineNum());
-
-                selectedItem.setAddressParser(dataMainItem.getAddressParser());
-                selectedItem.setDataChildItems(dataMainItem.getDataChildItems());
-                selectedItem.setObjects(dataMainItem.getObjects());
-                if (selectedItem.getAddressParser().getAddress().isProcessedFull() && selectedItem.getAddressParser().getAddress().isProcessedFullNotService()) {
-                    selectedItem.setFlag2color(2);
-                } else {
-                    selectedItem.setFlag2color(1);
-                }
-
-                dockingContainer.getUIProcessor().setDockDataChildItems(selectedItem);
-                dockingContainer.getUIProcessor().setDockObjectTreeObjects(selectedItem);
-                dockingContainer.getUIProcessor().setDockAddressParserItems(selectedItem);
+                reloadLine();
             }
         });
         popupMenu.add(menuAdd);
@@ -281,5 +240,80 @@ public class DockDataMain extends DockSimple {
 //        popupMenu.add(menuRefreshModel);
 
         return popupMenu;
+    }
+
+    private class KeyEventListener implements KeyListener {
+        private DefaultEventSelectionModel issuesSelectionModel;
+
+        public KeyEventListener(DefaultEventSelectionModel issuesSelectionModel) {
+            this.issuesSelectionModel = issuesSelectionModel;
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+//            System.out.println(e.getKeyCode());
+
+            if (e.getKeyCode() == KeyEvent.VK_F5) {
+                reloadLine();
+
+                e.consume();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
+    }
+
+    private void reloadLine(){
+        DataMainItem selectedItem = null;
+
+        loader = dockingContainer.getLoader();
+        loader.setTest(true);
+
+        if (loader.isExecuted()) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "В данные момент выполняется загрузка!\n" +
+                            "Действие отменено.",
+                    "Внимание",
+                    JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+
+        if (issuesSelectionModel.getSelected().size() > 0) {
+            Object selectedObject = issuesSelectionModel.getSelected().get(0);
+            if (selectedObject instanceof DataMainItem) {
+                selectedItem = (DataMainItem) selectedObject;
+            }
+        }
+
+        if (selectedItem == null) return;
+
+        selectedItem.clearData();
+
+        DataMainItem dataMainItem = loader.getImporter().reloadItem((int) selectedItem.getLineNum());
+
+        selectedItem.setAddressParser(dataMainItem.getAddressParser());
+        selectedItem.setDataChildItems(dataMainItem.getDataChildItems());
+        selectedItem.setObjects(dataMainItem.getObjects());
+        if (selectedItem.getAddressParser().getAddress().isProcessedFull() && selectedItem.getAddressParser().getAddress().isProcessedFullNotService()) {
+            selectedItem.setFlag2color(2);
+        } else {
+            selectedItem.setFlag2color(1);
+        }
+
+        dockingContainer.getUIProcessor().setDockDataChildItems(selectedItem);
+        dockingContainer.getUIProcessor().setDockObjectTreeObjects(selectedItem);
+        dockingContainer.getUIProcessor().setDockAddressParserItems(selectedItem);
+
+        table.repaint(table.getVisibleRect());
     }
 }

@@ -150,7 +150,9 @@ public class AddressParser {
 
         aliasValues.add(new AliasValue("г. н.п.", "нп."));     //населенный пункт
         aliasValues.add(new AliasValue("п.г.т.", "пгт."));  //поселок городского типа
+        aliasValues.add(new AliasValue("р.п.", "рп."));     //населенный пункт
         aliasValues.add(new AliasValue("н.п.", "нп."));     //населенный пункт
+        aliasValues.add(new AliasValue("Н.п.", "нп."));     //населенный пункт
         aliasValues.add(new AliasValue("н.н.", "нп."));     //населенный пункт
         aliasValues.add(new AliasValue("н.а.", "нп."));     //населенный пункт
         aliasValues.add(new AliasValue("н. п.", "нп."));     //населенный пункт
@@ -170,6 +172,8 @@ public class AddressParser {
         aliasValues.add(new AliasValue("М-Н", "м-н"));
         aliasValues.add(new AliasValue("1ый", "1-ый"));
         aliasValues.add(new AliasValue("а.г.", "аг."));
+        aliasValues.add(new AliasValue("а-г.", "аг."));
+        aliasValues.add(new AliasValue("агр.гор.", "аг."));
         aliasValues.add(new AliasValue("в.ч.", "вч."));
         aliasValues.add(new AliasValue(" д.д.", " д. "));
         aliasValues.add(new AliasValue(" д.д ", " д. "));
@@ -194,6 +198,10 @@ public class AddressParser {
         aliasValues.add(new AliasValue("Мозырьский", "Мозырский"));
         aliasValues.add(new AliasValue("Речецкий", "Речицкий"));
         aliasValues.add(new AliasValue("Волковыский", "Волковысский"));
+        aliasValues.add(new AliasValue("Червеньский", "Червенский"));
+        aliasValues.add(new AliasValue("Дрогиченский", "Дрогичинский"));
+        aliasValues.add(new AliasValue("Любаньский", "Любанский"));
+        aliasValues.add(new AliasValue("Хойницкий", "Хойникский"));
 
         aliasValues.add(new AliasValue("улица неизвестна,", ""));
         aliasValues.add(new AliasValue("улицы нет,", ""));
@@ -596,14 +604,14 @@ public class AddressParser {
                         "-ое", "-ОЕ", "-ой", "-ОЙ",
                         "-ого", "-ОГО", "-го", "-ГО",
                         "-лет", "-ЛЕТ", "-летия", "-ЛЕТИЯ",
-                        "-е", "-Е"},
+                        "-е", "-Е", "-ий"},
                 new String[]{
                         "", "", "", "",
                         "", "", "", "",
                         "", "", "", "",
                         "", "", "", "",
                         "", "", "", "",
-                        "", ""});
+                        "", "", ""});
     }
 
     private AddressProcessCityResult processCityNext(AddressParserItem item) {
