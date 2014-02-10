@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -124,7 +122,7 @@
       <file leaf-file-name="AddressParser.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="284" column="37" selection-start="12474" selection-end="12474" vertical-scroll-proportion="0.0" vertical-offset="4029" max-vertical-offset="26095">
+            <state line="284" column="37" selection-start="12474" selection-end="12474" vertical-scroll-proportion="0.0" vertical-offset="2193" max-vertical-offset="26095">
               <folding />
             </state>
           </provider>
@@ -160,16 +158,7 @@
       <file leaf-file-name="DockDataMain.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="316" column="44" selection-start="11782" selection-end="11782" vertical-scroll-proportion="0.0" vertical-offset="5372" max-vertical-offset="5525">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddressParserHelper.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="92" selection-start="6663" selection-end="6663" vertical-scroll-proportion="0.0" vertical-offset="1496" max-vertical-offset="2499">
+            <state line="316" column="44" selection-start="11782" selection-end="11782" vertical-scroll-proportion="0.0" vertical-offset="3926" max-vertical-offset="4947">
               <folding />
             </state>
           </provider>
@@ -178,7 +167,7 @@
       <file leaf-file-name="FuzzySearch.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="87" selection-start="3140" selection-end="3181" vertical-scroll-proportion="-0.1994135" vertical-offset="969" max-vertical-offset="11050">
+            <state line="133" column="52" selection-start="6646" selection-end="6646" vertical-scroll-proportion="0.6529493" vertical-offset="1581" max-vertical-offset="11050">
               <folding />
             </state>
           </provider>
@@ -243,7 +232,6 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser_B2.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AliasValueType.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressProcessStreetWithGEOResult.java" />
-        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressItem.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressProcessStreetResult.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser_B1.java" />
@@ -277,6 +265,7 @@
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressProcessCityWithGEOResult.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
         <option value="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
+        <option value="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
       </list>
     </option>
   </component>
@@ -426,6 +415,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="objects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DebtImport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oshmianski" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="objects" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addressParser" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -955,7 +970,11 @@
       <created>1391527816792</created>
       <updated>1391527816792</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1392049413888</created>
+      <updated>1392049413888</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -992,18 +1011,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49799734" sideWeight="0.40575275" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32797858" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27889207" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3240612" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18690096" sideWeight="0.3422307" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18690096" sideWeight="0.34172186" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986537" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18690096" sideWeight="0.6577693" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18690096" sideWeight="0.65695363" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5405922" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45247656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27889207" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39892906" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -1245,20 +1264,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="316" column="44" selection-start="11782" selection-end="11782" vertical-scroll-proportion="0.0" vertical-offset="3977" max-vertical-offset="5032">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="92" selection-start="6663" selection-end="6663" vertical-scroll-proportion="0.0" vertical-offset="1404" max-vertical-offset="2448">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="887" column="21" selection-start="36006" selection-end="36006" vertical-scroll-proportion="0.0" vertical-offset="14089" max-vertical-offset="24293">
@@ -1295,6 +1300,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="49" selection-start="4140" selection-end="4145" vertical-scroll-proportion="0.31733593" vertical-offset="662" max-vertical-offset="2448">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="316" column="44" selection-start="11782" selection-end="11782" vertical-scroll-proportion="0.0" vertical-offset="3977" max-vertical-offset="5032">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="284" column="37" selection-start="12474" selection-end="12474" vertical-scroll-proportion="0.0" vertical-offset="4029" max-vertical-offset="26095">
@@ -1304,7 +1323,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="87" selection-start="3140" selection-end="3181" vertical-scroll-proportion="-0.1994135" vertical-offset="969" max-vertical-offset="11050">
+        <state line="133" column="52" selection-start="6646" selection-end="6646" vertical-scroll-proportion="0.6529493" vertical-offset="1581" max-vertical-offset="11050">
           <folding />
         </state>
       </provider>

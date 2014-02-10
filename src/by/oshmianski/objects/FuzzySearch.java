@@ -131,7 +131,7 @@ public class FuzzySearch {
         ArrayList<AliasValue> aliasValues = new ArrayList<AliasValue>();
 
 //        aliasValues.add(new AliasValue("н.п.", "н.п."));
-        aliasValues.add(new AliasValue("город", "г"));
+        aliasValues.add(new AliasValue("город ", "г "));
         aliasValues.add(new AliasValue("деревня", "д"));
         aliasValues.add(new AliasValue("гор.", "г"));
         aliasValues.add(new AliasValue("дер.", "д"));
