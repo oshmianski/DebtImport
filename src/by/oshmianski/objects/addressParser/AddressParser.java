@@ -2,6 +2,8 @@ package by.oshmianski.objects.addressParser;
 
 import by.oshmianski.objects.Address;
 import by.oshmianski.objects.AliasValue;
+import by.oshmianski.objects.DataChildItem;
+import by.oshmianski.objects.Status;
 import by.oshmianski.utils.MyLog;
 import lotus.domino.Document;
 import lotus.domino.View;
@@ -26,13 +28,15 @@ public class AddressParser {
     private String realStr_ = "";
     private ArrayList<AddressParserItem> parserItems = new ArrayList<AddressParserItem>();
     private Address address = new Address();
+    private ArrayList<DataChildItem> dataChildItems;
 
-    public AddressParser(String realStr, View viewGEO, View viewGEOStreet) {
+    public AddressParser(String realStr, View viewGEO, View viewGEOStreet, ArrayList<DataChildItem> dataChildItems) {
         this.realStr = realStr.replaceAll("ё", "е").replaceAll("Ё", "Е");
         realStrExclusion = this.realStr;
 
         this.viewGEO = viewGEO;
         this.viewGEOStreet = viewGEOStreet;
+        this.dataChildItems = dataChildItems;
     }
 
     public void parse() {
@@ -92,7 +96,6 @@ public class AddressParser {
 
         processRegionDistrict();
 
-
         processHouseBuildFlat();
 
         processStreetOnly();
@@ -135,6 +138,8 @@ public class AddressParser {
 
         address.setProcessedFullNotService(isProcessedFullNotService);
         address.setProcessedFull(isProcessedFull);
+
+        processWarningAddress(address, dataChildItems);
     }
 
     public Address getAddress() {
@@ -238,11 +243,15 @@ public class AddressParser {
         aliasValues.add(new AliasValue("част дом", ""));
         aliasValues.add(new AliasValue("част.дом", ""));
         aliasValues.add(new AliasValue("част. дом", ""));
+        aliasValues.add(new AliasValue("ч/д", ""));
+        aliasValues.add(new AliasValue("ч\\д", ""));
         aliasValues.add(new AliasValue(" -,", ""));
         aliasValues.add(new AliasValue(" нету,", ""));
         aliasValues.add(new AliasValue(" ,", ","));
         aliasValues.add(new AliasValue(".,", ","));
         aliasValues.add(new AliasValue("\"", ""));
+        aliasValues.add(new AliasValue("(общ)", ""));
+        aliasValues.add(new AliasValue("(общ.)", ""));
         aliasValues.add(new AliasValue("70лет", "70 лет"));
         aliasValues.add(new AliasValue("60лет", "60 лет"));
         aliasValues.add(new AliasValue("50лет", "50 лет"));
@@ -1473,5 +1482,75 @@ public class AddressParser {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    private void processWarningAddress(Address address, ArrayList<DataChildItem> dataChildItems) {
+        if (address.getIndex().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_INDEX,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует индекс"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if(address == null){
+            int i = 1;
+        }
+
+        if(address.getCityType() == null){
+            int i = 1;
+        }
+
+        if (address.getCityType().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_CITY_TYPE,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует тип города"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getCity().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_CITY,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует город"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getStreetType().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_STREET_TYPE,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует тип улицы"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getStreet().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_STREET,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует улица"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getHouse().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_HOUSE,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует дом"
+            );
+            dataChildItems.add(dataChildItem);
+        }
     }
 }

@@ -862,7 +862,7 @@ public class Importer {
 
                     fillRecordObjectFieldsAddress(rFields, address);
                 } else if ("#ADDRESS_2".equalsIgnoreCase(field.getTitleSys())) {
-                    AddressParser addressParser = new AddressParser(cellValue, viewGEO, viewGEOStreet);
+                    AddressParser addressParser = new AddressParser(cellValue, viewGEO, viewGEOStreet, dataChildItems);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
 

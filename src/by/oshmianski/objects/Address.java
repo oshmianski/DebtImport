@@ -41,7 +41,20 @@ public class Address {
         this("", "", "", "", "", "", "", "", "", "", "", "");
     }
 
-    public Address(String index, String country, String region, String district, String unit, String cityType, String city, String streetType, String street, String house, String building, String flat) {
+    public Address(
+            String index,
+            String country,
+            String region,
+            String district,
+            String unit,
+            String cityType,
+            String city,
+            String streetType,
+            String street,
+            String house,
+            String building,
+            String flat) {
+
         this.index = index;
         this.country = country;
         this.region = region;
@@ -106,7 +119,7 @@ public class Address {
     }
 
     public void setCityType(String cityType, AddressParserOperation cityTypeOperation) {
-        this.cityType = cityType;
+        this.cityType = cityType == null ? "" : cityType;
         this.cityTypeOperation = cityTypeOperation;
     }
 
@@ -115,7 +128,7 @@ public class Address {
     }
 
     public void setCity(String city, AddressParserOperation cityOperation) {
-        this.city = city;
+        this.city = city == null ? "" : city;
         this.cityOperation = cityOperation;
     }
 
@@ -124,7 +137,7 @@ public class Address {
     }
 
     public void setStreetType(String streetType, AddressParserOperation streetTypeOperation) {
-        this.streetType = streetType;
+        this.streetType = streetType == null ? "" : streetType;
         this.streetTypeOperation = streetTypeOperation;
     }
 
