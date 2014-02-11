@@ -5,10 +5,7 @@ import by.oshmianski.objects.AliasValue;
 import by.oshmianski.objects.DataChildItem;
 import by.oshmianski.objects.Status;
 import by.oshmianski.utils.MyLog;
-import lotus.domino.Document;
-import lotus.domino.View;
-import lotus.domino.ViewEntry;
-import lotus.domino.ViewEntryCollection;
+import lotus.domino.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -22,6 +19,7 @@ import java.util.regex.Pattern;
 public class AddressParser {
     private View viewGEO;
     private View viewGEOStreet;
+    private View viewGEOIndex;
 
     private String realStr = "";
     private String realStrExclusion = "";
@@ -30,12 +28,20 @@ public class AddressParser {
     private Address address = new Address();
     private ArrayList<DataChildItem> dataChildItems;
 
-    public AddressParser(String realStr, View viewGEO, View viewGEOStreet, ArrayList<DataChildItem> dataChildItems) {
+    public AddressParser(
+            String realStr,
+            View viewGEO,
+            View viewGEOStreet,
+            View viewGEOIndex,
+            ArrayList<DataChildItem> dataChildItems) {
+
         this.realStr = realStr.replaceAll("ё", "е").replaceAll("Ё", "Е");
         realStrExclusion = this.realStr;
 
         this.viewGEO = viewGEO;
         this.viewGEOStreet = viewGEOStreet;
+        this.viewGEOIndex = viewGEOIndex;
+
         this.dataChildItems = dataChildItems;
     }
 
@@ -104,6 +110,7 @@ public class AddressParser {
 
         processCityAndStreetWithPrevAndNext();
 
+        processIndex();
 
         //проверяю, все ли обработано
         //это нужно сделать ТОЛЬКО В САМОМ КОНЦЕ,
@@ -1329,13 +1336,13 @@ public class AddressParser {
             if (!item.isService() && !item.isProcessed() && item.isBeginWithNumber()) {
                 prev = getPrevItem(item);
                 next = getNextItem(item);
-                if(
+                if (
                         prev != null &&
                                 next != null &&
                                 ",".equalsIgnoreCase(prev.getCharAfter()) &&
                                 item.isBeginWithNumber() &&
                                 next.isService() &&
-                                next.getTypeValue() == AddressParserItemTypeValue.street){
+                                next.getTypeValue() == AddressParserItemTypeValue.street) {
 
                     item4Transposition.setNumber(next.getNumber());
                     item4Transposition.setIndex(next.isIndex());
@@ -1495,14 +1502,6 @@ public class AddressParser {
             dataChildItems.add(dataChildItem);
         }
 
-        if(address == null){
-            int i = 1;
-        }
-
-        if(address.getCityType() == null){
-            int i = 1;
-        }
-
         if (address.getCityType().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_CITY_TYPE,
@@ -1551,6 +1550,74 @@ public class AddressParser {
                     "Отсутствует дом"
             );
             dataChildItems.add(dataChildItem);
+        }
+    }
+
+    public void processIndex() {
+        String index = "";
+        String key;
+
+        ViewEntryCollection vec = null;
+        ViewEntry ve = null;
+        ViewEntry veTmp = null;
+        boolean isEqualIndex = true;
+
+        try {
+            if (address.getDistrict().isEmpty()) {
+                key = address.getCity() + "~";
+                vec = viewGEOIndex.getAllEntriesByKey(key, false);
+            } else {
+                key = address.getCity() + "~" + address.getDistrict();
+                vec = viewGEOIndex.getAllEntriesByKey(key, true);
+                if (vec.getCount() == 0) {
+                    key = address.getCity() + "~";
+                    vec = viewGEOIndex.getAllEntriesByKey(key, false);
+                }
+            }
+
+            if (vec.getCount() == 1) {
+                address.setIndex(vec.getFirstEntry().getColumnValues().elementAt(1).toString(), AddressParserOperation.PROCESS_INDEX_85_1);
+            } else {
+                if (vec.getCount() > 1) {
+                    ve = vec.getFirstEntry();
+                    index = ve.getColumnValues().elementAt(1).toString();
+
+                    veTmp = vec.getNextEntry();
+                    ve.recycle();
+                    ve = veTmp;
+
+                    while (ve != null) {
+                        if (!index.equalsIgnoreCase(ve.getColumnValues().elementAt(1).toString())) {
+                            isEqualIndex = false;
+                            break;
+                        }
+
+                        veTmp = vec.getNextEntry();
+                        ve.recycle();
+                        ve = veTmp;
+                    }
+
+                    if (isEqualIndex) {
+                        address.setIndex(index, AddressParserOperation.PROCESS_INDEX_85_MANY);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            MyLog.add2Log(ex);
+        } finally {
+            try {
+                if (ve != null) {
+                    ve.recycle();
+                }
+                if (veTmp != null) {
+                    veTmp.recycle();
+                }
+                if (vec != null) {
+                    vec.recycle();
+                }
+            } catch (Exception e) {
+                MyLog.add2Log(e);
+            }
         }
     }
 }

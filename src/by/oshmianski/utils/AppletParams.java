@@ -22,6 +22,7 @@ public class AppletParams {
     private String viewRuleRef;
     private String viewGEOCity;
     private String viewGEOStreet;
+    private String viewGEOIndex;
 
     public static AppletParams getInstance() {
         return ourInstance;
@@ -42,6 +43,7 @@ public class AppletParams {
         dbGEO = applet.getParameter("dbGEO");
         viewGEOCity = applet.getParameter("viewGEOCity");
         viewGEOStreet = applet.getParameter("viewGEOStreet");
+        viewGEOIndex = applet.getParameter("viewGEOIndex");
     }
 
     public String getDbReplicaID() {
@@ -130,5 +132,13 @@ public class AppletParams {
 
     public void setViewGEOStreet(String viewGEOStreet) {
         this.viewGEOStreet = viewGEOStreet;
+    }
+
+    public String getViewGEOIndex() {
+        return viewGEOIndex;
+    }
+
+    public void setViewGEOIndex(String viewGEOIndex) {
+        this.viewGEOIndex = viewGEOIndex;
     }
 }

@@ -423,6 +423,7 @@ public class Importer {
         View view = null;
         View viewGEO = null;
         View viewGEOStreet = null;
+        View viewGEOIndex = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -447,8 +448,10 @@ public class Importer {
             dbGEO.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbGEO());
             viewGEO = dbGEO.getView(AppletParams.getInstance().getViewGEOCity());
             viewGEOStreet = dbGEO.getView(AppletParams.getInstance().getViewGEOStreet());
+            viewGEOIndex = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex());
             viewGEO.setAutoUpdate(false);
             viewGEOStreet.setAutoUpdate(false);
+            viewGEOIndex.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -525,6 +528,7 @@ public class Importer {
                         dbMap,
                         viewGEO,
                         viewGEOStreet,
+                        viewGEOIndex,
                         viewMap,
                         wb,
                         col2Description);
@@ -571,6 +575,9 @@ public class Importer {
                 }
                 if (viewGEO != null) {
                     viewGEO.recycle();
+                }
+                if (viewGEOIndex != null) {
+                    viewGEOIndex.recycle();
                 }
                 if (viewGEOStreet != null) {
                     viewGEOStreet.recycle();
@@ -736,6 +743,7 @@ public class Importer {
             Database db,
             View viewGEO,
             View viewGEOStreet,
+            View viewGEOIndex,
             XSSFWorkbook wb,
             Row row,
             Object obj,
@@ -862,7 +870,7 @@ public class Importer {
 
                     fillRecordObjectFieldsAddress(rFields, address);
                 } else if ("#ADDRESS_2".equalsIgnoreCase(field.getTitleSys())) {
-                    AddressParser addressParser = new AddressParser(cellValue, viewGEO, viewGEOStreet, dataChildItems);
+                    AddressParser addressParser = new AddressParser(cellValue, viewGEO, viewGEOStreet, viewGEOIndex, dataChildItems);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
 
@@ -1145,6 +1153,7 @@ public class Importer {
             Map<String, Database> dbMap,
             View viewGEO,
             View viewGEOStreet,
+            View viewGEOIndex,
             Map<String, View> viewMap,
             XSSFWorkbook wb,
             int col2Description
@@ -1192,6 +1201,7 @@ public class Importer {
                         db,
                         viewGEO,
                         viewGEOStreet,
+                        viewGEOIndex,
                         wb,
                         row,
                         obj,
@@ -1279,6 +1289,7 @@ public class Importer {
         View view = null;
         View viewGEO = null;
         View viewGEOStreet = null;
+        View viewGEOIndex = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -1305,8 +1316,10 @@ public class Importer {
             dbGEO.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbGEO());
             viewGEO = dbGEO.getView(AppletParams.getInstance().getViewGEOCity());
             viewGEOStreet = dbGEO.getView(AppletParams.getInstance().getViewGEOStreet());
+            viewGEOIndex = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex());
             viewGEO.setAutoUpdate(false);
             viewGEOStreet.setAutoUpdate(false);
+            viewGEOIndex.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -1358,6 +1371,7 @@ public class Importer {
                     dbMap,
                     viewGEO,
                     viewGEOStreet,
+                    viewGEOIndex,
                     viewMap,
                     wb,
                     col2Description);
