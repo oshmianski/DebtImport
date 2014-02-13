@@ -72,6 +72,7 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("село", AddressParserItemTypeValue.city, "с"));
         aliasValues.add(new AliasValueType("снп", AddressParserItemTypeValue.city, "снп"));
         aliasValues.add(new AliasValueType("х", AddressParserItemTypeValue.city, "х"));
+        aliasValues.add(new AliasValueType("хутор", AddressParserItemTypeValue.city, "х"));
         aliasValues.add(new AliasValueType("аг", AddressParserItemTypeValue.city, "аг"));
         aliasValues.add(new AliasValueType("а\\г", AddressParserItemTypeValue.city, "аг"));
         aliasValues.add(new AliasValueType("а/г", AddressParserItemTypeValue.city, "аг"));
@@ -99,6 +100,7 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("б-р", AddressParserItemTypeValue.street, "бульвар"));
         aliasValues.add(new AliasValueType("пр", AddressParserItemTypeValue.street, "проезд"));
         aliasValues.add(new AliasValueType("проезд", AddressParserItemTypeValue.street, "проезд"));
+        aliasValues.add(new AliasValueType("пр-д", AddressParserItemTypeValue.street, "проезд"));
         aliasValues.add(new AliasValueType("аллея", AddressParserItemTypeValue.street, "аллея"));
         aliasValues.add(new AliasValueType("микрорайон", AddressParserItemTypeValue.street, "микрорайон"));
         aliasValues.add(new AliasValueType("м-н", AddressParserItemTypeValue.street, "микрорайон"));
@@ -107,6 +109,7 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("мик-он", AddressParserItemTypeValue.street, "микрорайон"));
         aliasValues.add(new AliasValueType("мкрн", AddressParserItemTypeValue.street, "микрорайон"));
         aliasValues.add(new AliasValueType("мк-н", AddressParserItemTypeValue.street, "микрорайон"));
+        aliasValues.add(new AliasValueType("мр-н", AddressParserItemTypeValue.street, "микрорайон"));
         aliasValues.add(new AliasValueType("набережная", AddressParserItemTypeValue.street, "набережная"));
         aliasValues.add(new AliasValueType("пер", AddressParserItemTypeValue.street, "переулок"));
         aliasValues.add(new AliasValueType("пар", AddressParserItemTypeValue.street, "переулок"));//ИСПРАВЛЯЮ ОПЕЧАТКУ
@@ -121,10 +124,12 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("туп", AddressParserItemTypeValue.street, "тупик"));
         aliasValues.add(new AliasValueType("санаторий", AddressParserItemTypeValue.street, "санаторий"));
         aliasValues.add(new AliasValueType("школа-интернат", AddressParserItemTypeValue.street, "школа-интернат"));
+        aliasValues.add(new AliasValueType("урочище", AddressParserItemTypeValue.street, "урочище"));
 
         aliasValues.add(new AliasValueType("дом", AddressParserItemTypeValue.house, "дом"));
 
         aliasValues.add(new AliasValueType("ком", AddressParserItemTypeValue.flat, "квартира"));
+        aliasValues.add(new AliasValueType("комн", AddressParserItemTypeValue.flat, "квартира"));
 
         aliasValues.add(new AliasValueType("корпус", AddressParserItemTypeValue.build, "корпус"));
         aliasValues.add(new AliasValueType("корп", AddressParserItemTypeValue.build, "корпус"));

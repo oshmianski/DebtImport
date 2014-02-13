@@ -1562,6 +1562,8 @@ public class AddressParser {
         ViewEntry veTmp = null;
         boolean isEqualIndex = true;
 
+        if(!address.getIndex().isEmpty()) return;
+
         try {
             if (address.getDistrict().isEmpty()) {
                 key = address.getCity() + "~";
