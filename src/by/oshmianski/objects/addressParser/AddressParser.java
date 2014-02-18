@@ -1007,19 +1007,27 @@ public class AddressParser {
                 }
 
                 String build = "";
+                AddressParserItem nextService;
+                boolean isCanBuild = true;
                 //поиск корпуса
                 if (AddressParserItemTypeValue.build.equals(item.getTypeValue())) {
                     if (parserItems.size() > item.getNumber()) {
                         next = parserItems.get(item.getNumber());
                         if (!next.isService()) {
-                            build = clearDraft(next.getText());
+                            nextService = getNextServiceItem(next);
+                            if (nextService != null && nextService.getTypeValue() == AddressParserItemTypeValue.house) {
+                                isCanBuild = false;
+                            }
+                            if (isCanBuild) {
+                                build = clearDraft(next.getText());
 
-                            item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
-                            next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
-                            next.setTypeValue(AddressParserItemTypeValue.build);
+                                item.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
+                                next.setProcessed(true, AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
+                                next.setTypeValue(AddressParserItemTypeValue.build);
 
-                            if (!build.isEmpty()) {
-                                address.setBuilding(next.getText(), AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
+                                if (!build.isEmpty()) {
+                                    address.setBuilding(next.getText(), AddressParserOperation.PROCESS_SERVICES_BUILD_FOUND_2);
+                                }
                             }
                         }
                     }
@@ -1093,8 +1101,11 @@ public class AddressParser {
             }
         }
 
+        boolean isCanFlat;
         for (AddressParserItem item : items) {
             prev = getPrevProcessedItem(item);
+            next = getNextServiceItem(item);
+            isCanFlat = false;
             if (prev != null) {
                 if (prev.getTypeValue() == AddressParserItemTypeValue.street
                         || (prev.getTypeValue() == AddressParserItemTypeValue.city && !isContainValueType(AddressParserItemTypeValue.street))) {
@@ -1105,15 +1116,25 @@ public class AddressParser {
                 }
 
                 if (prev.getTypeValue() == AddressParserItemTypeValue.house) {
-                    if (items.size() == items.indexOf(item) + 1) {
-                        item.setTypeValue(AddressParserItemTypeValue.flat);
-                        address.setFlat(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                    if (next != null) {
+                        if (next.getTypeValue() != AddressParserItemTypeValue.flat) {
+                            isCanFlat = true;
+                        }
                     } else {
-                        item.setTypeValue(AddressParserItemTypeValue.build);
-                        address.setBuilding(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                        isCanFlat = true;
                     }
 
-                    item.setProcessed(true, AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                    if (isCanFlat) {
+                        if (items.size() == items.indexOf(item) + 1) {
+                            item.setTypeValue(AddressParserItemTypeValue.flat);
+                            address.setFlat(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                        } else {
+                            item.setTypeValue(AddressParserItemTypeValue.build);
+                            address.setBuilding(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                        }
+
+                        item.setProcessed(true, AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                    }
                 }
 
                 if (prev.getTypeValue() == AddressParserItemTypeValue.build) {
@@ -1562,7 +1583,7 @@ public class AddressParser {
         ViewEntry veTmp = null;
         boolean isEqualIndex = true;
 
-        if(!address.getIndex().isEmpty()) return;
+        if (!address.getIndex().isEmpty()) return;
 
         try {
             if (address.getDistrict().isEmpty()) {
