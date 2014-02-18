@@ -64,7 +64,7 @@
       </breakpoint>
     </breakpoint_any>
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" line="1117" class="by.oshmianski.objects.addressParser.AddressParser" package="by.oshmianski.objects.addressParser">
+      <breakpoint url="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" line="1120" class="by.oshmianski.objects.addressParser.AddressParser" package="by.oshmianski.objects.addressParser">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -92,7 +92,16 @@
       <file leaf-file-name="AddressParser.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1012" column="16" selection-start="42659" selection-end="42659" vertical-scroll-proportion="0.39079335" vertical-offset="16448" max-vertical-offset="27676">
+            <state line="124" column="22" selection-start="3944" selection-end="3944" vertical-scroll-proportion="0.48285994" vertical-offset="1428" max-vertical-offset="27727">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FuzzySearch.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="448" column="147" selection-start="19009" selection-end="19148" vertical-scroll-proportion="0.0" vertical-offset="6765" max-vertical-offset="11050">
               <folding />
             </state>
           </provider>
@@ -973,7 +982,11 @@
       <created>1392626916962</created>
       <updated>1392626916962</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1392742526739</created>
+      <updated>1392742526744</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1292,13 +1305,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="615" column="32" selection-start="24929" selection-end="24929" vertical-scroll-proportion="0.0" vertical-offset="9894" max-vertical-offset="11050">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="450" column="11" selection-start="19213" selection-end="19213" vertical-scroll-proportion="0.0" vertical-offset="6952" max-vertical-offset="24531">
@@ -1320,9 +1326,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="448" column="147" selection-start="19009" selection-end="19148" vertical-scroll-proportion="0.0" vertical-offset="6765" max-vertical-offset="11050">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1012" column="16" selection-start="42659" selection-end="42659" vertical-scroll-proportion="0.39079335" vertical-offset="16448" max-vertical-offset="27676">
+        <state line="124" column="22" selection-start="3944" selection-end="3944" vertical-scroll-proportion="0.48285994" vertical-offset="1428" max-vertical-offset="27727">
           <folding />
         </state>
       </provider>

@@ -112,6 +112,9 @@ public class AddressParser {
 
         processIndex();
 
+        //TODO: это надо как-то переделать!!!
+        if (address.getBuilding().length() > 0) address.setHouse(address.getHouse() + "/" + address.getBuilding(), AddressParserOperation.UNKNOWN);
+
         //проверяю, все ли обработано
         //это нужно сделать ТОЛЬКО В САМОМ КОНЦЕ,
         //т.е. после этого кода больше НИКАКОГО РАЗБОРА
