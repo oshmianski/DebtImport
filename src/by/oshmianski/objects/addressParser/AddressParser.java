@@ -1159,14 +1159,14 @@ public class AddressParser {
                         build = clearDraft(item.getText());
 
                         if (!build.isEmpty()) {
-                            item.setTypeValue(AddressParserItemTypeValue.build);
 
                             if (address.getBuilding().isEmpty()) {
                                 address.setBuilding(item.getText(), AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
+                                item.setTypeValue(AddressParserItemTypeValue.build);
+                                item.setProcessed(true, AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
                             }
                         }
 
-                        item.setProcessed(true, AddressParserOperation.PROCESS_HOUSE_BUILD_FLAT_5);
                     }
                 }
             }
