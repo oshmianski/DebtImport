@@ -52,7 +52,7 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("р-н", AddressParserItemTypeValue.district, "район"));
         aliasValues.add(new AliasValueType("р-он", AddressParserItemTypeValue.district, "район"));
         aliasValues.add(new AliasValueType("район", AddressParserItemTypeValue.district, "район"));
-        aliasValues.add(new AliasValueType("distr", AddressParserItemTypeValue.district, ""));
+        aliasValues.add(new AliasValueType("district", AddressParserItemTypeValue.district, ""));
 
         aliasValues.add(new AliasValueType("рп", AddressParserItemTypeValue.city, "рп"));     //населенный пункт
         aliasValues.add(new AliasValueType("нп", AddressParserItemTypeValue.city, ""));     //населенный пункт
