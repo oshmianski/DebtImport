@@ -101,7 +101,7 @@
       <file leaf-file-name="AddressParserHelper.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="47" selection-start="11099" selection-end="11099" vertical-scroll-proportion="0.9559256" vertical-offset="1217" max-vertical-offset="2635">
+            <state line="133" column="84" selection-start="11137" selection-end="11137" vertical-scroll-proportion="0.67286974" vertical-offset="1523" max-vertical-offset="2635">
               <folding />
             </state>
           </provider>
@@ -967,7 +967,11 @@
       <created>1393488038471</created>
       <updated>1393488038471</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1394023499409</created>
+      <updated>1394023499409</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1318,7 +1322,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="47" selection-start="11099" selection-end="11099" vertical-scroll-proportion="0.9559256" vertical-offset="1217" max-vertical-offset="2635">
+        <state line="133" column="84" selection-start="11137" selection-end="11137" vertical-scroll-proportion="0.67286974" vertical-offset="1523" max-vertical-offset="2635">
           <folding />
         </state>
       </provider>
