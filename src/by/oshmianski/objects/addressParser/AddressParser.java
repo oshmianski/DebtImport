@@ -195,8 +195,8 @@ public class AddressParser {
         aliasValues.add(new AliasValue("ПЕР.", "пер."));
 
         aliasValues.add(new AliasValue("УЛИЦА", "улица"));
-        aliasValues.add(new AliasValue("Школа-интернат", "школа-интернат"));
         aliasValues.add(new AliasValue("Проспект", "проспект"));
+        aliasValues.add(new AliasValue("Микрорайон", "микрорайон"));
         aliasValues.add(new AliasValue("Область", "область"));
         aliasValues.add(new AliasValue("Бульвар", "бульвар"));
         aliasValues.add(new AliasValue("Пер.", "пер."));
