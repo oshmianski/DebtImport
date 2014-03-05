@@ -47,10 +47,12 @@ public class AddressParserHelper {
 
         aliasValues.add(new AliasValueType("обл", AddressParserItemTypeValue.region, "область"));
         aliasValues.add(new AliasValueType("область", AddressParserItemTypeValue.region, "область"));
+        aliasValues.add(new AliasValueType("region", AddressParserItemTypeValue.region, ""));
 
         aliasValues.add(new AliasValueType("р-н", AddressParserItemTypeValue.district, "район"));
         aliasValues.add(new AliasValueType("р-он", AddressParserItemTypeValue.district, "район"));
         aliasValues.add(new AliasValueType("район", AddressParserItemTypeValue.district, "район"));
+        aliasValues.add(new AliasValueType("distr", AddressParserItemTypeValue.district, ""));
 
         aliasValues.add(new AliasValueType("рп", AddressParserItemTypeValue.city, "рп"));     //населенный пункт
         aliasValues.add(new AliasValueType("нп", AddressParserItemTypeValue.city, ""));     //населенный пункт
@@ -78,6 +80,7 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("а/г", AddressParserItemTypeValue.city, "аг"));
         aliasValues.add(new AliasValueType("агрогородок", AddressParserItemTypeValue.city, "аг"));
         aliasValues.add(new AliasValueType("агр-к", AddressParserItemTypeValue.city, "аг"));
+        aliasValues.add(new AliasValueType("city", AddressParserItemTypeValue.city, ""));
 
         aliasValues.add(new AliasValueType("площадь", AddressParserItemTypeValue.street, "площадь"));
         aliasValues.add(new AliasValueType("ул", AddressParserItemTypeValue.street, "улица"));
@@ -112,6 +115,7 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("мкрн", AddressParserItemTypeValue.street, "микрорайон"));
         aliasValues.add(new AliasValueType("мкр-н", AddressParserItemTypeValue.street, "микрорайон"));
         aliasValues.add(new AliasValueType("мк-н", AddressParserItemTypeValue.street, "микрорайон"));
+        aliasValues.add(new AliasValueType("м-н", AddressParserItemTypeValue.street, "микрорайон"));
         aliasValues.add(new AliasValueType("мр-н", AddressParserItemTypeValue.street, "микрорайон"));
         aliasValues.add(new AliasValueType("набережная", AddressParserItemTypeValue.street, "набережная"));
         aliasValues.add(new AliasValueType("пер", AddressParserItemTypeValue.street, "переулок"));
@@ -129,12 +133,14 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("урочище", AddressParserItemTypeValue.street, "урочище"));
         aliasValues.add(new AliasValueType("ст", AddressParserItemTypeValue.street, "станция"));
         aliasValues.add(new AliasValueType("станция", AddressParserItemTypeValue.street, "станция"));
+        aliasValues.add(new AliasValueType("street", AddressParserItemTypeValue.street, ""));
 
         aliasValues.add(new AliasValueType("house", AddressParserItemTypeValue.house, ""));
         aliasValues.add(new AliasValueType("дом", AddressParserItemTypeValue.house, "дом"));
 
         aliasValues.add(new AliasValueType("ком", AddressParserItemTypeValue.flat, "квартира"));
         aliasValues.add(new AliasValueType("комн", AddressParserItemTypeValue.flat, "квартира"));
+        aliasValues.add(new AliasValueType("flat", AddressParserItemTypeValue.flat, ""));
 
         aliasValues.add(new AliasValueType("корпус", AddressParserItemTypeValue.build, "корпус"));
         aliasValues.add(new AliasValueType("корп", AddressParserItemTypeValue.build, "корпус"));
@@ -142,6 +148,7 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("к", AddressParserItemTypeValue.build, "корпус"));
         aliasValues.add(new AliasValueType("стр", AddressParserItemTypeValue.build, "корпус"));
         aliasValues.add(new AliasValueType("строение", AddressParserItemTypeValue.build, "корпус"));
+        aliasValues.add(new AliasValueType("build", AddressParserItemTypeValue.build, ""));
 
         aliasValues.add(new AliasValueType("кв", AddressParserItemTypeValue.UNKNOW, ""));
         aliasValues.add(new AliasValueType("д", AddressParserItemTypeValue.UNKNOW, ""));
