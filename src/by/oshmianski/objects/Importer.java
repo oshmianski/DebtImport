@@ -2,6 +2,7 @@ package by.oshmianski.objects;
 
 import by.oshmianski.loaders.LoadImportData;
 import by.oshmianski.objects.addressParser.AddressParser;
+import by.oshmianski.ui.edt.UIProcessor;
 import by.oshmianski.utils.AppletParams;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
@@ -30,18 +31,19 @@ import java.util.*;
  */
 public class Importer {
     private LoadImportData loader;
+    private UIProcessor ui;
 
     private Map<String, RecordObject> recordObjectMap = new HashMap<String, RecordObject>();
     private String importKey;
     private FuzzySearch fuzzySearchAddress;
     private final SimpleDateFormat formatterDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     private FormulaEvaluator evaluator = null;
-    //    private DecimalFormat formatNumber = (DecimalFormat) DecimalFormat.getInstance();
     private DecimalFormat formatNumber = new DecimalFormat("0.######");
-    private static final String MULTY_SEPARATOR = "-+||+-";
+    private static final String MULTI_SEPARATOR = "-+||+-";
 
     public Importer(LoadImportData loader) {
         this.loader = loader;
+        this.ui = loader.getUi();
         formatNumber.setGroupingUsed(false);
     }
 
@@ -59,59 +61,59 @@ public class Importer {
     private void work() {
         preWork();
 
-        loader.getUi().setProgressLabelText("Чтение и компоновка данных...");
+        ui.setProgressLabelText("Чтение и компоновка данных...");
         startTest();
-        loader.getUi().setProgressLabelText("Чтение и компоновка данных...OK");
+        ui.setProgressLabelText("Чтение и компоновка данных...OK");
 
         if (!loader.isCanceled()) {
-            loader.getUi().setProgressLabelText("Импорт данных...");
+            ui.setProgressLabelText("Импорт данных...");
             startImport();
-            loader.getUi().setProgressLabelText("Импорт данных...ОК");
+            ui.setProgressLabelText("Импорт данных...ОК");
         }
 
         postWork();
     }
 
     private void preWork() {
-        loader.getUi().clearDataImport();
+        ui.clearDataImport();
 
-        loader.getUi().setButtonTestStopEnable(false);
-        loader.getUi().setButtonTestStartEnable(false);
-        loader.getUi().setButtonImportStartEnable(false);
-        loader.getUi().setButtonImportStopEnable(true);
+        ui.setButtonTestStopEnable(false);
+        ui.setButtonTestStartEnable(false);
+        ui.setButtonImportStartEnable(false);
+        ui.setButtonImportStopEnable(true);
     }
 
     private void postWork() {
-        loader.getUi().setButtonTestStopEnable(false);
-        loader.getUi().setButtonTestStartEnable(true);
-        loader.getUi().setButtonImportStartEnable(true);
-        loader.getUi().setButtonImportStopEnable(false);
+        ui.setButtonTestStopEnable(false);
+        ui.setButtonTestStartEnable(true);
+        ui.setButtonImportStartEnable(true);
+        ui.setButtonImportStopEnable(false);
     }
 
     private void test() {
         preTest();
 
-        loader.getUi().setProgressLabelText("Чтение и компоновка данных...");
+        ui.setProgressLabelText("Чтение и компоновка данных...");
         startTest();
-        loader.getUi().setProgressLabelText("Чтение и компоновка данных...OK");
+        ui.setProgressLabelText("Чтение и компоновка данных...OK");
 
         postTest();
     }
 
     public void preTest() {
-        loader.getUi().clearDataImport();
+        ui.clearDataImport();
 
-        loader.getUi().setButtonTestStopEnable(true);
-        loader.getUi().setButtonTestStartEnable(false);
-        loader.getUi().setButtonImportStartEnable(false);
-        loader.getUi().setButtonImportStopEnable(false);
+        ui.setButtonTestStopEnable(true);
+        ui.setButtonTestStartEnable(false);
+        ui.setButtonImportStartEnable(false);
+        ui.setButtonImportStopEnable(false);
     }
 
     public void postTest() {
-        loader.getUi().setButtonTestStopEnable(false);
-        loader.getUi().setButtonTestStartEnable(true);
-        loader.getUi().setButtonImportStartEnable(true);
-        loader.getUi().setButtonImportStopEnable(false);
+        ui.setButtonTestStopEnable(false);
+        ui.setButtonTestStartEnable(true);
+        ui.setButtonImportStartEnable(true);
+        ui.setButtonImportStopEnable(false);
     }
 
     private void startImport() {
@@ -130,7 +132,7 @@ public class Importer {
             NotesThread.sinitThread();
             session = NotesFactory.createSession();
 
-            TemplateImport templateImport = loader.getUi().getTemplateImport();
+            TemplateImport templateImport = ui.getTemplateImport();
 
             if (templateImport.isCreateFI()) {
                 Object importFact = templateImport.getImportFact();
@@ -145,8 +147,8 @@ public class Importer {
                     if (importFact.isComputeWithForm())
                         noteFI.computeWithForm(false, false);
 
-                noteFI.replaceItemValue("fileName", loader.getUi().getFileField().getText());
-                String path = loader.getUi().getFileField().getText();
+                noteFI.replaceItemValue("fileName", ui.getFileField().getText());
+                String path = ui.getFileField().getText();
                 noteFI.replaceItemValue("fileNameShort", StringUtils.right(path, path.length() - path.lastIndexOf("\\") - 1));
                 noteFI.replaceItemValue("TemplateImportTitle", templateImport.getTitle());
                 bodyFile = noteFI.createRichTextItem("file");
@@ -189,10 +191,10 @@ public class Importer {
                 }
             }
 
-            EventList<DataMainItem> items = loader.getUi().getDataMainItems();
+            EventList<DataMainItem> items = ui.getDataMainItems();
 
-            loader.getUi().setProgressValue(0);
-            loader.getUi().setProgressMaximum(items.size());
+            ui.setProgressValue(0);
+            ui.setProgressMaximum(items.size());
 
             int i = 0;
             int j = 0;
@@ -212,7 +214,7 @@ public class Importer {
                         recordObjectSortedList = new SortedList<RecordObject>(recordObjectEventList, GlazedLists.beanPropertyComparator(RecordObject.class, "number"));
                         for (RecordObject rObject : recordObjectSortedList) {
                             if (!(rObject.isFlagEmpty() || rObject.isExistInDB() || rObject.isExistInPrevios())) {
-                                Object object = loader.getUi().getTemplateImport().getObjectByFormName(rObject.getTitle());
+                                Object object = ui.getTemplateImport().getObjectByFormName(rObject.getTitle());
 
                                 if (!dbMap.containsKey(object.getDb())) {
                                     Database database = session.getDatabase(null, null);
@@ -234,7 +236,7 @@ public class Importer {
 
                                     if (!field.getValue().isEmpty()) {
                                         if (field.getType() == Field.TYPE.TEXT || field.getType() == Field.TYPE.AUTHORS || field.getType() == Field.TYPE.READERS) {
-                                            val = field.isMultiple() ? new Vector(Arrays.asList(StringUtils.split(field.getValue(), MULTY_SEPARATOR))) : field.getValue();
+                                            val = field.isMultiple() ? new Vector(Arrays.asList(StringUtils.split(field.getValue(), MULTI_SEPARATOR))) : field.getValue();
                                         }
 
                                         if (field.getType() == Field.TYPE.NUMBER) {
@@ -260,7 +262,7 @@ public class Importer {
                                 for (RecordObject mainRecordObject : rObject.getMainObject()) {
                                     if (mainRecordObject != null) {
                                         while (mainRecordObject.isFlagEmpty()) {
-                                            Link link1 = loader.getUi().getTemplateImport().getLinkByChildTitle(mainRecordObject.getTitle());
+                                            Link link1 = ui.getTemplateImport().getLinkByChildTitle(mainRecordObject.getTitle());
                                             mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
                                         }
 
@@ -275,7 +277,7 @@ public class Importer {
                                         }
                                         docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getUnidKey());
 
-                                        Link link = loader.getUi().getTemplateImport().getLinkByMainAndChildTitle(mainRecordObject.getTitle(), rObject.getTitle());
+                                        Link link = ui.getTemplateImport().getLinkByMainAndChildTitle(mainRecordObject.getTitle(), rObject.getTitle());
                                         switch (Integer.valueOf(link.getResponseField())) {
                                             case 1:
                                                 if (link.isMakeResponse())
@@ -312,9 +314,9 @@ public class Importer {
 
                                 rObject.setUnidKey(document.getUniversalID());
 
-                                if (!loader.getUi().isTestImport())
+                                if (!ui.isTestImport())
                                     document.save();
-                                loader.getUi().countIncImported();
+                                ui.countIncImported();
                                 j++;
                             }
                         }
@@ -349,13 +351,13 @@ public class Importer {
 //                Thread.sleep(2);
                 i++;
 
-                loader.getUi().setProgressValue(i + 1);
+                ui.setProgressValue(i + 1);
             }
 
             if (templateImport.isCreateFI()) {
                 if (j > 0) {
                     noteFI.replaceItemValue("importedObjectCount", j);
-                    if (!loader.getUi().isTestImport())
+                    if (!ui.isTestImport())
                         noteFI.save();
                 } else {
                     Calendar now = Calendar.getInstance();
@@ -420,6 +422,10 @@ public class Importer {
         Database dbGEO = null;
         View view = null;
         View viewGEO = null;
+        View viewGEOStreet = null;
+        View viewGEOIndex = null;
+        View viewGEOIndex2 = null;
+        View viewGEOIndex3 = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -434,16 +440,24 @@ public class Importer {
             NotesThread.sinitThread();
             session = NotesFactory.createSession();
 
-            String filePath = loader.getUi().getFileField().getText();
+            String filePath = ui.getFileField().getText();
 
-            TemplateImport templateImport = loader.getUi().getTemplateImport();
+            TemplateImport templateImport = ui.getTemplateImport();
 
             db = session.getDatabase(null, null);
             db.openByReplicaID(AppletParams.getInstance().getServer(), templateImport.getDbID());
             dbGEO = session.getDatabase(null, null);
             dbGEO.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbGEO());
             viewGEO = dbGEO.getView(AppletParams.getInstance().getViewGEOCity());
+            viewGEOStreet = dbGEO.getView(AppletParams.getInstance().getViewGEOStreet());
+            viewGEOIndex = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex());
+            viewGEOIndex2 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex2());
+            viewGEOIndex3 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex3());
             viewGEO.setAutoUpdate(false);
+            viewGEOStreet.setAutoUpdate(false);
+            viewGEOIndex.setAutoUpdate(false);
+            viewGEOIndex2.setAutoUpdate(false);
+            viewGEOIndex3.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -452,17 +466,18 @@ public class Importer {
             // XSSFWorkbook, File
             pkg = OPCPackage.open(file, PackageAccess.READ);
             wb = new XSSFWorkbook(pkg);
+            evaluator = wb.getCreationHelper().createFormulaEvaluator();
 
             Sheet sheet1 = wb.getSheetAt(0);
 
             int count = sheet1.getLastRowNum();
-            int start = loader.getUi().getStartFrom();
+            int start = ui.getStartFrom();
             if (start < 0) {
                 start = 0;
             } else {
                 start = start - 1;
             }
-            int end = loader.getUi().getEndTo();
+            int end = ui.getEndTo();
             if (end == -1) {
                 end = 1000000; //костыль, но по другому пока не знаю как
             } else {
@@ -478,21 +493,16 @@ public class Importer {
                 importKey = RandomStringUtils.random(32, true, true);
             }
 
-            loader.getUi().setCountAll2Import(count + 1 - start);
-            loader.getUi().setProgressValue(0);
-            loader.getUi().setProgressMaximum(count + 1 - start);
+            ui.setCountAll2Import(count + 1 - start);
+            ui.setProgressValue(0);
+            ui.setProgressMaximum(count + 1 - start);
 
             DataMainItem dataMainItem;
-            ArrayList<DataChildItem> dataChildItems = null;
-            ArrayList<RecordObject> rObjects = null;
-            ArrayList<RecordObjectField> rFields = null;
-            DataChildItem dataChildItem;
-            RecordObject rObject;
 
             Row row;
             Row rowFirst;
 
-            int col2Description = loader.getUi().getCol2Description().isEmpty() ? -1 : CellReference.convertColStringToIndex(loader.getUi().getCol2Description());
+            int col2Description = ui.getCol2Description().isEmpty() ? -1 : CellReference.convertColStringToIndex(ui.getCol2Description());
 
             int i = start;
 
@@ -503,140 +513,52 @@ public class Importer {
                     if (it.hasNext())
                         it.next();
 
+            int headerSize = ui.getCellHeaders().size();
+            EventList<CellHeader> cellHeaders = ui.getCellHeaders();
+
             rowFirst = sheet1.getRow(0);
+            ArrayList<String> headerValues = getHeadersValues(
+                    rowFirst,
+                    cellHeaders,
+                    headerSize);
 
             while (it.hasNext() && i <= end) {
                 row = it.next();
 
-                dataMainItem = new DataMainItem(i + 1, Status.OK, col2Description == -1 ? "" : getCellString(wb, row.getCell(col2Description)), templateImport);
-                dataChildItems = new ArrayList<DataChildItem>();
-                rObjects = new ArrayList<RecordObject>();
+                dataMainItem = processRow(
+                        row,
+                        templateImport,
+                        headerValues,
+                        session,
+                        db,
+                        dbMap,
+                        viewGEO,
+                        viewGEOStreet,
+                        viewGEOIndex,
+                        viewGEOIndex2,
+                        viewGEOIndex3,
+                        viewMap,
+                        wb,
+                        col2Description);
 
-                int j = 0;
-                for (Cell cell : rowFirst) {
-                    Cell cell1 = row.getCell(j);
-                    //TODO: В следующей строчке плавающая ошибка: nullPointerException. нужно разобраться
-                    String value = "";
-                    if (loader.getUi().getCellHeaders().size() - 1 < j)
-                        value = CellReference.convertNumToColString(j);
-                    else
-                        value = loader.getUi().getCellHeaders().get(j).toString();
+                ui.appendDataImport(dataMainItem);
 
-                    String description = getCellString(wb, cell1);
+                ui.setProgressValue(i + 1);
+                ui.setFilteredCount();
 
-                    dataChildItem = new DataChildItem(
-                            Status.INFO,
-                            "Данные",
-                            value,
-                            description);
-
-                    dataChildItems.add(dataChildItem);
-
-                    j++;
-                }
-
-                for (Object obj : templateImport.getObjects()) {
-                    rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getUnidTitle(), obj.getFormName(), obj.getTitle(), obj.getDb(), obj.isComputeWithForm());
-                    rObjects.add(rObject);
-                    rFields = new ArrayList<RecordObjectField>();
-
-                    try {
-                        processFields(
-                                session,
-                                db,
-                                viewGEO,
-                                wb,
-                                row,
-                                obj,
-                                dataMainItem,
-                                dataChildItems,
-                                rFields,
-                                rObject);
-                    } catch (Exception ex) {
-                        MyLog.add2Log(ex);
-                        dataChildItem = new DataChildItem(
-                                Status.ERROR,
-                                "_Заполение полей",
-                                "Ошибка",
-                                ex.toString()
-                        );
-                        dataChildItems.add(dataChildItem);
-                    }
-
-                    rObject.setFields(rFields);
-
-                    try {
-                        checkUnique(
-                                session,
-                                obj,
-                                rObject,
-                                dbMap,
-                                viewMap,
-                                recordObjectMap,
-                                dataChildItems);
-                    } catch (Exception ex) {
-                        MyLog.add2Log(ex);
-                        dataChildItem = new DataChildItem(
-                                Status.ERROR,
-                                "_Проверка уникальности",
-                                "Ошибка",
-                                ex.toString()
-                        );
-                        dataChildItems.add(dataChildItem);
-                    }
-                }
-
-                dataMainItem.setDataChildItems(dataChildItems);
-                dataMainItem.setObjects(rObjects);
-
-                try {
-                    //обработка связей
-                    for (Link link : templateImport.getLinks()) {
-                        if ("1".equals(link.getType())) {//связь один-ко-многим
-                            Object childObject = link.getChildObject();
-                            RecordObject childRecordObject = dataMainItem.getRecordObjectByObjUnid(childObject.getUnid());
-
-                            if (!(childRecordObject.isFlagEmpty() || childRecordObject.isExistInDB() || childRecordObject.isExistInPrevios())) {
-                                Object mainObject = link.getMainObject();
-                                RecordObject mainRecordObject = dataMainItem.getRecordObjectByObjUnid(mainObject.getUnid());
-
-                                while (mainRecordObject.isFlagEmpty()) {
-                                    Link link1 = templateImport.getLinkByChildTitle(mainRecordObject.getTitle());
-                                    mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
-                                }
-
-                                childRecordObject.addMainObject(mainRecordObject);
-                            }
-                        } else {
-                            //TODO: бработка связи много-ко-многим
-                        }
-                    }
-                } catch (Exception ex) {
-                    MyLog.add2Log(ex);
-                    dataChildItem = new DataChildItem(
-                            Status.ERROR,
-                            "Формирование связей",
-                            "_Ошибка",
-                            ex.toString()
-                    );
-                    dataMainItem.addDataChildItem(dataChildItem);
-                }
-
-                loader.getUi().appendDataImport(dataMainItem);
-
-                loader.getUi().setProgressValue(i + 1);
-                loader.getUi().setFilteredCount();
-
-                Thread.sleep(3);
+//                Thread.sleep(3);
 
                 if (loader.isCanceled()) break;
                 i++;
             }
-
         } catch (Exception e) {
             MyLog.add2Log(e);
         } finally {
             try {
+                if(evaluator != null){
+                    evaluator = null;
+                }
+
                 if (pkg != null) {
                     pkg.close();
                 }
@@ -661,6 +583,12 @@ public class Importer {
                 }
                 if (viewGEO != null) {
                     viewGEO.recycle();
+                }
+                if (viewGEOIndex != null) {
+                    viewGEOIndex.recycle();
+                }
+                if (viewGEOStreet != null) {
+                    viewGEOStreet.recycle();
                 }
 
                 if (!viewMap.isEmpty()) {
@@ -822,6 +750,10 @@ public class Importer {
             Session session,
             Database db,
             View viewGEO,
+            View viewGEOStreet,
+            View viewGEOIndex,
+            View viewGEOIndex2,
+            View viewGEOIndex3,
             XSSFWorkbook wb,
             Row row,
             Object obj,
@@ -840,6 +772,11 @@ public class Importer {
         SortedList<Field> fieldSortedList = null;
         Vector v;
         StringBuilder sb = new StringBuilder();
+        StringBuilder sbFieldTitle = new StringBuilder();
+        String colStr;
+        String col;
+        String colStrArray[];
+        Vector vec;
 
         try {
             document = db.createDocument();
@@ -851,19 +788,24 @@ public class Importer {
                 evalValue = "";
                 cellValue = "";
                 cellValueReal = "";
-                String fieldTitle = "ячейка " + field.getXmlCell() + ", " + field.getTitleUser() + " [" + field.getTitleSys() + "]";
+                sbFieldTitle.append("ячейка ");
+                sbFieldTitle.append(field.getXmlCell());
+                sbFieldTitle.append(", ");
+                sbFieldTitle.append(field.getTitleUser());
+                sbFieldTitle.append(" [");
+                sbFieldTitle.append(field.getTitleSys());
+                sbFieldTitle.append("]");
 
                 try {
-                    String colStr = field.getXmlCell();
-                    String col = "";
+                    colStr = field.getXmlCell();
                     if (!colStr.isEmpty()) {
                         if ("@".equals(colStr.substring(0, 1))) {
-                            String colStrArray[] = StringUtils.substringsBetween(colStr, "<", ">");
+                            colStrArray = StringUtils.substringsBetween(colStr, "<", ">");
                             for (String str : colStrArray) {
                                 colStr = colStr.replaceAll("\\<" + str + "\\>", "\"" + row.getCell(CellReference.convertColStringToIndex(str)) + "\"").replaceAll("null", "");
                             }
 
-                            Vector vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
+                            vec = session.evaluate(colStr.replaceAll("\\{", "\\{"));
                             col = vec.get(0).toString();
                         } else {
                             col = colStr;
@@ -881,7 +823,7 @@ public class Importer {
                         if ("1".equals(rule.getType())) {
                             v = session.evaluate(rule.getFormula().replaceAll("%value%", isRule ? evalValue : cellValue), document);
                             for (int vindex = 0; vindex < v.size(); vindex++) {
-                                if (sb.length() > 0) sb.append(MULTY_SEPARATOR);
+                                if (sb.length() > 0) sb.append(MULTI_SEPARATOR);
                                 sb.append(v.get(vindex));
                             }
 
@@ -905,7 +847,7 @@ public class Importer {
                     DataChildItem dataChildItem = new DataChildItem(
                             Status.ERROR,
                             obj.getTitle() + " [" + obj.getFormName() + "]",
-                            fieldTitle,
+                            sbFieldTitle.toString(),
                             ex.toString()
                     );
                     dataChildItems.add(dataChildItem);
@@ -918,7 +860,7 @@ public class Importer {
                     DataChildItem dataChildItem = new DataChildItem(
                             Status.WARNING_OBJECT_WILL_NOT_CREATE,
                             "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
-                            fieldTitle,
+                            sbFieldTitle.toString(),
                             "Значение ячейки пустое, объект создан не будет"
                     );
                     dataChildItems.add(dataChildItem);
@@ -938,9 +880,33 @@ public class Importer {
 
                     fillRecordObjectFieldsAddress(rFields, address);
                 } else if ("#ADDRESS_2".equalsIgnoreCase(field.getTitleSys())) {
-                    AddressParser addressParser = new AddressParser(cellValue);
+                    AddressParser addressParser = new AddressParser(cellValue, viewGEO, viewGEOStreet, viewGEOIndex, viewGEOIndex2, viewGEOIndex3, dataChildItems);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
+
+                    if (!addressParser.getAddress().isProcessedFull()) {
+                        DataChildItem dataChildItem = new DataChildItem(
+                                Status.WARNING_ADDRESS_NOT_PROCESS_FULL,
+                                "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                                sbFieldTitle.toString(),
+                                "Не полностью разобрано"
+                        );
+                        dataChildItems.add(dataChildItem);
+                        dataMainItem.setFlag2color(1);
+                    }
+
+                    if (!addressParser.getAddress().isProcessedFullNotService()) {
+                        DataChildItem dataChildItem = new DataChildItem(
+                                Status.WARNING_ADDRESS_NOT_PROCESS_FULL_NOT_SERVICE,
+                                "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                                sbFieldTitle.toString(),
+                                "Не полностью разобрано (без служебных)"
+                        );
+                        dataChildItems.add(dataChildItem);
+                        dataMainItem.setFlag2color(1);
+                    }
+
+                    fillRecordObjectFieldsAddress(rFields, addressParser.getAddress());
                 } else if ("#PASSPORT".equalsIgnoreCase(field.getTitleSys())) {
                     if (fuzzySearchAddress == null)
                         fuzzySearchAddress = new FuzzySearch(viewGEO);
@@ -952,7 +918,7 @@ public class Importer {
                         DataChildItem dataChildItem = new DataChildItem(
                                 Status.WARNING_EMPTY_FIELD,
                                 "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
-                                fieldTitle,
+                                sbFieldTitle.toString(),
                                 "Значение ячейки пустое"
                         );
                         dataChildItems.add(dataChildItem);
@@ -961,6 +927,8 @@ public class Importer {
                     rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType(), field.isMultiple());
                     rFields.add(rField);
                 }
+
+                sbFieldTitle.setLength(0);
             }
         } catch (Exception ex) {
             MyLog.add2Log(ex);
@@ -1031,6 +999,9 @@ public class Importer {
         rField = new RecordObjectField("house", "Дом", address.getHouse(), Field.TYPE.TEXT, false);
         rFields.add(rField);
 
+        rField = new RecordObjectField("build", "Корпус", address.getBuilding(), Field.TYPE.TEXT, false);
+        rFields.add(rField);
+
         rField = new RecordObjectField("flat", "Квартира", address.getFlat(), Field.TYPE.TEXT, false);
         rFields.add(rField);
     }
@@ -1043,6 +1014,9 @@ public class Importer {
             Map<String, View> viewMap,
             Map<String, RecordObject> recordObjectMap,
             ArrayList<DataChildItem> dataChildItems) throws Exception {
+
+        DocumentCollection col = null;
+        Document document = null;
 
         //проверка на уникальность
         if (!rObject.isFlagEmpty()) {
@@ -1084,8 +1058,6 @@ public class Importer {
                     viewMap.put(key.getView(), dbMap.get(key.getDb()).getView(key.getView()));
                 }
 
-                DocumentCollection col = null;
-                Document document = null;
                 try {
                     col = viewMap.get(key.getView()).getAllDocumentsByKey(keyStr.toString(), true);
                     if (col.getCount() > 0) {
@@ -1155,5 +1127,354 @@ public class Importer {
         }
 
         return number.doubleValue();
+    }
+
+    private ArrayList<String> getHeadersValues(
+            Row rowFirst,
+            EventList<CellHeader> cellHeaders,
+            int headerSize) {
+
+        int j = 0;
+        ArrayList<String> headerValues = new ArrayList<String>();
+
+        for (Cell cell : rowFirst) {
+            String value = "";
+
+            if (headerSize - 1 < j) {
+                value = CellReference.convertNumToColString(j);
+            } else {
+                value = cellHeaders.get(j).toString();
+            }
+
+            headerValues.add(value);
+
+            j++;
+        }
+
+        return headerValues;
+    }
+
+    private DataMainItem processRow(
+            Row row,
+            TemplateImport templateImport,
+            ArrayList<String> headerValues,
+            Session session,
+            Database db,
+            Map<String, Database> dbMap,
+            View viewGEO,
+            View viewGEOStreet,
+            View viewGEOIndex,
+            View viewGEOIndex2,
+            View viewGEOIndex3,
+            Map<String, View> viewMap,
+            XSSFWorkbook wb,
+            int col2Description
+    ) {
+
+        DataMainItem dataMainItem;
+        DataChildItem dataChildItem;
+        ArrayList<DataChildItem> dataChildItems;
+        ArrayList<RecordObject> rObjects;
+        RecordObject rObject;
+        ArrayList<RecordObjectField> rFields;
+
+        dataMainItem = new DataMainItem(
+                row.getRowNum() + 1,
+                Status.OK,
+                col2Description == -1 ? "" : getCellString(wb, row.getCell(col2Description)),
+                templateImport);
+
+        dataChildItems = new ArrayList<DataChildItem>();
+        rObjects = new ArrayList<RecordObject>();
+
+        //добавляю все ячейки строки
+        for (int n = 0; n < headerValues.size(); n++) {
+            Cell cell1 = row.getCell(n);
+
+            String description = getCellString(wb, cell1);
+
+            dataChildItem = new DataChildItem(
+                    Status.INFO,
+                    "Данные",
+                    headerValues.get(n),
+                    description);
+
+            dataChildItems.add(dataChildItem);
+        }
+
+        for (Object obj : templateImport.getObjects()) {
+            rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getUnidTitle(), obj.getFormName(), obj.getTitle(), obj.getDb(), obj.isComputeWithForm());
+            rObjects.add(rObject);
+            rFields = new ArrayList<RecordObjectField>();
+
+            try {
+                processFields(
+                        session,
+                        db,
+                        viewGEO,
+                        viewGEOStreet,
+                        viewGEOIndex,
+                        viewGEOIndex2,
+                        viewGEOIndex3,
+                        wb,
+                        row,
+                        obj,
+                        dataMainItem,
+                        dataChildItems,
+                        rFields,
+                        rObject);
+            } catch (Exception ex) {
+                MyLog.add2Log(ex);
+                dataChildItem = new DataChildItem(
+                        Status.ERROR,
+                        "_Заполение полей",
+                        "Ошибка",
+                        ex.toString()
+                );
+                dataChildItems.add(dataChildItem);
+            }
+
+            rObject.setFields(rFields);
+
+            try {
+                checkUnique(
+                        session,
+                        obj,
+                        rObject,
+                        dbMap,
+                        viewMap,
+                        recordObjectMap,
+                        dataChildItems);
+            } catch (Exception ex) {
+                MyLog.add2Log(ex);
+                dataChildItem = new DataChildItem(
+                        Status.ERROR,
+                        "_Проверка уникальности",
+                        "Ошибка",
+                        ex.toString()
+                );
+                dataChildItems.add(dataChildItem);
+            }
+        }
+
+        dataMainItem.setDataChildItems(dataChildItems);
+        dataMainItem.setObjects(rObjects);
+
+        try {
+            //обработка связей
+            for (Link link : templateImport.getLinks()) {
+                if ("1".equals(link.getType())) {//связь один-ко-многим
+                    Object childObject = link.getChildObject();
+                    RecordObject childRecordObject = dataMainItem.getRecordObjectByObjUnid(childObject.getUnid());
+
+                    if (!(childRecordObject.isFlagEmpty() || childRecordObject.isExistInDB() || childRecordObject.isExistInPrevios())) {
+                        Object mainObject = link.getMainObject();
+                        RecordObject mainRecordObject = dataMainItem.getRecordObjectByObjUnid(mainObject.getUnid());
+
+                        while (mainRecordObject.isFlagEmpty()) {
+                            Link link1 = templateImport.getLinkByChildTitle(mainRecordObject.getTitle());
+                            mainRecordObject = dataMainItem.getRecordObjectByObjUnid(link1.getMainObject().getUnid());
+                        }
+
+                        childRecordObject.addMainObject(mainRecordObject);
+                    }
+                } else {
+                    //TODO: бработка связи много-ко-многим
+                }
+            }
+        } catch (Exception ex) {
+            MyLog.add2Log(ex);
+            dataChildItem = new DataChildItem(
+                    Status.ERROR,
+                    "Формирование связей",
+                    "_Ошибка",
+                    ex.toString()
+            );
+            dataMainItem.addDataChildItem(dataChildItem);
+        }
+
+        return dataMainItem;
+    }
+
+    public DataMainItem reloadItem(int rowNum) {
+        Session session = null;
+        Database db = null;
+        Database dbGEO = null;
+        View view = null;
+        View viewGEO = null;
+        View viewGEOStreet = null;
+        View viewGEOIndex = null;
+        View viewGEOIndex2 = null;
+        View viewGEOIndex3 = null;
+        ViewNavigator nav = null;
+        ViewEntry ve = null;
+        ViewEntry vetmp = null;
+        OPCPackage pkg = null;
+        XSSFWorkbook wb = null;
+        Map<String, Database> dbMap = new HashMap<String, Database>();
+        Map<String, View> viewMap = new HashMap<String, View>();
+        Database dbFI = null;
+        Document noteFI = null;
+
+        DataMainItem dataMainItem = null;
+
+        try {
+            NotesThread.sinitThread();
+            session = NotesFactory.createSession();
+
+            String filePath = ui.getFileField().getText();
+
+            TemplateImport templateImport = ui.getTemplateImport();
+
+            db = session.getDatabase(null, null);
+            db.openByReplicaID(AppletParams.getInstance().getServer(), templateImport.getDbID());
+            dbGEO = session.getDatabase(null, null);
+            dbGEO.openByReplicaID(AppletParams.getInstance().getServer(), AppletParams.getInstance().getDbGEO());
+            viewGEO = dbGEO.getView(AppletParams.getInstance().getViewGEOCity());
+            viewGEOStreet = dbGEO.getView(AppletParams.getInstance().getViewGEOStreet());
+            viewGEOIndex = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex());
+            viewGEOIndex2 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex2());
+            viewGEOIndex3 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex3());
+            viewGEO.setAutoUpdate(false);
+            viewGEOStreet.setAutoUpdate(false);
+            viewGEOIndex.setAutoUpdate(false);
+            viewGEOIndex2.setAutoUpdate(false);
+            viewGEOIndex3.setAutoUpdate(false);
+
+            File file = new File(filePath);
+            if (file == null)
+                throw new CantOpenFileException("Не удалось открыть файл: " + filePath);
+
+            // XSSFWorkbook, File
+            pkg = OPCPackage.open(file, PackageAccess.READ);
+            wb = new XSSFWorkbook(pkg);
+            evaluator = wb.getCreationHelper().createFormulaEvaluator();
+
+            Sheet sheet1 = wb.getSheetAt(0);
+
+            int start = rowNum;
+            if (start < 0) {
+                start = 0;
+            } else {
+                start = start - 1;
+            }
+
+            Row row;
+            Row rowFirst;
+
+            int col2Description = ui.getCol2Description().isEmpty() ? -1 : CellReference.convertColStringToIndex(ui.getCol2Description());
+
+            Iterator<Row> it = sheet1.iterator();
+
+            if (start > 0)
+                for (int j = 0; j < start; j++)
+                    if (it.hasNext())
+                        it.next();
+
+            int headerSize = ui.getCellHeaders().size();
+            EventList<CellHeader> cellHeaders = ui.getCellHeaders();
+
+            rowFirst = sheet1.getRow(0);
+            ArrayList<String> headerValues = getHeadersValues(
+                    rowFirst,
+                    cellHeaders,
+                    headerSize);
+
+            row = it.next();
+
+            dataMainItem = processRow(
+                    row,
+                    templateImport,
+                    headerValues,
+                    session,
+                    db,
+                    dbMap,
+                    viewGEO,
+                    viewGEOStreet,
+                    viewGEOIndex,
+                    viewGEOIndex2,
+                    viewGEOIndex3,
+                    viewMap,
+                    wb,
+                    col2Description);
+
+
+        } catch (Exception e) {
+            MyLog.add2Log(e);
+        } finally {
+            try {
+                if(evaluator != null){
+                    evaluator = null;
+                }
+
+                if (pkg != null) {
+                    pkg.close();
+                }
+
+                if (noteFI != null)
+                    noteFI.recycle();
+
+                if (dbFI != null)
+                    dbFI.recycle();
+
+                if (vetmp != null) {
+                    vetmp.recycle();
+                }
+                if (ve != null) {
+                    ve.recycle();
+                }
+                if (nav != null) {
+                    nav.recycle();
+                }
+                if (view != null) {
+                    view.recycle();
+                }
+                if (viewGEO != null) {
+                    viewGEO.recycle();
+                }
+                if (viewGEOStreet != null) {
+                    viewGEOStreet.recycle();
+                }
+
+                if (!viewMap.isEmpty()) {
+                    Iterator i = viewMap.entrySet().iterator();
+                    while (i.hasNext()) {
+                        Map.Entry entry = (Map.Entry) i.next();
+                        ((View) entry.getValue()).recycle();
+                    }
+                    viewMap.clear();
+                }
+
+                if (!dbMap.isEmpty()) {
+                    Iterator i = dbMap.entrySet().iterator();
+                    while (i.hasNext()) {
+                        Map.Entry entry = (Map.Entry) i.next();
+                        ((Database) entry.getValue()).recycle();
+                    }
+                    dbMap.clear();
+                }
+
+                if (db != null) {
+                    db.recycle();
+                }
+                if (dbGEO != null) {
+                    dbGEO.recycle();
+                }
+
+                if (session != null) {
+                    session.recycle();
+                }
+            } catch (Exception e) {
+                MyLog.add2Log(e);
+            }
+
+            try {
+                NotesThread.stermThread();
+            } catch (Exception e) {
+                MyLog.add2Log(e);
+            }
+        }
+
+        return dataMainItem;
     }
 }

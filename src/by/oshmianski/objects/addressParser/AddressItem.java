@@ -6,10 +6,12 @@ package by.oshmianski.objects.addressParser;
 public class AddressItem {
     private String title;
     private String value;
+    private AddressParserOperation operation;
 
-    public AddressItem(String title, String value) {
+    public AddressItem(String title, String value, AddressParserOperation operation) {
         this.title = title;
         this.value = value;
+        this.operation = operation;
     }
 
     public String getTitle() {
@@ -26,5 +28,13 @@ public class AddressItem {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public AddressParserOperation getOperation() {
+        return operation;
+    }
+
+    public void setOperation(AddressParserOperation operation) {
+        this.operation = operation;
     }
 }

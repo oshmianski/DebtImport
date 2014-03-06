@@ -1,6 +1,7 @@
 package by.oshmianski.ui.utils;
 
 import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
+import ca.odell.glazedlists.swing.DefaultEventTableModel;
 
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
@@ -20,20 +21,30 @@ public class BetterJTable extends JTable {
 
     private static final CellRendererPane CELL_RENDER_PANE = new CellRendererPane();
 
+    private boolean reorderingAllowed;
+
+    public BetterJTable(TableModel dm, boolean reorderingAllowed) {
+        super(dm);
+        this.reorderingAllowed = reorderingAllowed;
+        init();
+    }
+
     public BetterJTable(TableModel dm) {
         super(dm);
+        reorderingAllowed = false;
         init();
     }
 
     public BetterJTable() {
         super();
+        reorderingAllowed = false;
         init();
     }
 
     private void init() {
         setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         setTableHeader(createTableHeader());
-        getTableHeader().setReorderingAllowed(false);
+        getTableHeader().setReorderingAllowed(reorderingAllowed);
 
         templateTable = new JTable();
         defaultRenderer = templateTable.getTableHeader().getDefaultRenderer();

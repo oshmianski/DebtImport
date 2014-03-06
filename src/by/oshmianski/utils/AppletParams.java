@@ -21,6 +21,10 @@ public class AppletParams {
     private String viewFieldRef;
     private String viewRuleRef;
     private String viewGEOCity;
+    private String viewGEOStreet;
+    private String viewGEOIndex;
+    private String viewGEOIndex2;
+    private String viewGEOIndex3;
 
     public static AppletParams getInstance() {
         return ourInstance;
@@ -40,6 +44,10 @@ public class AppletParams {
         viewRuleRef = applet.getParameter("viewRuleRef");
         dbGEO = applet.getParameter("dbGEO");
         viewGEOCity = applet.getParameter("viewGEOCity");
+        viewGEOStreet = applet.getParameter("viewGEOStreet");
+        viewGEOIndex = applet.getParameter("viewGEOIndex");
+        viewGEOIndex2 = applet.getParameter("viewGEOIndex2");
+        viewGEOIndex3 = applet.getParameter("viewGEOIndex3");
     }
 
     public String getDbReplicaID() {
@@ -120,5 +128,37 @@ public class AppletParams {
 
     public void setViewGEOCity(String viewGEOCity) {
         this.viewGEOCity = viewGEOCity;
+    }
+
+    public String getViewGEOStreet() {
+        return viewGEOStreet;
+    }
+
+    public void setViewGEOStreet(String viewGEOStreet) {
+        this.viewGEOStreet = viewGEOStreet;
+    }
+
+    public String getViewGEOIndex() {
+        return viewGEOIndex;
+    }
+
+    public void setViewGEOIndex(String viewGEOIndex) {
+        this.viewGEOIndex = viewGEOIndex;
+    }
+
+    public String getViewGEOIndex2() {
+        return viewGEOIndex2;
+    }
+
+    public void setViewGEOIndex2(String viewGEOIndex2) {
+        this.viewGEOIndex2 = viewGEOIndex2;
+    }
+
+    public String getViewGEOIndex3() {
+        return viewGEOIndex3;
+    }
+
+    public void setViewGEOIndex3(String viewGEOIndex3) {
+        this.viewGEOIndex3 = viewGEOIndex3;
     }
 }

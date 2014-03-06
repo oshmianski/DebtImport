@@ -42,8 +42,9 @@ public class MyTreeCellRenderer extends TreeTableCellRenderer {
             treeList.getReadWriteLock().readLock().unlock();
         }
 
-        if (delegate instanceof TreeTableNodeDataRenderer)
-            ((TreeTableNodeDataRenderer) (TreeTableNodeDataRenderer) delegate).setTreeNodeData(treeNodeData);
+        if (delegate instanceof TreeTableNodeDataRenderer) {
+            ((TreeTableNodeDataRenderer) delegate).setTreeNodeData(treeNodeData);
+        }
 
         final Component c = delegate.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         final int indent = item.getSortLevel() < 0 ? getIndent(treeNodeData, showExpanderForEmptyParent) + 12 : getIndent(treeNodeData, showExpanderForEmptyParent);

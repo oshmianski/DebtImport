@@ -50,6 +50,7 @@ public class LoadImportData implements Runnable, Loader {
             return;
         }
         executed = true;
+        canceled = false;
         Thread t = new Thread(this, "Custom loader thread " + moduleName);
         t.start();
     }
@@ -95,5 +96,17 @@ public class LoadImportData implements Runnable, Loader {
 
     public boolean isTest() {
         return isTest;
+    }
+
+    public Importer getImporter() {
+        return importer;
+    }
+
+    public void setTest(boolean isTest) {
+        this.isTest = isTest;
+    }
+
+    public boolean isExecuted() {
+        return executed;
     }
 }

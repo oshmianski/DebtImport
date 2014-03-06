@@ -11,7 +11,7 @@ import ca.odell.glazedlists.gui.WritableTableFormat;
  * Time: 3:23 PM
  */
 public class AddressModel implements WritableTableFormat<AddressItem> {
-    private String[] columnNames = {"Название", "Значение"};
+    private String[] columnNames = {"Название", "Значение", "Операция"};
 
     public AddressModel() {
 
@@ -34,6 +34,8 @@ public class AddressModel implements WritableTableFormat<AddressItem> {
                 return item.getTitle();
             case 1:
                 return item.getValue();
+            case 2:
+                return  item.getOperation();
             default:
                 return null;
         }
@@ -41,8 +43,7 @@ public class AddressModel implements WritableTableFormat<AddressItem> {
 
     @Override
     public boolean isEditable(AddressItem item, int i) {
-        if (i == 1) return true;
-        return false;
+        return i == 1;
     }
 
     @Override

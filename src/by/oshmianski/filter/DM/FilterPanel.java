@@ -6,6 +6,7 @@ import by.oshmianski.ui.edt.UIProcessor;
 import by.oshmianski.ui.utils.RoundedPanel;
 import by.oshmianski.main.AppletWindow;
 import by.oshmianski.objects.DataMainItem;
+import by.oshmianski.ui.utils.niceScrollPane.NiceScrollPane;
 import by.oshmianski.utils.MyLog;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
@@ -42,7 +43,7 @@ public class FilterPanel {
 
     private CompositeMatcherEditor<DataMainItem> matcherEditor;
 
-    private JScrollPane filtersScrollPane;
+    private NiceScrollPane filtersScrollPane;
 
     private MatcherEditorDMStatuses matcherEditorDMStatuses;
     private TextFilterComponent textFilterComponent;
@@ -94,7 +95,7 @@ public class FilterPanel {
 
         filtersPanelPlusAddButton.setBackground(Color.WHITE);
 
-        filtersScrollPane = new JScrollPane(filtersPanelPlusAddButton);
+        filtersScrollPane = new NiceScrollPane(filtersPanelPlusAddButton);
         filtersScrollPane.setPreferredSize(new Dimension(240, 10));
         filtersScrollPane.setBorder(
                 BorderFactory.createCompoundBorder(
