@@ -6,126 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/AbstractCellEditor.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/AbstractCellEditor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/AbstractTreeTableModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/AbstractTreeTableModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/ActionButton.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/ActionButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Address.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/AddressCityWithType.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/AddressCityWithType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressItem.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/AddressModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemType.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParserItemTypeValue.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/AddressParserModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/AliasValue.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/AliasValue.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AliasValueType.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AliasValueType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/utils/AppletParams.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindow.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/main/AppletWindowFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/panels/BasicPanel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/panels/BasicPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BatchDocument.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BatchDocument.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BetterJTable.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BetterJTable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BetterJTableEdittSelectAll.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/BetterJTableEdittSelectAll.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/Cat.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/Cat.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/CellField.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/CellField.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/CellHeader.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/CellHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/ColorRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/CM/ComparatorCMStatus.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/CM/ComparatorCMStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatuses.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/ComparatorDMStatuses.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/CriterionObject.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/CriterionObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/DataChildItem.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/DataChildItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/DataChildItemTreeFormat.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/DataChildItemTreeFormat.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/DataChildModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/DataChildModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/DataMainItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/DataMainModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DebtImport.iml" afterPath="$PROJECT_DIR$/DebtImport.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/DebtImport.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/DebtImport.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockActions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockAddressParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChild.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChildFilter.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataChildFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMainFilter.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockDataMainFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockHeader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockLog.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockLog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/DockObjectTree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockSimple.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockSimple.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/DockingContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/EDTInvocationHandler.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/EDTInvocationHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Field.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/FilterComponent.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/FilterComponent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilterPanel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilterPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/CM/FilterPanelChild.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/CM/FilterPanelChild.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilteratorDataMainItem.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilteratorDataMainItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilteratorDataMainItemStatus.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/FilteratorDataMainItemStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/FixedColumnTreeTable.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/FixedColumnTreeTable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/GUI.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/GUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/GUIFrame.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/GUIFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/utils/IconContainer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/utils/IconContainer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/Icons.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/Icons.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Importer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/ItemCatSumsAll.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/ItemCatSumsAll.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/ItemCatSumsOne.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/ItemCatSumsOne.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/ItemCats.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/ItemCats.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/JTreeTable.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/JTreeTable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Key.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Key.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Link.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Link.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadImportData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/LoadTemplateImport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/loaders/Loader.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/loaders/Loader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/CM/MatcherEditorCMStatus.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/CM/MatcherEditorCMStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/MatcherEditorDMStatuses.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/utils/MyLog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/MyTreeCellRenderer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/MyTreeCellRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/niceScrollPane/NiceLRConer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/niceScrollPane/NiceLRConer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/niceScrollPane/NiceScrollBarUIBottom.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/niceScrollPane/NiceScrollBarUIBottom.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/niceScrollPane/NiceScrollBarUILeft.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/niceScrollPane/NiceScrollBarUILeft.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/niceScrollPane/NiceScrollPane.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/niceScrollPane/NiceScrollPane.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Object.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Passport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Passport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectField.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectField.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectRoot.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/RecordObjectRoot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/models/RecordObjectsTreeModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/RequiresEDT.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/RequiresEDT.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/RequiresEDTPolicy.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/RequiresEDTPolicy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/RoundedPanel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/RoundedPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Rule.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Rule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/StatusBar.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/docks/Setup/StatusBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/StatusRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/utils/StringManager.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/utils/StringManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/utils/SwingUIUtils.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/utils/SwingUIUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/TemplateImport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/TextFilterComponent.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/TextFilterComponent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/TextFilterComponentStatus.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/filter/DM/TextFilterComponentStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/TreeCriterion.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/TreeCriterion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/TreeRenderer.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/category/datachild/TreeRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/TreeTableModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/TreeTableModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/TreeTableModelAdapter.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/TreeTable/TreeTableModelAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/edt/UIProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/UIProcessorImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/XTableColumnModel.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/ui/utils/XTableColumnModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/test/XlsxReader.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/test/XlsxReader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="E:\Work\Java\DebtImport\src\by\oshmianski\objects\AddressStreetWithtype.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/AddressStreetWithType.java" />
     </list>
     <ignored path="DebtImport.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1394117969763" ignored="false" />
+    <file path="/Dummy.txt" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1394127396666" ignored="false" />
     <file path="/AddressStreetWithtype.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1394117830170" ignored="false" />
     <file path="/fragment.java" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1394124256828" ignored="false" />
     <file path="/a.dummy" changelist="c29bc9b8-4b9c-42de-b196-016f95613dba" time="1394118230288" ignored="false" />
@@ -1075,7 +961,11 @@
       <created>1394026645242</created>
       <updated>1394026645242</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Merge branch 'master' of https://github.com/oshmianski/DebtImport&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1394127485653</created>
+      <updated>1394127485653</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
