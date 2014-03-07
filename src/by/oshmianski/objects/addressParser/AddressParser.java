@@ -22,6 +22,8 @@ public class AddressParser {
     private View viewGEOIndex;
     private View viewGEOIndex2;
     private View viewGEOIndex3;
+    private View viewGEORegion;
+    private View viewGEODistrict;
 
     private String realStr = "";
     private String realStrExclusion = "";
@@ -37,6 +39,8 @@ public class AddressParser {
             View viewGEOIndex,
             View viewGEOIndex2,
             View viewGEOIndex3,
+            View viewGEORegion,
+            View viewGEODistrict,
             ArrayList<DataChildItem> dataChildItems) {
 
         this.realStr = realStr.replaceAll("ё", "е").replaceAll("Ё", "Е");
@@ -47,6 +51,8 @@ public class AddressParser {
         this.viewGEOIndex = viewGEOIndex;
         this.viewGEOIndex2 = viewGEOIndex2;
         this.viewGEOIndex3 = viewGEOIndex3;
+        this.viewGEORegion = viewGEORegion;
+        this.viewGEODistrict = viewGEODistrict;
 
         this.dataChildItems = dataChildItems;
     }
@@ -1672,6 +1678,24 @@ public class AddressParser {
                 vec = viewGEOIndex3.getAllEntriesByKey(key, true);
 
                 processVec(vec);
+            }
+
+            if (address.getIndex().isEmpty()) {
+                key = address.getDistrict();
+                if (!key.isEmpty()) {
+                    vec = viewGEODistrict.getAllEntriesByKey(key, true);
+
+                    processVec(vec);
+                }
+            }
+
+            if (address.getIndex().isEmpty()) {
+                key = address.getRegion();
+                if (!key.isEmpty()) {
+                    vec = viewGEORegion.getAllEntriesByKey(key, true);
+
+                    processVec(vec);
+                }
             }
         } catch (Exception ex) {
             MyLog.add2Log(ex);

@@ -163,7 +163,7 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
                 count = issuesOfThisStatus.size();
                 listChangeType = "INSERT";
             } else if (type == ListEvent.UPDATE) {
-                if (!statuses.isEmpty()) {
+                if (statuses.size() > index) {
                     List issuesOfThisStatus = (List) issuesByStatusSwingThread.get(index);
                     status = (Status) statuses.get(index);
                     count = issuesOfThisStatus.size();
@@ -171,7 +171,7 @@ public class MatcherEditorDMStatuses extends AbstractMatcherEditor implements Li
                     listChangeType = "UPDATE";
                 }
             } else if (type == ListEvent.DELETE) {
-                if (!statuses.isEmpty()) {
+                if (statuses.size() > index) {
                     status = (Status) statuses.remove(index);
                     statusesArray.add(status);
                     count = 0;

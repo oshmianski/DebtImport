@@ -67,6 +67,8 @@ public class AppletWindowFrame extends JFrame {
         ap.setViewGEOIndex(props.getProperty("viewGEOIndex"));
         ap.setViewGEOIndex2(props.getProperty("viewGEOIndex2"));
         ap.setViewGEOIndex3(props.getProperty("viewGEOIndex3"));
+        ap.setViewGEORegion(props.getProperty("viewGEORegion"));
+        ap.setViewGEODistrict(props.getProperty("viewGEODistrict"));
 
         gui = new GUIFrame(this);
         gui.create();

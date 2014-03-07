@@ -426,6 +426,8 @@ public class Importer {
         View viewGEOIndex = null;
         View viewGEOIndex2 = null;
         View viewGEOIndex3 = null;
+        View viewGEORegion = null;
+        View viewGEODistrict = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -453,11 +455,15 @@ public class Importer {
             viewGEOIndex = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex());
             viewGEOIndex2 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex2());
             viewGEOIndex3 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex3());
+            viewGEORegion = dbGEO.getView(AppletParams.getInstance().getViewGEORegion());
+            viewGEODistrict = dbGEO.getView(AppletParams.getInstance().getViewGEODistrict());
             viewGEO.setAutoUpdate(false);
             viewGEOStreet.setAutoUpdate(false);
             viewGEOIndex.setAutoUpdate(false);
             viewGEOIndex2.setAutoUpdate(false);
             viewGEOIndex3.setAutoUpdate(false);
+            viewGEORegion.setAutoUpdate(false);
+            viewGEODistrict.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -537,6 +543,8 @@ public class Importer {
                         viewGEOIndex,
                         viewGEOIndex2,
                         viewGEOIndex3,
+                        viewGEORegion,
+                        viewGEODistrict,
                         viewMap,
                         wb,
                         col2Description);
@@ -754,6 +762,8 @@ public class Importer {
             View viewGEOIndex,
             View viewGEOIndex2,
             View viewGEOIndex3,
+            View viewGEORegion,
+            View viewGEODistrict,
             XSSFWorkbook wb,
             Row row,
             Object obj,
@@ -880,7 +890,16 @@ public class Importer {
 
                     fillRecordObjectFieldsAddress(rFields, address);
                 } else if ("#ADDRESS_2".equalsIgnoreCase(field.getTitleSys())) {
-                    AddressParser addressParser = new AddressParser(cellValue, viewGEO, viewGEOStreet, viewGEOIndex, viewGEOIndex2, viewGEOIndex3, dataChildItems);
+                    AddressParser addressParser = new AddressParser(
+                            cellValue,
+                            viewGEO,
+                            viewGEOStreet,
+                            viewGEOIndex,
+                            viewGEOIndex2,
+                            viewGEOIndex3,
+                            viewGEORegion,
+                            viewGEODistrict,
+                            dataChildItems);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
 
@@ -1166,6 +1185,8 @@ public class Importer {
             View viewGEOIndex,
             View viewGEOIndex2,
             View viewGEOIndex3,
+            View viewGEORegion,
+            View viewGEODistrict,
             Map<String, View> viewMap,
             XSSFWorkbook wb,
             int col2Description
@@ -1216,6 +1237,8 @@ public class Importer {
                         viewGEOIndex,
                         viewGEOIndex2,
                         viewGEOIndex3,
+                        viewGEORegion,
+                        viewGEODistrict,
                         wb,
                         row,
                         obj,
@@ -1306,6 +1329,8 @@ public class Importer {
         View viewGEOIndex = null;
         View viewGEOIndex2 = null;
         View viewGEOIndex3 = null;
+        View viewGEORegion = null;
+        View viewGEODistrict = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -1335,11 +1360,15 @@ public class Importer {
             viewGEOIndex = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex());
             viewGEOIndex2 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex2());
             viewGEOIndex3 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex3());
+            viewGEORegion = dbGEO.getView(AppletParams.getInstance().getViewGEORegion());
+            viewGEODistrict = dbGEO.getView(AppletParams.getInstance().getViewGEODistrict());
             viewGEO.setAutoUpdate(false);
             viewGEOStreet.setAutoUpdate(false);
             viewGEOIndex.setAutoUpdate(false);
             viewGEOIndex2.setAutoUpdate(false);
             viewGEOIndex3.setAutoUpdate(false);
+            viewGEORegion.setAutoUpdate(false);
+            viewGEODistrict.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -1394,6 +1423,8 @@ public class Importer {
                     viewGEOIndex,
                     viewGEOIndex2,
                     viewGEOIndex3,
+                    viewGEORegion,
+                    viewGEODistrict,
                     viewMap,
                     wb,
                     col2Description);
