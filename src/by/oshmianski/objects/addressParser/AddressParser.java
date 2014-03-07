@@ -1670,7 +1670,7 @@ public class AddressParser {
                 key = address.getCity() + "~" + address.getCityType();
                 vec = viewGEOIndex2.getAllEntriesByKey(key, true);
 
-                processVec(vec);
+                processVec(vec);             //
             }
 
             if (address.getIndex().isEmpty()) {
