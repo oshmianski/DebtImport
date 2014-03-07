@@ -1685,7 +1685,7 @@ public class AddressParser {
                 if (!key.isEmpty()) {
                     vec = viewGEODistrict.getAllEntriesByKey(key, true);
 
-                    processVec(vec);
+                    processVec(vec);              //
                 }
             }
 
