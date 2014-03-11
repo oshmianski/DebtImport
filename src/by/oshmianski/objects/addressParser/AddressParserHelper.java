@@ -82,6 +82,8 @@ public class AddressParserHelper {
         aliasValues.add(new AliasValueType("агр-к", AddressParserItemTypeValue.city, "аг"));
         aliasValues.add(new AliasValueType("city", AddressParserItemTypeValue.city, ""));
 
+        aliasValues.add(new AliasValueType("тр-т", AddressParserItemTypeValue.street, "тракт"));
+        aliasValues.add(new AliasValueType("тракт", AddressParserItemTypeValue.street, "тракт"));
         aliasValues.add(new AliasValueType("площадь", AddressParserItemTypeValue.street, "площадь"));
         aliasValues.add(new AliasValueType("пл", AddressParserItemTypeValue.street, "площадь"));
         aliasValues.add(new AliasValueType("ул", AddressParserItemTypeValue.street, "улица"));

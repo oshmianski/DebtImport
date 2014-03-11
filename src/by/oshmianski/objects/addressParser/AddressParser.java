@@ -281,6 +281,7 @@ public class AddressParser {
         aliasValues.add(new AliasValue("40лет", "40 лет"));
         aliasValues.add(new AliasValue("30лет", "30 лет"));
         aliasValues.add(new AliasValue("20лет", "20 лет"));
+        aliasValues.add(new AliasValue("Б.Юности", "бульвар Юности"));
 
         for (AliasValue aliasValue : aliasValues)
             if (realStrExclusion.toLowerCase().indexOf(aliasValue.getAlias().toLowerCase()) > -1) {
