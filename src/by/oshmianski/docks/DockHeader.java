@@ -111,7 +111,7 @@ public class DockHeader extends DockSimple {
         bOpenFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fileChooser.setFileFilter(new ExtFileFilter("xlsx", "*.xlsx - MS Excel 2007"));
+                fileChooser.setFileFilter(new ExtFileFilter(new String[] {"xlsx", "xlsm"}, "*.xlsx (.xlsm) - MS Excel 2007"));
 
                 if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
@@ -188,10 +188,10 @@ public class DockHeader extends DockSimple {
     }
 
     private static class ExtFileFilter extends FileFilter {
-        String ext;
+        String ext[];
         String description;
 
-        public ExtFileFilter(String ext, String descr) {
+        public ExtFileFilter(String ext[], String descr) {
             this.ext = ext;
             description = descr;
         }
@@ -202,9 +202,12 @@ public class DockHeader extends DockSimple {
                     return true;
                 }
                 String extension = getExtension(f);
-                if (extension == null)
-                    return (ext.length() == 0);
-                return ext.equals(extension);
+
+                for (String ex : ext) {
+                    if (ex.equals(extension)) {
+                        return true;
+                    }
+                }
             }
             return false;
         }
@@ -229,7 +232,7 @@ public class DockHeader extends DockSimple {
         this.templateImports.clear();
 
         SortedList<TemplateImport> templateImportSortedList = new SortedList<TemplateImport>(templateImports, GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(TemplateImport.class, "num")));
-        for (TemplateImport templateImport : templateImportSortedList){
+        for (TemplateImport templateImport : templateImportSortedList) {
             this.templateImports.add(templateImport);
         }
         templateImportSortedList.dispose();
@@ -277,7 +280,7 @@ public class DockHeader extends DockSimple {
         return cellHeaders;
     }
 
-    public boolean isTestImport(){
+    public boolean isTestImport() {
         return testImport.isSelected();
     }
 }
