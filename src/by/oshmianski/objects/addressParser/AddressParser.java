@@ -269,6 +269,9 @@ public class AddressParser {
         aliasValues.add(new AliasValue("ч/д", ""));
         aliasValues.add(new AliasValue("ч\\д", ""));
         aliasValues.add(new AliasValue(" -,", ""));
+        aliasValues.add(new AliasValue(" - ", "-"));
+        aliasValues.add(new AliasValue(" -", "-"));
+        aliasValues.add(new AliasValue("- ", "-"));
         aliasValues.add(new AliasValue(" нету,", ""));
         aliasValues.add(new AliasValue(" ,", ","));
         aliasValues.add(new AliasValue(".,", ","));
