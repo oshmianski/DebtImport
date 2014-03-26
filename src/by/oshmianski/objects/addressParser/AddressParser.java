@@ -230,6 +230,7 @@ public class AddressParser {
         aliasValues.add(new AliasValue("Дрогиченский", "Дрогичинский"));
         aliasValues.add(new AliasValue("Любаньский", "Любанский"));
         aliasValues.add(new AliasValue("Хойницкий", "Хойникский"));
+        aliasValues.add(new AliasValue("Заславье", "Заславль"));
 
         aliasValues.add(new AliasValue("улица неизвестна,", ""));
         aliasValues.add(new AliasValue("улицы нет,", ""));
