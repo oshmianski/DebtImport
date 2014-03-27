@@ -21,6 +21,8 @@ public class Field {
     private boolean emptyFlag;
     private boolean emptyFlagSignal;
     private boolean fake;
+    private boolean passRegion;
+    private String xlsCellPassRegion;
 
     public static enum TYPE {
         TEXT,
@@ -43,7 +45,9 @@ public class Field {
             String xmlCell,
             boolean emptyFlag,
             boolean emptyFlagSignal,
-            boolean fake) {
+            boolean fake,
+            boolean passRegion,
+            String xlsCellPassRegion) {
         this.num = num;
         this.unid = unid;
         this.titleSys = titleSys;
@@ -53,6 +57,8 @@ public class Field {
         this.emptyFlag = emptyFlag;
         this.emptyFlagSignal = emptyFlagSignal;
         this.fake = fake;
+        this.passRegion = passRegion;
+        this.xlsCellPassRegion = xlsCellPassRegion;
 
         if ("text".equals(type))
             this.type = TYPE.TEXT;
@@ -166,5 +172,21 @@ public class Field {
 
     public void setMultiple(boolean multiple) {
         this.multiple = multiple;
+    }
+
+    public boolean isPassRegion() {
+        return passRegion;
+    }
+
+    public void setPassRegion(boolean passRegion) {
+        this.passRegion = passRegion;
+    }
+
+    public String getXlsCellPassRegion() {
+        return xlsCellPassRegion;
+    }
+
+    public void setXlsCellPassRegion(String xlsCellPassRegion) {
+        this.xlsCellPassRegion = xlsCellPassRegion;
     }
 }

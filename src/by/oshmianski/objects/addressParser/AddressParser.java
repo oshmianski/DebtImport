@@ -1,12 +1,11 @@
 package by.oshmianski.objects.addressParser;
 
-import by.oshmianski.objects.Address;
-import by.oshmianski.objects.AliasValue;
-import by.oshmianski.objects.DataChildItem;
-import by.oshmianski.objects.Status;
+import by.oshmianski.objects.*;
 import by.oshmianski.utils.MyLog;
 import lotus.domino.*;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellReference;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -24,6 +23,8 @@ public class AddressParser {
     private View viewGEOIndex3;
     private View viewGEORegion;
     private View viewGEODistrict;
+    private Row row;
+    private Field field;
 
     private String realStr = "";
     private String realStrExclusion = "";
@@ -41,7 +42,9 @@ public class AddressParser {
             View viewGEOIndex3,
             View viewGEORegion,
             View viewGEODistrict,
-            ArrayList<DataChildItem> dataChildItems) {
+            ArrayList<DataChildItem> dataChildItems,
+            Row row,
+            Field field) {
 
         this.realStr = realStr.replaceAll("ё", "е").replaceAll("Ё", "Е");
         realStrExclusion = this.realStr;
@@ -55,6 +58,8 @@ public class AddressParser {
         this.viewGEODistrict = viewGEODistrict;
 
         this.dataChildItems = dataChildItems;
+        this.row = row;
+        this.field = field;
     }
 
     public void parse() {
@@ -294,7 +299,8 @@ public class AddressParser {
                                 replaceAll("\\.", "\\\\.").
                                 replaceAll("\\(", "\\\\(").
                                 replaceAll("\\)", "\\\\)"),
-                        aliasValue.getValue());
+                        aliasValue.getValue()
+                );
             }
     }
 
@@ -648,7 +654,8 @@ public class AddressParser {
                         "", "", "", "",
                         "", "", "", "",
                         "", "", "", "",
-                        "", "", ""});
+                        "", "", ""}
+        );
     }
 
     private AddressProcessCityResult processCityNext(AddressParserItem item) {
@@ -837,7 +844,8 @@ public class AddressParser {
                         "",
                         "",
                         "",
-                        ""});
+                        ""}
+        );
     }
 
     private boolean isContainValueType(AddressParserItemTypeValue valueType) {
@@ -1651,6 +1659,7 @@ public class AddressParser {
     public void processIndex() {
 
         String key;
+        String passRegion;
 
         ViewEntryCollection vec = null;
 
@@ -1700,6 +1709,37 @@ public class AddressParser {
                     vec = viewGEORegion.getAllEntriesByKey(key, true);
 
                     processVec(vec);
+                }
+            }
+
+            if (address.getIndex().isEmpty()) {
+                if (field.isPassRegion()) {
+                    passRegion = row.getCell(CellReference.convertColStringToIndex(field.getXlsCellPassRegion())).getStringCellValue();
+                    if (!passRegion.isEmpty()) {
+                        for(AliasValue region : AddressParserHelper.regionsAblativeCase){
+                            if(StringUtils.containsIgnoreCase(passRegion, region.getAlias())){
+                                address.setRegion(region.getValue(), AddressParserOperation.PROCESS_INDEX_85_PASS);
+
+                                if (address.getIndex().isEmpty()) {
+                                    key = address.getCity() + "~" + address.getRegion();
+                                    vec = viewGEOIndex3.getAllEntriesByKey(key, true);
+
+                                    processVec(vec);
+                                }
+
+                                if (address.getIndex().isEmpty()) {
+                                    key = address.getRegion();
+                                    if (!key.isEmpty()) {
+                                        vec = viewGEORegion.getAllEntriesByKey(key, true);
+
+                                        processVec(vec);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         } catch (Exception ex) {

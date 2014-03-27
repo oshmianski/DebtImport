@@ -899,7 +899,9 @@ public class Importer {
                             viewGEOIndex3,
                             viewGEORegion,
                             viewGEODistrict,
-                            dataChildItems);
+                            dataChildItems,
+                            row,
+                            field);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
 

@@ -1,5 +1,7 @@
 package by.oshmianski.objects.addressParser;
 
+import by.oshmianski.objects.AliasValue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,6 +15,7 @@ public class AddressParserHelper {
     }
 
     public static Set<String> regions = new HashSet<String>();
+    public static Set<AliasValue> regionsAblativeCase = new HashSet<AliasValue>();
     public static Set<String> districts = new HashSet<String>();
     public static ArrayList<AliasValueType> aliasValues = new ArrayList<AliasValueType>();
 
@@ -23,6 +26,13 @@ public class AddressParserHelper {
         regions.add("витебская");
         regions.add("минская");
         regions.add("могилевская");
+
+        regionsAblativeCase.add(new AliasValue("брестской", "брестская"));
+        regionsAblativeCase.add(new AliasValue("гродненской", "гродненская"));
+        regionsAblativeCase.add(new AliasValue("гомельской", "гомельская"));
+        regionsAblativeCase.add(new AliasValue("витебской", "витебская"));
+        regionsAblativeCase.add(new AliasValue("минской", "минская"));
+        regionsAblativeCase.add(new AliasValue("могилевской", "могилевская"));
 
         String[] districtsStr = {
                 "барановичский", "белыничский", "березинский", "березовский", "берестовицкий", "бешенковичский",
