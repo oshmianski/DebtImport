@@ -1660,6 +1660,7 @@ public class AddressParser {
 
         String key;
         String passRegion;
+        boolean isRegionFound = false;
 
         ViewEntryCollection vec = null;
 
@@ -1714,10 +1715,12 @@ public class AddressParser {
 
             if (address.getIndex().isEmpty()) {
                 if (field.isPassRegion()) {
-                    passRegion = row.getCell(CellReference.convertColStringToIndex(field.getXlsCellPassRegion())).getStringCellValue();
+                    passRegion = row.getCell(CellReference.convertColStringToIndex(field.getXlsCellPassRegion())).getStringCellValue().replace("ё", "е");
                     if (!passRegion.isEmpty()) {
                         for(AliasValue region : AddressParserHelper.regionsAblativeCase){
                             if(StringUtils.containsIgnoreCase(passRegion, region.getAlias())){
+                                isRegionFound = true;
+
                                 address.setRegion(region.getValue(), AddressParserOperation.PROCESS_INDEX_85_PASS);
 
                                 if (address.getIndex().isEmpty()) {
@@ -1737,6 +1740,32 @@ public class AddressParser {
                                 }
 
                                 break;
+                            }
+                        }
+
+                        if(!isRegionFound){
+                            for(String region : AddressParserHelper.regions){
+                                if(StringUtils.containsIgnoreCase(passRegion, region)){
+                                    address.setRegion(region, AddressParserOperation.PROCESS_INDEX_85_PASS);
+
+                                    if (address.getIndex().isEmpty()) {
+                                        key = address.getCity() + "~" + address.getRegion();
+                                        vec = viewGEOIndex3.getAllEntriesByKey(key, true);
+
+                                        processVec(vec);
+                                    }
+
+                                    if (address.getIndex().isEmpty()) {
+                                        key = address.getRegion();
+                                        if (!key.isEmpty()) {
+                                            vec = viewGEORegion.getAllEntriesByKey(key, true);
+
+                                            processVec(vec);
+                                        }
+                                    }
+
+                                    break;
+                                }
                             }
                         }
                     }

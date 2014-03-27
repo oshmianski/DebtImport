@@ -33,6 +33,12 @@ public class AddressParserHelper {
         regionsAblativeCase.add(new AliasValue("витебской", "витебская"));
         regionsAblativeCase.add(new AliasValue("минской", "минская"));
         regionsAblativeCase.add(new AliasValue("могилевской", "могилевская"));
+        regionsAblativeCase.add(new AliasValue("брест", "брестская"));
+        regionsAblativeCase.add(new AliasValue("гродно", "гродненская"));
+        regionsAblativeCase.add(new AliasValue("гомель", "гомельская"));
+        regionsAblativeCase.add(new AliasValue("витебск", "витебская"));
+        regionsAblativeCase.add(new AliasValue("минск", "минская"));
+        regionsAblativeCase.add(new AliasValue("могилев", "могилевская"));
 
         String[] districtsStr = {
                 "барановичский", "белыничский", "березинский", "березовский", "берестовицкий", "бешенковичский",
