@@ -900,8 +900,8 @@ public class Importer {
                             viewGEORegion,
                             viewGEODistrict,
                             dataChildItems,
-                            row,
-                            field);
+                            row.getCell(CellReference.convertColStringToIndex(field.getXlsCellPassRegion())).getStringCellValue().replace("ё", "е"),
+                            field.isPassRegion());
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
 

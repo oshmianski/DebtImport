@@ -23,8 +23,8 @@ public class AddressParser {
     private View viewGEOIndex3;
     private View viewGEORegion;
     private View viewGEODistrict;
-    private Row row;
-    private Field field;
+    private String passRegion;
+    private boolean isPassRegion;
 
     private String realStr = "";
     private String realStrExclusion = "";
@@ -43,8 +43,8 @@ public class AddressParser {
             View viewGEORegion,
             View viewGEODistrict,
             ArrayList<DataChildItem> dataChildItems,
-            Row row,
-            Field field) {
+            String passRegion,
+            boolean isPassRegion) {
 
         this.realStr = realStr.replaceAll("ё", "е").replaceAll("Ё", "Е");
         realStrExclusion = this.realStr;
@@ -58,8 +58,8 @@ public class AddressParser {
         this.viewGEODistrict = viewGEODistrict;
 
         this.dataChildItems = dataChildItems;
-        this.row = row;
-        this.field = field;
+        this.passRegion = passRegion;
+        this.isPassRegion = isPassRegion;
     }
 
     public void parse() {
@@ -1659,7 +1659,6 @@ public class AddressParser {
     public void processIndex() {
 
         String key;
-        String passRegion;
         boolean isRegionFound = false;
 
         ViewEntryCollection vec = null;
@@ -1714,8 +1713,8 @@ public class AddressParser {
             }
 
             if (address.getIndex().isEmpty()) {
-                if (field.isPassRegion()) {
-                    passRegion = row.getCell(CellReference.convertColStringToIndex(field.getXlsCellPassRegion())).getStringCellValue().replace("ё", "е");
+                if (isPassRegion) {
+//                    passRegion =
                     if (!passRegion.isEmpty()) {
                         for(AliasValue region : AddressParserHelper.regionsAblativeCase){
                             if(StringUtils.containsIgnoreCase(passRegion, region.getAlias())){
