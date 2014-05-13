@@ -7,6 +7,21 @@
     <SOURCES>
       <root url="jar://D:/Downloads/commons-lang3-3.2.1-src.zip!/commons-lang3-3.2.1-src/src/main/java" />
       <root url="jar://D:/Downloads/commons-lang3-3.2.1-src.zip!/commons-lang3-3.2.1-src/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/test" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/swt/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/icu4j/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/japex/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/javafx/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/ktable/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/hibernate/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/swinglabs/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/treetable/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/jfreechart/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/calculation/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/issuesbrowser/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/jgoodiesforms/source" />
+      <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/nachocalendar/source" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
   </library>

@@ -222,4 +222,9 @@ public class UIProcessorImpl implements UIProcessor {
     public EventList<CellHeader> getCellHeaders() {
         return dockHeader.getCellHeaders();
     }
+
+    @Override
+    public int getSheetNum() {
+        return dockHeader.getDefaultSheet();
+    }
 }

@@ -1,20 +1,8 @@
 package by.oshmianski.loaders;
 
-import by.oshmianski.objects.*;
-import by.oshmianski.objects.Object;
+import by.oshmianski.objects.Importer;
 import by.oshmianski.ui.edt.UIProcessor;
 import by.oshmianski.utils.MyLog;
-import ca.odell.glazedlists.GlazedLists;
-import ca.odell.glazedlists.SortedList;
-import lotus.domino.*;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellReference;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.File;
-import java.util.*;
 
 public class LoadImportData implements Runnable, Loader {
     private boolean executed = false;

@@ -474,7 +474,7 @@ public class Importer {
             wb = new XSSFWorkbook(pkg);
             evaluator = wb.getCreationHelper().createFormulaEvaluator();
 
-            Sheet sheet1 = wb.getSheetAt(0);
+            Sheet sheet1 = wb.getSheetAt(ui.getSheetNum());
 
             int count = sheet1.getLastRowNum();
             int start = ui.getStartFrom();
@@ -1381,7 +1381,7 @@ public class Importer {
             wb = new XSSFWorkbook(pkg);
             evaluator = wb.getCreationHelper().createFormulaEvaluator();
 
-            Sheet sheet1 = wb.getSheetAt(0);
+            Sheet sheet1 = wb.getSheetAt(ui.getSheetNum());
 
             int start = rowNum;
             if (start < 0) {

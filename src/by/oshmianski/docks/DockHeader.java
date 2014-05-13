@@ -28,16 +28,21 @@ import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.util.Internal;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 
 /**
@@ -51,6 +56,7 @@ public class DockHeader extends DockSimple {
 
     private EventList<TemplateImport> templateImports = new BasicEventList<TemplateImport>();
     private EventList<CellHeader> cellHeaders = new BasicEventList<CellHeader>();
+    private EventList<Integer> sheetNums = new BasicEventList<Integer>();
 
     private JTextField fileField;
     private JTextField startFrom;
@@ -60,9 +66,14 @@ public class DockHeader extends DockSimple {
     private JLabel loadLabel;
     private JComboBox template;
     private JComboBox headers;
+    private JComboBox sheetNum;
     private JCheckBox testImport;
 
+    private Integer defaultSheet = 0;
+
     private Loader loaderTI;
+
+    private File file;
 
     public DockHeader(DockingContainer dockingContainer) {
         super("DockHeader", IconContainer.getInstance().loadImage("tools.png"), "Настройка импорта");
@@ -85,11 +96,33 @@ public class DockHeader extends DockSimple {
 
         cellHeaders.add(new CellHeader("", ""));
 
+        sheetNums.add(0);
+        sheetNums.add(1);
+        sheetNums.add(2);
+        sheetNums.add(3);
+
         DefaultEventComboBoxModel<TemplateImport> comboBoxModel = new DefaultEventComboBoxModel<TemplateImport>(templateImports);
         DefaultEventComboBoxModel<CellHeader> cellHeaderComboBoxModel = new DefaultEventComboBoxModel<CellHeader>(cellHeaders);
+        DefaultEventComboBoxModel<Integer> sheetNumComboBoxModel = new DefaultEventComboBoxModel<Integer>(sheetNums);
 
         template = new JComboBox(comboBoxModel);
         headers = new JComboBox(cellHeaderComboBoxModel);
+        sheetNum = new JComboBox(sheetNumComboBoxModel);
+
+        sheetNum.setSelectedIndex(0);
+        sheetNum.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() != ItemEvent.SELECTED) return;
+
+                Integer sNum = (Integer)sheetNum.getSelectedItem();
+                if(sNum == null) return;
+
+                defaultSheet = sNum;
+
+                refreshHeaders();
+            }
+        });
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -114,49 +147,17 @@ public class DockHeader extends DockSimple {
                 fileChooser.setFileFilter(new ExtFileFilter(new String[] {"xlsx", "xlsm"}, "*.xlsx (.xlsm) - MS Excel 2007"));
 
                 if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    File file = fileChooser.getSelectedFile();
+                    file = fileChooser.getSelectedFile();
                     fileField.setText(file.getAbsolutePath());
 
-                    OPCPackage pkg = null;
-                    XSSFWorkbook wb = null;
-
-                    try {
-                        // XSSFWorkbook, File
-                        pkg = OPCPackage.open(file, PackageAccess.READ);
-                        wb = new XSSFWorkbook(pkg);
-                        Sheet sheet1 = wb.getSheetAt(0);
-                        Row row = sheet1.getRow(0);
-                        int lastCol = row.getLastCellNum();
-
-                        cellHeaders.clear();
-
-                        for (int cn = 0; cn < lastCol; cn++) {
-                            Cell c = row.getCell(cn, Row.RETURN_BLANK_AS_NULL);
-
-                            if (c == null) {
-                                cellHeaders.add(new CellHeader(CellReference.convertNumToColString(cn), ""));
-                            } else {
-                                cellHeaders.add(new CellHeader(CellReference.convertNumToColString(cn), c.getStringCellValue()));
-                            }
-                        }
-                    } catch (Exception ex) {
-                        MyLog.add2Log(ex);
-                    } finally {
-                        try {
-                            if (pkg != null) {
-                                pkg.close();
-                            }
-                        } catch (Exception e1) {
-                            MyLog.add2Log(e1);
-                        }
-                    }
+                    refreshHeaders();
                 }
             }
         });
 
         FormLayout layout = new FormLayout(
                 "5px, right:60px, 5px, 300px, 5px, 20px, 5px, 30px, 5px, right:130px, 5px, 60px, 5px, right:130px, 5px, 60px, 5px", // columns
-                "5px, 30px, 5px, 30px, 5px, 30px, pref");      // rows
+                "5px, 30px, 5px, 30px, 5px, 30px, 20px");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
 //        builder.setDefaultDialogBorder();
@@ -178,7 +179,8 @@ public class DockHeader extends DockSimple {
         builder.add(bOpenFile, cc.xy(6, 4));
         builder.addLabel("Колонка в описание", cc.xy(10, 4));
         builder.add(headers, cc.xyw(12, 4, 5));
-//        builder.add(testImport, cc.xy(4, 6));
+        builder.addLabel("Лист", cc.xy(2, 6));
+        builder.add(sheetNum, cc.xy(4, 6));
 
         panel.add(builder.getPanel());
     }
@@ -282,5 +284,45 @@ public class DockHeader extends DockSimple {
 
     public boolean isTestImport() {
         return testImport.isSelected();
+    }
+
+    private void refreshHeaders(){
+        OPCPackage pkg = null;
+        XSSFWorkbook wb = null;
+
+        try {
+            // XSSFWorkbook, File
+            pkg = OPCPackage.open(file, PackageAccess.READ);
+            wb = new XSSFWorkbook(pkg);
+            Sheet sheet1 = wb.getSheetAt(defaultSheet);
+            Row row = sheet1.getRow(0);
+            int lastCol = row.getLastCellNum();
+
+            cellHeaders.clear();
+
+            for (int cn = 0; cn < lastCol; cn++) {
+                Cell c = row.getCell(cn, Row.RETURN_BLANK_AS_NULL);
+
+                if (c == null) {
+                    cellHeaders.add(new CellHeader(CellReference.convertNumToColString(cn), ""));
+                } else {
+                    cellHeaders.add(new CellHeader(CellReference.convertNumToColString(cn), c.getStringCellValue()));
+                }
+            }
+        } catch (Exception ex) {
+            MyLog.add2Log(ex);
+        } finally {
+            try {
+                if (pkg != null) {
+                    pkg.close();
+                }
+            } catch (Exception e1) {
+                MyLog.add2Log(e1);
+            }
+        }
+    }
+
+    public Integer getDefaultSheet() {
+        return defaultSheet;
     }
 }

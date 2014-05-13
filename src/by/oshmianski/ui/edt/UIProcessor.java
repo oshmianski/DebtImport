@@ -80,6 +80,8 @@ public interface UIProcessor {
 
     int getEndTo();
 
+    int getSheetNum();
+
 //    @RequiresEDT
     JTextField getFileField();
 
