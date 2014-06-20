@@ -1552,6 +1552,26 @@ public class AddressParser {
             dataChildItems.add(dataChildItem);
         }
 
+        if (address.getRegion().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_REGION,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует область"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
+        if (address.getDistrict().isEmpty()) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_DISTRICT,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует район"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
         if (address.getCityType().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_CITY_TYPE,
