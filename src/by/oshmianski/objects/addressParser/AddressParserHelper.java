@@ -17,9 +17,17 @@ public class AddressParserHelper {
     public static Set<String> regions = new HashSet<String>();
     public static Set<AliasValue> regionsAblativeCase = new HashSet<AliasValue>();
     public static Set<String> districts = new HashSet<String>();
+    public static Set<String> cityOfRegion = new HashSet<String>();
     public static ArrayList<AliasValueType> aliasValues = new ArrayList<AliasValueType>();
 
     static {
+        cityOfRegion.add("минск");
+        cityOfRegion.add("брест");
+        cityOfRegion.add("витебск");
+        cityOfRegion.add("гомель");
+        cityOfRegion.add("гродно");
+        cityOfRegion.add("могилев");
+
         regions.add("брестская");
         regions.add("гродненская");
         regions.add("гомельская");

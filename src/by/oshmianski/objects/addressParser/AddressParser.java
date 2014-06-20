@@ -4,8 +4,6 @@ import by.oshmianski.objects.*;
 import by.oshmianski.utils.MyLog;
 import lotus.domino.*;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.util.CellReference;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -128,6 +126,8 @@ public class AddressParser {
         processCityAndStreetWithPrevAndNext();
 
         processIndex();
+
+        processEmptyRegion();
 
         //TODO: это надо как-то переделать!!!
         if (address.getBuilding().length() > 0)
@@ -1676,6 +1676,51 @@ public class AddressParser {
         }
     }
 
+    public void processEmptyRegion() {
+        Vector key = new Vector();
+
+        ViewEntryCollection vec = null;
+
+        if (!address.getRegion().isEmpty()) return;
+
+        if (address.getCity().isEmpty()) return;
+
+        if (AddressParserHelper.cityOfRegion.contains(address.getCity())) return;
+
+        key.addElement(address.getCity());
+
+        try {
+            vec = viewGEO.getAllEntriesByKey(key, true);
+
+            if(vec.getCount() == 1){
+                address.setRegion(vec.getFirstEntry().getColumnValues().elementAt(4).toString(), AddressParserOperation.PROCESS_EMPTY_REGION_87);
+            }
+
+            if(address.getRegion().isEmpty()){
+                if(!address.getDistrict().isEmpty()){
+                    key.addElement(address.getDistrict());
+
+                    vec = viewGEO.getAllEntriesByKey(key, true);
+
+                    if(vec.getCount() == 1){
+                        address.setRegion(vec.getFirstEntry().getColumnValues().elementAt(4).toString(), AddressParserOperation.PROCESS_EMPTY_REGION_87);
+                    }
+                }
+            }
+
+        } catch (Exception ex) {
+            MyLog.add2Log(ex);
+        } finally {
+            try {
+                if (vec != null) {
+                    vec.recycle();
+                }
+            } catch (Exception e) {
+                MyLog.add2Log(e);
+            }
+        }
+    }
+
     public void processIndex() {
 
         String key;
@@ -1736,8 +1781,8 @@ public class AddressParser {
                 if (isPassRegion) {
 //                    passRegion =
                     if (!passRegion.isEmpty()) {
-                        for(AliasValue region : AddressParserHelper.regionsAblativeCase){
-                            if(StringUtils.containsIgnoreCase(passRegion, region.getAlias())){
+                        for (AliasValue region : AddressParserHelper.regionsAblativeCase) {
+                            if (StringUtils.containsIgnoreCase(passRegion, region.getAlias())) {
                                 isRegionFound = true;
 
                                 address.setRegion(region.getValue(), AddressParserOperation.PROCESS_INDEX_85_PASS);
@@ -1762,9 +1807,9 @@ public class AddressParser {
                             }
                         }
 
-                        if(!isRegionFound){
-                            for(String region : AddressParserHelper.regions){
-                                if(StringUtils.containsIgnoreCase(passRegion, region)){
+                        if (!isRegionFound) {
+                            for (String region : AddressParserHelper.regions) {
+                                if (StringUtils.containsIgnoreCase(passRegion, region)) {
                                     address.setRegion(region, AddressParserOperation.PROCESS_INDEX_85_PASS);
 
                                     if (address.getIndex().isEmpty()) {
