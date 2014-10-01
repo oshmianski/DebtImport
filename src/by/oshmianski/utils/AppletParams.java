@@ -27,6 +27,7 @@ public class AppletParams {
     private String viewGEOIndex3;
     private String viewGEORegion;
     private String viewGEODistrict;
+    private String viewReplacement;
 
     public static AppletParams getInstance() {
         return ourInstance;
@@ -52,6 +53,7 @@ public class AppletParams {
         viewGEOIndex3 = applet.getParameter("viewGEOIndex3");
         viewGEORegion = applet.getParameter("viewGEORegion");
         viewGEODistrict = applet.getParameter("viewGEODistrict");
+        viewReplacement = applet.getParameter("viewReplacement");
     }
 
     public String getDbReplicaID() {
@@ -180,5 +182,13 @@ public class AppletParams {
 
     public void setViewGEODistrict(String viewGEODistrict) {
         this.viewGEODistrict = viewGEODistrict;
+    }
+
+    public String getViewReplacement() {
+        return viewReplacement;
+    }
+
+    public void setViewReplacement(String viewReplacement) {
+        this.viewReplacement = viewReplacement;
     }
 }

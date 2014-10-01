@@ -428,6 +428,7 @@ public class Importer {
         View viewGEOIndex3 = null;
         View viewGEORegion = null;
         View viewGEODistrict = null;
+        View viewReplacement = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -437,6 +438,7 @@ public class Importer {
         Map<String, View> viewMap = new HashMap<String, View>();
         Database dbFI = null;
         Document noteFI = null;
+        ArrayList<AliasValue> replacementList;
 
         try {
             NotesThread.sinitThread();
@@ -457,6 +459,7 @@ public class Importer {
             viewGEOIndex3 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex3());
             viewGEORegion = dbGEO.getView(AppletParams.getInstance().getViewGEORegion());
             viewGEODistrict = dbGEO.getView(AppletParams.getInstance().getViewGEODistrict());
+            viewReplacement = db.getView(AppletParams.getInstance().getViewReplacement());
             viewGEO.setAutoUpdate(false);
             viewGEOStreet.setAutoUpdate(false);
             viewGEOIndex.setAutoUpdate(false);
@@ -464,6 +467,7 @@ public class Importer {
             viewGEOIndex3.setAutoUpdate(false);
             viewGEORegion.setAutoUpdate(false);
             viewGEODistrict.setAutoUpdate(false);
+            viewReplacement.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -528,6 +532,8 @@ public class Importer {
                     cellHeaders,
                     headerSize);
 
+            replacementList = getReplacement(viewReplacement);
+
             while (it.hasNext() && i <= end) {
                 row = it.next();
 
@@ -547,7 +553,8 @@ public class Importer {
                         viewGEODistrict,
                         viewMap,
                         wb,
-                        col2Description);
+                        col2Description,
+                        replacementList);
 
                 ui.appendDataImport(dataMainItem);
 
@@ -563,7 +570,7 @@ public class Importer {
             MyLog.add2Log(e);
         } finally {
             try {
-                if(evaluator != null){
+                if (evaluator != null) {
                     evaluator = null;
                 }
 
@@ -770,7 +777,8 @@ public class Importer {
             DataMainItem dataMainItem,
             ArrayList<DataChildItem> dataChildItems,
             ArrayList<RecordObjectField> rFields,
-            RecordObject rObject) throws Exception {
+            RecordObject rObject,
+            ArrayList<AliasValue> replacementList) throws Exception {
 
         Document document = null;
         RecordObjectField rField;
@@ -901,7 +909,8 @@ public class Importer {
                             viewGEODistrict,
                             dataChildItems,
                             field.isPassRegion() ? row.getCell(CellReference.convertColStringToIndex(field.getXlsCellPassRegion())).getStringCellValue().replace("ё", "е") : "",
-                            field.isPassRegion());
+                            field.isPassRegion(),
+                            replacementList);
                     addressParser.parse();
                     dataMainItem.setAddressParser(addressParser);
 
@@ -1191,7 +1200,8 @@ public class Importer {
             View viewGEODistrict,
             Map<String, View> viewMap,
             XSSFWorkbook wb,
-            int col2Description
+            int col2Description,
+            ArrayList<AliasValue> replacementList
     ) {
 
         DataMainItem dataMainItem;
@@ -1247,7 +1257,8 @@ public class Importer {
                         dataMainItem,
                         dataChildItems,
                         rFields,
-                        rObject);
+                        rObject,
+                        replacementList);
             } catch (Exception ex) {
                 MyLog.add2Log(ex);
                 dataChildItem = new DataChildItem(
@@ -1333,6 +1344,7 @@ public class Importer {
         View viewGEOIndex3 = null;
         View viewGEORegion = null;
         View viewGEODistrict = null;
+        View viewReplacement = null;
         ViewNavigator nav = null;
         ViewEntry ve = null;
         ViewEntry vetmp = null;
@@ -1342,6 +1354,7 @@ public class Importer {
         Map<String, View> viewMap = new HashMap<String, View>();
         Database dbFI = null;
         Document noteFI = null;
+        ArrayList<AliasValue> replacementList;
 
         DataMainItem dataMainItem = null;
 
@@ -1364,6 +1377,7 @@ public class Importer {
             viewGEOIndex3 = dbGEO.getView(AppletParams.getInstance().getViewGEOIndex3());
             viewGEORegion = dbGEO.getView(AppletParams.getInstance().getViewGEORegion());
             viewGEODistrict = dbGEO.getView(AppletParams.getInstance().getViewGEODistrict());
+            viewReplacement = db.getView(AppletParams.getInstance().getViewReplacement());
             viewGEO.setAutoUpdate(false);
             viewGEOStreet.setAutoUpdate(false);
             viewGEOIndex.setAutoUpdate(false);
@@ -1371,6 +1385,7 @@ public class Importer {
             viewGEOIndex3.setAutoUpdate(false);
             viewGEORegion.setAutoUpdate(false);
             viewGEODistrict.setAutoUpdate(false);
+            viewReplacement.setAutoUpdate(false);
 
             File file = new File(filePath);
             if (file == null)
@@ -1411,6 +1426,8 @@ public class Importer {
                     cellHeaders,
                     headerSize);
 
+            replacementList = getReplacement(viewReplacement);
+
             row = it.next();
 
             dataMainItem = processRow(
@@ -1429,14 +1446,15 @@ public class Importer {
                     viewGEODistrict,
                     viewMap,
                     wb,
-                    col2Description);
+                    col2Description,
+                    replacementList);
 
 
         } catch (Exception e) {
             MyLog.add2Log(e);
         } finally {
             try {
-                if(evaluator != null){
+                if (evaluator != null) {
                     evaluator = null;
                 }
 
@@ -1509,5 +1527,63 @@ public class Importer {
         }
 
         return dataMainItem;
+    }
+
+    private ArrayList<AliasValue> getReplacement(View viewReplacement) {
+        ArrayList<AliasValue> replacement = new ArrayList<AliasValue>();
+
+        ViewNavigator nav = null;
+        ViewEntry ve = null;
+        ViewEntry vetmp = null;
+
+        try {
+            nav = viewReplacement.createViewNav();
+            nav.setBufferMaxEntries(400);
+            nav.setEntryOptions(ViewNavigator.VN_ENTRYOPT_NOCOUNTDATA);
+
+            ve = nav.getFirst();
+            while (ve != null) {
+                replacement.add(new AliasValue(ve.getColumnValues().elementAt(0).toString(), ve.getColumnValues().elementAt(1).toString()));
+
+                vetmp = nav.getNext();
+                ve.recycle();
+                ve = vetmp;
+            }
+
+        } catch (Exception e) {
+            MyLog.add2Log(e);
+        } finally {
+            try {
+
+                if (vetmp != null) {
+                    vetmp.recycle();
+                }
+                if (ve != null) {
+                    ve.recycle();
+                }
+                if (nav != null) {
+                    nav.recycle();
+                }
+            } catch (Exception e) {
+                MyLog.add2Log(e);
+            }
+        }
+
+        Comparator<AliasValue> comparator = new Comparator<AliasValue>() {
+            @Override
+            public int compare(AliasValue o1, AliasValue o2) {
+                if (o1.getAlias().length() > o2.getAlias().length())
+                    return -1;
+
+                if (o2.getAlias().length() > o1.getAlias().length())
+                    return 1;
+
+                return 0;
+            }
+        };
+
+        Collections.sort(replacement, comparator);
+
+        return replacement;
     }
 }
