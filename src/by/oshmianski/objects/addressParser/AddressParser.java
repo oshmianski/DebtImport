@@ -296,7 +296,7 @@ public class AddressParser {
 //        aliasValues.add(new AliasValue("Б.Юности", "бульвар Юности"));
 
         for (AliasValue aliasValue : aliasValues)
-            if (realStrExclusion.toLowerCase().indexOf(aliasValue.getAlias().toLowerCase()) > -1) {
+            if (realStrExclusion.toLowerCase().indexOf(aliasValue.getAlias().toLowerCase()) > -1 || aliasValue.getAlias().indexOf("$") > -1) {
                 realStrExclusion = realStrExclusion.replaceAll(
                         "(?i)" + aliasValue.getAlias().
                                 replaceAll("\\.", "\\\\.").
