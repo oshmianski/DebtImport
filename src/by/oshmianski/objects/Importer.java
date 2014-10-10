@@ -706,61 +706,6 @@ public class Importer {
         return retValue;
     }
 
-    public CellField getCellField(Workbook wb, Cell cell) {
-        CellField cellField = new CellField("", Field.TYPE.TEXT);
-
-        if (evaluator == null)
-            evaluator = wb.getCreationHelper().createFormulaEvaluator();
-
-        if (cell == null) return cellField;
-
-        switch (cell.getCellType()) {
-            case Cell.CELL_TYPE_STRING:
-                cellField.setValue(cell.getStringCellValue());
-                break;
-            case Cell.CELL_TYPE_NUMERIC:
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    cellField.setValue(cell.getDateCellValue());
-                    cellField.setType(Field.TYPE.DATETIME);
-                } else {
-                    cellField.setValue(String.valueOf(formatNumber.format(cell.getNumericCellValue())));
-                    cellField.setType(Field.TYPE.NUMBER);
-                }
-                break;
-            case Cell.CELL_TYPE_BOOLEAN:
-                cellField.setValue(String.valueOf(cell.getBooleanCellValue()));
-                break;
-            case Cell.CELL_TYPE_FORMULA:
-                CellValue cellValue = evaluator.evaluate(cell);
-
-                switch (cellValue.getCellType()) {
-                    case Cell.CELL_TYPE_BOOLEAN:
-                        cellField.setValue(String.valueOf(cellValue.getBooleanValue()));
-                        break;
-                    case Cell.CELL_TYPE_NUMERIC:
-                        cellField.setValue(cellValue.getNumberValue());
-                        cellField.setType(Field.TYPE.NUMBER);
-                        break;
-                    case Cell.CELL_TYPE_STRING:
-                        cellField.setValue(cellValue.getStringValue());
-                        break;
-                    case Cell.CELL_TYPE_BLANK:
-                        break;
-                    case Cell.CELL_TYPE_ERROR:
-                        break;
-
-                    // CELL_TYPE_FORMULA will never happen
-                    case Cell.CELL_TYPE_FORMULA:
-                        break;
-                }
-                break;
-            default:
-
-        }
-
-        return cellField;
-    }
-
     private void processFields(
             Session session,
             Database db,
