@@ -781,6 +781,8 @@ public class Importer {
                         cellValue = "";
                     }
 
+                    cellValue = cellValue.replaceAll("\\\\", "/");
+
                     ruleSortedList = new SortedList<Rule>(field.getRules(), GlazedLists.chainComparators(GlazedLists.beanPropertyComparator(Rule.class, "number")));
                     for (Rule rule : ruleSortedList) {
                         if ("1".equals(rule.getType())) {
