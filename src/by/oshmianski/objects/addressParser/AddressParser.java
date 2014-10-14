@@ -1696,6 +1696,7 @@ public class AddressParser {
     }
 
     public void processEmptyRegion() {
+        boolean isRegionFound = false;
         Vector key = new Vector();
 
         ViewEntryCollection vec = null;
@@ -1723,6 +1724,32 @@ public class AddressParser {
 
                     if (vec.getCount() == 1) {
                         address.setRegion(vec.getFirstEntry().getColumnValues().elementAt(4).toString(), AddressParserOperation.PROCESS_EMPTY_REGION_87);
+                    }
+                }
+            }
+
+            if (address.getRegion().isEmpty()) {
+                if (isPassRegion) {
+                    if (!passRegion.isEmpty()) {
+                        for (AliasValue region : AddressParserHelper.regionsAblativeCase) {
+                            if (StringUtils.containsIgnoreCase(passRegion, region.getAlias())) {
+                                isRegionFound = true;
+
+                                address.setRegion(region.getValue(), AddressParserOperation.PROCESS_INDEX_85_PASS);
+
+                                break;
+                            }
+                        }
+
+                        if (!isRegionFound) {
+                            for (String region : AddressParserHelper.regions) {
+                                if (StringUtils.containsIgnoreCase(passRegion, region)) {
+                                    address.setRegion(region, AddressParserOperation.PROCESS_INDEX_85_PASS);
+
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }

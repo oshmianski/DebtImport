@@ -8,9 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c29bc9b8-4b9c-42de-b196-016f95613dba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/FuzzySearch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" afterPath="$PROJECT_DIR$/src/by/oshmianski/objects/Status.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DebtImport.iws" />
@@ -100,8 +97,8 @@
       <file leaf-file-name="AddressParser.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5733064" vertical-offset="25970" max-vertical-offset="31654">
-              <caret line="1573" column="24" selection-start-line="1573" selection-start-column="24" selection-end-line="1573" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.570273" vertical-offset="28829" max-vertical-offset="32113">
+              <caret line="1741" column="25" selection-start-line="1741" selection-start-column="25" selection-end-line="1741" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1148,7 +1145,11 @@
       <created>1413191755407</created>
       <updated>1413191755407</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;&#9;src/by/oshmianski/main/AppletWindowFrame.java&#10;&#9;src/by/oshmianski/objects/Importer.java&#10;&#9;src/by/oshmianski/objects/addressParser/AddressParser.java&#10;&#9;src/by/oshmianski/utils/AppletParams.java&#10;">
+      <created>1413285971083</created>
+      <updated>1413285971083</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1616,8 +1617,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/oshmianski/objects/addressParser/AddressParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5733064" vertical-offset="25970" max-vertical-offset="31654">
-          <caret line="1573" column="24" selection-start-line="1573" selection-start-column="24" selection-end-line="1573" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.570273" vertical-offset="28829" max-vertical-offset="32113">
+          <caret line="1741" column="25" selection-start-line="1741" selection-start-column="25" selection-end-line="1741" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
