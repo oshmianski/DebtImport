@@ -58,6 +58,11 @@ public class FuzzySearch {
     public Passport getPassport(String passStr, ArrayList<DataChildItem> dataChildItems) throws ParseException {
         Passport passport = new Passport("", "", "", "");
 
+        passStr = StringUtils.replaceEach(
+                passStr,
+                new String[]{"-JAN-", "-FEB-", "-MAR-", "-APR-", "-MAY-", "-JUN-", "-JUL-", "-AUG-", "-SEP-", "-OCT-", "-NOV-", "-DEC-"},
+                new String[]{".01.", ".02.", ".03.", ".04.", ".05.", ".06.", ".07.", ".08.", ".09.", ".10.", ".11.", ".12."});
+
         String[] passTypes = {"Паспорт гражданина РБ", "Вид на жительство", "Иностранный паспорт"};
 
         Pattern pattern = Pattern.compile("(?<=выдан\\s{1}.{8}\\s{1}).{0,}");

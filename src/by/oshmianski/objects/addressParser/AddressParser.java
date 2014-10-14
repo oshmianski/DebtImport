@@ -1565,6 +1565,22 @@ public class AddressParser {
             dataChildItems.add(dataChildItem);
         }
 
+        if (address.getRegion().isEmpty()
+                && !("Минск".equalsIgnoreCase(address.getCity()) ||
+                "Брест".equalsIgnoreCase(address.getCity()) ||
+                "Гродно".equalsIgnoreCase(address.getCity()) ||
+                "Гомель".equalsIgnoreCase(address.getCity()) ||
+                "Витебск".equalsIgnoreCase(address.getCity()) ||
+                "Могилев".equalsIgnoreCase(address.getCity()))) {
+            DataChildItem dataChildItem = new DataChildItem(
+                    Status.WARNING_ADDRESS_NO_REGION_EXT,
+                    "_Заполнение адреса",
+                    "Ошибка",
+                    "Отсутствует область"
+            );
+            dataChildItems.add(dataChildItem);
+        }
+
         if (address.getDistrict().isEmpty()) {
             DataChildItem dataChildItem = new DataChildItem(
                     Status.WARNING_ADDRESS_NO_DISTRICT,
@@ -1695,17 +1711,17 @@ public class AddressParser {
         try {
             vec = viewGEO.getAllEntriesByKey(key, true);
 
-            if(vec.getCount() == 1){
+            if (vec.getCount() == 1) {
                 address.setRegion(vec.getFirstEntry().getColumnValues().elementAt(4).toString(), AddressParserOperation.PROCESS_EMPTY_REGION_87);
             }
 
-            if(address.getRegion().isEmpty()){
-                if(!address.getDistrict().isEmpty()){
+            if (address.getRegion().isEmpty()) {
+                if (!address.getDistrict().isEmpty()) {
                     key.addElement(address.getDistrict());
 
                     vec = viewGEO.getAllEntriesByKey(key, true);
 
-                    if(vec.getCount() == 1){
+                    if (vec.getCount() == 1) {
                         address.setRegion(vec.getFirstEntry().getColumnValues().elementAt(4).toString(), AddressParserOperation.PROCESS_EMPTY_REGION_87);
                     }
                 }

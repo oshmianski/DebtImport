@@ -22,6 +22,8 @@
       <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/issuesbrowser/source" />
       <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/jgoodiesforms/source" />
       <root url="file://$PROJECT_DIR$/../glazedlists-master/extensions/nachocalendar/source" />
+      <root url="file://D:/Temp/commons-lang3-3.3.2-src/src/main/java" />
+      <root url="file://D:/Temp/commons-lang3-3.3.2-src/src/test/java" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
   </library>
