@@ -30,7 +30,7 @@ public class AddressParser {
     private ArrayList<AddressParserItem> parserItems = new ArrayList<AddressParserItem>();
     private Address address = new Address();
     private ArrayList<DataChildItem> dataChildItems;
-    private ArrayList<AliasValue> aliasValues;
+    private ArrayList<Replacement> replacements;
 
     public AddressParser(
             String realStr,
@@ -44,7 +44,7 @@ public class AddressParser {
             ArrayList<DataChildItem> dataChildItems,
             String passRegion,
             boolean isPassRegion,
-            ArrayList<AliasValue> aliasValues) {
+            ArrayList<Replacement> aliasValues) {
 
         this.realStr = realStr.replaceAll("ё", "е").replaceAll("Ё", "Е");
         realStrExclusion = this.realStr;
@@ -60,7 +60,7 @@ public class AddressParser {
         this.dataChildItems = dataChildItems;
         this.passRegion = passRegion;
         this.isPassRegion = isPassRegion;
-        this.aliasValues = aliasValues;
+        this.replacements = aliasValues;
     }
 
     public void parse() {
@@ -184,126 +184,131 @@ public class AddressParser {
     private void processExclusion() {
 
 
-//        aliasValues.add(new AliasValue("г. н.п.", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("п.г.т.", "пгт."));  //поселок городского типа
-//        aliasValues.add(new AliasValue("р.п.", "рп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("н.п.", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("Н.п.", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("н.н.", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("н.а.", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("н. п.", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("Н.П.", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("н.п,", "нп.,"));     //населенный пункт
-//        aliasValues.add(new AliasValue(" н,п.", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("н\\п", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("н/п", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("н.п ", "нп."));     //населенный пункт
-//        aliasValues.add(new AliasValue("г.п.", "гп."));     //городской поселок
-//        aliasValues.add(new AliasValue("Г.П.", "гп."));     //городской поселок
-//        aliasValues.add(new AliasValue("к.п.", "кп."));     //курортный поселок
-//        aliasValues.add(new AliasValue("Б-р", "б-р"));
-//        aliasValues.add(new AliasValue("Ул.", "ул."));
-//        aliasValues.add(new AliasValue("ПГТ", "пгт"));
-//        aliasValues.add(new AliasValue("ПР-т", "пр-т"));
-//        aliasValues.add(new AliasValue("М-Н", "м-н"));
-//        aliasValues.add(new AliasValue("1ый", "1-ый"));
-//        aliasValues.add(new AliasValue("а.г.", "аг."));
-//        aliasValues.add(new AliasValue("а-г.", "аг."));
-//        aliasValues.add(new AliasValue("агр.гор.", "аг."));
-//        aliasValues.add(new AliasValue("в.ч.", "вч."));
-//        aliasValues.add(new AliasValue(" д.д.", " д. "));
-//        aliasValues.add(new AliasValue(" д.д ", " д. "));
-//        aliasValues.add(new AliasValue("ПЕР.", "пер."));
+//        replacements.add(new AliasValue("г. н.п.", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("п.г.т.", "пгт."));  //поселок городского типа
+//        replacements.add(new AliasValue("р.п.", "рп."));     //населенный пункт
+//        replacements.add(new AliasValue("н.п.", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("Н.п.", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("н.н.", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("н.а.", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("н. п.", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("Н.П.", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("н.п,", "нп.,"));     //населенный пункт
+//        replacements.add(new AliasValue(" н,п.", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("н\\п", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("н/п", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("н.п ", "нп."));     //населенный пункт
+//        replacements.add(new AliasValue("г.п.", "гп."));     //городской поселок
+//        replacements.add(new AliasValue("Г.П.", "гп."));     //городской поселок
+//        replacements.add(new AliasValue("к.п.", "кп."));     //курортный поселок
+//        replacements.add(new AliasValue("Б-р", "б-р"));
+//        replacements.add(new AliasValue("Ул.", "ул."));
+//        replacements.add(new AliasValue("ПГТ", "пгт"));
+//        replacements.add(new AliasValue("ПР-т", "пр-т"));
+//        replacements.add(new AliasValue("М-Н", "м-н"));
+//        replacements.add(new AliasValue("1ый", "1-ый"));
+//        replacements.add(new AliasValue("а.г.", "аг."));
+//        replacements.add(new AliasValue("а-г.", "аг."));
+//        replacements.add(new AliasValue("агр.гор.", "аг."));
+//        replacements.add(new AliasValue("в.ч.", "вч."));
+//        replacements.add(new AliasValue(" д.д.", " д. "));
+//        replacements.add(new AliasValue(" д.д ", " д. "));
+//        replacements.add(new AliasValue("ПЕР.", "пер."));
 //
-//        aliasValues.add(new AliasValue("УЛИЦА", "улица"));
-//        aliasValues.add(new AliasValue("Проспект", "проспект"));
-//        aliasValues.add(new AliasValue("Микрорайон", "микрорайон"));
-//        aliasValues.add(new AliasValue("Область", "область"));
-//        aliasValues.add(new AliasValue("Бульвар", "бульвар"));
-//        aliasValues.add(new AliasValue("Пер.", "пер."));
-//        aliasValues.add(new AliasValue("дом д.", "д."));
-//        aliasValues.add(new AliasValue("газ.", "газеты"));
-//        aliasValues.add(new AliasValue("аг.гор.", "агрогородок "));
-//        aliasValues.add(new AliasValue("Республика Беларусь", "Беларусь"));
-//        aliasValues.add(new AliasValue("республика беларусь", "Беларусь"));
-//        aliasValues.add(new AliasValue("республика Беларусь", "Беларусь"));
-//        aliasValues.add(new AliasValue(" Гостиниц ", " Гостинец "));
-//        aliasValues.add(new AliasValue("Держинский", "Дзержинский"));
-//        aliasValues.add(new AliasValue("Молодеченский", "Молодечненский"));
-//        aliasValues.add(new AliasValue("Сморгоньский", "Сморгонский"));
-//        aliasValues.add(new AliasValue("Мозырьский", "Мозырский"));
-//        aliasValues.add(new AliasValue("Речецкий", "Речицкий"));
-//        aliasValues.add(new AliasValue("Волковыский", "Волковысский"));
-//        aliasValues.add(new AliasValue("Червеньский", "Червенский"));
-//        aliasValues.add(new AliasValue("Дрогиченский", "Дрогичинский"));
-//        aliasValues.add(new AliasValue("Любаньский", "Любанский"));
-//        aliasValues.add(new AliasValue("Хойницкий", "Хойникский"));
-//        aliasValues.add(new AliasValue("Заславье", "Заславль"));
+//        replacements.add(new AliasValue("УЛИЦА", "улица"));
+//        replacements.add(new AliasValue("Проспект", "проспект"));
+//        replacements.add(new AliasValue("Микрорайон", "микрорайон"));
+//        replacements.add(new AliasValue("Область", "область"));
+//        replacements.add(new AliasValue("Бульвар", "бульвар"));
+//        replacements.add(new AliasValue("Пер.", "пер."));
+//        replacements.add(new AliasValue("дом д.", "д."));
+//        replacements.add(new AliasValue("газ.", "газеты"));
+//        replacements.add(new AliasValue("аг.гор.", "агрогородок "));
+//        replacements.add(new AliasValue("Республика Беларусь", "Беларусь"));
+//        replacements.add(new AliasValue("республика беларусь", "Беларусь"));
+//        replacements.add(new AliasValue("республика Беларусь", "Беларусь"));
+//        replacements.add(new AliasValue(" Гостиниц ", " Гостинец "));
+//        replacements.add(new AliasValue("Держинский", "Дзержинский"));
+//        replacements.add(new AliasValue("Молодеченский", "Молодечненский"));
+//        replacements.add(new AliasValue("Сморгоньский", "Сморгонский"));
+//        replacements.add(new AliasValue("Мозырьский", "Мозырский"));
+//        replacements.add(new AliasValue("Речецкий", "Речицкий"));
+//        replacements.add(new AliasValue("Волковыский", "Волковысский"));
+//        replacements.add(new AliasValue("Червеньский", "Червенский"));
+//        replacements.add(new AliasValue("Дрогиченский", "Дрогичинский"));
+//        replacements.add(new AliasValue("Любаньский", "Любанский"));
+//        replacements.add(new AliasValue("Хойницкий", "Хойникский"));
+//        replacements.add(new AliasValue("Заславье", "Заславль"));
 //
-//        aliasValues.add(new AliasValue("улица неизвестна,", ""));
-//        aliasValues.add(new AliasValue("улицы нет,", ""));
-//        aliasValues.add(new AliasValue("Улицы нет,", ""));
-//        aliasValues.add(new AliasValue("неизвестна ", ""));
-//        aliasValues.add(new AliasValue("неизвестна,", ""));
-//        aliasValues.add(new AliasValue("неизвестно,", ""));
-//        aliasValues.add(new AliasValue("Не известна", ""));
-//        aliasValues.add(new AliasValue("Неизвестна,", ""));
-//        aliasValues.add(new AliasValue("НЕ ИЗВЕСТНА", ""));
-//        aliasValues.add(new AliasValue("не известна", ""));
-//        aliasValues.add(new AliasValue("не извесна", ""));
-//        aliasValues.add(new AliasValue("не  известна", ""));
-//        aliasValues.add(new AliasValue("г. Не известно", ""));
-//        aliasValues.add(new AliasValue("Не известно", ""));
-//        aliasValues.add(new AliasValue("не известно", ""));
-//        aliasValues.add(new AliasValue("не указана", ""));
-//        aliasValues.add(new AliasValue("неуказана", ""));
-//        aliasValues.add(new AliasValue("не указано", ""));
-//        aliasValues.add(new AliasValue("не указан", ""));
-//        aliasValues.add(new AliasValue("не указаны", ""));
-//        aliasValues.add(new AliasValue("без улицы", ""));
-//        aliasValues.add(new AliasValue("нет улицы", ""));
-//        aliasValues.add(new AliasValue("xxx", ""));
-//        aliasValues.add(new AliasValue(" нет,", ""));
-//        aliasValues.add(new AliasValue("корп. .,", ""));
-//        aliasValues.add(new AliasValue("корп.  .,", ""));
-//        aliasValues.add(new AliasValue("корп..,", ""));
-//        aliasValues.add(new AliasValue("корп.,", ""));
-//        aliasValues.add(new AliasValue("(частный дом)", ""));
-//        aliasValues.add(new AliasValue("(частный)", ""));
-//        aliasValues.add(new AliasValue("(част.)", ""));
-//        aliasValues.add(new AliasValue("частный дом", ""));
-//        aliasValues.add(new AliasValue("част дом", ""));
-//        aliasValues.add(new AliasValue("част.дом", ""));
-//        aliasValues.add(new AliasValue("част. дом", ""));
-//        aliasValues.add(new AliasValue("ч/д", ""));
-//        aliasValues.add(new AliasValue("ч\\д", ""));
-//        aliasValues.add(new AliasValue(" -,", ""));
-//        aliasValues.add(new AliasValue(" - ", "-"));
-//        aliasValues.add(new AliasValue(" -", "-"));
-//        aliasValues.add(new AliasValue("- ", "-"));
-//        aliasValues.add(new AliasValue(" нету,", ""));
-//        aliasValues.add(new AliasValue(" ,", ","));
-//        aliasValues.add(new AliasValue(".,", ","));
-//        aliasValues.add(new AliasValue("\"", ""));
-//        aliasValues.add(new AliasValue("(общ)", ""));
-//        aliasValues.add(new AliasValue("(общ.)", ""));
-//        aliasValues.add(new AliasValue("70лет", "70 лет"));
-//        aliasValues.add(new AliasValue("60лет", "60 лет"));
-//        aliasValues.add(new AliasValue("50лет", "50 лет"));
-//        aliasValues.add(new AliasValue("40лет", "40 лет"));
-//        aliasValues.add(new AliasValue("30лет", "30 лет"));
-//        aliasValues.add(new AliasValue("20лет", "20 лет"));
-//        aliasValues.add(new AliasValue("Б.Юности", "бульвар Юности"));
+//        replacements.add(new AliasValue("улица неизвестна,", ""));
+//        replacements.add(new AliasValue("улицы нет,", ""));
+//        replacements.add(new AliasValue("Улицы нет,", ""));
+//        replacements.add(new AliasValue("неизвестна ", ""));
+//        replacements.add(new AliasValue("неизвестна,", ""));
+//        replacements.add(new AliasValue("неизвестно,", ""));
+//        replacements.add(new AliasValue("Не известна", ""));
+//        replacements.add(new AliasValue("Неизвестна,", ""));
+//        replacements.add(new AliasValue("НЕ ИЗВЕСТНА", ""));
+//        replacements.add(new AliasValue("не известна", ""));
+//        replacements.add(new AliasValue("не извесна", ""));
+//        replacements.add(new AliasValue("не  известна", ""));
+//        replacements.add(new AliasValue("г. Не известно", ""));
+//        replacements.add(new AliasValue("Не известно", ""));
+//        replacements.add(new AliasValue("не известно", ""));
+//        replacements.add(new AliasValue("не указана", ""));
+//        replacements.add(new AliasValue("неуказана", ""));
+//        replacements.add(new AliasValue("не указано", ""));
+//        replacements.add(new AliasValue("не указан", ""));
+//        replacements.add(new AliasValue("не указаны", ""));
+//        replacements.add(new AliasValue("без улицы", ""));
+//        replacements.add(new AliasValue("нет улицы", ""));
+//        replacements.add(new AliasValue("xxx", ""));
+//        replacements.add(new AliasValue(" нет,", ""));
+//        replacements.add(new AliasValue("корп. .,", ""));
+//        replacements.add(new AliasValue("корп.  .,", ""));
+//        replacements.add(new AliasValue("корп..,", ""));
+//        replacements.add(new AliasValue("корп.,", ""));
+//        replacements.add(new AliasValue("(частный дом)", ""));
+//        replacements.add(new AliasValue("(частный)", ""));
+//        replacements.add(new AliasValue("(част.)", ""));
+//        replacements.add(new AliasValue("частный дом", ""));
+//        replacements.add(new AliasValue("част дом", ""));
+//        replacements.add(new AliasValue("част.дом", ""));
+//        replacements.add(new AliasValue("част. дом", ""));
+//        replacements.add(new AliasValue("ч/д", ""));
+//        replacements.add(new AliasValue("ч\\д", ""));
+//        replacements.add(new AliasValue(" -,", ""));
+//        replacements.add(new AliasValue(" - ", "-"));
+//        replacements.add(new AliasValue(" -", "-"));
+//        replacements.add(new AliasValue("- ", "-"));
+//        replacements.add(new AliasValue(" нету,", ""));
+//        replacements.add(new AliasValue(" ,", ","));
+//        replacements.add(new AliasValue(".,", ","));
+//        replacements.add(new AliasValue("\"", ""));
+//        replacements.add(new AliasValue("(общ)", ""));
+//        replacements.add(new AliasValue("(общ.)", ""));
+//        replacements.add(new AliasValue("70лет", "70 лет"));
+//        replacements.add(new AliasValue("60лет", "60 лет"));
+//        replacements.add(new AliasValue("50лет", "50 лет"));
+//        replacements.add(new AliasValue("40лет", "40 лет"));
+//        replacements.add(new AliasValue("30лет", "30 лет"));
+//        replacements.add(new AliasValue("20лет", "20 лет"));
+//        replacements.add(new AliasValue("Б.Юности", "бульвар Юности"));
 
-        for (AliasValue aliasValue : aliasValues)
-            if (realStrExclusion.toLowerCase().indexOf(aliasValue.getAlias().toLowerCase()) > -1 || aliasValue.getAlias().indexOf("$") > -1) {
-                realStrExclusion = realStrExclusion.replaceAll(
-                        "(?i)" + aliasValue.getAlias().
-                                replaceAll("\\.", "\\\\.").
-                                replaceAll("\\(", "\\\\(").
-                                replaceAll("\\)", "\\\\)"),
-                        aliasValue.getValue()
-                );
+        for (Replacement replacement : replacements)
+
+            if (!replacement.isRegex()) {
+                if (realStrExclusion.toLowerCase().indexOf(replacement.getValue().toLowerCase()) > -1) {
+                    realStrExclusion = realStrExclusion.replaceAll(
+                            "(?i)" + replacement.getValue().
+                                    replaceAll("\\.", "\\\\.").
+                                    replaceAll("\\(", "\\\\(").
+                                    replaceAll("\\)", "\\\\)"),
+                            replacement.getReplace()
+                    );
+                }
+            } else {
+                realStrExclusion = realStrExclusion.replaceAll(replacement.getValue(), replacement.getReplace());
             }
     }
 

@@ -438,7 +438,7 @@ public class Importer {
         Map<String, View> viewMap = new HashMap<String, View>();
         Database dbFI = null;
         Document noteFI = null;
-        ArrayList<AliasValue> replacementList;
+        ArrayList<Replacement> replacementList;
 
         try {
             NotesThread.sinitThread();
@@ -723,7 +723,7 @@ public class Importer {
             ArrayList<DataChildItem> dataChildItems,
             ArrayList<RecordObjectField> rFields,
             RecordObject rObject,
-            ArrayList<AliasValue> replacementList) throws Exception {
+            ArrayList<Replacement> replacementList) throws Exception {
 
         Document document = null;
         RecordObjectField rField;
@@ -1148,7 +1148,7 @@ public class Importer {
             Map<String, View> viewMap,
             XSSFWorkbook wb,
             int col2Description,
-            ArrayList<AliasValue> replacementList
+            ArrayList<Replacement> replacementList
     ) {
 
         DataMainItem dataMainItem;
@@ -1301,7 +1301,7 @@ public class Importer {
         Map<String, View> viewMap = new HashMap<String, View>();
         Database dbFI = null;
         Document noteFI = null;
-        ArrayList<AliasValue> replacementList;
+        ArrayList<Replacement> replacementList;
 
         DataMainItem dataMainItem = null;
 
@@ -1476,8 +1476,8 @@ public class Importer {
         return dataMainItem;
     }
 
-    private ArrayList<AliasValue> getReplacement(View viewReplacement) {
-        ArrayList<AliasValue> replacement = new ArrayList<AliasValue>();
+    private ArrayList<Replacement> getReplacement(View viewReplacement) {
+        ArrayList<Replacement> replacement = new ArrayList<Replacement>();
 
         ViewNavigator nav = null;
         ViewEntry ve = null;
@@ -1490,7 +1490,7 @@ public class Importer {
 
             ve = nav.getFirst();
             while (ve != null) {
-                replacement.add(new AliasValue(ve.getColumnValues().elementAt(0).toString(), ve.getColumnValues().elementAt(1).toString()));
+                replacement.add(new Replacement(ve.getColumnValues().elementAt(0).toString(), ve.getColumnValues().elementAt(1).toString(), "1".equals(ve.getColumnValues().elementAt(2).toString())));
 
                 vetmp = nav.getNext();
                 ve.recycle();
@@ -1516,13 +1516,13 @@ public class Importer {
             }
         }
 
-        Comparator<AliasValue> comparator = new Comparator<AliasValue>() {
+        Comparator<Replacement> comparator = new Comparator<Replacement>() {
             @Override
-            public int compare(AliasValue o1, AliasValue o2) {
-                if (o1.getAlias().length() > o2.getAlias().length())
+            public int compare(Replacement o1, Replacement o2) {
+                if (o1.getValue().length() > o2.getValue().length())
                     return -1;
 
-                if (o2.getAlias().length() > o1.getAlias().length())
+                if (o2.getValue().length() > o1.getValue().length())
                     return 1;
 
                 return 0;

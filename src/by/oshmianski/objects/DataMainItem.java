@@ -110,7 +110,7 @@ public class DataMainItem {
         ArrayList<Status> statuses = new ArrayList<Status>();
 
         for (DataChildItem dataChildItem : dataChildItems) {
-                statuses.add(dataChildItem.getStatus());
+            statuses.add(dataChildItem.getStatus());
         }
 
         return statuses;
@@ -145,11 +145,13 @@ public class DataMainItem {
         this.ti = ti;
     }
 
-    public void clearData(){
+    public void clearData() {
         dataChildItems.clear();
         objects.clear();
-        addressParser.getParserItems().clear();
-        addressParser.setAddress(null);
+        if (addressParser != null) {
+            addressParser.getParserItems().clear();
+            addressParser.setAddress(null);
+        }
     }
 
     public int getFlag2color() {
