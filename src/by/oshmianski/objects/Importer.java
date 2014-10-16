@@ -9,6 +9,7 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.SortedList;
+import ca.odell.glazedlists.impl.sort.BooleanComparator;
 import lotus.domino.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -1519,6 +1520,7 @@ public class Importer {
         Comparator<Replacement> comparator = new Comparator<Replacement>() {
             @Override
             public int compare(Replacement o1, Replacement o2) {
+
                 if (o1.getValue().length() > o2.getValue().length())
                     return -1;
 
@@ -1529,7 +1531,23 @@ public class Importer {
             }
         };
 
+        Comparator<Replacement> booleanComparator = new Comparator<Replacement>() {
+            @Override
+            public int compare(Replacement o1, Replacement o2) {
+
+                if (o1.isRegex() == o2.isRegex())
+                    return 0;
+
+                return o1.isRegex() ? -1 : 1;
+            }
+        };
+
         Collections.sort(replacement, comparator);
+        Collections.sort(replacement, booleanComparator);
+
+//        for (Replacement replacement1 : replacement) {
+//            System.out.println(replacement1.getValue());
+//        }
 
         return replacement;
     }
