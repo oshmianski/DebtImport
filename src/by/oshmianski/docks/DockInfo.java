@@ -47,7 +47,7 @@ public class DockInfo extends DockSimple {
         progressLabel.setForeground(Color.DARK_GRAY);
 
         FormLayout layout = new FormLayout(
-                "5px, right:200px, 5px", // columns
+                "5px, right:pref:grow, 5px", // columns
                 "20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 15px, 20px, 10px, 30px");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);

@@ -82,7 +82,7 @@ public class DockActions extends DockSimple {
         bImportStop.setEnabled(false);
 
         FormLayout layout = new FormLayout(
-                "5px, center:100px, 5px, center:100px, 5px", // columns
+                "5px, center:100px, 5px, left:pref:grow, 5px", // columns
                 "5px, 30px, 30px, 5px, 30px, 30px, 5px");      // rows
 
         PanelBuilder builder = new PanelBuilder(layout);
