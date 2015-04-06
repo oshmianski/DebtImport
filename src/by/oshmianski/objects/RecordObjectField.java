@@ -12,18 +12,21 @@ public class RecordObjectField {
     private String value;
     private Field.TYPE type;
     private boolean multiple;
+    private boolean noTime;
 
     public RecordObjectField(
             String title,
             String titleUser,
             String value,
             Field.TYPE type,
-            boolean multiple) {
+            boolean multiple,
+            boolean noTime) {
         this.title = title;
         this.titleUser = titleUser;
         this.value = value;
         this.type = type;
         this.multiple = multiple;
+        this.noTime = noTime;
     }
 
     public Field.TYPE getType() {
@@ -64,6 +67,14 @@ public class RecordObjectField {
 
     public void setMultiple(boolean multiple) {
         this.multiple = multiple;
+    }
+
+    public boolean isNoTime() {
+        return noTime;
+    }
+
+    public void setNoTime(boolean noTime) {
+        this.noTime = noTime;
     }
 
     @Override

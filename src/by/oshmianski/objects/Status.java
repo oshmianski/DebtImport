@@ -28,6 +28,7 @@ public enum Status {
     WARNING_PASSPORT_NO_NUM(61),
     WARNING_PASSPORT_NO_DATE(62),
     WARNING_PASSPORT_NO_ORG(63),
+    WARNING_PASSPORT_SIMILAR(64),
 
     WARNING_ALREADY_EXIST_IN_DB(70),
     WARNING_ALREADY_EXIST_IN_PREVIOUS(71),
@@ -95,6 +96,8 @@ public enum Status {
 
         if("WARNING_PASSPORT_NO_ORG".equalsIgnoreCase(alias))
             return Status.WARNING_PASSPORT_NO_ORG;
+        if("WARNING_PASSPORT_SIMILAR".equalsIgnoreCase(alias))
+            return Status.WARNING_PASSPORT_SIMILAR;
 
         if("WARNING_ALREADY_EXIST_IN_DB".equalsIgnoreCase(alias))
             return Status.WARNING_ALREADY_EXIST_IN_DB;
@@ -122,6 +125,7 @@ public enum Status {
             ERROR,
             WARNING_EMPTY_FIELD,
             WARNING_OBJECT_WILL_NOT_CREATE,
+            WARNING_PASSPORT_SIMILAR,
             WARNING_ADDRESS_NO_INDEX,
             WARNING_ADDRESS_NO_COUTRY,
             WARNING_ADDRESS_NO_REGION,

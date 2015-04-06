@@ -48,6 +48,7 @@ public class StatusRenderer extends DefaultTableCellRenderer implements TableCel
                         || value == Status.WARNING_PASSPORT_NO_NUM
                         || value == Status.WARNING_PASSPORT_NO_DATE
                         || value == Status.WARNING_PASSPORT_NO_ORG
+                        || value == Status.WARNING_PASSPORT_SIMILAR
                 )
             label.setForeground(new Color(0xC26802));
 

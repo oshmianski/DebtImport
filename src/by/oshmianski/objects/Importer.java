@@ -9,7 +9,6 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.GlazedLists;
 import ca.odell.glazedlists.SortedList;
-import ca.odell.glazedlists.impl.sort.BooleanComparator;
 import lotus.domino.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -38,6 +37,7 @@ public class Importer {
     private String importKey;
     private FuzzySearch fuzzySearchAddress;
     private final SimpleDateFormat formatterDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private final SimpleDateFormat formatterDateTimeNoTime = new SimpleDateFormat("dd-MM-yyyy");
     private FormulaEvaluator evaluator = null;
     private DecimalFormat formatNumber = new DecimalFormat("0.######");
     private static final String MULTI_SEPARATOR = "-+||+-";
@@ -246,7 +246,11 @@ public class Importer {
                                         }
 
                                         if (field.getType() == Field.TYPE.DATETIME) {
-                                            dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(field.getValue()));
+                                            if (field.isNoTime()) {
+                                                dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy").parse(field.getValue()));
+                                            } else {
+                                                dateTime = session.createDateTime(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(field.getValue()));
+                                            }
                                             val = dateTime;
                                             //TODO: обработать мультизначность для дат
                                         }
@@ -276,7 +280,35 @@ public class Importer {
                                             database.openByReplicaID(AppletParams.getInstance().getServer(), mainRecordObject.getDb());
                                             dbMap.put(mainRecordObject.getDb(), database);
                                         }
-                                        docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getUnidKey());
+                                        try {
+                                            docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getUnidKey());
+                                        } catch (Exception ex) {
+                                            MyLog.add2Log("Не удалось получить объект в базе по ключу. db: " + mainRecordObject.getDb() +
+                                                    ", key: " + mainRecordObject.getUnidKey() +
+                                                    ", titleUser" + mainRecordObject.getTitleUser(), true);
+
+                                            DataChildItem dataChildItem = new DataChildItem(
+                                                    Status.INFO,
+                                                    "_Не удалось получить объект в базе по ключу",
+                                                    "Импорт",
+                                                    "db: " + mainRecordObject.getDb() +
+                                                            ", key: " + mainRecordObject.getUnidKey() +
+                                                            ", titleUser" + mainRecordObject.getTitleUser()
+                                            );
+                                            dataMainItem.getDataChildItems().add(dataChildItem);
+
+                                            if (mainRecordObject.getUnidKey().length() > 0) {
+                                                MyLog.add2Log("Жду секунду");
+                                                Thread.sleep(1000);
+                                                MyLog.add2Log("Вторая попытка получения объекта по ключу...");
+                                                docParent = dbMap.get(mainRecordObject.getDb()).getDocumentByUNID(mainRecordObject.getUnidKey());
+                                                if (docParent != null) {
+                                                    MyLog.add2Log("Со второй попытки объект по ключу получен удачно!");
+                                                }
+                                            } else {
+                                                MyLog.add2Log("Ключ нулевой длины!!!");
+                                            }
+                                        }
 
                                         Link link = ui.getTemplateImport().getLinkByMainAndChildTitle(mainRecordObject.getTitle(), rObject.getTitle());
                                         switch (Integer.valueOf(link.getResponseField())) {
@@ -656,7 +688,7 @@ public class Importer {
         }
     }
 
-    public String getCellString(Workbook wb, Cell cell) {
+    public String getCellString(Workbook wb, Cell cell, boolean noTime) {
         String retValue = "";
         if (evaluator == null)
             evaluator = wb.getCreationHelper().createFormulaEvaluator();
@@ -669,7 +701,11 @@ public class Importer {
                 break;
             case Cell.CELL_TYPE_NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    retValue = formatterDateTime.format(cell.getDateCellValue());
+                    if (noTime) {
+                        retValue = formatterDateTimeNoTime.format(cell.getDateCellValue());
+                    } else {
+                        retValue = formatterDateTime.format(cell.getDateCellValue());
+                    }
                 } else {
                     retValue = String.valueOf(formatNumber.format(cell.getNumericCellValue()));
                 }
@@ -775,7 +811,7 @@ public class Importer {
                             col = colStr;
                         }
 
-                        cellValueReal = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)));
+                        cellValueReal = field.getXmlCell().isEmpty() ? "" : getCellString(wb, row.getCell(CellReference.convertColStringToIndex(col)), field.isNoTime());
                         cellValue = cellValueReal;
                     } else {
                         cellValueReal = "";
@@ -902,7 +938,7 @@ public class Importer {
                         dataChildItems.add(dataChildItem);
                     }
 
-                    rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType(), field.isMultiple());
+                    rField = new RecordObjectField(field.getTitleSys(), field.getTitleUser(), cellValue, field.getType(), field.isMultiple(), field.isNoTime());
                     rFields.add(rField);
                 }
 
@@ -927,60 +963,60 @@ public class Importer {
             }
         }
 
-        rField = new RecordObjectField("UNIDIF", "", importKey, Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("UNIDIF", "", importKey, Field.TYPE.TEXT, false, false);
         rFields.add(rField);
     }
 
     private void fillRecordObjectFieldsPassport(ArrayList<RecordObjectField> rFields, Passport passport) {
         RecordObjectField rField;
 
-        rField = new RecordObjectField("passType", "Тип", passport.getPassType(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("passType", "Тип", passport.getPassType(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passNum", "Номер", passport.getPassNum(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("passNum", "Номер", passport.getPassNum(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passDate", "Дата выдачи", passport.getPassDate(), Field.TYPE.DATETIME, false);
+        rField = new RecordObjectField("passDate", "Дата выдачи", passport.getPassDate(), Field.TYPE.DATETIME, false, true);
         rFields.add(rField);
 
-        rField = new RecordObjectField("passOrg", "Организация", passport.getPassOrg(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("passOrg", "Организация", passport.getPassOrg(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
     }
 
     private void fillRecordObjectFieldsAddress(ArrayList<RecordObjectField> rFields, Address address) {
         RecordObjectField rField;
 
-        rField = new RecordObjectField("index", "Индекс", address.getIndex(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("index", "Индекс", address.getIndex(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("country", "Страна", address.getCountry(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("country", "Страна", address.getCountry(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("region", "Область", address.getRegion(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("region", "Область", address.getRegion(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("district", "Район", address.getDistrict(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("district", "Район", address.getDistrict(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("city", "Нас. пункт", address.getCity(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("city", "Нас. пункт", address.getCity(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("cityType", "Тип нас. пункта", address.getCityType(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("cityType", "Тип нас. пункта", address.getCityType(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("street", "Улица", address.getStreet(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("street", "Улица", address.getStreet(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("streetType", "Тип улицы", address.getStreetType(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("streetType", "Тип улицы", address.getStreetType(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("house", "Дом", address.getHouse(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("house", "Дом", address.getHouse(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("build", "Корпус", address.getBuilding(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("build", "Корпус", address.getBuilding(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
 
-        rField = new RecordObjectField("flat", "Квартира", address.getFlat(), Field.TYPE.TEXT, false);
+        rField = new RecordObjectField("flat", "Квартира", address.getFlat(), Field.TYPE.TEXT, false, false);
         rFields.add(rField);
     }
 
@@ -995,6 +1031,7 @@ public class Importer {
 
         DocumentCollection col = null;
         Document document = null;
+        boolean checkPassport = false;
 
         //проверка на уникальность
         if (!rObject.isFlagEmpty()) {
@@ -1051,19 +1088,63 @@ public class Importer {
                         rObject.setUnidKey(document.getUniversalID());
                         document.recycle();
                     } else {
-                        if (recordObjectMap.containsKey(keyStr.toString())) {
-                            rObject.setExistInPrevios(true);
-                            rObject.setLinkKey(keyStr.toString());
+                        checkPassport = false;
 
-                            DataChildItem dataChildItem = new DataChildItem(
-                                    Status.WARNING_ALREADY_EXIST_IN_PREVIOUS,
-                                    "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
-                                    keyStr.toString(),
-                                    "Объект уже существует среди предыдущих импортируемых"
-                            );
-                            dataChildItems.add(dataChildItem);
-                        } else {
-                            recordObjectMap.put(keyStr.toString(), rObject);
+                        if (key.isCheckPassport()) {
+                            String keyStr2 = keyStr.toString().
+                                    replace("AB", "АВ").
+                                    replace("BM", "ВМ").
+                                    replace("HB", "НВ").
+                                    replace("KH", "КН").
+                                    replace("MP", "МР").
+                                    replace("MH", "МН").
+                                    replace("MC", "МС").
+                                    replace("KB", "КВ").
+                                    replace("PP", "РР");
+
+                            col = viewMap.get(key.getView()).getAllDocumentsByKey(keyStr2, true);
+                            if (col.getCount() > 0) {
+                                DataChildItem dataChildItem = new DataChildItem(
+                                        Status.WARNING_ALREADY_EXIST_IN_DB,
+                                        "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                                        keyStr2,
+                                        "Объект уже существует в базе данных. Проверка с измененной серией паспорта"
+                                );
+                                dataChildItems.add(dataChildItem);
+                                dataChildItem = new DataChildItem(
+                                        Status.WARNING_PASSPORT_SIMILAR,
+                                        "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                                        keyStr2,
+                                        "Серия паспорта записана русскими буквами, а не латинскими"
+                                );
+                                dataChildItems.add(dataChildItem);
+                                rObject.setExistInDB(true);
+                                document = col.getFirstDocument();
+                                rObject.setUnidKey(document.getUniversalID());
+                                document.recycle();
+
+                                checkPassport = true;
+                            }
+
+                        }
+
+                        if (!checkPassport) {
+                            if (recordObjectMap.containsKey(keyStr.toString())) {
+                                if (recordObjectMap.get(keyStr.toString()).getRowNum() != rObject.getRowNum()) {
+                                    rObject.setExistInPrevios(true);
+                                    rObject.setLinkKey(keyStr.toString());
+
+                                    DataChildItem dataChildItem = new DataChildItem(
+                                            Status.WARNING_ALREADY_EXIST_IN_PREVIOUS,
+                                            "_" + obj.getTitle() + " [" + obj.getFormName() + "]",
+                                            keyStr.toString(),
+                                            "Объект уже существует среди предыдущих импортируемых"
+                                    );
+                                    dataChildItems.add(dataChildItem);
+                                }
+                            } else {
+                                recordObjectMap.put(keyStr.toString(), rObject);
+                            }
                         }
                     }
                 } finally {
@@ -1162,7 +1243,7 @@ public class Importer {
         dataMainItem = new DataMainItem(
                 row.getRowNum() + 1,
                 Status.OK,
-                col2Description == -1 ? "" : getCellString(wb, row.getCell(col2Description)),
+                col2Description == -1 ? "" : getCellString(wb, row.getCell(col2Description), false),
                 templateImport);
 
         dataChildItems = new ArrayList<DataChildItem>();
@@ -1172,7 +1253,7 @@ public class Importer {
         for (int n = 0; n < headerValues.size(); n++) {
             Cell cell1 = row.getCell(n);
 
-            String description = getCellString(wb, cell1);
+            String description = getCellString(wb, cell1, false);
 
             dataChildItem = new DataChildItem(
                     Status.INFO,
@@ -1184,7 +1265,7 @@ public class Importer {
         }
 
         for (Object obj : templateImport.getObjects()) {
-            rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getUnidTitle(), obj.getFormName(), obj.getTitle(), obj.getDb(), obj.isComputeWithForm());
+            rObject = new RecordObject(obj.getUnid(), obj.getNumber(), obj.getUnidTitle(), obj.getFormName(), obj.getTitle(), obj.getDb(), obj.isComputeWithForm(), row.getRowNum());
             rObjects.add(rObject);
             rFields = new ArrayList<RecordObjectField>();
 
@@ -1358,12 +1439,12 @@ public class Importer {
 
             int col2Description = ui.getCol2Description().isEmpty() ? -1 : CellReference.convertColStringToIndex(ui.getCol2Description());
 
-            Iterator<Row> it = sheet1.iterator();
+//            Iterator<Row> it = sheet1.iterator();
 
-            if (start > 0)
-                for (int j = 0; j < start; j++)
-                    if (it.hasNext())
-                        it.next();
+//            if (start > 0)
+//                for (int j = 0; j < start; j++)
+//                    if (it.hasNext())
+//                        it.next();
 
             int headerSize = ui.getCellHeaders().size();
             EventList<CellHeader> cellHeaders = ui.getCellHeaders();
@@ -1376,7 +1457,8 @@ public class Importer {
 
             replacementList = getReplacement(viewReplacement);
 
-            row = it.next();
+//            row = it.next();
+            row = sheet1.getRow(start);
 
             dataMainItem = processRow(
                     row,

@@ -26,6 +26,7 @@ public class RecordObject implements Comparable<RecordObject> {
     private ArrayList<RecordObject> mainObjects;
 
     private ArrayList<RecordObjectField> fields;
+    private int rowNum;
 
     public RecordObject(
             String objUnid,
@@ -34,7 +35,8 @@ public class RecordObject implements Comparable<RecordObject> {
             String title,
             String titleUser,
             String db,
-            boolean computeWithForm) {
+            boolean computeWithForm,
+            int rowNum) {
         this.objUnid = objUnid;
         this.number = number;
         this.unidTitle = unidTitle;
@@ -42,6 +44,7 @@ public class RecordObject implements Comparable<RecordObject> {
         this.titleUser = titleUser;
         this.db = db;
         this.computeWithForm = computeWithForm;
+        this.rowNum = rowNum;
 
         fields = new ArrayList<RecordObjectField>();
         mainObjects = new ArrayList<RecordObject>();
@@ -188,5 +191,13 @@ public class RecordObject implements Comparable<RecordObject> {
     @Override
     public int compareTo(RecordObject o) {
         return o.getTitle().compareTo(getTitle());
+    }
+
+    public int getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(int rowNum) {
+        this.rowNum = rowNum;
     }
 }

@@ -339,7 +339,8 @@ public class LoadTemplateImport implements Runnable, Loader {
                         docKey.getItemValueString("sep2"),
                         docKey.getItemValueString("sep3"),
                         docKey.getItemValueString("sep4"),
-                        docKey.getItemValueString("sep5")
+                        docKey.getItemValueString("sep5"),
+                        docKey.getItemValueString("checkPassport").equals("1")
                 );
 
                 if (!docKey.getItemValueString("field1Unid").isEmpty()) {
@@ -434,7 +435,8 @@ public class LoadTemplateImport implements Runnable, Loader {
                     "1".equals(docField.getItemValueString("emptyFlagSignal")),
                     "1".equals(docField.getItemValueString("isFake")),
                     "1".equals(docField.getItemValueString("isPassRegion")),
-                    docField.getItemValueString("xlsCellPassRegion")
+                    docField.getItemValueString("xlsCellPassRegion"),
+                    "1".equals(docField.getItemValueString("noTime"))
             );
 
             colRule = viewRuleRef.getAllDocumentsByKey(docField.getUniversalID(), true);

@@ -22,6 +22,7 @@ public class Field {
     private boolean emptyFlagSignal;
     private boolean fake;
     private boolean passRegion;
+    private boolean noTime;
     private String xlsCellPassRegion;
 
     public static enum TYPE {
@@ -47,7 +48,8 @@ public class Field {
             boolean emptyFlagSignal,
             boolean fake,
             boolean passRegion,
-            String xlsCellPassRegion) {
+            String xlsCellPassRegion,
+            boolean noTime) {
         this.num = num;
         this.unid = unid;
         this.titleSys = titleSys;
@@ -59,6 +61,7 @@ public class Field {
         this.fake = fake;
         this.passRegion = passRegion;
         this.xlsCellPassRegion = xlsCellPassRegion;
+        this.noTime = noTime;
 
         if ("text".equals(type))
             this.type = TYPE.TEXT;
@@ -188,5 +191,13 @@ public class Field {
 
     public void setXlsCellPassRegion(String xlsCellPassRegion) {
         this.xlsCellPassRegion = xlsCellPassRegion;
+    }
+
+    public boolean isNoTime() {
+        return noTime;
+    }
+
+    public void setNoTime(boolean noTime) {
+        this.noTime = noTime;
     }
 }

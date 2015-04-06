@@ -23,8 +23,9 @@ public class Key {
     private Field field3;
     private Field field4;
     private Field field5;
+    private boolean checkPassport;
 
-    public Key(String unid, String title, String description, String dbUser, String db, String view, String pref1, String pref2, String pref3, String pref4, String pref5) {
+    public Key(String unid, String title, String description, String dbUser, String db, String view, String pref1, String pref2, String pref3, String pref4, String pref5, boolean checkPassport) {
         this.unid = unid;
         this.title = title;
         this.description = description;
@@ -36,6 +37,7 @@ public class Key {
         this.pref3 = pref3;
         this.pref4 = pref4;
         this.pref5 = pref5;
+        this.checkPassport = checkPassport;
     }
 
     public String getUnid() {
@@ -164,5 +166,13 @@ public class Key {
 
     public void setField5(Field field5) {
         this.field5 = field5;
+    }
+
+    public boolean isCheckPassport() {
+        return checkPassport;
+    }
+
+    public void setCheckPassport(boolean checkPassport) {
+        this.checkPassport = checkPassport;
     }
 }
